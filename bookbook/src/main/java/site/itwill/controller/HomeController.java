@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Handles requests for the application home page.
  */
+//ÇØ¹Ì
 //¹ÎÃ¶-2
+//ÁöÇý
 @Controller
 public class HomeController {
 	
@@ -28,6 +30,7 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		System.out.println("HI");
 		System.out.println("test1");
+		System.out.println("test2, ¹ÎÃ¶");
 		System.out.println("pjh - commit");
 		System.out.println("pjh - commit2");
 		
