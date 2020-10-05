@@ -45,4 +45,11 @@ public class HomeController {
 		
 	}
 	
+	@RequestMapping(value = "/book", method = RequestMethod.GET)
+	public String book(Locale locale, Model model) {
+		
+		
+		return "index";
+	}
+	
 }
