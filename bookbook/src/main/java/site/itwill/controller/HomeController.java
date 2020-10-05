@@ -30,6 +30,7 @@ public class HomeController {
 		System.out.println("test1");
 		System.out.println("pjh - commit");
 		System.out.println("pjh - commit2");
+		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
