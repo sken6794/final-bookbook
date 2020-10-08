@@ -49,7 +49,7 @@ public class HomeController {
 	public String book(Locale locale, Model model) {
 		
 		
-		return "index";
+		return "book";
 	}
 	
 }
