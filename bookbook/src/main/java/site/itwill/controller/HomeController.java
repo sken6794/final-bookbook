@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 //ÇØ¹Ì
 //¹ÎÃ¶-2
-//ÁöÇı
+//ÁöÇıgg
 @Controller
 public class HomeController {
 	
