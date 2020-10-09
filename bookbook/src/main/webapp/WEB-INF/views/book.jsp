@@ -996,7 +996,7 @@
 	   			var bookcode = $(this).children().attr("value");
 	   		 
 	   			wrapWindowByMask();
-	   			//alert(bookcode);
+	   		
 	   		});
 	   		
 	   		$("#mask").click(function(){
