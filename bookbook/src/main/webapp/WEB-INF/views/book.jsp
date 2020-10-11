@@ -525,7 +525,7 @@
 		
 								                        </div>
 							                    </div>
-						                  </div>
+						             </div>
 								</div>
 								<div class=col-md-4 ">
 									<div class="panel panel-inverse" data-sortable-id="ui-buttons-7" data-init="true">
@@ -799,7 +799,7 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			Dashboard.init();
+			//Dashboard.init();
 			TableManageTableSelect.init();
 
 			// sortable 기능
@@ -1003,8 +1003,7 @@
 		   		$(this).hide();
 	   		});
 	   		
-	   		
-	   		
+		
 	   		//$('#mask, .window').hide();  
 	        
 	        	 

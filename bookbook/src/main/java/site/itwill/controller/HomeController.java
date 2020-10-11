@@ -47,9 +47,14 @@ public class HomeController {
 	
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public String book(Locale locale, Model model) {
-		
-		
+	
 		return "book";
 	}
+	
+	@RequestMapping(value="/bookInsert", method = RequestMethod.GET)
+	public String bookInsert() {
+		return "book_insert";
+	}
+	
 	
 }
