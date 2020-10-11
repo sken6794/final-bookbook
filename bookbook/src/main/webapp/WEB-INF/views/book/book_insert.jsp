@@ -391,7 +391,7 @@
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">재고 수량</label>
 																	<div class="col-md-6 col-sm-6">
-																		<input id="spinner" name="value" size=82> 권
+																		<input id="spinner" name="value" > 권
 																	</div>
 																</div>
 																<div class="form-group">
