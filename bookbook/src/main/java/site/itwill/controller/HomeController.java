@@ -53,12 +53,11 @@ public class HomeController {
 	
 	@RequestMapping(value="/bookInsert", method = RequestMethod.GET)
 	public String bookInsert() {
-		return "book/book_insert";
+		return "book/bookInsert";
 	}
 	
 	@RequestMapping(value="/bookSelect", method = RequestMethod.GET)
 	public String bookSelect() {
-		return "book/book_select";
+		return "book/bookSelect";
 	}
-	
 }

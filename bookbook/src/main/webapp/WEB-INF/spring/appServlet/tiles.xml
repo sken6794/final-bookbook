@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Fundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="*/*" template="/WEB-INF/views/layout/template.jsp">
+		<!-- put-attribute : 템플릿 페이지를 구성하는 뷰페이지(JSP)를 설정하기 위한 엘리먼트 -->
+		<!-- name 속성 : put-attribute 엘리먼트의 고유값을 속성값으로 설정 -->
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	
+</tiles-definitions>
