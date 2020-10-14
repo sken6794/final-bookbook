@@ -32,6 +32,8 @@ public class HomeController {
 		System.out.println("test1");
 		System.out.println("test2, นฮรถ");
 		System.out.println("pjh - commit");
+		System.out.println("pjh - commit2");
+		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
@@ -43,4 +45,19 @@ public class HomeController {
 		
 	}
 	
+	@RequestMapping(value = "/book", method = RequestMethod.GET)
+	public String book(Locale locale, Model model) {
+	
+		return "book/book";
+	}
+	
+	@RequestMapping(value="/bookInsert", method = RequestMethod.GET)
+	public String bookInsert() {
+		return "book/bookInsert";
+	}
+	
+	@RequestMapping(value="/bookSelect", method = RequestMethod.GET)
+	public String bookSelect() {
+		return "book/bookSelect";
+	}
 }
