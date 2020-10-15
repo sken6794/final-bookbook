@@ -2,26 +2,7 @@
     pageEncoding="UTF-8"%>
     
 	<style type="text/css">
-	
-			#sortable0, #sortable1, #sortable2, #sortable3,
-			#sortable4, #sortable5, #sortable6, #sortable7, #sortable8{ 
-          
-	          /* border: 2px solid black;*/
-	          width: 100%;
-	          padding: 5px 0 0 0;
-	          float: left;
-	          margin-right: 10px;
-	         
-	        }
-			
-          .ui-draggable { 
-	          margin: 5px;
-	          font-size: 1.0em;
-	          width: 148px;
-	          float: left;
-        	}
-        	
-        	
+
         	#mask{  
 		      position:absolute;  
 		      z-index:9000;  
@@ -61,8 +42,6 @@
 		#book_info form{
 			border: 1px solid white;
 		}
-		
-	
 	</style>
 
 		<!-- begin #content -->
@@ -70,9 +49,9 @@
 				<!-- begin row -->
 					<div class="row">
 						
-						<div class="col-md-2">
+						<div class="col-md-1">
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-10">
 								<div class="panel panel-inverse" data-sortable-id="ui-buttons-7" data-init="true">
 						                        <div class="panel-heading">
 						                            <div class="panel-heading-btn">
@@ -81,7 +60,7 @@
 						                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 						                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 						                            </div>
-						                            <h4 class="panel-title">도서 정보 검색</h4>
+						                            <h4 class="panel-title">도서 검색</h4>
 							                    </div>
 												<div class="panel-body panel-form">
 															<form class="form-horizontal form-bordered" data-parsley-validate="true" novalidate="">
@@ -92,7 +71,7 @@
 																	</div>
 																</div>
 																<div class="form-group">
-																	<label class="control-label col-md-4 col-sm-4">출판사 이름</label>
+																	<label class="control-label col-md-4 col-sm-4">출판사</label>
 																	<div class="col-md-6 col-sm-6">
 																		<input type="text" class="form-control" placeholder="출판사 이름을 입력해 주세요.">
 																	</div>
@@ -148,18 +127,71 @@
 																	</div>
 																</div>
 																<div class="form-group">
-																
- 																</div>
-															</form>
+																		 <table id="book_table" class="table table-striped table-bordered nowrap" width="100%">
+																			<thead>
+																				<tr role="row">
+																					<th class="sorting_asc" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-sort="ascending"
+																						aria-label="Rendering engine: activate to sort column descending"
+																						style="width: 133px;">도서 코드</th>
+																					<th class="sorting_asc" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-sort="ascending"
+																						aria-label="Rendering engine: activate to sort column descending"
+																						style="width: 300px;">도서이름</th>
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Browser: activate to sort column ascending"
+																						style="width: 130px;">출판사</th>
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Platform(s): activate to sort column ascending"
+																						style="width:130px;">작가이름</th>
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Engine version: activate to sort column ascending"
+																						style="width: 100px;">카테고리</th>
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Engine version: activate to sort column ascending"
+																						style="width: 100px;">도서 위치</th>
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Engine version: activate to sort column ascending"
+																						style="width: 100px;">출판날짜</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																			<!-- 
+																			<tr class="gradeA odd" role="row">
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																			 -->
+																					<tr class="gradeA odd" role="row">
+																						<td class="sorting_1">132</td>
+																						<td>시크릿 : 비밀을 찾아서</td>
+																						<td>한빛 저장소</td>
+																						<td>넬레노이하우스</td>
+																						<td>자기개발</td>
+																						<td>A구역</td>
+																						<td>2020/10/15</td>
+																					</tr>
+																			</tbody>		
+																	</table>
+ 															</div>
+													</form>
 												</div>
 									</div>
 						
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-1">
 						</div>
 					</div>
-					<div class="row">
-		</div>
 		<!-- end #content -->
 		
 		<!-- begin scroll to top btn -->
@@ -269,14 +301,15 @@
 	              "sortDescending" : " :  내림차순 정렬"
 	          }
 	      };
-	      
+	      /*
 	      var dataSet = new Array(100);
 	        for (var i=0; i<dataSet.length; i++) {
 	           dataSet[i] = ["132","시크릿 : 비밀을 찾아서","인문","A구역","20"]
 	     }
+	    */
 
 	      var table = $('#book_table').dataTable({
-	            data : dataSet,
+	            //data : dataSet,
 	            pageLength: 15,
 	            bPaginate: true,
 	            bLengthChange: true,
@@ -326,12 +359,4 @@
 					}
 		        });
 	       });
-	   
-	  
-	
-	   
-
-		
 	</script>
-</body>
-</html>

@@ -60,4 +60,9 @@ public class HomeController {
 	public String bookSelect() {
 		return "book/bookSelect";
 	}
+	
+	@RequestMapping(value="/chat", method = RequestMethod.GET)
+	public String chat() {
+		return "chat/chat";
+	}
 }
