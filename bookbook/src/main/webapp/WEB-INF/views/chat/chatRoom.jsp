@@ -32,6 +32,26 @@
 						                            <h4 class="panel-title">채팅 인원</h4>
 							                    </div>
 												<div class="panel-body panel-form">
+												<div class="row form-horizontal form-bordered">
+													<div class="form-group">
+															 	<label class="col-md-3 control-label">채팅방 이름</label>
+															 	 <div class="col-md-8">
+										                                        <input type="text" class="form-control"  readonly="readonly">
+										                         </div>
+													</div>
+													<div class="form-group">
+															 	<label class="col-md-3 control-label">개설자</label>
+															 	 <div class="col-md-8">
+										                                        <input type="text" class="form-control" readonly="readonly">
+										                         </div>
+													</div>
+													<div class="form-group">
+																	<label class="control-label col-md-3" for="message">방설명</label>
+																	<div class="col-md-8">
+																		<textarea class="form-control" id="message" name="message" rows="5" data-parsley-range="[20,200]"  readonly="readonly" data-parsley-id="3913"></textarea><ul class="parsley-errors-list" id="parsley-id-3913"></ul>
+																	</div>
+													</div>
+												</div>
 												<div class="form-group">
 				                                		<div class="table-responsive">
 															<table class="table">
@@ -39,14 +59,16 @@
 																	<tr>
 																		<th>아이디</th>
 																		<th>이름</th>
+																		<th>부서</th>
 																		<th>직급</th>
 																	</tr>
 																</thead>
 																<tbody>
-																	<c:forEach begin="1" step="1" end="10">
+																	<c:forEach begin="1" step="1" end="7">
 																	<tr>
 																		<td>skyrius</td>
 																		<td>박정호</td>
+																		<th>연구개발본부</th>
 																		<td>사원</td>
 																	</tr>
 																	</c:forEach>

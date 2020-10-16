@@ -49,9 +49,8 @@
 				<!-- begin row -->
 					<div class="row">
 						
-						<div class="col-md-1">
-						</div>
-						<div class="col-md-10">
+						
+						<div class="col-md-12">
 								<div class="panel panel-inverse" data-sortable-id="ui-buttons-7" data-init="true">
 						                        <div class="panel-heading">
 						                            <div class="panel-heading-btn">
@@ -134,7 +133,7 @@
 																						aria-controls="data-table" rowspan="1" colspan="1"
 																						aria-sort="ascending"
 																						aria-label="Rendering engine: activate to sort column descending"
-																						style="width: 133px;">도서 코드</th>
+																						style="width: 133px;">도서코드</th>
 																					<th class="sorting_asc" tabindex="0"
 																						aria-controls="data-table" rowspan="1" colspan="1"
 																						aria-sort="ascending"
@@ -155,11 +154,23 @@
 																					<th class="sorting" tabindex="0"
 																						aria-controls="data-table" rowspan="1" colspan="1"
 																						aria-label="Engine version: activate to sort column ascending"
-																						style="width: 100px;">도서 위치</th>
+																						style="width: 100px;">도서위치</th>
 																					<th class="sorting" tabindex="0"
 																						aria-controls="data-table" rowspan="1" colspan="1"
 																						aria-label="Engine version: activate to sort column ascending"
-																						style="width: 100px;">출판날짜</th>
+																						style="width: 100px;">판매가격</th>
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Engine version: activate to sort column ascending"
+																						style="width: 100px;">재고수량</th>
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Engine version: activate to sort column ascending"
+																						style="width: 100px;">출판날짜</th>		
+																					<th class="sorting" tabindex="0"
+																						aria-controls="data-table" rowspan="1" colspan="1"
+																						aria-label="Engine version: activate to sort column ascending"
+																						style="width: 100px;">입고날짜</th>	
 																				</tr>
 																			</thead>
 																			<tbody>
@@ -180,7 +191,10 @@
 																						<td>넬레노이하우스</td>
 																						<td>자기개발</td>
 																						<td>A구역</td>
+																						<td>23000</td>
+																						<td>55</td>
 																						<td>2020/10/15</td>
+																						<td>2020/11/20</td>
 																					</tr>
 																					</c:forEach>
 																			</tbody>		
@@ -191,7 +205,7 @@
 									</div>
 						
 						</div>
-						<div class="col-md-1">
+						
 						</div>
 					</div>
 		<!-- end #content -->
