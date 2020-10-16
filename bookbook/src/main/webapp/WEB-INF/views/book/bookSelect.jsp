@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 	<style type="text/css">
 
         	#mask{  
@@ -172,6 +172,7 @@
 																				<td></td>
 																			</tr>
 																			 -->
+																			 		<c:forEach begin="1" end="55" step="1">
 																					<tr class="gradeA odd" role="row">
 																						<td class="sorting_1">132</td>
 																						<td>시크릿 : 비밀을 찾아서</td>
@@ -181,6 +182,7 @@
 																						<td>A구역</td>
 																						<td>2020/10/15</td>
 																					</tr>
+																					</c:forEach>
 																			</tbody>		
 																	</table>
  															</div>

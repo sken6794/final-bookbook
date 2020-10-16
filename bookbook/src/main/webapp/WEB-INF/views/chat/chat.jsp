@@ -2,49 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
-	<style type="text/css">
-
-        	#mask{  
-		      position:absolute;  
-		      z-index:9000;  
-		      background-color:#000;  
-		      display:none;  
-		      left:0;
-		      top:0;
-			  opacity: 1.0;
-		    }
-		    
-		#mask_content{
-			background-color: white !important;
-			height: 800px;
-		    z-index:10000;
-			opacity: 2.0 !important;
-		}
-		
-		#book_image {
-			display: flex;
-			
-			justify-content: center;
-			align-items: center;
-		}
-		
-		#book_image  img{
-			width: 400px;
-			height: 500px;
-		}
-		
-		#book_info{
-			margin-top: 100px;
-			margin-left:20px;
-			height: 600px;
-			background-color: black;
-		}
-		
-		#book_info form{
-			border: 1px solid white;
-		}
-	</style>
-
 		<!-- begin #content -->
 		<div id="content" class="content">
 				<!-- begin row -->
