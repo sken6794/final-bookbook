@@ -134,7 +134,7 @@
 				<!-- begin sidebar nav -->
 				<ul class="nav">
 					<li class="nav-header">북북 ERP</li>
-					<li class="has-sub active">
+					<li class="has-sub">
 						<a href="javascript:;">
 						    <b class="caret pull-right"></b>
 						    <i class="fa fa-laptop"></i>
@@ -152,10 +152,9 @@
 						    <span>도서관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">도서 위치</a></li>
-						    <li><a href="index.html">도서 등록</a></li>
-						    <li><a href="index.html">도서 수정</a></li>
-						    <li><a href="index.html">도서 검색</a></li>
+						    <li><a href="${pageContext.request.contextPath}/book">도서 위치</a></li>
+						    <li><a href="${pageContext.request.contextPath}/bookInsert">도서 등록</a></li>
+						    <li><a href="${pageContext.request.contextPath}/bookSelect">도서 검색</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -291,7 +290,7 @@
 						    <span>회의실</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">채팅방 목록</a></li>
+						    <li><a href="${pageContext.request.contextPath}/chat">채팅방 목록</a></li>
 						</ul>
 					</li>
 			        <!-- begin sidebar minify button -->

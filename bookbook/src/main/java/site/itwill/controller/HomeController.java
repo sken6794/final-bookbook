@@ -28,12 +28,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		System.out.println("HI");
-		System.out.println("test1");
-		System.out.println("test2, นฮรถ");
-		System.out.println("pjh - commit");
-		System.out.println("pjh - commit2");
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
@@ -41,23 +36,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "index";
+		return "book/book";
 		
 	}
-	
-	@RequestMapping(value = "/book", method = RequestMethod.GET)
-	public String book(Locale locale, Model model) {
-	
-		return "book/book";
-	}
-	
-	@RequestMapping(value="/bookInsert", method = RequestMethod.GET)
-	public String bookInsert() {
-		return "book/bookInsert";
-	}
-	
-	@RequestMapping(value="/bookSelect", method = RequestMethod.GET)
-	public String bookSelect() {
-		return "book/bookSelect";
-	}
+
 }

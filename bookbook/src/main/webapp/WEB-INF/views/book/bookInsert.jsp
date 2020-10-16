@@ -47,15 +47,18 @@
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">카테고리</label>
 																	<div class="col-md-6 col-sm-6">
-																		<label class="radio-inline"><input type="radio" name="si" value="si" checked="checked"> 시</label>
-																		<label class="radio-inline"><input type="radio" name="jabji" value="jabji" > 잡지</label>
-																		<label class="radio-inline"><input type="radio" name="yeocksa" value="yeocksa" > 역사</label>
-																		<label class="radio-inline"><input type="radio" name="cheolhak" value="cheolhak" > 철학</label>
-																		<label class="radio-inline"><input type="radio" name="soseol" value="soseol" >  소설</label>
-																		<label class="radio-inline"><input type="radio" name="gyoyuk" value="gyoyuk" > 교육</label>
-																		<label class="radio-inline"><input type="radio" name="yesul" value="yesul" > 예술</label>
-																		<label class="radio-inline"><input type="radio" name="essay" value="essay" > 에세이</label>
-																		<label class="radio-inline"><input type="radio" name="jagigaebal" value="jagigaebal" > 자기개발</label>
+																		<select class="form-control">
+								                                            <option>전체</option>
+								                                            <option>시</option>
+								                                            <option>잡지</option>
+								                                            <option>역사</option>
+								                                            <option>철학</option>
+								                                            <option>소설</option>
+								                                            <option>교육</option>
+								                                            <option>예술</option>
+								                                            <option>에세이</option>
+								                                            <option>자기개발</option>
+								                                        </select>
 																	</div>
 																</div>
 																
