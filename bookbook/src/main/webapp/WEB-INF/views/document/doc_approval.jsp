@@ -23,7 +23,7 @@
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
 <!-- ================== END BASE JS ================== -->
-</head>
+
 <body>
 	
 
@@ -148,7 +148,7 @@
 								</p>
 								<div style="text-align: center;">
 									<span style="font-size: 22pt; font-weight: 700;">
-										(주)북북도서판매협회 <img src="assets/img/seal.png">
+										(주)북북도서판매협회 <img src="${pageContext.request.contextPath}/resources/assets/img/seal.png">
 									</span>
 								</div>
 								<div style="text-align: center;">
@@ -188,6 +188,7 @@
 	                                    <i class="fa fa-upload"></i>
 	                                    <span>파일 업로드</span>
 	                                </button>
+	                                <br>
 	                                <button type="reset" class="btn btn-warning cancel">
 	                                    <i class="fa fa-ban"></i>
 	                                    <span>업로드 취소</span>
