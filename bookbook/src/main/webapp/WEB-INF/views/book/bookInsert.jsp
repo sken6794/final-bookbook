@@ -11,8 +11,8 @@
 		<!-- begin #content -->
 		<div id="content" class="content">
 			<div class="row">
-					<div class="col-md-1"></div>
-					<div class="col-md-10">
+					
+					<div class="col-md-12">
 									<div class="panel panel-inverse" data-sortable-id="ui-buttons-7" data-init="true">
 						                        <div class="panel-heading">
 						                            <div class="panel-heading-btn">
@@ -131,7 +131,7 @@
 						</div>
 					
 					</div>
-					<div class="col-md-1"></div>
+					
 			</div>	
 			
 			
