@@ -11,7 +11,7 @@
 	제공되는 정보로 인젝션 처리 -->		
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@182.237.126.17:1521:xe"/>
 		<property name="username" value="bookbook"/>
 		<property name="password" value="book123"/>
 	</bean>
@@ -28,7 +28,7 @@
 		<property name="dataSource" ref="dataSource"/>
 		<!-- typeAliasesPackage 필드에 클래스 별칭을 사용할 수 있는 패키지를 인젝션 처리 -->
 		<!-- => MyBatis 환경설정 파일에서 typeAlias 엘리먼트 생략 -->
-		<property name="typeAliasesPackage" value="site.itwill10.dto"/>
+		<property name="typeAliasesPackage" value="site.itwill.dto"/>
 		<!-- mapperLocations 필드에 맵퍼 파일을 List 객체의 요소로 인젝션 처리 -->
 		<!-- => * 기호를 사용하여 다수의 XML Mapper 파일 등록 -->
 		<!-- => MyBatis 환경설정 파일에서 mapper 엘리먼트 생략 -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
@@ -394,6 +395,7 @@
 															</tr>
 														</thead>
 														<tbody>
+														<!--
 														<tr class="gradeA odd" role="row">
 															<td></td>
 															<td></td>
@@ -401,14 +403,17 @@
 															<td></td>
 															<td></td>
 														</tr>
-														<!-- 
-																<tr class="gradeA odd" role="row">
-																	<td class="sorting_1">시크릿 : 비밀을 찾아서</td>
-																	<td>인문</td>
-																	<td>A구역</td>
-																	<td>20</td>
-																</tr>
-														 -->		
+														-->
+														<c:forEach var="book"  items="${bookList}">
+														<tr class="gradeA odd" role="row">
+																	<td class="sorting_1">${book.bcode }</td>
+																	<td>${book.bname }</td>
+																	<td>${book.bcategory }</td>
+																	<td>${book.bloc }</td>
+																	<td>${book.bcode }</td>
+														</tr>
+														</c:forEach>
+															
 														</tbody>		
 													</table>
 												</div>
@@ -582,10 +587,12 @@
 	          }
 	      };
 	      
+	      /*
 	      var dataSet = new Array(100);
 	         for (var i=0; i<dataSet.length; i++) {
 	           dataSet[i] = ["132","시크릿 : 비밀을 찾아서","인문","A구역","20"]
 	        }
+	      */
 
 	      var table = $('#book_table').dataTable({
 	            data : dataSet,
