@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
@@ -394,6 +395,7 @@
 															</tr>
 														</thead>
 														<tbody>
+														<!--
 														<tr class="gradeA odd" role="row">
 															<td></td>
 															<td></td>
@@ -401,14 +403,17 @@
 															<td></td>
 															<td></td>
 														</tr>
-														<!-- 
-																<tr class="gradeA odd" role="row">
-																	<td class="sorting_1">시크릿 : 비밀을 찾아서</td>
-																	<td>인문</td>
-																	<td>A구역</td>
-																	<td>20</td>
-																</tr>
-														 -->		
+														-->
+														<c:forEach var="book"  items="${bookList}">
+														<tr class="gradeA odd" role="row">
+																	<td class="sorting_1">${book.bcode }</td>
+																	<td>${book.bname }</td>
+																	<td>${book.bcategory }</td>
+																	<td>${book.bloc }</td>
+																	<td>${book.bcode }</td>
+														</tr>
+														</c:forEach>
+															
 														</tbody>		
 													</table>
 												</div>
@@ -482,74 +487,55 @@
 		
 		 // 도서 데이터 가져와 ul li만들기
 	      function createBook(data){ // data는 서버에서 넘어온 값(도서번호)
-	         // 임시) 나중에 데이터값 가져와 for문으로 작성
-	          /*
-	          	<div class="external-event bg-red ui-draggable" data-title="Video Shooting" style="position: relative; z-index: auto; left: 0px; top: 0px;">
-	 				<h5 style="color: black;"><i class="fa fa-book fa-lg fa-fw"></i>[A20] 시크릿 : 비밀을 찾아서</h5>
-				</div>
-	          */
-	          var site = "[A20] ";
-	          var category = "인문</br>";
-	          var title = "시크릿  : 비밀을 찾아서";
-	          var temp = "<div style='color: black;'><i class='fa fa-book fa-lg fa-fw'></i>"+site+category+title+"</div>";
-	          var temp2 = "<div style='color: black;' value='132'><i class='fa fa-book fa-lg fa-fw'></i>"+site+category+title+"</div>";
-	          
-	          var danger = "<div class='external-event bg-danger ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var warning = "<div class='external-event bg-warning ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var success = "<div class='external-event bg-success ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var info = "<div class='external-event bg-info ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var primary = "<div class='external-event bg-primary ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var orange = "<div class='external-event bg-orange ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var purple = "<div class='external-event bg-purple ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var red = "<div class='external-event bg-red ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var yellow = "<div class='external-event bg-yellow ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-	          var yellow2 = "<div class='external-event bg-yellow ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp2+"</div>";
-	          
-	          
-	      
-	       
-	         $("#sortable0").append(danger);
-	         $("#sortable0").append(danger);
-	         $("#sortable0").append(danger);
+	          $.ajax({
+	        	  	type: "GET",
+	        	  	url: "allBookList",
+		      		dataType: "json",
+		      		success: function(json) {
+		      		
+			      		$(json).each(function() {
+			      			   site = "["+this.bloc+this.bcode+"] ";
+				   	           category = this.bcategory+"</br>";
+				   	           title = this.bname;
+				   	           temp = "<div style='color: black;' value="+this.bcode+
+				   	           "><i class='fa fa-book fa-lg fa-fw'></i>"+site+category+title+"</div>";
+				   	           
+				   	           if(this.bloc=='A'){
+				   	        	  	danger = "<div class='external-event bg-danger ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	 	 $("#sortable0").append(danger);
+				   	           }else if(this.bloc=='B'){
+				   	        		warning = "<div class='external-event bg-warning ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	  	$("#sortable1").append(warning);
+				   	           }else if(this.bloc=='C'){
+				   	        		success = "<div class='external-event bg-success ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	  	$("#sortable2").append(success);
+				   	           }else if(this.bloc=='D'){
+				   	        		info = "<div class='external-event bg-info ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	  	$("#sortable3").append(info);
+				   	           }else if(this.bloc=='E'){
+				   	        		primary = "<div class='external-event bg-primary ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	  	$("#sortable4").append(primary);
+				   	           }else if(this.bloc=='F'){
+				   	        		orange = "<div class='external-event bg-orange ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	  	$("#sortable5").append(orange);
+				   	           }else if(this.bloc=='G'){
+				   	        		purple = "<div class='external-event bg-purple ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	 	 $("#sortable6").append(purple);
+				   	           }else if(this.bloc=='H'){
+				   	        	  	red = "<div class='external-event bg-red ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+				   	        	  	$("#sortable7").append(red);
+				   	           }else if(this.bloc=='I'){
+					   	        	  yellow = "<div class='external-event bg-yellow ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
+					   	        	  $("#sortable8").append(yellow);
+				   	           }
+			      		});
+		      		},
+		      		
+		      		error: function(xhr) {
+		      			
+		      		}
+	          });
 
-	         $("#sortable1").append(warning);
-	         $("#sortable1").append(warning);
-	         $("#sortable1").append(warning);
-	         $("#sortable1").append(warning);
-	         
-	         $("#sortable2").append(success);
-	         $("#sortable2").append(success);
-	         $("#sortable2").append(success);
-	         $("#sortable2").append(success);
-	         $("#sortable2").append(success);
-	         
-	         $("#sortable3").append(info);
-	         $("#sortable3").append(info);
-	         $("#sortable3").append(info);
-	         $("#sortable3").append(info);
-	         
-	         $("#sortable4").append(primary);
-	         $("#sortable4").append(primary);
-	         
-	         $("#sortable5").append(orange);
-	         $("#sortable5").append(orange);
-	         $("#sortable5").append(orange);
-	         
-	         $("#sortable6").append(purple);
-	         $("#sortable6").append(purple);
-	         $("#sortable6").append(purple);
-	         
-	         $("#sortable7").append(red);
-	         $("#sortable7").append(red);
-	         $("#sortable7").append(red);
-	         $("#sortable7").append(red);
-	         
-	         $("#sortable8").append(yellow2);
-	         $("#sortable8").append(yellow);
-	         $("#sortable8").append(yellow);
-	         $("#sortable8").append(yellow);
-	        
-	         
 	      }
 	      
 	      createBook();
@@ -582,13 +568,9 @@
 	          }
 	      };
 	      
-	      var dataSet = new Array(100);
-	         for (var i=0; i<dataSet.length; i++) {
-	           dataSet[i] = ["132","시크릿 : 비밀을 찾아서","인문","A구역","20"]
-	        }
+	    
 
 	      var table = $('#book_table').dataTable({
-	            data : dataSet,
 	            pageLength: 15,
 	            bPaginate: true,
 	            bLengthChange: true,

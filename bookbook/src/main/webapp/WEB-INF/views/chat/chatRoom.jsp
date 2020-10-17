@@ -9,7 +9,7 @@
 		}
 		
 		#chatRoom {
-	        height: 500px !important;
+	        height: 550px !important;
 	        border: 1px solid gray ; 
 	        overflow-y: scroll;
 	        position: static;
@@ -77,7 +77,15 @@
 															</table>
 														</div>
 				                                </div>
-												</div>
+				                                <div class="form-group">
+				                           			
+				                                    <div class="col-md-8">
+				                                    </div>
+				                                    <div class="col-md-4">
+				                                    		<button type="button" class="btn btn-inverse m-r-5 m-b-5">채팅방 나가기</button>
+				                                    </div>
+				                            	</div>
+											</div>
 									</div>
 						</div>
 					

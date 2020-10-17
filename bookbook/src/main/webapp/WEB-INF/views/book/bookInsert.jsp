@@ -118,6 +118,18 @@
 																	</div>
 																</div>
 																<div class="form-group">
+																	<label class="control-label col-md-4 col-sm-4">도서 이미지 업로드</label>
+																	<div class="col-md-6 col-sm-6">
+																		<input type="file" class="form-control" >
+																	</div>
+																</div>
+																<div class="form-group">
+																	<label class="control-label col-md-4" for="message">도서 설명</label>
+																	<div class="col-md-6">
+																		<textarea class="form-control" id="message" name="message" rows="10" data-parsley-range="[20,3000]" placeholder="최소 20 - 최대 3000 글자" data-parsley-id="3913"></textarea><ul class="parsley-errors-list" id="parsley-id-3913"></ul>
+																	</div>
+																</div>
+																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4"></label>
 																	<div class="row">
 																		<div class="col-md-9"></div>

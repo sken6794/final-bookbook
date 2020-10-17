@@ -20,12 +20,15 @@
 				                        <div class="panel-body">
 				                            <form class="form-horizontal">
 				                                <div class="form-group">
-				                                    <label class="col-md-2 control-label">채팅방 이름 : </label>
-				                                    <div class="col-md-8">
+				                                    <label class="col-md-3 control-label">채팅방 이름 : </label>
+				                                    <div class="col-md-6">
 				                                        <input type="text" class="form-control" placeholder="검색할 방 이름을 입력하세요.">
 				                                    </div>
-				                                    <div class="col-md-2">
+				                                    <div class="col-md-1">
 				                                    		<button type="button" class="btn btn-inverse m-r-5 m-b-5">검색</button>
+				                                    </div>
+				                                    <div class="col-md-2">
+				                                    		<button type="button" class="btn btn-inverse m-r-5 m-b-5">새로고침</button>
 				                                    </div>
 				                                </div>
 				                                
@@ -61,11 +64,7 @@
 														</div>
 				                                </div>
 				                                <div class="form-group">
-				                                    <div class="col-md-8">
-				                                    </div>
-				                                    <div class="col-md-2">
-				                                    		<button type="button" class="btn btn-inverse m-r-5 m-b-5">새로고침</button>
-				                                    </div>
+				                                    <div class="col-md-10"></div>
 				                                    <div class="col-md-2">
 				                                    		<button type="button" class="btn btn-inverse m-r-5 m-b-5">방입장</button>
 				                                    </div>
