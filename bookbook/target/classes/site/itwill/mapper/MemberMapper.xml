@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.MemberMapper">
+	<insert id="insertMember">
+		<selectKey resultType="int" keyProperty="MNO" order="BEFORE">
+			select seq_member.nextval from dual
+		</selectKey>
+		insert into member values(
+		#{MNO}, #{MNAME}, #{MPW}, #{MBIRTH}, #{MPHONE}, #{MEMAIL}, #{MADDRESS}, 
+		#{MJOINDATE}, NULL, NULL, #{MIMAGE}, 1, 11, #{DNO}, #{PNO})
+	</insert>
+	
+	<resultMap type="Department" id="department">
+		<result column="dname" property="dname"/>
+	</resultMap>
+	<resultMap type="Position" id="position">
+		<result column="pname" property="pname"/>
+	</resultMap>
+	<resultMap type="Member" id="memberList">
+		<id column="mno" property="mno"/>
+		<result column="mname" property="mname"/>
+		<result column="mbirth" property="mbirth"/>
+		<result column="memail" property="memail"/>
+		<result column="mphone" property="mphone"/>
+		<result column="mjoindate" property="mjoindate"/>
+		<collection property="department" resultMap="department"/>
+		<collection property="position" resultMap="position"/>
+	</resultMap>
+	<select id="selectMemberList" resultMap="memberList">
+		select M.MNO, M.MNAME, D.DNAME, P.PNAME, M.MBIRTH, M.MJOINDATE, M.MEMAIL, M.MPHONE 
+		from MEMBER M join DEPARTMENT D on M.DNO = D.DNO join POSITION P on M.PNO = P.PNO
+		ORDER BY D.DNAME ASC, M.MNO ASC
+	</select>
+	
+	<select id="selectMember" resultType="Member">
+		select M.MNO, M.MNAME, D.DNAME, M.MBIRTH, P.PNAME, M.MJOINDATE, M.MEMAIL, M.MPHONE 
+		from MEMBER M join DEPARTMENT D on M.DNO = D.DNO join POSITION P on M.PNO = P.PNO 
+		where M.MNO=#{MNO} or D.DNAME=#{DNAME} or P.PNAME=#{PNAME}
+	</select>
+	
+	<update id="updateMember">
+		update MEMBER set MNAME=#{MNAME}, MPW=#{MPW}, MBIRTH=#{MBIRTH}, MPHONE=#{MPHONE}, MPHONE=#{MPHONE}
+			, MADDRESS=#{MADDRESS}, MJOINDATE=#{MJOINDATE}, MQUITDATE=#{MQUITDATE}, MQUITREASON=#{MQUITREASON}
+			, MIMAGE=#{MIMAGE}, MSTATE=#{MSTATE}, MDAYOFF=#{MDAYOFF}, DNO=#{DNO}, PNO=#{PNO} where MNO=#{MNO} 
+	</update>
+	
+	<delete id="deleteMember">
+		delete from MEMBER where MNO=#{MNO}
+	</delete>
+</mapper>
