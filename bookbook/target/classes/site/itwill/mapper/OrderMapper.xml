@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.itwill.mapper.OrderMapper">
-	
+	<insert id="insertOrder">
+		insert into "ORDER"(ono, oid, odate, oqty, oprice, ostate, bcode)
+		values(seq_order.nextval,#{oid},sysdate,#{oqty},null,1,#{bcode})
+	</insert>
 	<resultMap type="Book" id="book">
 		<result column="bname" property="bname"/>
 		<result column="bpublisher" property="bpublisher"/>
@@ -18,7 +21,7 @@
 	</resultMap>
 	<select id="selectOrderList" resultMap="orderList">
 		SELECT O.ONO, O.OID, B.BNAME, B.BPUBLISHER, O.ODATE, O.OQTY, O.OQTY*B.BPRICE "O.OPRICE", O.OSTATE 
-		FROM "ORDER" O JOIN BOOK B ON O.BCODE = B.BCODE	
+		FROM "ORDER" O JOIN BOOK B ON O.BCODE = B.BCODE	ORDER BY O.ODATE DESC
 	</select>
 
 </mapper>

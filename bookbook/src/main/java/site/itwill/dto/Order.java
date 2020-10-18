@@ -17,6 +17,7 @@ public class Order {
 	private int oqty;
 	private int oprice;
 	private int ostate;
+	private int bcode;
 	private Book book;
 	
 	public Order() {
@@ -69,6 +70,14 @@ public class Order {
 
 	public void setOstate(int ostate) {
 		this.ostate = ostate;
+	}
+
+	public int getBcode() {
+		return bcode;
+	}
+
+	public void setBcode(int bcode) {
+		this.bcode = bcode;
 	}
 
 	public Book getBook() {

@@ -13,8 +13,15 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDAO;
 	
 	@Override
+	public void addOrder(Order order) {
+		orderDAO.insertOrder(order);
+	}
+	
+	@Override
 	public List<Order> getOrderList() {
 		return orderDAO.selectOrderList();
 	}
+
+
 
 }

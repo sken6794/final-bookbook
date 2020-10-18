@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+table { text-align: center;}
+</style>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<meta content="" name="description" />
 		<meta content="" name="author" />
@@ -146,13 +149,13 @@
 						<table id="data-table" class="table table-striped table-bordered">
 							<thead>
 								<tr>
-									<th>선택</th>
+									<th><input type="checkbox"></th>
 									<th>주문번호</th>
 									<th>회원 ID</th>
 									<th>도서명</th>
 									<th>출판사</th>
-									<th>수량</th>
-									<th>금액</th>
+									<th>주문수량</th>
+									<th>주문금액</th>
 									<th>주문일자</th>
 								</tr>
 							</thead>

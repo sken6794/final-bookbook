@@ -246,7 +246,6 @@
 					    </a>
 						<ul class="sub-menu">
 						    <li><a href="${pageContext.request.contextPath}/payManage">급여 조회</a></li>
-						    <li><a href="${pageContext.request.contextPath}/payslip">급여 명세</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">

@@ -5,5 +5,6 @@ import java.util.List;
 import site.itwill.dto.Order;
 
 public interface OrderService {
-	public List<Order> getOrderList();
+	void addOrder(Order order);
+	List<Order> getOrderList();
 }
