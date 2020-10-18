@@ -81,6 +81,7 @@
 							<br>
 							<table id="data-table" class="table table-striped table-bordered">
 								<thead>
+									<tr>
 									<th>문서번호</th>
 									<th>문서제목</th>
 									<th>작성자</th>
@@ -90,13 +91,12 @@
 									</tr>
 								</thead>
 								<!--  -->
-
 								<tbody>
 									<c:forEach var="document" items="${documentList }">
 										<tr>
 											<td>${document.docno}</td>
 											<td>${document.docname}</td>
-											<td>${document.mno }</td>
+											<td>${document.member.mname }</td>
 											<td>${document.docdate }</td>
 											<td>${document.docstate}</td>
 											<td><input type="checkbox" name="session" id="check"></td>

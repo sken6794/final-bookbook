@@ -29,9 +29,10 @@ public class Document {
 	private String docdate;
 	private String doccomp;
 	private String reject;
-	private int mno;
-	private int dno;
-	
+	private Member member;
+	private Department department;
+
+
 	public Document() {
 		// TODO Auto-generated constructor stub
 	}
@@ -99,21 +100,21 @@ public class Document {
 	public void setReject(String reject) {
 		this.reject = reject;
 	}
-
-	public int getMno() {
-		return mno;
-	}
-
-	public void setMno(int mno) {
-		this.mno = mno;
-	}
-
-	public int getDno() {
-		return dno;
-	}
-
-	public void setDno(int dno) {
-		this.dno = dno;
+	
+	public Member getMember() {
+		return member;
 	}
 	
+	public void setMember(Member member) {
+		this.member = member;
+	}
+	
+	public Department getDepartment() {
+		return department;
+	}
+	
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 }

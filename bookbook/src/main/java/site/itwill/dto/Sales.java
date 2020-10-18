@@ -11,7 +11,8 @@ BCODE           NUMBER
 public class Sales {
 	private int stotal;
 	private String sdate;
-	private int bcode;
+	private Book book;
+	private Order order;
 	
 	public Sales() {
 		// TODO Auto-generated constructor stub
@@ -33,13 +34,23 @@ public class Sales {
 		this.sdate = sdate;
 	}
 
-	public int getBcode() {
-		return bcode;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setBcode(int bcode) {
-		this.bcode = bcode;
+	public void setBook(Book book) {
+		this.book = book;
 	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+
 	
 	
 }
