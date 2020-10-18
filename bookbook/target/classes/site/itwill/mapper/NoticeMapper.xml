@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.NoticeMapper">
+
+	<!-- 실패데스 ㅎㅎ
+	<resultMap type="NoticeMember" id="noticeMemberResultMap">
+		<association property="mno" javaType="Member">
+			<id column="mmo" property="mmo"/>
+			<result column="nwriter" property="mname"/>
+		</association>
+	</resultMap>
+	-->
+	
+	<!-- 공지 작성 -->
+	<insert id="insertNotice">
+		<selectKey resultType="int" keyProperty="nno" order="BEFORE">
+			select notice_seq.nextval from dual
+		</selectKey>
+		insert into notice values(#{nno}, #{ntitle}, #{ncontent}, sysdate,
+			0, #{origin}, #{upload}, #{ncategory}, #{nwriter}, #{nstate}, #{mno})
+	</insert>
+	
+	<!-- 게시판번호를 전달받아 공지 수정 -->
+	<update id="updateNotice">
+		update notice set ntitle=#{ntitle}, ncontent=#{ncontent}
+			, ncategory=#{ncategory}, nstate=#{nstate} where nno=#{nno}
+	</update>
+	
+	<!-- 게시판번호를 전달받아 공지 삭제 -->
+	<delete id="deleteNotice">
+		delete from notice where nno=#{nno}
+	</delete>
+	
+	<!-- 게시판번호를 전달받아 공지 출력(공지 상세 페이지) -->
+	<select id="selectNotice" resultType="Notice">
+	<!-- <select id="selectNotice" resultMap="noticeMemberResultMap"> -->
+		select * from notice where nno=#{nno}	
+	</select>
+	
+	<!-- 전체 공지 출력 -->
+	<select id="selectNoticeList" resultType="Notice">
+	<!-- <select id="selectNoticeList" resultMap="noticeMemberResultMap"> -->
+		select * from notice order by nno desc
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

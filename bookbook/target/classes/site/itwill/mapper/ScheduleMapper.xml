@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.ScheduleMapper">
+	
+	<resultMap type="Schedule" id="scheduleResultMap">
+		<id column="sno" property="_id"/>
+		<result column="stilte" property="title"/>
+		<result column="scontent" property="description"/>
+		<result column="sstart" property="start"/>
+		<result column="send" property="end"/>
+		<result column="scategory" property="type"/>
+		<result column="sdname" property="username"/>
+		<result column="scolor" property="backgroundColor"/>
+		<result column="stextcolor" property="textColor"/>
+		<result column="sallday" property="allDay"/>
+	</resultMap>
+	
+	<!-- 전체 스케줄 출력 -->
+	<select id="selectScheduleList" resultMap="scheduleResultMap">
+		select * from schedule order by sno desc
+	</select>
+
+</mapper>
