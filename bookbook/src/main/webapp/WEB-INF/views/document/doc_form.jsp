@@ -1,32 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!-- ================== BEGIN BASE CSS STYLE ================== -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"  rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css"
-	rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-
-<!-- ================== END BASE CSS STYLE ================== -->
-
 <!-- ================== BEGIN BASE JS ================== -->
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
 <!-- ================== END BASE JS ================== -->
-
 <body>
-	
-
 		<!-- begin #content -->
 		<div id="content" class="content">
 			<!-- begin breadcrumb -->
@@ -38,7 +19,7 @@
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
 			<h1 class="page-header">
-				품의서<small>header small text goes here...</small>
+				전자결재 시스템<small>문서 양식</small>
 			</h1>
 			<!-- end page-header -->
 
@@ -64,16 +45,16 @@
 									class="btn btn-xs btn-icon btn-circle btn-danger"
 									data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">품의서</h4>
+							<h4 class="panel-title">전자 결재</h4>
 						</div>
 						<div class="panel-body">
-							<form id="docApproval" name="docApproval" action="document"
+							<form id="docForm" name="docForm" action="document"
 								method="post" class="form-horizontal">
 								<p>
 									<br>
 								</p>
 								<div style="text-align: center;">
-									<span style="font-size: 22pt; font-weight: 700;">품의서</span>
+									<span style="font-size: 22pt; font-weight: 700;">전자 결재</span>
 								</div>
 								<table border="1" cellspacing="0" cellpadding="0" class=""
 									style="border-width: 0px; width: 600px; border-collapse: collapse; height: 576px; font-size: 10pt; background-image: none; background-repeat: repeat; background-position: 0% 0%;">
@@ -322,12 +303,6 @@
 		</div>
 		<!-- end theme-panel -->
 
-		<!-- begin scroll to top btn -->
-		<a href="javascript:;"
-			class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
-			data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
-		<!-- end scroll to top btn -->
-	</div>
 	<!-- end page container -->
 	
 	    <!-- The template to display files available for upload -->
@@ -405,15 +380,7 @@
             </tr>
         {% } %}
     </script>
-	
-	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-	<!-- ================== END BASE JS ================== -->
+
 
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
@@ -447,8 +414,8 @@
 			} else {
 				return false;
 			}
-			//$("#docApproval").attr("action","../template_content_html/draft_docu");
-			//$("#docApproval").submit();
+			//$("#docForm").attr("action","../template_content_html/draft_docu");
+			//$("#docForm").submit();
 		});
 		
 		$("#save").click(function(){

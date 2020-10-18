@@ -1,0 +1,111 @@
+[{
+    "_id": 1,
+    "title": "거래처A 미팅",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-07T09:30",
+    "end": "2020-10-07T15:00",
+    "type": "기타",
+    "username": "도서 2팀",
+    "backgroundColor": "#D25565",
+    "textColor": "#ffffff",
+    "allDay": false
+  }, {
+    "_id": 2,
+    "title": "회계팀 회식",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-01T12:30",
+    "end": "2020-10-01T15:30",
+    "type": "내부일정",
+    "username": "회계팀",
+    "backgroundColor": "#9775fa",
+    "textColor": "#ffffff",
+    "allDay": false
+  }, {
+    "_id": 3,
+    "title": "도서 2팀 회의",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-12",
+    "end": "2020-10-12",
+    "type": "내부일정",
+    "username": "도서 2팀",
+    "backgroundColor": "#ffa94d",
+    "textColor": "#ffffff",
+    "allDay": true
+  }, {
+    "_id": 4,
+    "title": "영업팀 회의",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-06",
+    "end": "2020-10-06",
+    "type": "내부일정",
+    "username": "영업팀",
+    "backgroundColor": "#74c0fc",
+    "textColor": "#ffffff",
+    "allDay": true
+  }, {
+    "_id": 5,
+    "title": "출판사 [나래뜰] 계약",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-08",
+    "end": "2020-10-08",
+    "type": "외부일정",
+    "username": "영업팀",
+    "backgroundColor": "#f06595",
+    "textColor": "#ffffff",
+    "allDay": true
+  }, {
+    "_id": 6,
+    "title": "영업팀 인사 이동",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-14",
+    "end": "2020-10-14",
+    "type": "내부일정",
+    "username": "영업팀",
+    "backgroundColor": "#63e6be",
+    "textColor": "#ffffff",
+    "allDay": true
+  }, {
+    "_id": 7,
+    "title": "4차 발주",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-18",
+    "end": "2020-10-20",
+    "type": "발주 및 출간",
+    "username": "도서 1팀",
+    "backgroundColor": "#a9e34b",
+    "textColor": "#ffffff",
+    "allDay": true
+  },{
+    "_id": 8,
+    "title": "출판사[꽃과 나무] 10주년 행사",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-24T09:00",
+    "end": "2020-10-24T10:00",
+    "type": "외부일정",
+    "username": "도서 1팀",
+    "backgroundColor": "#4d638c",
+    "textColor": "#ffffff",
+    "allDay": false
+  },{
+    "_id": 9,
+    "title": "출장",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-28",
+    "end": "2020-10-31",
+    "type": "외부일정",
+    "username": "도서 1팀",
+    "backgroundColor": "#495057",
+    "textColor": "#ffffff",
+    "allDay": true
+  },{
+    "_id": 10,
+    "title": "접수 기간",
+    "description": "일정내용더미입니다",
+    "start": "2020-10-15",
+    "end": "2020-10-22",
+    "type": "내부일정",
+    "username": "도서 2팀",
+    "backgroundColor": "#9775fa",
+    "textColor": "#ffffff",
+    "allDay": true
+  }]
