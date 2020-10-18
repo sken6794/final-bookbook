@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.RequestMapper">
+
+	<resultMap type="Book" id="book">
+		<result column="bcode" property="bcode"/>
+		<result column="bname" property="bname"/>
+		<result column="bpublisher" property="bpublisher"/>
+		<result column="bprice" property="bprice"/>
+	</resultMap>
+	<resultMap type="Request" id="requestList">
+		<result column="rno" property="rno"/>
+		<result column="rdate" property="rdate"/>
+		<result column="rstaff" property="rstaff"/>
+		<result column="R.RPRICE" property="rprice"/>
+		<result column="rstate" property="rstate"/>
+		<collection property="book" resultMap="book"/>
+	</resultMap>
+	<select id="selectRequestList" resultMap="requestList" >
+		SELECT R.RNO, B.BCODE, B.BNAME, B.BPUBLISHER, R.RDATE, R.RSTAFF, R.RQTY, R.RQTY*B.BPRICE "R.RPICE", R.RSTATE 
+		FROM REQUEST R JOIN BOOK B ON B.BCODE = R.BCODE
+	</select>
+</mapper>

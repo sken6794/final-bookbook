@@ -141,8 +141,7 @@
 						    <span>인사관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">사원 등록</a></li>
-						    <li><a href="index.html">사원 수정</a></li>
+						    <li><a href="${pageContext.request.contextPath}/member">사원 관리</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -164,10 +163,8 @@
 						    <span>주문관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">주문 등록</a></li>
-						    <li><a href="index.html">주문 검색</a></li>
-						    <li><a href="index.html">주문 수정</a></li>
-						    <li><a href="index.html">주문 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/order">주문 조회</a></li>
+						    <li><a href="${pageContext.request.contextPath}/addOrder">주문 등록</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -177,10 +174,8 @@
 						    <span>발주관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">발주 등록</a></li>
-						    <li><a href="index.html">발주 검색</a></li>
-						    <li><a href="index.html">발주 수정</a></li>
-						    <li><a href="index.html">발주 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/request">발주 현황</a></li>
+						    <li><a href="${pageContext.request.contextPath}/addRequest">발주 등록</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -250,7 +245,8 @@
 						    <span>급여관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">급여 목록</a></li>
+						    <li><a href="${pageContext.request.contextPath}/payManage">급여 조회</a></li>
+						    <li><a href="${pageContext.request.contextPath}/payslip">급여 명세</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
