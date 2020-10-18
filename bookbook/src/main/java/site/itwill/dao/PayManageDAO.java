@@ -6,4 +6,5 @@ import site.itwill.dto.PayManage;
 
 public interface PayManageDAO {
 	List<PayManage> selectPayList();
+
 }

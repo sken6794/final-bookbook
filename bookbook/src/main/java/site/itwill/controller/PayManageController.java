@@ -18,8 +18,4 @@ public class PayManageController {
 		return "paymanage/payManage";
 	}
 	
-	@RequestMapping(value="/payslip", method = RequestMethod.GET)
-	public String payslip() {
-		return "paymanage/payslip";
-	}
 }

@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#modal-dialog th, td {
+	text-align: center;
+}
+</style>
+
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -117,12 +123,13 @@
                    </form>
                 <hr>   		
 					<p class="text-right m-b-0" style="margin-right: 13px;">
-						<a href="#modal-dialog" class="btn btn-sm btn-white" data-toggle="modal">추가</a>
+						<a href="#modal-dialog1" class="btn btn-sm btn-white" data-toggle="modal">추가</a>
 						<a href="javascript:;" class="btn btn-sm btn-white">삭제</a>
+						<a href="#modal-dialog2" class="btn btn-sm btn-success" data-toggle="modal">급여명세서</a>
 					</p>
 					<br>
 					<!-- 추가 클릭 시 급여데이터 추가팝업창 -->
-					<div class="modal fade" id="modal-dialog">
+					<div class="modal fade" id="modal-dialog1">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -222,11 +229,143 @@
 									</div>
 								</div>
 						</div>
+	           	<!-- 급여명세서 클릭 시 팝업창 -->
+					<div class="modal fade" id="modal-dialog2">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<br>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h4 class="modal-title" style="text-align: center; font-weight: bold;">2020년 9월 명세서</h4>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<table class="table" style="text-align: center;">
+	                              		<thead>
+	                                    	<tr>
+	                                        	<th>사원명</th>
+	                                        	<th>지급일</th>
+	                                  		  </tr>
+	                                    	<tr>
+	                                        	<td>김딸기</td>
+	                                        	<td>20</td>
+	                                  		  </tr>
+	                                    	<tr>
+	                                        	<th>부서</th>
+	                                        	<th>직책</th>
+	                                  		</tr>
+	                                    	<tr>
+	                                        	<td>도서1팀</td>
+	                                        	<td>사원</td>
+	                                  		</tr>
+	                                  	</thead>
+                                 		</table>
+                                	 </div>                	
+			                         <br>
+                         			<div class="row">
+                            		<div class="col-md-6">
+                                 		<table class="table table-striped" style="text-align: center;">
+                                 		<thead>
+	                              			<tr>
+	                                     		<th>지급항목</th>
+	                                       		<th>지급액</th>
+	                                    	</tr>
+                                		</thead>
+                                		<tbody>
+	                                    <tr>
+	                                        <td>기본급</td>
+	                                        <td>000</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>식대</td>
+	                                        <td>000</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>야근수당</td>
+	                                        <td>000</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>휴일수당</td>
+	                                        <td>000</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>성과급</td>
+	                                        <td>000</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>기타수당</td>
+	                                        <td>000</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>합산 지급액</td>
+	                                        <td>000</td>
+	                                    </tr>
+                                		</tbody>
+                            	</table>
+                            	</div>
+                           
+                           		<div class="col-md-6">
+	                            <table class="table table-striped" style="text-align: center;">
+	                               <thead>
+	                            		<tr>
+	                                     	<th>공제항목</th>
+	                                       	<th>공제액</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td>국민연금</td>
+	                                        <td>4.5%</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>건강보험</td>
+	                                        <td>3.335%</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>장기요양</td>
+	                                        <td>건강보험의 10.25%</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>고용보험</td>
+	                                        <td>0.8%</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>근로소득세</td>
+	                                        <td>10%</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>합산 공제액</td>
+	                                        <td></td>
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+                           		</div>
+                         	</div>
+                         	<div class="row">
+                         		<table class="table" style="text-align: center;">
+	                            <thead>
+	                               <tr>
+	                                  <th>실 수령액</th>
+	                               </tr>
+	                               <tr>
+	                     		      <td>000</td>
+	                               </tr>
+	                             </thead>
+	                             </table>
+                         	</div>
+                         	</div> 
+								<div class="modal-footer">
+									<input type="button" value="인쇄" onclick="window.print()" class="btn btn-sm btn-white">
+									<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
+								</div>
+							</div>
+						</div>
+					</div>						
 
 							<table id="data-table" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th>선택</th>
+										<th><input type="checkbox"></th>
 										<th>사원번호</th>
 										<th>이름</th>
 										<th>부서</th>
