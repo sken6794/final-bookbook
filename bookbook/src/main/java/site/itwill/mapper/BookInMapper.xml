@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="site.itwill.mapper.BookInMapper">
+	<select id="selectBookInList1" resultType="BookIn">
+		select * from bookin order by bcode
+	</select>
+	
+	<resultMap type="BookInBook" id="bookInBook">
+		<association property="book" javaType="Book">
+			<id column="bcode" property="bcode"/>
+			<result column="bname" property="bname"/>
+			<result column="bwriter" property="bwriter"/>
+			<result column="bprice" property="bprice"/>
+			<result column="bquantity" property="bquantity"/>
+		</association>
+		<association property="bookIn" javaType="BookIn">
+			<id column="binno" property="binno"/>
+			<result column="bcode" property="bcode"/>
+			<result column="inquantity" property="inquantity"/>
+			<result column="indate" property="indate"/>
+		</association>
+		<association property="bookOut" javaType="BookOut">
+			<id column="boutno" property="boutno"/>
+			<result column="bcode" property="bcode"/>
+			<result column="outquantity" property="outquantity"/>
+			<result column="outdate" property="outdate"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="Book" id="book">		
+		<result column="bcode" property="bcode"/>
+		<result column="bname" property="bname"/>
+		<result column="bprice" property="bprice"/>
+	</resultMap>
+	
+	<resultMap type="BookStock" id="bookstock">
+		<result column="bstockno" property="bstockno"/>
+		<result column="stockqty" property="stockqty"/>
+		<collection property="book" resultMap="book"/>
+	</resultMap>
+	
+	<select id="selectBookInList" resultMap="bookInBook">
+		select bookin.*, bname, bwriter, bprice, bquantity from bookin join book on bookin.bcode = book.bcode
+	</select>
+	
+	<select id="selectBookOutList" resultMap="bookInBook">
+		select bookout.*, bname, bwriter, bprice, bquantity from bookout join book on bookout.bcode = book.bcode
+	</select>
+	
+	<select id="selectStockList" resultMap="bookstock">
+		select bookstock.* , bname, bprice from bookstock
+		join book on book.bcode=bookstock.bcode
+		order by book.bcode desc
+	</select>
+	
+</mapper> 
