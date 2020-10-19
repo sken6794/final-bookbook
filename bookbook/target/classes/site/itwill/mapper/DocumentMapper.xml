@@ -11,26 +11,50 @@
 			#{docno}, #{docname}, #{doccont}, #{docstate}, #{docaprv}, sysdate, null, 
 			null ,#{mno}, #{pno})
 	</insert> 
-	<!-- 승인자 선택 : 직급이 제일 높고 근무 중 
+
+	<!-- 전자결재 선택 -->
 	<resultMap type="Member" id="member">
 		<result column="mno" property="mno"/>
 		<result column="mname" property="mname"/>
 		<result column="pno" property="pno"/>
 		<result column="mstate" property="mstate"/>
 	</resultMap>
-	<resultMap type="Document" id="documentAprv">
-		<result column="docaprv" property="docaprv"/>
+	<resultMap type="Document" id="documentList">
+		<result column="docno" property="docno"/>
+		<result column="docname" property="docname"/>
+		<result column="docdate" property="docdate"/>
+		<result column="docstate" property="docstate"/>
 		<collection property="member" resultMap="member"/>
 	</resultMap>
-	<select id="selectAprv" resultMap="documentAprv">
+	<select id="selectDocumentList" resultMap="documentList">
+		select doc.docno, doc.docname, member.mname, doc.docdate, doc.docstate 
+			from document doc join member on doc.mno=member.mno order by doc.docno desc
+	</select>
+
+	<!-- 작성된 전자결재 => 상신/임시저장 후 -->
+	<resultMap type="Document" id="documentSubmit">
+		<result column="docno" property="docno"/>
+		<result column="docname" property="docname"/>
+		<result column="docaprv" property="docaprv"/>
+		<result column="doccon" property="doccon"/>
+		<result column="docdate" property="docdate"/>
+		<result column="docstate" property="docstate"/>
+		<collection property="member" resultMap="member"/>
+	</resultMap>
+	<select id="selectDocument" resultMap="documentSubmit">
+		select doc.docno, doc.docname, member.mname, doc.docaprv, doc.docdate, doc.docstate 
+			from document doc join member on doc.mno=member.mno
+	</select>
+	
+	
+		<!-- 승인자 선택 : 직급이 제일 높고 근무 중 -->
+	<!-- 
+	<select id="selectAprv" resultMap="memeberAprv">
 		select document.docaprv from document from member 
 			where member.pno=(select max(member.pno) from member) and member.mstate=1;
-	</select>
-	-->
-	<!-- 전자결재 선택 -->
-	<select id="selectDocumentList" resultType="Document">
-		select * from document order by docno desc
-	</select>
+	</select> -->
+	
+	
 	
 	<!-- 전자결재 수정
 	<update id="updateDocument">

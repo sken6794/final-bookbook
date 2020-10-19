@@ -1,6 +1,7 @@
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -69,10 +70,10 @@
 								<div style="text-align: center;">
 									<span style="font-size: 22pt; font-weight: 700;">품의서</span>
 								</div>
-								<%
+								<%--
 								@SuppressWarnings("unchecked")
 								Map<String, String> document = (Map<String, String>) pageContext.getAttribute("document");
-								%>
+								--%>
 								<table border="1" cellspacing="0" cellpadding="0" class=""
 									style="border-width: 0px; width: 740px; border-collapse: collapse; height: 576px; font-size: 10pt; background-image: none; background-repeat: repeat; background-position: 0% 0%;">
 									<tbody>
