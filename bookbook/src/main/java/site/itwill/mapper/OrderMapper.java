@@ -6,5 +6,6 @@ import site.itwill.dto.Order;
 
 public interface OrderMapper {
 	int insertOrder(Order order);
+	int deleteOrder(int ono);
 	List<Order> selectOrderList();
 }

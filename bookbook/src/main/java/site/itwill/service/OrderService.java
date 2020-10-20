@@ -6,5 +6,6 @@ import site.itwill.dto.Order;
 
 public interface OrderService {
 	void addOrder(Order order);
+	void removeOrder(int ono);
 	List<Order> getOrderList();
 }

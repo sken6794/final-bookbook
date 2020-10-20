@@ -13,8 +13,24 @@ public class RequestServiceImpl implements RequestService {
 	private RequestDAO requestDAO;
 	
 	@Override
+	public void addRequest(Request request) {
+		requestDAO.insertRequest(request);
+	}
+	
+	@Override
+	public void removeRequest(int rno) {
+		requestDAO.deleteRequest(rno);
+	}
+	
+	@Override
 	public List<Request> getRequestList() {
 		return requestDAO.selectRequestList();
 	}
+
+	@Override
+	public Request getRequest(Request request) {
+		return requestDAO.selectRequest(request);
+	}
+
 
 }

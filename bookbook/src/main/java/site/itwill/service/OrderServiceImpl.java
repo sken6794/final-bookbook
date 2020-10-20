@@ -18,9 +18,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public void removeOrder(int ono) {
+		orderDAO.deleteOrder(ono);
+	}
+	
+	@Override
 	public List<Order> getOrderList() {
 		return orderDAO.selectOrderList();
 	}
+
 
 
 
