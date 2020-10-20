@@ -237,8 +237,7 @@
 						var state="";
 						if(this.rstate=="1") state="발주요청";
 						if(this.rstate=="2") state="진행중";
-						if(this.rstate=="3") state="입고완료";
-						
+						if(this.rstate=="3") state="입고완료";				
 						
 						html+="<tr>";
 						html+="<td><input type='checkbox'></td>";
@@ -271,6 +270,7 @@
 				location.href="request_delete/"+rno;
 			}
 		}
+		
 		
 		
 	</script>

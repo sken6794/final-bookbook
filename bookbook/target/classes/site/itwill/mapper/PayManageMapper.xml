@@ -14,6 +14,7 @@
 		<result column="pname" property="pname"/>
 	</resultMap>
 	<resultMap type="PayManage" id="payList">
+		<result column="pmno" property="pmno"/>
 		<result column="pdate" property="pdate"/>
 		<result column="pbasic" property="pbasic"/>
 		<result column="pmeal" property="pmeal"/>
@@ -27,7 +28,7 @@
 	</resultMap>
 
 	<select id="selectPayList" resultMap="payList">
-		SELECT M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
+		SELECT P.PMNO, M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
 		FROM PAYMANAGE P JOIN MEMBER M ON M.MNO = P.MNO JOIN DEPARTMENT D ON D.DNO = P.DNO 
 		JOIN POSITION PO ON PO.PNO = P.PNO ORDER BY P.PDATE DESC, M.MNO ASC
 	</select>

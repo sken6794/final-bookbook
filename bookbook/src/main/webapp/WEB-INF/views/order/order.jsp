@@ -26,7 +26,7 @@ table { text-align: center;}
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 	<!-- 주문조회 테이블 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
@@ -153,7 +153,7 @@ table { text-align: center;}
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="order" items="${orderList }">
+<%-- 								<c:forEach var="order" items="${orderList }">
 								<tr>
 									<td><input type="checkbox"></td>
 									<td>${order.ono }</td>
@@ -166,7 +166,7 @@ table { text-align: center;}
 									<td><button onclick="deleteOrder(${order.ono});" class="btn btn-sm btn-white">삭제</button></td>
 									
 								</tr>
-								</c:forEach>
+								</c:forEach> --%>
 							</tbody>
 						</table>
 						</div>
@@ -251,7 +251,7 @@ table { text-align: center;}
 
 		$(document).ready(function() {
 			App.init();
-			TableManageColReorder.init();
+			TableManageTableSelect.init();
 		});
 	 
 	 /* 주문 삭제*/

@@ -1,10 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
 	<!-- 생년월일,입사날짜 datepicker -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/css/ion.rangeSlider.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/css/ion.rangeSlider.skinNice.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/password-indicator/css/password-indicator.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-tag-it/css/jquery.tagit.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 	<!-- 이메일 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/parsley/src/parsley.css" rel="stylesheet" />
 	<!-- 파일 업로드 -->
@@ -14,9 +35,13 @@
  	<!-- 주문조회 테이블 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />   
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	
 	<!-- ================== END BASE CSS STYLE ================== -->
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	
@@ -49,7 +74,10 @@
                  <h4 class="panel-title">사원 조회</h4>
               </div>
               <div class="panel-body">
-              <form class="form-horizontal">
+              <form class="form-horizontal" method="post" name="insertMember">
+              	<input type="hidden" name="mno">
+				<input type="hidden" name="mquitdate">
+				<input type="hidden" name="mquitreason">
 			 	<div class="row">
 			 		<div class="col-md-1"></div>
                     <div class="col-md-3">
@@ -95,7 +123,7 @@
                     <br>
 		                <div style="text-align: center;">
 		                <a href="javascript:;" class="btn btn-sm btn-white">조회</a>
-						<a href="#modal-dialog1" class="btn btn-sm btn-success" data-toggle="modal">수정</a>
+						
 		                </div>			
                    </form>
 						<hr>
@@ -116,6 +144,7 @@
 								<!-- 정보수정 form -->
 									<form class="form-horizontal" method="post" enctype="multipart/form-data">
 									<div class="modal-body">
+										
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">이름 :</label>
 		                                    <div class="col-md-6 col-sm-6">
@@ -219,87 +248,86 @@
 										<h4 class="modal-title" style="text-align: center; font-weight: bold;">신규사원등록</h4>
 									</div>
 								<!-- 사원등록 form -->
-									<form class="form-horizontal" method="post" enctype="multipart/form-data">
+									<form class="form-horizontal" method="post">
 									<div class="modal-body">
-		                                <div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">사원번호 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="사원번호" style="float: left;">
-		                                    </div>
-		                                    	<span><a href="javascript:;" class="btn btn-sm btn-primary">중복검사</a></span>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">입사날짜 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
-		                                    </div>
-		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">이름 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="이름" />
+		                                        <input type="text" class="form-control" placeholder="이름" id="update" name="mname"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
-											<label class="control-label col-md-4 col-sm-4" for="email">Email :</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" id="email" name="email" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" />
-											</div>
-										</div>
-										<div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">주소 :</label>
+		                                    <label class="control-label col-md-4 col-sm-4">비밀번호 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="주소" />
+		                                        <input type="password" class="form-control" placeholder="비밀번호" id="update" name="mpw"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">생년월일 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" value="01/01/2020" />
+		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" name="mbrith" />
 		                                    </div>
 		                                </div>                             
 										<div class="form-group">
 											<label class="control-label col-md-4 col-sm-4" for="message">전화번호 :</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" id="data-phone" data-parsley-type="number" placeholder="(XXX) XXXX XXX" />
+												<input class="form-control" type="text" id="insert" data-parsley-type="number" placeholder="(XXX) XXXX XXX"  name="mphone"/>
 											</div>
 										</div>
 		                                <div class="form-group">
+											<label class="control-label col-md-4 col-sm-4" for="email">Email :</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="text" id="update" name="memail" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" />
+											</div>
+										</div>
+										<div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">주소 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" placeholder="주소" name="maddress"/>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">입사날짜 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="mdate" />
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
-		                                            <option>도서 1팀</option>
-		                                            <option>도서 2팀</option>
-		                                            <option>영업팀</option>
-		                                            <option>회계팀</option>
+		                                        <select class="form-control" name="dno">
+		                                            <option value="10">도서 1팀</option>
+		                                            <option value="20">도서 2팀</option>
+		                                            <option value="30">영업팀</option>
+		                                            <option value="40">회계팀</option>
 		                                        </select>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">직급 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
-		                                            <option>사원</option>
-		                                            <option>주임</option>
-		                                            <option>대리</option>
-		                                            <option>과장</option>
-		                                            <option>차장</option>
-		                                            <option>부장</option>
-		                                            <option>이사</option>
+		                                        <select class="form-control" name="pno">
+		                                            <option value="1">사원</option>
+		                                            <option value="2">주임</option>
+		                                            <option value="3">대리</option>
+		                                            <option value="4">과장</option>
+		                                            <option value="5">차장</option>
+		                                            <option value="6">부장</option>
+		                                            <option value="7">이사</option>
 		                                        </select>
 		                                    </div>
 		                                </div>
 									</div>
 									<div class="modal-footer">
 										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-										<button type="submit" id="insertBtn" class="btn btn-sm btn-success">등록</button>
+										<button type="button" id="insertMember" class="btn btn-sm btn-success" onclick="insertMember();">등록</button>
 									</div>
 		                            </form>
 								</div>
 							</div>
 						</div>
                     
-                        <table id="member-table" class="table table-striped table-bordered nowrap" width="100%">
+                        <table id="data-table" class="table table-striped table-bordered" width="100%">
                             <thead>
                               <tr>
                                   <th><input type="checkbox"></th>
@@ -311,24 +339,11 @@
                                   <th>입사일자</th>
                                   <th>이메일</th>
                                   <th>전화번호</th>
-                                  <th>관리</th>
+                                  <th width="120">관리</th>
                               </tr>
                             </thead>
-                            <tbody>
-                            <c:forEach var="member" items="${memberList }">
-                              <tr>
-                                  <td><input type="checkbox"></td>
-                                  <td>${member.mno }</td>
-                                  <td>${member.mname }</td>
-                                  <td>${member.department.dname }</td>
-                                  <td>${member.position.pname }</td>
-                                  <td>${member.mbirth }</td>
-                                  <td>${member.mjoindate.substring(0,10) }</td>
-                                  <td>${member.memail }</td>
-                                  <td>${member.mphone }</td>
-                                  <td><button onclick="deleteMember(${member.mno});" class="btn btn-sm btn-white">삭제</button></td>
-                              </tr>
-                            </c:forEach>
+                            <tbody id="memberTablePlace">
+
                             </tbody>
                         </table>                     
                  </div>
@@ -344,14 +359,73 @@
 	<!-- 이메일 input -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
 
-    <!-- 주문조회 테이블 -->
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/masked-input/masked-input.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/password-indicator/js/password-indicator.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-tag-it/js/tag-it.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/moment.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/js/select2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="assets/crossbrowserjs/respond.min.js"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	<!-- 테이블 -->
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/js/dataTables.select.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-select.demo.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
+	<!-- 날짜선택 -->
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/masked-input/masked-input.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/password-indicator/js/password-indicator.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-tag-it/js/tag-it.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/moment.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/js/select2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
+	<!-- ================== END PAGE LEVEL JS ================== -->
+	
 	<script>
+		$(document).ready(function() {
+			App.init();
+			TableManageTableSelect.init();
+		});
+
+
+	
 		$(document).ready(function() {
 			App.init();
 		});
@@ -362,29 +436,114 @@
 			App.init();
 			FormPlugins.init();
 		});
-
-	 /* 파일업로드 */ 
-
-		$(document).ready(function() {
-			App.init();
-			FormMultipleUpload.init();
-		});
 	 
-	/* 주문조회 테이블 */
+	/* 사원조회 테이블 */
 		$(document).ready(function() {
 			App.init();
-			TableManageTableSelect.init();
+			TableManageColReorder.init();
 		});
 		 
+	/* 사원 조회 리스트*/
+		function displayMember() {
+			$.ajax({
+				type: "GET",
+				url: "member_list",
+				dataType: "json",
+				success: function(json) {
+					if(json.length==0) {
+						var html="<tr><td class='center' colspan='10'>등록된 사원내역이 존재하지 않습니다.</td></tr>";
+						$("#memberTablePlace").html(html);
+						return;
+					}
+					
+					var html="";
+					$(json).each(function() {				
+						
+						html+="<tr>";
+						html+="<td><input type='checkbox'></td>";
+						html+="<td>"+this.mno+"</td>";
+						html+="<td>"+this.mname+"</td>";
+						html+="<td>"+this.department.dname+"</td>";
+						html+="<td>"+this.position.pname+"</td>";
+						html+="<td>"+this.mbirth+"</td>";
+						html+="<td>"+this.mjoindate.substring(0,10)+"</td>";
+						html+="<td>"+this.memail+"</td>";
+						html+="<td>"+this.mphone+"</td>";
+						html+="<td><button onclick='deleteMember("+this.mno+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button href='#modal-dialog1' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
+						html+="</tr>";
+					
+						
+					});
+				
+					
+					$("#data-table").dataTable().fnDestroy();
+					$("#memberTablePlace").html(html);
+					$("#data-table").dataTable(); 
+					
+				},
+				error: function(xhr) {
+					alert("에러코드 = "+xhr.status);
+				}
+			});
+		}
+		displayMember();
+	
+	/* 사원 삭제 */
+	
 		function deleteMember(mno) {
 			if(confirm("정말로 삭제하시겠습니까?")) {
-				//QueryString 이용하여 값 전달
-				//location.href="file_delete?num="+num;
-				
-				//URL 주소를 이용하여 값 전달
 				location.href="member_delete/"+mno;
 			}
 		}
+		
+/*  사원 추가
+		
+		function insertMember() {
+			var mno=$("#mno").val();
+			var mname=$("#mname").val();
+			var mpw=$("#mpw").val();
+			var mbirth=$("#mbirth").val();
+			var mphone=$("#mphone").val();
+			var memail=$("#memail").val();
+			var maddress=$("#maddress").val();
+			var mjoindate=$("#mjoindate").val();
+			var mquitdate=$("#mquitdate").val();
+			var mquitreason=$("#mquitreason").val();
+			var mstate=$("#mstate").val();
+			var dno=$("#dno").val();
+			var pno=$("#pno").val();
+			
+			$.ajax({
+				type: "POST",
+				url: "member_insert",
+				headers: {"content-type":"application/json"},
+				data: JSON.stringify({
+					"mno":mno,
+					"mname":mname,
+					"mpw":mpw,
+					"mbirth":mbirth,
+					"mphone":mphone,
+					"memail":memail,
+					"maddress":maddress,
+					"mjoindate":mjoindate,
+					"mquitdate":mquitdate,
+					"mquitreason":mquitreason,
+					"mstate":mstate,
+					"dno":dno,
+					"pno":pno
+				}),
+				
+				dataType: "text",
+				success: function(text) {
+					location.reload();
+				}
+			});
+	} */
+		
+		
+	
+	
 	</script>
 <!-- 어디에 쓰이는 것인가? - 아 행클릭하면 지정해놓은 사이트로 이동
 	<script>

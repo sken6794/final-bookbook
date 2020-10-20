@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import site.itwill.dao.RequestDAO;
 import site.itwill.dto.Request;
@@ -12,11 +13,13 @@ public class RequestServiceImpl implements RequestService {
 	@Autowired
 	private RequestDAO requestDAO;
 	
+	@Transactional
 	@Override
 	public void addRequest(Request request) {
 		requestDAO.insertRequest(request);
 	}
 	
+	@Transactional
 	@Override
 	public void removeRequest(int rno) {
 		requestDAO.deleteRequest(rno);

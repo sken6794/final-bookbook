@@ -13,20 +13,8 @@
 }
 </style>
 
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-	<meta content="" name="description" />
-	<meta content="" name="author" />
-	
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	
+
 	<!-- 생년월일,입사날짜 datepicker -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
@@ -41,10 +29,7 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />    
 	<!-- ================== END BASE CSS STYLE ================== -->
-	
-	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
-	<!-- ================== END BASE JS ================== -->
+
 </head>
 <body>
 	<div id="content" class="content">
@@ -365,37 +350,23 @@
 							<table id="data-table" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th><input type="checkbox"></th>
+										<th>No.</th>
 										<th>사원번호</th>
 										<th>이름</th>
-										<th>부서</th>
+										<th width="70">부서</th>
 										<th>직급</th>
 										<th>지급일자</th>
 										<th>기본급여</th>
 										<th>식대</th>
 										<th>야근수당</th>
-										<th>휴일근무수당</th>
+										<th>휴일수당</th>
 										<th>성과급</th>
 										<th>기타수당</th>
+										<th width="95">관리</th>
 									</tr>
 								</thead>
-								<tbody>
-								<c:forEach var="pay" items="${payList }">
-									<tr class="odd gradeX">
-										<td><input type="checkbox"></td>
-										<td>${pay.member.mno }</td>
-										<td>${pay.member.mname }</td>
-										<td>${pay.department.dname }</td>
-										<td>${pay.position.pname }</td>
-										<td>${pay.pdate.substring(0,10) }</td>
-										<td>${pay.pbasic }</td>
-										<td>${pay.pmeal }</td>
-										<td>${pay.povertime }</td>
-										<td>${pay.pholiday }</td>
-										<td>${pay.pbonus }</td>
-										<td>${pay.petc }</td>
-									</tr>
-								</c:forEach>
+								<tbody id="payTablePlace">
+
 								</tbody>
 							</table>
 					</div>												
@@ -403,26 +374,14 @@
 				</div>
 			</div>
  	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<!--[if lt IE 9]>
-		<script src="assets/crossbrowserjs/html5shiv.js"></script>
-		<script src="assets/crossbrowserjs/respond.min.js"></script>
-		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
-	<![endif]-->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 인사관리 추가 버튼 -->
+
+	<!-- 추가 버튼 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/gritter/js/jquery.gritter.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/ui-modal-notification.demo.min.js"></script>
-	<!-- 이메일 input -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
+
 	<!-- 생년월일,입사날짜,전화번호 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
@@ -470,36 +429,95 @@
 		$(document).ready(function() {
 			App.init();
 		});
-	</script>
-	<!-- 생년월일, 입사날짜, 전화번호 -->
-	<script>
+	
+	 /* 생년월일, 입사날짜, 전화번호 */ 
+	
 		$(document).ready(function() {
 			App.init();
 			FormPlugins.init();
 		});
-	</script>
-	<!-- 파일업로드 -->
-	<script> 
+	
+	 /* 파일업로드  */
+	
 		$(document).ready(function() {
 			App.init();
 			FormMultipleUpload.init();
 		});
-	</script>
-	<!-- 급여조회 -->
-	<script>
+	
+	/*  급여조회 */ 
+	
 		$(document).ready(function() {
 			App.init();
 			TableManageColReorder.init();
 		});
+		
+		/* 급여 조회 리스트*/
+		function displayPay() {
+			$.ajax({
+				type: "GET",
+				url: "pay_list",
+				dataType: "json",
+				success: function(json) {
+					if(json.length==0) {
+						var html="<tr><td class='center' colspan='12'>등록된 급여내역이 존재하지 않습니다.</td></tr>";
+						$("#payTablePlace").html(html);
+						return;
+					}
+					
+					var html="";
+					$(json).each(function() {				
+						
+						html+="<tr>";
+						html+="<td>"+this.pmno+"</td>";
+						html+="<td>"+this.member.mno+"</td>";
+						html+="<td>"+this.member.mname+"</td>";
+						html+="<td>"+this.department.dname+"</td>";
+						html+="<td>"+this.position.pname+"</td>";
+						html+="<td>"+this.pdate.substring(0,10)+"</td>";
+						html+="<td>"+this.pbasic+"</td>";
+						html+="<td>"+this.pmeal+"</td>";
+						html+="<td>"+this.povertime+"</td>";
+						html+="<td>"+this.pholiday+"</td>";
+						html+="<td>"+this.pbonus+"</td>";
+						html+="<td>"+this.petc+"</td>";
+						html+="<td><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button href='#modal-dialog1' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
+						html+="</tr>";
+						
+					});			
+					
+ 					$("#data-table").dataTable().fnDestroy();
+					$("#payTablePlace").html(html);
+					$("#data-table").dataTable(); 
+					 
+				},
+				error: function(xhr) {
+					alert("에러코드 = "+xhr.status);
+				}
+			});
+		}
+		displayPay();
+	
+		/* 급여 삭제 */
+		
+		function deletePay(pmno) {
+			if(confirm("급여내역을 삭제하시겠습니까?")) {
+				location.href="pay_delete/"+pmno;
+			}
+		}	
+		
+		
+		
 	</script>	
-	<script>
-/* 	var $ = jQuery;
+	
+	
+<!-- /* 	
+	var $ = jQuery;
 	$(function(){
 	$(".hidecontent").hide();
 	$(".showcontent").on("click", function(){
 	$(".hidecontent").toggle();
 	});
-	}); */
-	</script>
+	}); */ -->
 </body>
 </html>

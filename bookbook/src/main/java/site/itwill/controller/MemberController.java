@@ -1,9 +1,8 @@
 package site.itwill.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import site.itwill.dao.MemberDAO;
-import site.itwill.dto.Book;
 import site.itwill.dto.Member;
 import site.itwill.service.MemberService;
 
@@ -32,7 +29,7 @@ public class MemberController {
 	@RequestMapping("/member_list")
 	@ResponseBody
 	public List<Member> restMemberJSONList() {
-			return memberService.getMemberList();
+		return memberService.getMemberList();
 	}
 	
 	@RequestMapping(value = "/member_delete/{mno}")
@@ -41,7 +38,11 @@ public class MemberController {
 		return "redirect:/member";
 	}
 	
-
+	@RequestMapping(value = "/member_insert", method = RequestMethod.POST)
+	public String memberInsert(@ModelAttribute Member member) {
+		memberService.addMember(member);
+		return "redirect:/member";
+	}
 	
 	
 	
