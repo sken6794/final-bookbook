@@ -31,7 +31,6 @@ public class OrderController {
 	
 	@RequestMapping(value="/add_order", method = RequestMethod.POST)
 	public String addOrder(@ModelAttribute("order") Order order) {
-		
 		Date date=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yy/MM/dd");
 		String odate=sdf.format(date);
@@ -50,7 +49,7 @@ public class OrderController {
 	
 	@RequestMapping(value = "/order_delete/{ono}")
 	public String orderDelete(@PathVariable int ono) {
-		orderService.removeOrder(ono);;
+		orderService.removeOrder(ono);
 		return "redirect:/order";
 	}
 }

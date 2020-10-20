@@ -29,7 +29,7 @@ public class MemberController {
 		return "member/member";
 	}
 	
-	@RequestMapping("/memberList")
+	@RequestMapping("/member_list")
 	@ResponseBody
 	public List<Member> restMemberJSONList() {
 			return memberService.getMemberList();

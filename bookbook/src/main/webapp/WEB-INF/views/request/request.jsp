@@ -10,29 +10,10 @@
 		<meta content="" name="author" />
 		
 		<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	
-		
-	<!-- 생년월일,입사날짜 datepicker -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-	<!-- 이메일 -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/parsley/src/parsley.css" rel="stylesheet" />
-	<!-- 파일 업로드 -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
-    <!-- 발주조회 테이블 -->
+	   <!-- 발주조회 테이블 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />	
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
@@ -72,41 +53,30 @@
 	                            	<div class="form-group">
 										<label class="control-label col-md-4 col-sm-4">도서코드</label>
 										<div class="col-md-6 col-sm-6">
-                                        <input type="text" class="form-control" placeholder="도서코드" />
+                                        <input type="text" class="form-control" placeholder="도서코드" name="bcode"/>
 										</div>
 									</div>
 	                            	<div class="form-group">
 										<label class="control-label col-md-4 col-sm-4">담당자</label>
 										<div class="col-md-6 col-sm-6">
-                                        <input type="text" class="form-control" placeholder="담당자 사원번호" />
+                                        <input type="text" class="form-control" placeholder="담당자 사원번호" name="rstaff"/>
 										</div>
-									</div>
-	                                <div class="form-group">
-	                                    <label class="control-label col-md-4 col-sm-4">진행상태</label>
-	                                    <div class="col-md-6 col-sm-6">
-	                                        <select class="form-control">
-	                                            <option>1</option>
-	                                            <option>2</option>
-	                                            <option>3</option>
-	                                        </select>
-	                                    </div>
-	                                </div>									
+									</div>									
 	                            </div>
 	                            <div class="col-md-5">
 		                           	<div class="form-group">
 	                                    <label class="control-label col-md-4 col-sm-4">발주일자</label>
 	                                    <div class="col-md-6 col-sm-6">
-	                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
+	                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="rdate" />
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-md-4 col-sm-4">출판사명</label>
+	                                    <label class="control-label col-md-4 col-sm-4">진행상태</label>
 	                                    <div class="col-md-6 col-sm-6">
-	                                        <select class="form-control">
-	                                            <option>영진닷컴</option>
-	                                            <option>수능닷컴</option>
-	                                            <option>이기적</option>
-	                                            <option>문학동네</option>
+	                                        <select class="form-control" name="rstate">
+	                                            <option>1</option>
+	                                            <option>2</option>
+	                                            <option>3</option>
 	                                        </select>
 	                                    </div>
 	                                </div>
@@ -137,19 +107,19 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">발주담당자 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="담당자 사원번호" />
+		                                        <input type="text" class="form-control" placeholder="담당자 사원번호" name="rstaff" />
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">발주수량 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="수량" />
+		                                        <input type="text" class="form-control" placeholder="수량" name="rqty"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">진행상태 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
+		                                        <select class="form-control" name="rstate">
 		                                            <option>1</option>
 		                                            <option>2</option>
 		                                            <option>3</option>
@@ -159,7 +129,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-4 col-sm-4">도서코드 :</label>
 											<div class="col-md-6 col-sm-6">
-												<select class="form-control">
+												<select class="form-control" name="bcode">
 													<option>1</option>
 													<option>2</option>
 													<option>3</option>
@@ -183,147 +153,126 @@
 							</div>		
 						</div>   <!-- modal 끝 -->                         	
                        	<hr>
-                        <p class="text-right m-b-0">
-                        	<a href="javascript:;" class="btn btn-sm btn-white" style="margin-right: 13px;">삭제</a>
-                        </p>
-                            <table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
+                            <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                     	<th>선택</th>
                                         <th>발주번호</th>
                                         <th>도서코드</th>
-                                        <th>도서명</th>
+                                        <th width="120">도서명</th>
                                         <th>출판사명</th>
                                         <th>발주일자</th>
                                         <th>담당자[사원번호]</th>
                                         <th>발주수량</th>
                                         <th>발주금액</th>
                                         <th>진행상태</th>
+                                        <th>관리</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <c:forEach var="request" items="${requestList }">
+                                <tbody id="displayRequest">
+                                </tbody>
+<%--                                 <c:forEach var="request" items="${requestList }">
                                 	<tr>
                                			 <td><input type="checkbox"></td>
                                			 <td>${request.rno }</td>
-                               			 <td>${request.book.bno }</td>
+                               			 <td>${request.book.bcode }</td>
                                			 <td>${request.book.bname }</td>
                                			 <td>${request.book.bpublisher }</td>
-                               			 <td>${request.rdate }</td>
+                               			 <td>${request.rdate.substring(0,10) }</td>
                                			 <td>${request.rstaff }</td>
                                			 <td>${request.rqty }</td>
                                			 <td>${request.rprice }</td>
                                			 <td>${request.rstate }</td>
+                               			 <td><button onclick="deleteRequest(${request.rno});" class="btn btn-sm btn-white">삭제</button></td> 
                                		</tr>
-                               	</c:forEach>
-                                <!-- 	<c:forEach var="request" items="${requestList }">
-                                    <tr>
-                                    	<td><input type="checkbox"></td>
-                                        <td>${request.rno }</td>
-                                        <td>${request.book.bno }</td>
-                                        <td>${request.book.bname }</td>
-                                        <td>${request.book.bpublisher }</td>
-                                        <td>${request.rdate }</td>
-                                        <td>${request.rstaff }</td>
-                                        <td>${request.rqty }</td>
-                                        <td>${request.rprice }</td>
-                                        <td>${request.rstate }</td>
-                                    </tr>
-                                    </c:forEach>
-                                    --> 
-                                </tbody>
+                               	</c:forEach> --%>
                             </table>                		                        
                     </div> <!-- panel body 끝 -->
                  </div><!-- panel inverse 끝 -->
             </div>
         </div>
     </div>         
- 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<!--[if lt IE 9]>
-		<script src="assets/crossbrowserjs/html5shiv.js"></script>
-		<script src="assets/crossbrowserjs/respond.min.js"></script>
-		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
-	<![endif]-->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 인사관리 추가 버튼 -->
+		<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+	
+	<!-- 추가 버튼 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/gritter/js/jquery.gritter.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/ui-modal-notification.demo.min.js"></script>
-	<!-- 이메일 input -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
-	<!-- 생년월일,입사날짜,전화번호 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/masked-input/masked-input.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/password-indicator/js/password-indicator.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-tag-it/js/tag-it.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/moment.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/js/select2.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 이미지 파일 업로드 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/tmpl.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/load-image.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.iframe-transport.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-process.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-image.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-audio.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-video.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
-    <!--[if (gte IE 8)&(lt IE 10)]>
-        <script src="assets/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
-    <![endif]-->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+
 	<!-- 발주조회 테이블 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/js/dataTables.select.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-select.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-colreorder.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			App.init();
 		});
 
-	 /* 생년월일, 입사날짜, 전화번호 */ 
+	 /* 발주조회 테이블 관련 */
 		$(document).ready(function() {
 			App.init();
-			FormPlugins.init();
+			TableManageColReorder.init();
 		});
-
-	 /* 파일업로드 */ 
-		$(document).ready(function() {
-			App.init();
-			FormMultipleUpload.init();
-		});
-
-	 /* 발주조회 테이블 */
-		$(document).ready(function() {
-			App.init();
-			TableManageTableSelect.init();
-		});	
+		
+	 /* 발주 내역 리스트 */
+		function displayRequest() {
+			$.ajax({
+				type: "GET",
+				url: "request_list",
+				dataType: "json",
+				success: function(json) {
+					if(json.length==0) {
+						var html="<tr><td class='center' colspan='11'>등록된 발주내역이 존재하지 않습니다.</td></tr>";
+						$("#displayRequest").html(html);
+						return;
+					}
+					
+					var html="";
+					$(json).each(function() {
+						var state="";
+						if(this.rstate=="1") state="발주요청";
+						if(this.rstate=="2") state="진행중";
+						if(this.rstate=="3") state="입고완료";
+						
+						
+						html+="<tr>";
+						html+="<td><input type='checkbox'></td>";
+						html+="<td>"+this.rno+"</td>";
+						html+="<td width='10px;'>"+this.book.bcode+"</td>";
+						html+="<td>"+this.book.bname+"</td>";
+						html+="<td>"+this.book.bpublisher+"</td>";
+						html+="<td>"+this.rdate.substring(0,10)+"</td>";
+						html+="<td>"+this.rstaff+"</td>";
+						html+="<td>"+this.rqty+"</td>";
+						html+="<td>"+this.rprice+"</td>";
+						html+="<td>"+state+"</td>";
+						html+="<td><button onclick='deleteRequest("+this.rno+");' class='btn btn-sm btn-white'>삭제</button></td>";
+						html+="</tr>";
+						
+					});
+					$("#displayRequest").html(html);
+					
+				},
+				error: function(xhr) {
+					alert("에러코드 = "+xhr.status);
+				}
+			});
+		}
+		displayRequest();
+		
+	 
+		function deleteRequest(rno) {
+			if(confirm("정말로 삭제하시겠습니까?")) {
+				location.href="request_delete/"+rno;
+			}
+		}
+		
+		
 	</script>
 </body>
 </html>

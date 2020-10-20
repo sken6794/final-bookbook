@@ -2,16 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-	<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	
 	<!-- 생년월일,입사날짜 datepicker -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
@@ -110,7 +100,6 @@
                    </form>
 						<hr>
 						<p class="text-right m-b-0">
-							<a href="javascript:;" class="btn btn-sm btn-white">삭제</a>
 							<a href="#modal-dialog2" class="btn btn-sm btn-success" data-toggle="modal">추가</a>
 						</p>
 						<br>
@@ -207,16 +196,8 @@
 		                                            <option>1</option>
 		                                            <option>2</option>
 		                                            <option>3</option>
-
 		                                        </select>
 		                                    </div>
-		                                </div>
-		                                <div style="text-align: center;">
-			                                <span class="btn btn-success fileinput-button" style="margin: 0 auto;">
-			                                    <i class="fa fa-plus"></i>
-			                                    <span>이미지 파일</span>
-			                                    <input type="file" name="uploadFile">
-			                                </span>
 		                                </div>		                                
 									</div>
 									<div class="modal-footer">
@@ -305,16 +286,8 @@
 		                                            <option>차장</option>
 		                                            <option>부장</option>
 		                                            <option>이사</option>
-	
 		                                        </select>
 		                                    </div>
-		                                </div>
-		                                <div style="text-align: center;">
-			                                <span class="btn btn-success fileinput-button" style="margin: 0 auto;">
-			                                    <i class="fa fa-plus"></i>
-			                                    <span>이미지 파일</span>
-			                                    <input type="file" name="uploadFile">
-			                                </span>
 		                                </div>
 									</div>
 									<div class="modal-footer">
@@ -338,6 +311,7 @@
                                   <th>입사일자</th>
                                   <th>이메일</th>
                                   <th>전화번호</th>
+                                  <th>관리</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -352,6 +326,7 @@
                                   <td>${member.mjoindate.substring(0,10) }</td>
                                   <td>${member.memail }</td>
                                   <td>${member.mphone }</td>
+                                  <td><button onclick="deleteMember(${member.mno});" class="btn btn-sm btn-white">삭제</button></td>
                               </tr>
                             </c:forEach>
                             </tbody>
@@ -363,61 +338,12 @@
 	
 
  	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<!--[if lt IE 9]>
-		<script src="assets/crossbrowserjs/html5shiv.js"></script>
-		<script src="assets/crossbrowserjs/respond.min.js"></script>
-		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
-	<![endif]-->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-	<!-- ================== END BASE JS ================== -->
-	
-	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
 	<!-- 인사관리 추가 버튼 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/gritter/js/jquery.gritter.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/ui-modal-notification.demo.min.js"></script>
 	<!-- 이메일 input -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
-	<!-- 생년월일,입사날짜-->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/masked-input/masked-input.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/password-indicator/js/password-indicator.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-tag-it/js/tag-it.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/moment.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/js/select2.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 이미지 파일 업로드 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/tmpl.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/load-image.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.iframe-transport.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-process.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-image.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-audio.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-video.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
-    <!--[if (gte IE 8)&(lt IE 10)]>
-        <script src="assets/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
-    <![endif]-->
+
     <!-- 주문조회 테이블 -->
     <script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
@@ -450,16 +376,15 @@
 			TableManageTableSelect.init();
 		});
 		 
-	/* 임의값 넣은 것 */ 
-/* 		 var dataSet = new Array(40);
-		 	for(var i=0; i<dataSet.length;i++) {
-		 		dataSet[i] = ["ss", "1", "김딸기", "도서1팀", "사원", "92/03/14", "20/10/05", "abc123@naver.com", "010-1111-1111"] 
-		 	} */
-		 	
-	/* 데이터 테이블 */ 	
-/* 		 var table = $('#member-table').dataTable({
-			data : dataSet 
-		 }); */	 
+		function deleteMember(mno) {
+			if(confirm("정말로 삭제하시겠습니까?")) {
+				//QueryString 이용하여 값 전달
+				//location.href="file_delete?num="+num;
+				
+				//URL 주소를 이용하여 값 전달
+				location.href="member_delete/"+mno;
+			}
+		}
 	</script>
 <!-- 어디에 쓰이는 것인가? - 아 행클릭하면 지정해놓은 사이트로 이동
 	<script>
