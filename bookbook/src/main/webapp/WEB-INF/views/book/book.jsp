@@ -587,9 +587,7 @@
 	          });
 
 	      }
-	      
-	     
-	      
+	 
 	    
 	      // Korean
 	      var lang_kor = {
