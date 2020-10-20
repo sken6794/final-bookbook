@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.AtdnMapper">
+	<!-- 
+	<resultMap type="AtdnMember" id="atdnmember">
+		<association property="atdnmem" javaType="AttendanceMember">
+			<id column="mno" property="mno"/>
+			<result column="aleavestatus" property="aleavestatus"/>
+			<result column="aovertimestatus" property="aovertimestatus"/>
+			<result column="aleave" property="aleave"/>
+			<result column="abtrip" property="abtrip"/>
+			<result column="aovertime" property="aovertime"/>
+			<result column="aovertimetext" property="aovertimetext"/>
+			<result column="astarttime" property="astarttime"/>
+			<result column="aendtime" property="aendtime"/>
+		</association>
+		<association property="member" javaType="Member">
+			<id column="mno" property="mno"/>
+			<result column="mname" property="mname"/>
+			<result column="mdayoff" property="mdayoff"/>
+			<result column="dno" property="dno"/>
+			<result column="pno" property="pno"/>
+		</association>
+		
+	</resultMap>
+	 -->
+	<resultMap type="Member" id="member">
+		<result column="mno" property="mno"/>
+		<result column="mname" property="mname"/>
+		<result column="mdayoff" property="mdayoff"/>
+	</resultMap>
+	<resultMap type="Department" id="department">
+		<result column="dname" property="dname"/>
+	</resultMap>
+	<resultMap type="Position" id="position">
+		<result column="pname" property="pname"/>
+	</resultMap>
+	<resultMap type="AttendanceMember" id="atdnmember">
+		
+		<result column="aleavestatus" property="aleavestatus"/>
+		<result column="aovertimestatus" property="aovertimestatus"/>
+		<result column="aleave" property="aleave"/>
+		<result column="abtrip" property="abtrip"/>
+		<result column="aovertime" property="aovertime"/>
+		<result column="aovertimetext" property="aovertimetext"/>
+		<result column="astarttime" property="astarttime"/>
+		<result column="aendtime" property="aendtime"/>
+		<collection property="member" resultMap="member"/>
+		<collection property="department" resultMap="department"/>
+		<collection property="position" resultMap="position"/>
+	</resultMap>
+	
+	<select id="selectAtdn" resultMap="atdnmember">
+		select member_atdn.*, mname, dname, pname from member_atdn 
+		join member on member_atdn.mno=member.mno
+		join position on member.pno=position.pno
+		join department on member.dno=department.dno
+	</select>
+	
+	<insert id="insertAtdn">
+	
+	</insert>
+	
+</mapper>

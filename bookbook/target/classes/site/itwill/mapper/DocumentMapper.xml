@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="site.itwill.mapper.DocumentMapper">
+	<!-- 전자결재 입력-->
+	<insert id="insertDocument">
+		<selectKey resultType="int" keyProperty="docNo" order="BEFORE">
+		select seq_document.nextval from dual
+		</selectKey>
+		insert into document values(
+			#{docno}, #{docname}, #{doccont}, #{docstate}, #{docaprv}, sysdate, null, 
+			null ,#{mno}, #{pno})
+	</insert> 
+
+	<!-- 전자결재 선택 -->
+	<resultMap type="Member" id="member">
+		<result column="mno" property="mno"/>
+		<result column="mname" property="mname"/>
+		<result column="pno" property="pno"/>
+		<result column="mstate" property="mstate"/>
+	</resultMap>
+	<resultMap type="Document" id="documentList">
+		<result column="docno" property="docno"/>
+		<result column="docname" property="docname"/>
+		<result column="docdate" property="docdate"/>
+		<result column="docstate" property="docstate"/>
+		<collection property="member" resultMap="member"/>
+	</resultMap>
+	<select id="selectDocumentList" resultMap="documentList">
+		select doc.docno, doc.docname, member.mname, doc.docdate, doc.docstate 
+			from document doc join member on doc.mno=member.mno order by doc.docno desc
+	</select>
+
+	<!-- 작성된 전자결재 => 상신/임시저장 후 -->
+	<resultMap type="Document" id="documentSubmit">
+		<result column="docno" property="docno"/>
+		<result column="docname" property="docname"/>
+		<result column="docaprv" property="docaprv"/>
+		<result column="doccon" property="doccon"/>
+		<result column="docdate" property="docdate"/>
+		<result column="docstate" property="docstate"/>
+		<collection property="member" resultMap="member"/>
+	</resultMap>
+	<select id="selectDocument" resultMap="documentSubmit">
+		select doc.docno, doc.docname, member.mname, doc.docaprv, doc.docdate, doc.docstate 
+			from document doc join member on doc.mno=member.mno
+	</select>
+	
+	
+		<!-- 승인자 선택 : 직급이 제일 높고 근무 중 -->
+	<!-- 
+	<select id="selectAprv" resultMap="memeberAprv">
+		select document.docaprv from document from member 
+			where member.pno=(select max(member.pno) from member) and member.mstate=1;
+	</select> -->
+	
+	
+	
+	<!-- 전자결재 수정
+	<update id="updateDocument">
+		UPDATE DOCUMENT SET DOCNAME=#{DOCNAME}, DOCCON= #{DOCCON}, DOCSTATE=#{DOCSTATE},
+			DOCAPRV=#{DOCAPRV}, DOCCOMP=SYSDATE, REJECT=#{REJECT} WHERE DOCNO = #{DOCNO};
+	</update>
+	 -->
+	<!-- 전자결재 상태 
+	<update id="updateState">
+		UPDATE DOCUMENT SET DOCSTATE=#{DOCSTATE} WHERE DOCNO = #{DOCNO};
+	</update>
+	-->
+	<!-- 전자결재 반려 
+	<update id="updateReject">
+		UPDATE DOCUMENT SET DOCSTATE=5, REJECT=#{REJECT} WHERE DOCNO = #{DOCNO};
+	</update>
+	-->
+	<!-- 전자결재 승인 
+	<update id="updateAprv">
+		UPDATE DOCUMENT SET DOCSTATE=4, DOCAPRV=#{DOCAPRV}, DOCCOMP=SYSDATE WHERE DOCNO = #{DOCNO}
+	</update>
+	-->
+	<!-- 전자결재 삭제 
+	<update id="updateAprv">
+		UPDATE DOCUMENT SET DOCSTATE=0 WHERE DOCNO = ${DOCNO}
+	</update>
+	-->
+</mapper>

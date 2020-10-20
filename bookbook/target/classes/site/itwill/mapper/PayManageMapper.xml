@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.PayManageMapper">
+	
+	<!-- 급여조회 -->
+	<resultMap type="Member" id="member">
+		<result column="mno" property="mno"/>
+		<result column="mname" property="mname"/>
+	</resultMap>
+	<resultMap type="Department" id="department">
+		<result column="dname" property="dname"/>
+	</resultMap>
+	<resultMap type="Position" id="position">
+		<result column="pname" property="pname"/>
+	</resultMap>
+	<resultMap type="PayManage" id="payList">
+		<result column="pdate" property="pdate"/>
+		<result column="pbasic" property="pbasic"/>
+		<result column="pmeal" property="pmeal"/>
+		<result column="povertime" property="povertime"/>
+		<result column="pholiday" property="pholiday"/>
+		<result column="pbonus" property="pbonus"/>
+		<result column="petc" property="petc"/>
+		<collection property="member" resultMap="member"/>
+		<collection property="department" resultMap="department"/>
+		<collection property="position" resultMap="position"/>
+	</resultMap>
+
+	<select id="selectPayList" resultMap="payList">
+		SELECT M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
+		FROM PAYMANAGE P JOIN MEMBER M ON M.MNO = P.MNO JOIN DEPARTMENT D ON D.DNO = P.DNO 
+		JOIN POSITION PO ON PO.PNO = P.PNO ORDER BY P.PDATE DESC, M.MNO ASC
+	</select>
+	
+</mapper>
