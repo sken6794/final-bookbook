@@ -34,4 +34,14 @@ public class BookServiceImpl implements BookService{
 	public int insertBook(Book book) {
 		return bookDAO.insertBook(book);
 	}
+
+	@Override
+	public List<Book> selectBookList() {
+		return bookDAO.selectBookList();
+	}
+
+	@Override
+	public List<Book> selectDynamicBookList(Book book) {
+		return bookDAO.selectDynamicBookList(book);
+	}
 }

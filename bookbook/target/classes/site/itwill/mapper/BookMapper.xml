@@ -2,22 +2,86 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="site.itwill.mapper.BookMapper" >
+
 	<select id="selectAllBookList"  resultType="Book">
-			select * from book order by bcode desc
+			select * from book order by bcode asc
 	</select>
+	<!--==================================== -->
 	<update id="updateBookLoc"  parameterType="map">
 			update book set bloc=#{bloc} where bcode=#{bcode}
 	</update>
+	<!--==================================== -->
 	<select id="selectBook" resultType="Book" parameterType="string">
 			select * from book where bcode=#{bookCode}
 	</select>
-	
+	<!--==================================== -->
 	<insert id="insertBook">
 			<selectKey resultType="int" keyProperty="bcode" order="BEFORE">
 				select seq_book.nextval from dual
 			</selectKey>
 			insert into book values (#{bcode}, #{bname}, #{bpublisher}, #{bwriter}, #{bcategory}, #{bprice}, 
-			#{bimage}, #{binfo}, #{bloc}, #{bquantity}, #{boutdate}, #{bindate})
+			#{bimage}, #{binfo}, #{bloc}, 0, #{boutdate}, #{bindate})
 	</insert>
+	<!--==================================== -->
+	<resultMap type="Book" id="bookResultMap">
+			<id column="bcode" property="bcode" />
+			<result column="bname" property="bname"/>
+			<result column="bpublisher" property="bpublisher"/>
+			<result column="bwriter" property="bwriter"/>
+			<result column="bcategory" property="bcategory"/>
+			<result column="bprice" property="bprice"/>
+			<result column="bimage" property="bimage"/>
+			<result column="binfo" property="binfo"/>
+			<result column="bloc" property="bloc"/>
+			<result column="boutdate" property="boutdate"/>
+			<association property="bookstock" javaType="BookStock">
+					<id column="bstockno" property="bstockno" />
+					<result column="bcode" property="bcode"/>
+					<result column="stockqty" property="stockqty"/>
+			</association>
+			<association property="bookin" javaType="BookIn">
+					<id column="binno" property="binno" />
+					<result column="bcode" property="bcode"/>
+					<result column="inquantity" property="inquantity"/>
+					<result column="indate" property="indate"/>
+			</association>
+	</resultMap>
+	
+	<select id="selectBookList" resultMap="bookResultMap">
+			select book.*, bi.indate, bs.stockqty from book join bookin bi on book.bcode=bi.bcode
+			join bookstock bs on book.bcode=bs.bcode order by book.bcode desc
+	</select>
+	<!--==================================== -->
+	<select id="selectDynamicBookList" resultMap="bookResultMap">
+			select book.*, bi.indate, bs.stockqty from book join bookin bi on book.bcode=bi.bcode
+			join bookstock bs on book.bcode=bs.bcode
+			<where>
+
+					<if test="bname!=null and bname!=''">
+							book.bname like '%' ||  #{bname} || '%'
+					</if>
+					<if test="bpublisher!=null and bpublisher!=''">
+							and book.bpublisher like '%' ||  #{bpublisher} || '%'
+					</if>
+					<if test="bwriter!=null and bwriter!=''">
+							and book.bwriter like '%' ||  #{bwriter} || '%'
+					</if>
+					<if test="bcategory!=null and bcategory!='' and bcategory!='전체'">
+							and book.bcategory =  #{bcategory}
+					</if>
+					
+					<if test="bloc!=null and bloc!=''">
+							and book.bloc = #{bloc}
+					</if>
+					<if test="boutdate!=null and boutdate!=''">
+							and book.boutdate = #{boutdate}
+					</if>
+			</where>
+			order by book.bcode
+	</select>
+	<!--==================================== -->
+	
+	
+	
 	
 </mapper>

@@ -41,7 +41,7 @@ public class BookController {
 		return "book/book";
 	}
 	
-	//회원목록을 JSON 텍스트 데이타로 응답하는 요청 처리 메소드
+
 	@RequestMapping("/allBookList")
 	@ResponseBody
 	public List<Book> selectAllBookList() {
@@ -88,9 +88,7 @@ public class BookController {
 		}
 		
 		String uploadDir=context.getServletContext().getRealPath("/resources/upload");
-		//String origin=book.getFile().getOriginalFilename();
-		//System.out.println("uploadDir : " + uploadDir);
-	
+
 		MultipartFile uploadFile = book.getFile();
 		
 		String originalFilename=uploadFile.getOriginalFilename();
@@ -111,6 +109,7 @@ public class BookController {
 
 		// 파일 업로드 
 		uploadFile.transferTo(file);
+		
 		book.setBimage(uploadFilename);
 		
 		bookService.insertBook(book);
@@ -120,11 +119,24 @@ public class BookController {
 	
 	
 	@RequestMapping(value="/bookSelect", method = RequestMethod.GET)
-	public String bookSelect() {
+	public String slectAllBookList(Model model) {
+		model.addAttribute("bookList", bookService.selectBookList());
 		return "book/bookSelect";
 	}
 	
-	
+	@RequestMapping(value="/selectDynamicBookList", method = RequestMethod.POST)
+	public String selectDynamicBookList(@ModelAttribute Book book, Model model) {
+		System.out.println(book.getBname());
+		System.out.println(book.getBpublisher());
+		System.out.println(book.getBwriter());
+		System.out.println(book.getBcategory());
+		System.out.println(book.getBloc());
+		System.out.println(book.getBoutdate());
+		
+		
+		model.addAttribute("bookList", bookService.selectDynamicBookList(book));
+		return "book/bookSelect";
+	}
 	
 	
 	

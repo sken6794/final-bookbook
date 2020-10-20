@@ -16,13 +16,33 @@ public class Book {
 	private int bquantity;
 	private String boutdate;
 	private String bindate;
+	
 	//입력파일을 저장하기 위한 필드
 	private MultipartFile file;
+	
+	private BookStock bookstock;
+	private BookIn bookin;
 	
 	public Book() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public BookStock getBookstock() {
+		return bookstock;
+	}
+
+	public void setBookstock(BookStock bookstock) {
+		this.bookstock = bookstock;
+	}
+
+	public BookIn getBookin() {
+		return bookin;
+	}
+
+	public void setBookin(BookIn bookin) {
+		this.bookin = bookin;
+	}
+
 	public MultipartFile getFile() {
 		return file;
 	}

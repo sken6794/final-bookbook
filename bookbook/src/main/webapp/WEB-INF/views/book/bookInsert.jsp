@@ -62,28 +62,18 @@
 								                                        </select>
 																	</div>
 																</div>
-																
+																<!-- 
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">재고 수량</label>
 																	<div class="col-md-6 col-sm-6">
 																		<input  id="spinner" name="bquantity" > 권
 																	</div>
 																</div>
+																 -->
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">출판 날짜</label>
 																	<div class="col-md-6 col-sm-6">
 																		<div class="input-group date" id="date1">
-								                                            <input type="text" name="bindate" class="form-control">
-								                                            <span class="input-group-addon">
-								                                                <span class="glyphicon glyphicon-calendar"></span>
-								                                            </span>
-								                                        </div>
-																	</div>
-																</div>
-																<div class="form-group">
-																	<label class="control-label col-md-4 col-sm-4">입고 날짜</label>
-																	<div class="col-md-6 col-sm-6">
-																		<div class="input-group date" id="date2">
 								                                            <input type="text" name="boutdate" class="form-control">
 								                                            <span class="input-group-addon">
 								                                                <span class="glyphicon glyphicon-calendar"></span>
@@ -91,6 +81,19 @@
 								                                        </div>
 																	</div>
 																</div>
+																<!-- 
+																<div class="form-group">
+																	<label class="control-label col-md-4 col-sm-4">입고 날짜</label>
+																	<div class="col-md-6 col-sm-6">
+																		<div class="input-group date" id="date2">
+								                                            <input type="text" name="bindate" class="form-control">
+								                                            <span class="input-group-addon">
+								                                                <span class="glyphicon glyphicon-calendar"></span>
+								                                            </span>
+								                                        </div>
+																	</div>
+																</div>
+																 -->
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">도서 위치</label>
 																	<div class="col-md-6 col-sm-6">
@@ -219,14 +222,6 @@
 				 
 				 /*
 				 var formData = $("#bookForm").serialize() ;
-				 var file = $("#bookForm")[0];
-				 var fileData = new FormData(file);
-				 
-
-				 var file = document.getElementById('uploadedFile').files[0];
-				 var form = $('form')[0];
-				 var formData = new FormData(form);
-				 formData.append("File", file);
 				 */
 			
 				var form = $('#bookForm')[0]; 
@@ -240,7 +235,9 @@
 		        	  	data : formData,
 			      		dataType: "text",
 			      		success: function(json) {
-			      			alert(json);
+			      			if(json=="success"){
+			      				location.href="bookSelect";
+			      			}
 			      		}
 					 
 				 })

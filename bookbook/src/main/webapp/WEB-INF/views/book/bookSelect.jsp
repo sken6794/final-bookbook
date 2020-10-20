@@ -62,29 +62,31 @@
 						                            <h4 class="panel-title">도서 검색</h4>
 							                    </div>
 												<div class="panel-body panel-form">
-															<form class="form-horizontal form-bordered" data-parsley-validate="true" novalidate="">
+															<form class="form-horizontal form-bordered" 
+															action="selectDynamicBookList"  method="post"
+															data-parsley-validate="true" novalidate="">
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">도서 이름 </label>
 																	<div class="col-md-6 col-sm-6">
-																		<input type="text" class="form-control" placeholder="도서 이름을 입력해 주세요.">
+																		<input type="text" name="bname" class="form-control" placeholder="도서 이름을 입력해 주세요.">
 																	</div>
 																</div>
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">출판사</label>
 																	<div class="col-md-6 col-sm-6">
-																		<input type="text" class="form-control" placeholder="출판사 이름을 입력해 주세요.">
+																		<input type="text" name="bpublisher" class="form-control" placeholder="출판사 이름을 입력해 주세요.">
 																	</div>
 																</div>
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">작가 이름</label>
 																	<div class="col-md-6 col-sm-6">
-																		<input type="text" class="form-control" placeholder="작가 이름을 입력해 주세요.">
+																		<input type="text" name="bwriter" class="form-control" placeholder="작가 이름을 입력해 주세요.">
 																	</div>
 																</div>
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">카테고리</label>
 																	<div class="col-md-6 col-sm-6">
-																		<select class="form-control">
+																		<select name="bcategory" class="form-control">
 								                                            <option>전체</option>
 								                                            <option>시</option>
 								                                            <option>잡지</option>
@@ -98,19 +100,19 @@
 								                                        </select>
 																	</div>
 																</div>
-																	<div class="form-group">
+																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">도서 위치</label>
 																	<div class="col-md-6 col-sm-6">
-																		<select class="form-control">
-								                                            <option>A구역</option>
-								                                            <option>B구역</option>
-								                                            <option>C구역</option>
-								                                            <option>D구역</option>
-								                                            <option>E구역</option>
-								                                            <option>F구역</option>
-								                                            <option>G구역</option>
-								                                            <option>H구역</option>
-								                                            <option>I구역</option>
+																		<select name="bloc"  class="form-control">
+								                                            <option>A</option>
+								                                            <option>B</option>
+								                                            <option>C</option>
+								                                            <option>D</option>
+								                                            <option>E</option>
+								                                            <option>F</option>
+								                                            <option>G</option>
+								                                            <option>H</option>
+								                                            <option>I</option>
 								                                        </select>
 																	</div>
 																</div>
@@ -118,11 +120,20 @@
 																	<label class="control-label col-md-4 col-sm-4">출판 날짜</label>
 																	<div class="col-md-6 col-sm-6">
 																		<div class="input-group date" id="date1">
-								                                            <input type="text" class="form-control">
+								                                            <input type="text" name="boutdate" class="form-control">
 								                                            <span class="input-group-addon">
 								                                                <span class="glyphicon glyphicon-calendar"></span>
 								                                            </span>
 								                                        </div>
+																	</div>
+																</div>
+																	<div class="form-group">
+																	<label class="control-label col-md-4 col-sm-4"></label>
+																	<div class="row">
+																		<div class="col-md-9"></div>
+																		<div class="col-md-3 col-sm-6">
+																			<button type="submit" id="selectBtn" class="btn btn-inverse m-r-5 m-b-5">도서정보 검색</button>
+																		</div>
 																	</div>
 																</div>
 																<div class="form-group">
@@ -174,32 +185,25 @@
 																				</tr>
 																			</thead>
 																			<tbody>
-																			<!-- 
-																			<tr class="gradeA odd" role="row">
-																				<td></td>
-																				<td></td>
-																				<td></td>
-																				<td></td>
-																				<td></td>
-																			</tr>
-																			 -->
-																			 		<c:forEach begin="1" end="55" step="1">
-																					<tr class="gradeA odd" role="row">
-																						<td class="sorting_1">132</td>
-																						<td>시크릿 : 비밀을 찾아서</td>
-																						<td>한빛 저장소</td>
-																						<td>넬레노이하우스</td>
-																						<td>자기개발</td>
-																						<td>A구역</td>
-																						<td>23000</td>
-																						<td>55</td>
-																						<td>2020/10/15</td>
-																						<td>2020/11/20</td>
-																					</tr>
+																					<c:forEach var="book"  items="${bookList}">
+																						<tr class="gradeA odd" role="row">
+																									<td class="sorting_1">${book.bcode }</td>
+																									<td>${book.bname }</td>
+																									<td>${book.bpublisher }</td>
+																									<td>${book.bwriter }</td>
+																									<td>${book.bcategory }</td>
+																									<td>${book.bloc }</td>
+																									<td>${book.bprice }</td>
+																									<td>${book.bookstock.stockqty }</td>
+																									<td>${book.boutdate }</td>
+																									<td>${book.bookin.indate }</td>
+																						</tr>
 																					</c:forEach>
+																					
 																			</tbody>		
 																	</table>
  															</div>
+ 															
 													</form>
 												</div>
 									</div>
@@ -375,4 +379,22 @@
 					}
 		        });
 	       });
+	   		
+	   	
+	   		/*
+	        $("#selectBtn").click(function(){
+				 var formData = $("#bookForm").serialize() ;
+				 $.ajax({
+						type: "POST",
+		        	  	url: "selectDynamicBookList",
+		        	  	data : formData,
+			      		dataType: "json",
+			      		success: function(json) {
+			      			
+			      		}
+				 })
+			 });
+	   		*/
+	    	
+	   		
 	</script>
