@@ -1,6 +1,7 @@
 package site.itwill.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,10 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public List<Book> selectAllBookList() {
 		return sqlSession.getMapper(BookMapper.class).selectAllBookList();
+	}
+
+	@Override
+	public int updateBookLoc(Map<String, String> map) {
+		return sqlSession.getMapper(BookMapper.class).updateBookLoc(map);
 	}
 }

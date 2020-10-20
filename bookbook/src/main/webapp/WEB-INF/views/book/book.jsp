@@ -49,8 +49,8 @@
 	
 	<style type="text/css">
 	
-			#sortable0, #sortable1, #sortable2, #sortable3,
-			#sortable4, #sortable5, #sortable6, #sortable7, #sortable8{ 
+			#A, #B, #C, #D,
+			#E, #F, #G, #H, #I{ 
           
 	          /* border: 2px solid black;*/
 	          width: 100%;
@@ -159,7 +159,7 @@
 					</div>
 					<div class="col-md-4">
 									<div style="padding-right:50px; margin-bottom: 5px">
-										<button type="button" class="btn btn-white"><i class="fa fa-file"></i> 도서위치 저장</button>
+										<button type="button" class="btn btn-white" id="updateLocBtn"><i class="fa fa-file"></i> 도서위치 저장</button>
 									</div>
 					</div>
 					</div>
@@ -180,7 +180,7 @@
 						                            <h4 class="panel-title">A Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable0" class="connectedSortable" >
+														<div id="A" class="connectedSortable" >
 																
 								                        </div>
 							                    </div>
@@ -198,7 +198,7 @@
 						                            <h4 class="panel-title">B Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable1" class="connectedSortable" >
+														<div id="B" class="connectedSortable" >
 		
 								                        </div>
 							                    </div>
@@ -216,7 +216,7 @@
 						                            <h4 class="panel-title">C Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable2" class="connectedSortable" >
+														<div id="C" class="connectedSortable" >
 		
 								                        </div>
 							                    </div>
@@ -236,7 +236,7 @@
 						                            <h4 class="panel-title">D Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable3" class="connectedSortable" >
+														<div id="D" class="connectedSortable" >
 															
 								                        </div>
 							                    </div>
@@ -254,7 +254,7 @@
 						                            <h4 class="panel-title">E Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable4" class="connectedSortable" >
+														<div id="E" class="connectedSortable" >
 																
 								                        </div>
 							                    </div>
@@ -272,7 +272,7 @@
 						                            <h4 class="panel-title">F Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable5" class="connectedSortable" >
+														<div id="F" class="connectedSortable" >
 		
 								                        </div>
 							                    </div>
@@ -292,7 +292,7 @@
 						                            <h4 class="panel-title">G Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable6" class="connectedSortable" >
+														<div id="G" class="connectedSortable" >
 		
 								                        </div>
 							                    </div>
@@ -310,7 +310,7 @@
 						                            <h4 class="panel-title">H Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable7" class="connectedSortable" >
+														<div id="H" class="connectedSortable" >
 		
 								                        </div>
 							                    </div>
@@ -328,7 +328,7 @@
 						                            <h4 class="panel-title">I Site</h4>
 						                        </div>
 							                    <div class="panel-body">
-														<div id="sortable8" class="connectedSortable" >
+														<div id="I" class="connectedSortable" >
 		
 								                        </div>
 							                    </div>
@@ -479,12 +479,62 @@
 			TableManageTableSelect.init();
 
 			// sortable 기능
-		    $( "#sortable0, #sortable1, #sortable2, #sortable3, #sortable4, #sortable5, #sortable6, #sortable7, #sortable8" ).sortable({
+		    $( "#A, #B, #C, #D, #E, #F, #G, #H, #I" ).sortable({
 		        connectWith: ".connectedSortable"
 		    }).disableSelection();
     
+		    createBook();	
+			
 		});
 		
+		//updateLocBtn (도서 정보 저장 버튼)
+		$("#updateLocBtn").click(function(){
+			
+			 
+			var param = [];
+			$('.connectedSortable div div').each(function (index, item) { 
+				// 북코드
+				var bcode = $(this).attr("value");
+				
+				//alert(bookcode);
+				//alert($(this).parent().parent().attr("id"));
+				//위치	
+				var bloc = $(this).parent().parent().attr("id");
+				var dataSet = {
+							"bloc" : bloc,
+							"bcode" : bcode
+				};
+				param.push(dataSet);
+				
+			});
+				
+			 var jsonData = JSON.stringify(param);
+			 //alert(jsonData);
+			//alert("??")
+			 
+			 $.ajax({
+					type: "GET",
+	        	  	url: "bookUpdateLoc",
+	        	  	traditional : true,
+	        	  	data: {"jsonData" : jsonData},
+		      		success : function(result){
+		      			if(result=="success"){
+		      				 var contextPath= getContextPath();
+		      				 location.href=contextPath+"/book";
+		      			}else{
+		      				//alert("실패");
+		      			}
+		      		}
+			  });
+
+		});
+		
+		//ContextPath 값 리턴
+		function getContextPath() {
+		    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+		    return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+		}
+
 		 // 도서 데이터 가져와 ul li만들기
 	      function createBook(data){ // data는 서버에서 넘어온 값(도서번호)
 	          $.ajax({
@@ -502,31 +552,31 @@
 				   	           
 				   	           if(this.bloc=='A'){
 				   	        	  	danger = "<div class='external-event bg-danger ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	 	 $("#sortable0").append(danger);
+				   	        	 	 $("#A").append(danger);
 				   	           }else if(this.bloc=='B'){
 				   	        		warning = "<div class='external-event bg-warning ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	  	$("#sortable1").append(warning);
+				   	        	  	$("#B").append(warning);
 				   	           }else if(this.bloc=='C'){
 				   	        		success = "<div class='external-event bg-success ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	  	$("#sortable2").append(success);
+				   	        	  	$("#C").append(success);
 				   	           }else if(this.bloc=='D'){
 				   	        		info = "<div class='external-event bg-info ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	  	$("#sortable3").append(info);
+				   	        	  	$("#D").append(info);
 				   	           }else if(this.bloc=='E'){
 				   	        		primary = "<div class='external-event bg-primary ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	  	$("#sortable4").append(primary);
+				   	        	  	$("#E").append(primary);
 				   	           }else if(this.bloc=='F'){
 				   	        		orange = "<div class='external-event bg-orange ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	  	$("#sortable5").append(orange);
+				   	        	  	$("#F").append(orange);
 				   	           }else if(this.bloc=='G'){
 				   	        		purple = "<div class='external-event bg-purple ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	 	 $("#sortable6").append(purple);
+				   	        	 	 $("#G").append(purple);
 				   	           }else if(this.bloc=='H'){
 				   	        	  	red = "<div class='external-event bg-red ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-				   	        	  	$("#sortable7").append(red);
+				   	        	  	$("#H").append(red);
 				   	           }else if(this.bloc=='I'){
 					   	        	  yellow = "<div class='external-event bg-yellow ui-draggable' style='position: relative; z-index: auto; left: 0px; top: 0px;'>"+temp+"</div>";
-					   	        	  $("#sortable8").append(yellow);
+					   	        	  $("#I").append(yellow);
 				   	           }
 			      		});
 		      		},
@@ -537,9 +587,7 @@
 	          });
 
 	      }
-	      
-	      createBook();
-	      
+	 
 	    
 	      // Korean
 	      var lang_kor = {
@@ -640,14 +688,12 @@
 	   	        //$('#mask').fadeTo("fast",0.8);    
 	   	        //스크롤 상단으로
 	   	        $('html').scrollTop(0);
-	   	      
 	   	        $('#mask').show();
 	   	    }
 	   		
-	   		$('.ui-draggable').on('click', function(e) {
+	   		$('.connectedSortable').on('click', 'div',function(e) {
 	   			// 클릭한 북코드
 	   			var bookcode = $(this).children().attr("value");
-	   		 
 	   			wrapWindowByMask();
 	   		
 	   		});
