@@ -25,4 +25,16 @@ public class BookDAOImpl implements BookDAO{
 	public int updateBookLoc(Map<String, String> map) {
 		return sqlSession.getMapper(BookMapper.class).updateBookLoc(map);
 	}
+
+	@Override
+	public Book selectBook(String bookCode) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(BookMapper.class).selectBook(bookCode);
+	}
+
+	@Override
+	public int insertBook(Book book) {
+		
+		return sqlSession.getMapper(BookMapper.class).insertBook(book);
+	}
 }

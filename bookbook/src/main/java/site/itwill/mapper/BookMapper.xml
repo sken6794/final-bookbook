@@ -8,4 +8,16 @@
 	<update id="updateBookLoc"  parameterType="map">
 			update book set bloc=#{bloc} where bcode=#{bcode}
 	</update>
+	<select id="selectBook" resultType="Book" parameterType="string">
+			select * from book where bcode=#{bookCode}
+	</select>
+	
+	<insert id="insertBook">
+			<selectKey resultType="int" keyProperty="bcode" order="BEFORE">
+				select seq_book.nextval from dual
+			</selectKey>
+			insert into book values (#{bcode}, #{bname}, #{bpublisher}, #{bwriter}, #{bcategory}, #{bprice}, 
+			#{bimage}, #{binfo}, #{bloc}, #{bquantity}, #{boutdate}, #{bindate})
+	</insert>
+	
 </mapper>

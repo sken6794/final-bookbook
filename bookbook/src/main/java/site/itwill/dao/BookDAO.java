@@ -8,4 +8,6 @@ import site.itwill.dto.Book;
 public interface BookDAO {
 	public List<Book> selectAllBookList();
 	public int updateBookLoc(Map<String, String> map);
+	public Book selectBook(String bookCode);
+	public int insertBook(Book book);
 }
