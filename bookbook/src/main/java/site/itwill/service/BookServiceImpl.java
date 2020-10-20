@@ -1,6 +1,7 @@
 package site.itwill.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public List<Book> getAllBookList() {
 		return bookDAO.selectAllBookList();
+	}
+
+	@Override
+	public int updateBookLoc(Map<String, String> map) {
+		return bookDAO.updateBookLoc(map);
 	}
 }
