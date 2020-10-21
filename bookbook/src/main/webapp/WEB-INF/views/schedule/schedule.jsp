@@ -13,11 +13,11 @@
    <meta content="" name="author" />
    <!-- ================== BEGIN BASE CSS STYLE ================== -->
    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
    <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
    <link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
    <!-- ================== END BASE CSS STYLE ================== -->
@@ -111,6 +111,17 @@
                                     <option value="내부일정">내부일정</option>
                                     <option value="외부일정">외부일정</option>
                                     <option value="발주 및 출간">발주 및 출간</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-username">관련 부서</label>
+                                <select class="inputModal" type="text" name="edit-username" id="edit-username">
+                                    <option value="도서 1팀">도서 1팀</option>
+                                    <option value="도서 2팀">도서 2팀</option>
+                                    <option value="영업팀">영업팀</option>
+                                    <option value="회계팀">회계팀</option>
                                 </select>
                             </div>
                         </div>

@@ -2,7 +2,7 @@
  *  일정 편집
  * ************** */
 var editEvent = function (event, element, view) {
-
+	
     $('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
 
     $('.popover.fade.top').remove();
@@ -34,6 +34,21 @@ var editEvent = function (event, element, view) {
     addBtnContainer.hide();
     modifyBtnContainer.show();
     eventModal.modal('show');
+	 
+	 var eventId=event._id;
+	 
+	 var eventData = {
+            _id: eventId,
+            title: editTitle.val(),
+            start: editStart.val(),
+            end: editEnd.val(),
+            description: editDesc.val(),
+            type: editType.val(),
+            username: editUsername.val(),
+            backgroundColor: editColor.val(),
+            textColor: '#ffffff',
+            allDay: false
+        };
 
     //업데이트 버튼 클릭시
     $('#updateEvent').unbind();
@@ -80,11 +95,11 @@ var editEvent = function (event, element, view) {
 
         //일정 업데이트
         $.ajax({
-            type: "get",
-            url: "",
-            data: {
-                //...
-            },
+            type: "put",
+            url: "scheduleUpdate",
+            //headers: {"content-type":"application/json","X-HTTP-Method-override":"PUT"},
+            //contentType: 'application/json',
+            data: eventData,
             success: function (response) {
                 alert('수정되었습니다.')
             }
@@ -102,11 +117,12 @@ $('#deleteEvent').on('click', function () {
 
     //삭제시
     $.ajax({
-        type: "get",
-        url: "",
-        data: {
-            //...
-        },
+        type: "delete",
+        //url에 뭘 써죠야하지..... 이렇게하는거맞나
+        //@pathVariable 사용해서 쿼리말고 요롷게 줬는데... 이게아닌거같애..... 
+        url: "scheduleRemove",
+        headers: {"content-type":"application/json","X-HTTP-Method-override":"DELETE"},
+        data: eventData,
         success: function (response) {
             alert('삭제되었습니다.');
         }

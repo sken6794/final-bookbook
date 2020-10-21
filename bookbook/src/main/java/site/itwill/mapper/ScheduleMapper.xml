@@ -2,11 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.itwill.mapper.ScheduleMapper">
 	
-	<!-- 컬럼명과 DTO 변수명이 다르므로 수동매핑
-		 - DTO에서 클래스를 필드로 쓴건 어떻게 처리하지? -->
+	<!-- 컬럼명과 DTO 변수명이 다르므로 수동매핑 -->
 	<resultMap type="Schedule" id="scheduleResultMap">
 		<id column="sno" property="_id"/>
-		<result column="stilte" property="title"/>
+		<result column="stitle" property="title"/>
 		<result column="scontent" property="description"/>
 		<result column="sstart" property="start"/>
 		<result column="send" property="end"/>
@@ -15,11 +14,40 @@
 		<result column="scolor" property="backgroundColor"/>
 		<result column="stextcolor" property="textColor"/>
 		<result column="sallday" property="allDay"/>
+		<result column="mno" property="mno"/>
 	</resultMap>
 	
-	<!-- 전체 스케줄 출력 -->
-	<select id="selectScheduleList" resultMap="scheduleResultMap">
-		select * from schedule
+	<!-- 일정 출력 -->
+	<select id="selectSchedule" resultMap="scheduleResultMap">
+		select * from schedule where sno=#{_id}
 	</select>
+	
+	<!-- 전체 일정 출력 -->
+	<select id="selectScheduleList" resultMap="scheduleResultMap">
+		select * from schedule <!-- order by sno desc ???? -->
+	</select>
+	
+	<!-- mapper.xml에서 insert update delete는 id만 잡아주면 됨!!!!! -->
+	
+	<!-- 일정 작성 - #{ dto변수명 } -->
+	<insert id="insertSchedule">
+		<selectKey resultType="int" keyProperty="_id" order="BEFORE">
+			select schedule_seq.nextval from dual
+		</selectKey>
+		insert into schedule values(#{_id}, #{title}, #{description},
+			#{start}, #{end}, #{type}, #{username}, 
+			#{backgroundColor}, #{textColor}, #{allDay}, #{mno})
+	</insert>
 
+	<!-- 일정 수정 - 컬럼명=#{ dto변수명 } -->
+	<update id="updateSchedule">
+		update schedule set stitle=#{title}, scontent=#{description}, 
+			sstart=#{start}, send=#{end}, scategory=#{type}, sdname=#{username}, 
+			scolor=#{backgroundColor}, stextcolor=#{textColor}, sallday=#{allDay}
+			where sno=#{_id}
+	</update>
+	
+	<delete id="deleteSchedule">
+		delete from schedule where sno=#{_id}
+	</delete>
 </mapper>
