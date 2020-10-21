@@ -352,7 +352,24 @@
 		$(document).ready(function() {
 			App.init();
 		});
-
+/*
+		$.ajax({
+			type: "GET",
+			url: "doc_aprv.jsp",
+			data: {"num":num, "writer":writer, "content": content},
+			dataType: "json",
+			success: function(json) {
+				var aprv=$(json).find("aprv").text();
+				
+				if(code=="success") {
+					$("#doc_aprv").hide().appendTo(document.documentElement);
+					loadComment();		
+				} else {
+					return false;
+				}
+			},
+	*/	
+		
 		$("#aprv").click(function() {
 			if (confirm("결재하시겠습니까?")) {
 				return true;

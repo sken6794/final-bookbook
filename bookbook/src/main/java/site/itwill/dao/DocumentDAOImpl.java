@@ -19,5 +19,16 @@ public class DocumentDAOImpl implements DocumentDAO{
 	public List<Document> selectDocumentList() {
 		return sqlSession.getMapper(DocumentMapper.class).selectDocumentList();
 	}
+
+	@Override
+	public int insertDocument(Document document) {
+		return sqlSession.getMapper(DocumentMapper.class).insertDocument(document);
+	}
+
+	@Override
+	public Document selectDocument(int docno) {
+		return sqlSession.getMapper(DocumentMapper.class).selectDocument(docno);
+	}
+	
 	
 }
