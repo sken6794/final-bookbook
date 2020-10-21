@@ -47,4 +47,10 @@ public class BookDAOImpl implements BookDAO{
 	public List<Book> selectDynamicBookList(Book book) {
 		return sqlSession.getMapper(BookMapper.class).selectDynamicBookList(book);
 	}
+
+	@Override
+	public int deleteBook(int num) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(BookMapper.class).deleteBook(num);
+	}
 }

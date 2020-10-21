@@ -12,4 +12,5 @@ public interface BookDAO {
 	public int insertBook(Book book);
 	public  List<Book> selectBookList();
 	public List<Book> selectDynamicBookList(Book book);
+	public int deleteBook(int num);
 }

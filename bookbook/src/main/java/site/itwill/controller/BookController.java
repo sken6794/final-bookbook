@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -126,16 +127,16 @@ public class BookController {
 	
 	@RequestMapping(value="/selectDynamicBookList", method = RequestMethod.POST)
 	public String selectDynamicBookList(@ModelAttribute Book book, Model model) {
-		System.out.println(book.getBname());
-		System.out.println(book.getBpublisher());
-		System.out.println(book.getBwriter());
-		System.out.println(book.getBcategory());
-		System.out.println(book.getBloc());
-		System.out.println(book.getBoutdate());
-		
-		
+	
 		model.addAttribute("bookList", bookService.selectDynamicBookList(book));
 		return "book/bookSelect";
+	}
+	
+	@RequestMapping(value="/deleteBook/{num}", method = RequestMethod.GET)
+	@ResponseBody
+	public int deleteBook(@PathVariable int num) {
+		int idx = bookService.deleteBook(num);
+		return idx;
 	}
 	
 	

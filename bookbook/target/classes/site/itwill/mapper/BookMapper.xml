@@ -56,7 +56,6 @@
 			select book.*, bi.indate, bs.stockqty from book join bookin bi on book.bcode=bi.bcode
 			join bookstock bs on book.bcode=bs.bcode
 			<where>
-
 					<if test="bname!=null and bname!=''">
 							book.bname like '%' ||  #{bname} || '%'
 					</if>
@@ -69,16 +68,22 @@
 					<if test="bcategory!=null and bcategory!='' and bcategory!='전체'">
 							and book.bcategory =  #{bcategory}
 					</if>
-					
-					<if test="bloc!=null and bloc!=''">
+					<if test="bloc!=null and bloc!='' and  bloc!='전체'">
 							and book.bloc = #{bloc}
 					</if>
-					<if test="boutdate!=null and boutdate!=''">
-							and book.boutdate = #{boutdate}
+					<if test="bostartDate!=null and bostartDate!=''">
+							and book.boutdate between #{bostartDate}
+					</if>
+					<if test="boendDate!=null and boendDate!=''">
+							and #{boendDate}
 					</if>
 			</where>
-			order by book.bcode
+			order by book.bcode desc
 	</select>
+	<!--==================================== -->
+	<delete id="deleteBook" parameterType="int">
+			delete from book where bcode = #{num}
+	</delete>
 	<!--==================================== -->
 	
 	

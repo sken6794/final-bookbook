@@ -104,6 +104,7 @@
 																	<label class="control-label col-md-4 col-sm-4">도서 위치</label>
 																	<div class="col-md-6 col-sm-6">
 																		<select name="bloc"  class="form-control">
+																			<option>전체</option>
 								                                            <option>A</option>
 								                                            <option>B</option>
 								                                            <option>C</option>
@@ -119,20 +120,33 @@
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">출판 날짜</label>
 																	<div class="col-md-6 col-sm-6">
+																	<!--  
 																		<div class="input-group date" id="date1">
 								                                            <input type="text" name="boutdate" class="form-control">
 								                                            <span class="input-group-addon">
 								                                                <span class="glyphicon glyphicon-calendar"></span>
 								                                            </span>
 								                                        </div>
+								                                      -->
+								                                        <!-- -->
+								                                        <div class="input-group daterange"  id="date1">
+								                                            <input type="text" id="startDate"class="form-control" name="bostartDate" placeholder="시작 날짜">
+								                                            <span class="input-group-addon">부터</span>
+								                                            <input type="text" id="endDate"class="form-control" name="boendDate" placeholder="끝 날짜">
+								                                        </div>
+								                                         
+								                                        
 																	</div>
 																</div>
 																	<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4"></label>
 																	<div class="row">
 																		<div class="col-md-9"></div>
-																		<div class="col-md-3 col-sm-6">
-																			<button type="submit" id="selectBtn" class="btn btn-inverse m-r-5 m-b-5">도서정보 검색</button>
+																		<div class="col-md-1 col-sm-6">
+																			<button type="submit" id="selectBtn" class="btn btn-inverse m-r-5 m-b-5">도서 검색</button>
+																		</div>
+																		<div class="col-md-1 col-sm-6">
+																			<button type="submit" id="deleteBtn" class="btn btn-inverse m-r-5 m-b-5">도서 삭제</button>
 																		</div>
 																	</div>
 																</div>
@@ -270,6 +284,7 @@
 			//Dashboard.init();
 			TableManageTableSelect.init();
 			FormPlugins.init();
+			tableClickIdx = -1;
 		});
 		
 	
@@ -284,15 +299,30 @@
 					monthsShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
 			};
 
-
-	        $('#date1').datepicker({
+	        $('#startDate').datepicker({
+	            format: "yyyy/mm/dd",
+	            calendarWeeks: false,
+	            todayHighlight: true,
+	            autoclose: true,
+	            language: "kr"
+	       	 });
+	        
+	        $('#endDate').datepicker({
+	            format: "yyyy/mm/dd",
+	            calendarWeeks: false,
+	            todayHighlight: true,
+	            autoclose: true,
+	            language: "kr"
+	       	 });
+	        /*
+	        $('#endDate').datepicker({
 	            calendarWeeks: false,
 	            todayHighlight: true,
 	            autoclose: true,
 	            format: "yyyy/mm/dd",
 	            language: "kr"
 	       	 });
-	      
+	      */
 	    });
 		
 	      // Korean
@@ -369,16 +399,29 @@
 	        $('#book_table tbody').on( 'click', 'tr', function () {
 	        	 //클릭한 행 모든 값 가져오기
 	        	 var bookInfo = $('#book_table').DataTable().row(this).data();
-	        	 
-	        	 $(".ui-draggable div").each(function(){
-	        		if($(this).attr('value')==bookInfo[0]){
-		        				//$(this).scrollIntoView();
-		        				$(this).parent().attr("tabindex",-1);
-		        				//$(this).parent().attr("style" , "border : 2px solid red");
-		        				$(this).parent().focus().css("outline-color","red");
-					}
-		        });
+	        	 if($(this).hasClass('selected')){
+	        		 tableClickIdx = bookInfo[0];
+	        	 }else{
+	        		 tableClickIdx = -1;
+	        	 }
 	       });
+	   		
+	        $("#deleteBtn").click(function(){
+	        	if(tableClickIdx == -1){
+	        		alert("삭제 하실 도서를 선택 해주세요.");
+	        	}else{
+	        		$.ajax({
+	        			type: "GET",
+		        	  	url: "deleteBook/"+tableClickIdx,
+		        	  	success: function(idx){
+		        	  		alert("선택 도서가 삭제 되었습니다.");
+		        	  	}
+	        		})
+	        	}
+	        });
+	        
+	        
+	   		
 	   		
 	   	
 	   		/*

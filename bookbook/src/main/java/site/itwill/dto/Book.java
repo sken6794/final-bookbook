@@ -17,6 +17,10 @@ public class Book {
 	private String boutdate;
 	private String bindate;
 	
+	private String bostartDate;
+	private String boendDate;
+	
+	
 	//입력파일을 저장하기 위한 필드
 	private MultipartFile file;
 	
@@ -27,6 +31,30 @@ public class Book {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public String getBostartDate() {
+		return bostartDate;
+	}
+
+
+
+	public void setBostartDate(String bostartDate) {
+		this.bostartDate = bostartDate;
+	}
+
+
+
+	public String getBoendDate() {
+		return boendDate;
+	}
+
+
+
+	public void setBoendDate(String boendDate) {
+		this.boendDate = boendDate;
+	}
+
+
+
 	public BookStock getBookstock() {
 		return bookstock;
 	}

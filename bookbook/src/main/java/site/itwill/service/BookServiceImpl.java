@@ -44,4 +44,9 @@ public class BookServiceImpl implements BookService{
 	public List<Book> selectDynamicBookList(Book book) {
 		return bookDAO.selectDynamicBookList(book);
 	}
+
+	@Override
+	public int deleteBook(int num) {
+		return bookDAO.deleteBook(num);
+	}
 }
