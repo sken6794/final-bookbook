@@ -2,6 +2,7 @@ package site.itwill.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.Order;
+import site.itwill.dto.PayManage;
 import site.itwill.service.OrderService;
 @Controller
 public class OrderController {
@@ -23,6 +26,13 @@ public class OrderController {
 		model.addAttribute("orderList", orderService.getOrderList());
 		return "order/order";
 	}
+	
+	@RequestMapping("/order_list")
+	@ResponseBody
+	public List<Order> restOrderJSONList() {
+		return orderService.getOrderList();
+	}
+	
 	
 	@RequestMapping(value="/add_order", method = RequestMethod.GET)
 	public String addOrder() {

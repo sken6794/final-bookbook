@@ -88,10 +88,6 @@ table { text-align: center;}
 	                        </div>
                       </form>
                       <hr>
-					<p class="text-right m-b-0" style="margin-right: 5px;">
-						<a href="javascript:;" class="btn btn-sm btn-white">삭제</a>
-						<a href="#modal-dialog" class="btn btn-sm btn-success" data-toggle="modal">수정</a>
-					</p>	
 					<br>
 					<!-- 주문내역 수정 팝업 -->
 					<div class="modal fade" id="modal-dialog">
@@ -144,29 +140,16 @@ table { text-align: center;}
 									<th><input type="checkbox"></th>
 									<th>주문번호</th>
 									<th>회원 ID</th>
-									<th>도서명</th>
+									<th width="150">도서명</th>
 									<th>출판사</th>
 									<th>주문수량</th>
 									<th>주문금액</th>
 									<th>주문일자</th>
-									<th>관리</th>
+									<th width="100">관리</th>
 								</tr>
 							</thead>
-							<tbody>
-<%-- 								<c:forEach var="order" items="${orderList }">
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>${order.ono }</td>
-									<td>${order.oid }</td>
-									<td>${order.book.bname }</td>
-									<td>${order.book.bpublisher }</td>
-									<td>${order.oqty }</td>
-									<td>${order.oprice}</td>
-									<td>${order.odate.substring(0,10) }</td>
-									<td><button onclick="deleteOrder(${order.ono});" class="btn btn-sm btn-white">삭제</button></td>
-									
-								</tr>
-								</c:forEach> --%>
+							<tbody id="orderTablePlace">
+
 							</tbody>
 						</table>
 						</div>
@@ -246,13 +229,58 @@ table { text-align: center;}
 			App.init();
 		});
 
-
-	 /* 주문조회 */ 
+	 /* 주문조회 테이블 관련 */ 
 
 		$(document).ready(function() {
 			App.init();
 			TableManageTableSelect.init();
 		});
+	 
+		/* 주문 조회 리스트*/
+		function displayOrder() {
+			$.ajax({
+				type: "GET",
+				url: "order_list",
+				dataType: "json",
+				success: function(json) {
+					if(json.length==0) {
+						var html="<tr><td class='center' colspan='9'>등록된 주문내역이 존재하지 않습니다.</td></tr>";
+						$("#orderTablePlace").html(html);
+						return;
+					}
+					
+					var html="";
+					$(json).each(function() {				
+						
+						html+="<tr>";
+						html+="<td><input type='checkbox'></td>";
+						html+="<td>"+this.ono+"</td>";
+						html+="<td>"+this.oid+"</td>";
+						html+="<td>"+this.book.bname+"</td>";
+						html+="<td>"+this.book.bpublisher+"</td>";
+						html+="<td>"+this.oqty+"</td>";
+						html+="<td>"+this.oprice+"</td>";
+						html+="<td>"+this.odate.substring(0,10)+"</td>";
+						html+="<td><button onclick='deleteOrder("+this.ono+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button href='#modal-dialog1' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
+						html+="</tr>";
+					
+						
+					});
+				
+					
+					$("#data-table").dataTable().fnDestroy();
+					$("#orderTablePlace").html(html);
+					$("#data-table").dataTable(); 
+					
+				},
+				error: function(xhr) {
+					alert("에러코드 = "+xhr.status);
+				}
+			});
+		}
+		displayOrder();
+	 
 	 
 	 /* 주문 삭제*/
 		function deleteOrder(ono) {

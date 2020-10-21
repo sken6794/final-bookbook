@@ -28,4 +28,16 @@ public class PayManageDAOImpl implements PayManageDAO{
 		return sqlSession.getMapper(PayManageMapper.class).deletePay(pmno);
 	}
 
+	@Override
+	public int updatePay(PayManage pay) {
+		return sqlSession.getMapper(PayManageMapper.class).updatePay(pay);
+
+	}
+
+	@Override
+	public PayManage selectRestPay(int pmno) {
+		return sqlSession.getMapper(PayManageMapper.class).selectRestPay(pmno);
+
+	}
+
 }

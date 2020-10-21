@@ -74,10 +74,7 @@
                  <h4 class="panel-title">사원 조회</h4>
               </div>
               <div class="panel-body">
-              <form class="form-horizontal" method="post" name="insertMember">
-              	<input type="hidden" name="mno">
-				<input type="hidden" name="mquitdate">
-				<input type="hidden" name="mquitreason">
+              <form class="form-horizontal"> <!-- 조회 폼 -->
 			 	<div class="row">
 			 		<div class="col-md-1"></div>
                     <div class="col-md-3">
@@ -119,20 +116,18 @@
                      </div>
                      <div class="col-md-1"></div>
 	            	</div>
-                    <!-- </div> -->
                     <br>
-		                <div style="text-align: center;">
-		                <a href="javascript:;" class="btn btn-sm btn-white">조회</a>
-						
-		                </div>			
-                   </form>
+	                <div style="text-align: center;">
+	                <a href="javascript:;" class="btn btn-sm btn-white">조회</a>
+	                </div>			
+               </form>
 						<hr>
 						<p class="text-right m-b-0">
-							<a href="#modal-dialog2" class="btn btn-sm btn-success" data-toggle="modal">추가</a>
+						<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>
 						</p>
 						<br>
 						<!-- 수정 버튼 클릭 시 입력폼 팝업 -->
-						<div class="modal fade" id="modal-dialog1">
+						<div class="modal fade" id="modal-update">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -152,18 +147,6 @@
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
-											<label class="control-label col-md-4 col-sm-4" for="email">Email :</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" id="email" name="email" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" />
-											</div>
-										</div>
-										<div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">주소 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="주소" />
-		                                    </div>
-		                                </div>
-		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">생년월일 :</label>
 		                                    <div class="col-md-6 col-sm-6">
 		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" value="01/01/2020" />
@@ -175,6 +158,46 @@
 												<input class="form-control" type="text" id="data-phone" data-parsley-type="number" placeholder="(XXX) XXXX XXX" />
 											</div>
 										</div>
+		                                <div class="form-group">
+											<label class="control-label col-md-4 col-sm-4" for="email">Email :</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="text" id="email" name="email" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" />
+											</div>
+										</div>										
+										<div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">주소 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" placeholder="주소" />
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">퇴사날짜 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">퇴사이유 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" placeholder="퇴사이유" />
+		                                    </div>
+		                                </div>	
+		                                <div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">사원상태 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <select class="form-control">
+		                                            <option>1</option>
+		                                            <option>2</option>
+		                                            <option>3</option>
+		                                        </select>
+		                                    </div>
+		                                </div>	
+		                                <div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">연차일수 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" />
+		                                    </div>
+		                                </div>			                                	                                	                                
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
 		                                    <div class="col-md-6 col-sm-6">
@@ -199,35 +222,8 @@
 		                                            <option>이사</option>
 		                                        </select>
 		                                    </div>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">퇴사날짜 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
-		                                    </div>
-		                                </div>
-		                                <div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">퇴사이유 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="퇴사이유" />
-		                                    </div>
-		                                </div>		                                
-		                                <div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">연차일수 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" />
-		                                    </div>
-		                                </div>		                                
-		                                <div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">사원상태 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
-		                                            <option>1</option>
-		                                            <option>2</option>
-		                                            <option>3</option>
-		                                        </select>
-		                                    </div>
-		                                </div>		                                
+		                                </div>		                                	                                
+		                                
 									</div>
 									<div class="modal-footer">
 										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
@@ -238,7 +234,7 @@
 							</div>
 						</div>						
 						<!-- 추가 버튼 클릭 시 입력폼 팝업 -->
-						<div class="modal fade" id="modal-dialog2">
+						<div class="modal fade" id="modal-insert">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -250,52 +246,60 @@
 								<!-- 사원등록 form -->
 									<form class="form-horizontal" method="post">
 									<div class="modal-body">
+<!-- 									<input type="hidden" name="mno" id="i_mno">
+										<input type="hidden" name="mquitdate" id="i_mquitdate">
+										<input type="hidden" name="mquitreason" id="i_mquitreason">
+										<input type="hidden" name="mstate" id="i_mstate">
+										<input type="hidden" name="mdayoff" id="i_mdayoff"> -->
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">이름 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="이름" id="update" name="mname"/>
+		                                        <input type="text" class="form-control" placeholder="이름"  name="mname" id="i_mname"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">비밀번호 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="password" class="form-control" placeholder="비밀번호" id="update" name="mpw"/>
+		                                        <input type="password" class="form-control" placeholder="비밀번호"  name="mpw" id="i_mpw"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">생년월일 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" name="mbrith" />
+		                                        <input type="text" class="form-control" id="i_mbirth" placeholder="ex. 940628" name="mbirth" />
+<!-- 		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" name="mbirth" /> -->
 		                                    </div>
 		                                </div>                             
 										<div class="form-group">
 											<label class="control-label col-md-4 col-sm-4" for="message">전화번호 :</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" id="insert" data-parsley-type="number" placeholder="(XXX) XXXX XXX"  name="mphone"/>
+												<input class="form-control" type="text"  data-parsley-type="number" placeholder="(-)을 포함하여 적어주세요. ex)010-0000-0000"  name="mphone" id="i_mphone"/>
 											</div>
 										</div>
 		                                <div class="form-group">
 											<label class="control-label col-md-4 col-sm-4" for="email">Email :</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" id="update" name="memail" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" />
+												<input class="form-control" type="text" name="memail" data-parsley-type="email" placeholder="email@example.com" id="i_memail" />
+												<!-- <input class="form-control" type="text" name="memail" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" /> -->
 											</div>
 										</div>
 										<div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">주소 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="주소" name="maddress"/>
+		                                        <input type="text" class="form-control" placeholder="주소" name="maddress" id="i_maddress"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">입사날짜 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="mdate" />
+		                                        <input type="text" class="form-control" id="i_mjoindate" placeholder="2020/01/01" name="mjoindate" />
+<!-- 		                                    <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="mdate" id="i_mdate"/> -->
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control" name="dno">
+		                                        <select class="form-control" name="dno" id="i_dno">
 		                                            <option value="10">도서 1팀</option>
 		                                            <option value="20">도서 2팀</option>
 		                                            <option value="30">영업팀</option>
@@ -306,7 +310,7 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">직급 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control" name="pno">
+		                                        <select class="form-control" name="pno" id="i_pno">
 		                                            <option value="1">사원</option>
 		                                            <option value="2">주임</option>
 		                                            <option value="3">대리</option>
@@ -320,7 +324,7 @@
 									</div>
 									<div class="modal-footer">
 										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-										<button type="button" id="insertMember" class="btn btn-sm btn-success" onclick="insertMember();">등록</button>
+										<button type="button" class="btn btn-sm btn-success" onclick="insertMember();">등록</button>
 									</div>
 		                            </form>
 								</div>
@@ -419,31 +423,14 @@
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
 	<script>
-		$(document).ready(function() {
-			App.init();
-			TableManageTableSelect.init();
-		});
-
-
+	$(document).ready(function() {
+		App.init();
+		TableManageColReorder.init();
+		FormPlugins.init();
+	});
 	
-		$(document).ready(function() {
-			App.init();
-		});
-
-	 /* 생년월일, 입사날짜 */ 
-
-		$(document).ready(function() {
-			App.init();
-			FormPlugins.init();
-		});
-	 
-	/* 사원조회 테이블 */
-		$(document).ready(function() {
-			App.init();
-			TableManageColReorder.init();
-		});
-		 
-	/* 사원 조회 리스트*/
+		
+	/* 사원 리스트*/
 		function displayMember() {
 			$.ajax({
 				type: "GET",
@@ -466,15 +453,14 @@
 						html+="<td>"+this.department.dname+"</td>";
 						html+="<td>"+this.position.pname+"</td>";
 						html+="<td>"+this.mbirth+"</td>";
-						html+="<td>"+this.mjoindate.substring(0,10)+"</td>";
+						html+="<td>"+this.mjoindate+"</td>";
 						html+="<td>"+this.memail+"</td>";
 						html+="<td>"+this.mphone+"</td>";
 						html+="<td><button onclick='deleteMember("+this.mno+");' class='btn btn-sm btn-white'>삭제</button> "
-						+" <button href='#modal-dialog1' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
-						html+="</tr>";
-					
+						+" <button href='#modal-update' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
+						html+="</tr>";				
 						
-					});
+						});
 				
 					
 					$("#data-table").dataTable().fnDestroy();
@@ -487,8 +473,9 @@
 				}
 			});
 		}
+		
 		displayMember();
-	
+		
 	/* 사원 삭제 */
 	
 		function deleteMember(mno) {
@@ -497,22 +484,22 @@
 			}
 		}
 		
-/*  사원 추가
+	/* 사원 추가 */
 		
-		function insertMember() {
-			var mno=$("#mno").val();
-			var mname=$("#mname").val();
-			var mpw=$("#mpw").val();
-			var mbirth=$("#mbirth").val();
-			var mphone=$("#mphone").val();
-			var memail=$("#memail").val();
-			var maddress=$("#maddress").val();
-			var mjoindate=$("#mjoindate").val();
-			var mquitdate=$("#mquitdate").val();
-			var mquitreason=$("#mquitreason").val();
-			var mstate=$("#mstate").val();
-			var dno=$("#dno").val();
-			var pno=$("#pno").val();
+ 		function insertMember() {
+			var mno=$("#i_mno").val();
+			var mname=$("#i_mname").val();
+			var mpw=$("#i_mpw").val();
+			var mbirth=$("#i_mbirth").val();
+			var mphone=$("#i_mphone").val();
+			var memail=$("#i_memail").val();
+			var maddress=$("#i_maddress").val();
+			var mjoindate=$("#i_mjoindate").val();
+			var mquitdate=$("#i_mquitdate").val();
+			var mquitreason=$("#i_mquitreason").val();
+			var mstate=$("#i_mstate").val();
+			var dno=$("#i_dno").val();
+			var pno=$("#i_pno").val();
 			
 			$.ajax({
 				type: "POST",
@@ -535,11 +522,11 @@
 				}),
 				
 				dataType: "text",
-				success: function(text) {
-					location.reload();
+				success: function(text) {	
+					location.reload();	
 				}
 			});
-	} */
+		}  
 		
 		
 	

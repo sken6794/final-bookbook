@@ -28,4 +28,15 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.insertMember(member);
 	}
 
+	@Override
+	public void modifyMember(Member member) {
+		memberDAO.updateMember(member);
+	}
+	
+	@Override
+	public Member getRestMember(int mno) {
+		return memberDAO.selectRestMember(mno);
+	}
+
+
 }

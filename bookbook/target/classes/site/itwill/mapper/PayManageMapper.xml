@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.itwill.mapper.PayManageMapper">
+	<insert id="insertPay">
+		INSERT INTO PAYMANAGE(pmno, pdate, pbasic, pmeal, povertime, pholiday, pbonus, petc, mno, dno, pno) 
+		VALUES(seq_paymanage.nextval, #{pdate}, #{pbasic}, #{pmeal}, #{povertime}, #{pholiday}, #{pbonus}, #{petc}, 
+		#{mno}, #{dno}, #{pno})
+	</insert>
 	
 	<!-- 급여조회 -->
 	<resultMap type="Member" id="member">
@@ -33,4 +38,17 @@
 		JOIN POSITION PO ON PO.PNO = P.PNO ORDER BY P.PDATE DESC, M.MNO ASC
 	</select>
 	
+	<select id="selectRestPay" resultType="PayManage">
+		select PDATE, PBASIC, PMEAL, POVERTIME, PHOLIDAY, PBONUS, PETC, MNO, DNO, PNO from PAYMANAGE where pmno=#{pmno}
+	</select>
+	
+	<update id="updatePay">
+		UPDATE PAYMANAGE SET PDATE=#{pdate}, PBASIC=#{pbasic}, PMEAL=#{pmeal}, POVERTIME=#{povertime}, PHOLIDAY=#{pholiday},
+		PBONUS=#{pbonus}, PETC=#{petc}, MNO=#{mno}, DNO=#{dno}, PNO=#{pno} 
+		where pmno=#{pmno}
+	</update>
+	
+	<delete id="deletePay">
+	
+	</delete>
 </mapper>

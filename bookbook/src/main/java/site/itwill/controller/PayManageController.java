@@ -1,24 +1,19 @@
 package site.itwill.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.Member;
-import site.itwill.dto.Order;
 import site.itwill.dto.PayManage;
-import site.itwill.dto.Request;
 import site.itwill.service.PayManageService;
 
 @Controller
@@ -53,14 +48,35 @@ public class PayManageController {
 	 * return "redirect:/add_pay";
 	 * 
 	 * }
-	 */
+	 */	
 	
-	
+	//삭제
 	@RequestMapping(value = "/pay_delete/{pmno}")
 	public String payDelete(@PathVariable int pmno) {
 		payManageService.removePay(pmno);
 		return "redirect:/payManage";
 	}
 	
-
+	@RequestMapping(value = "/pay_insert", method = RequestMethod.POST)
+	@ResponseBody
+	public String payInsert(@RequestBody PayManage pay) {
+		payManageService.addPay(pay);
+		return "success";
+	}
+	
+	//급여번호 받기
+	@RequestMapping(value = "/pay_view/{pmno}", method = RequestMethod.GET)
+	@ResponseBody
+	public PayManage restBoardView(@PathVariable int pmno) {
+		return payManageService.getRestPay(pmno);
+	}
+	
+	//변경
+	@RequestMapping(value = "/pay_modify", method = {RequestMethod.PUT, RequestMethod.PATCH})
+	@ResponseBody
+	public String restPayModify(@RequestBody PayManage pay) {
+		payManageService.modifyRestPay(pay);
+		return "success";
+	}
+	
 }

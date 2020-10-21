@@ -11,6 +11,7 @@
 #modal-dialog th, td {
 	text-align: center;
 }
+table { text-align: center;}
 </style>
 
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
@@ -26,8 +27,8 @@
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 	<!-- 급여조회 테이블 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />    
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 
 </head>
@@ -103,15 +104,14 @@
                     <br>
 		                <div style="text-align: center;">
 		                <a href="javascript:;" class="btn btn-sm btn-white">조회</a>
-						<a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal">수정</a>
 		                </div>			
                    </form>
                 <hr>   		
 					<p class="text-right m-b-0" style="margin-right: 13px;">
+						<span style="display: none;"><a id="aTag" href="#modal-dialog2" class="btn btn-sm btn-success" data-toggle="modal">급여명세서</a></span>
 						<a href="#modal-dialog1" class="btn btn-sm btn-white" data-toggle="modal">추가</a>
-						<a href="javascript:;" class="btn btn-sm btn-white">삭제</a>
-						<a href="#modal-dialog2" class="btn btn-sm btn-success" data-toggle="modal">급여명세서</a>
 					</p>
+					<p class="text-left">* 원하는 사원 클릭 시 급여명세서 출력</p>
 					<br>
 					<!-- 추가 클릭 시 급여데이터 추가팝업창 -->
 					<div class="modal fade" id="modal-dialog1">
@@ -121,100 +121,95 @@
 										<br>
 										<br>
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h4 class="modal-title" style="text-align: center; font-weight: bold;">급여내역 데이터 등록</h4>
+										<h4 class="modal-title" style="text-align: center; font-weight: bold;">급여내역 등록</h4>
 									</div>
 									<!-- 급여 내역 추가 form -->
 									<div class="modal-body">
-										<form class="form-horizontal">
+										<form class="form-horizontal" method="post">
+											<!-- <input type="hidden" name="pmno" id="i_pmno"> -->
+											<div class="form-group">
+			                                    <label class="control-label col-md-4 col-sm-4">지급일자 :</label>
+			                                    <div class="col-md-6 col-sm-6">
+			                                        <input type="text" class="form-control" id="i_pdate" placeholder="20/01/01" name="pdate" />
+			                                    </div>
+		                                	</div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">기본급여 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="기본급여"  name="pbasic" id="i_pbasic"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">식대 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="식대" name="pmeal" id="i_pmeal"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">야근수당 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="야근수당" name="povertime" id="i_povertime"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">휴일수당 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="휴일근무수당" name="pholiday" id="i_pholiday"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">성과급 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="성과급" name="pbonus" id="i_pbonus"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">기타수당:</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="기타수당" name="petc" id="i_petc"/>
+				                                    </div>
+				                            </div>		                                	
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">사원번호 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <input type="text" class="form-control" placeholder="사원번호" style="float: left;">
-			                                    </div>
-			                                </div>
-			                                <div class="form-group">
-			                                    <label class="control-label col-md-4 col-sm-4">이름 :</label>
-			                                    <div class="col-md-6 col-sm-6">
-			                                        <input type="text" class="form-control" placeholder="이름" style="float: left;">
+			                                        <input type="text" class="form-control" placeholder="사원번호" style="float: left;" name="mno" id="i_mno"/>
 			                                    </div>
 			                                </div>
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control">
-			                                            <option>도서 1팀</option>
-			                                            <option>도서 2팀</option>
-			                                            <option>영업팀</option>
-			                                            <option>회계팀</option>
+			                                        <select class="form-control" name="dno" id="i_dno">
+			                                            <option value="10">도서 1팀</option>
+			                                            <option value="20">도서 2팀</option>
+			                                            <option value="30">영업팀</option>
+			                                            <option value="40">회계팀</option>
 			                                        </select>
 			                                    </div>
 			                                </div>
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">직급 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control">
-			                                            <option>사원</option>
-			                                            <option>주임</option>
-			                                            <option>대리</option>
-			                                            <option>과장</option>
-			                                            <option>차장</option>
-			                                            <option>부장</option>
-			                                            <option>이사</option>
+			                                        <select class="form-control" name="pno" id="i_pno">
+			                                            <option value="1">사원</option>
+			                                            <option value="2">주임</option>
+			                                            <option value="3">대리</option>
+			                                            <option value="4">과장</option>
+			                                            <option value="5">차장</option>
+			                                            <option value="6">부장</option>
+			                                            <option value="7">이사</option>
 			                                        </select>
 			                                    </div>
 			                                </div>
-		                                <div class="form-group">
-		                                    <label class="control-label col-md-4 col-sm-4">지급일자 :</label>
-		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
-		                                    </div>
-		                                </div>                                
-				                            <div class="form-group">
-				                                    <label class="control-label col-md-4 col-sm-4">기본급여 :</label>
-				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="기본급여" />
-				                                    </div>
-				                            </div>
-				                            <div class="form-group">
-				                                    <label class="control-label col-md-4 col-sm-4">식대 :</label>
-				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="식대" />
-				                                    </div>
-				                            </div>
-				                            <div class="form-group">
-				                                    <label class="control-label col-md-4 col-sm-4">야근수당 :</label>
-				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="야근수당" />
-				                                    </div>
-				                            </div>
-				                            <div class="form-group">
-				                                    <label class="control-label col-md-4 col-sm-4">휴일근무수당 :</label>
-				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="휴일근무수당" />
-				                                    </div>
-				                            </div>
-				                            <div class="form-group">
-				                                    <label class="control-label col-md-4 col-sm-4">성과급 :</label>
-				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="성과급" />
-				                                    </div>
-				                            </div>
-				                            <div class="form-group">
-				                                    <label class="control-label col-md-4 col-sm-4">기타수당:</label>
-				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="기타수당" />
-				                                    </div>
-				                            </div>
-		                            	</form>
-									</div>
-									<div class="modal-footer">
-										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-										<a href="javascript:;" class="btn btn-sm btn-primary">등록</a>
-									</div>
+											<div class="modal-footer">
+												<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
+												<button type="button" onclick="insertPay();" class="btn btn-sm btn-primary">등록</button>
+											</div>
+		                            		</form>
+										</div>
 									</div>
 								</div>
 						</div>
-	           	<!-- 급여명세서 클릭 시 팝업창 -->
+	           		<!-- ★ 급여명세서 클릭 시 팝업창 -->
 					<div class="modal fade" id="modal-dialog2">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -232,16 +227,16 @@
 	                                        	<th>지급일</th>
 	                                  		  </tr>
 	                                    	<tr>
-	                                        	<td>김딸기</td>
-	                                        	<td>20</td>
+	                                        	<td id="pay_name"></td>
+	                                        	<td id="pay_day"></td>
 	                                  		  </tr>
 	                                    	<tr>
 	                                        	<th>부서</th>
 	                                        	<th>직책</th>
 	                                  		</tr>
 	                                    	<tr>
-	                                        	<td>도서1팀</td>
-	                                        	<td>사원</td>
+	                                        	<td id="pay_department"></td>
+	                                        	<td id="pay_position"></td>
 	                                  		</tr>
 	                                  	</thead>
                                  		</table>
@@ -259,27 +254,27 @@
                                 		<tbody>
 	                                    <tr>
 	                                        <td>기본급</td>
-	                                        <td>000</td>
+	                                        <td id="pay_basic"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>식대</td>
-	                                        <td>000</td>
+	                                        <td id="pay_meal"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>야근수당</td>
-	                                        <td>000</td>
+	                                        <td id="pay_overtime"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>휴일수당</td>
-	                                        <td>000</td>
+	                                        <td id="pay_holiday"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>성과급</td>
-	                                        <td>000</td>
+	                                        <td id="pay_bonus"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>기타수당</td>
-	                                        <td>000</td>
+	                                        <td id="pay_etc"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>합산 지급액</td>
@@ -345,24 +340,120 @@
 								</div>
 							</div>
 						</div>
-					</div>						
+					</div>	
+					<!-- 수정 클릭 시 급여데이터 추가팝업창 -->
+					<div class="modal fade" id="modal-dialog3">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<br>
+										<br>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 class="modal-title" style="text-align: center; font-weight: bold;">급여내역 수정</h4>
+									</div>
+									<!-- 급여 내역 수정 form -->
+									<div class="modal-body">
+										 <form class="form-horizontal" action=""> 
+											<input type="hidden" name="pmno" id="m_pmno">
+											<div class="form-group">
+			                                    <label class="control-label col-md-4 col-sm-4">지급일자 :</label>
+			                                    <div class="col-md-6 col-sm-6">
+			                                        <input type="text" class="form-control" id="m_pdate" placeholder="20/01/01" name="pdate"/>
+			                                    </div>
+		                                	</div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">기본급여 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="기본급여"  id="m_pbasic" name="pbasic"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">식대 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="식대" id="m_pmeal" name="pmeal"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">야근수당 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="야근수당" id="m_povertime" name="povertime"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">휴일수당 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="휴일근무수당" id="m_pholiday" name="pholiday"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">성과급 :</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="성과급" id="m_pbonus" name="pbonus"/>
+				                                    </div>
+				                            </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">기타수당:</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="기타수당" id="m_petc" name="petc"/>
+				                                    </div>
+				                            </div>		                                	
+			                                <div class="form-group">
+			                                    <label class="control-label col-md-4 col-sm-4">사원번호 :</label>
+			                                    <div class="col-md-6 col-sm-6">
+			                                        <input type="text" class="form-control" placeholder="사원번호" style="float: left;" id="m_mno" name="mno" disabled="disabled"/>
+			                                    </div>
+			                                </div>
+			                                <div class="form-group">
+			                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
+			                                    <div class="col-md-6 col-sm-6">
+			                                        <select class="form-control" id="m_dno" name="dno">
+			                                            <option value="10">도서 1팀</option>
+			                                            <option value="20">도서 2팀</option>
+			                                            <option value="30">영업팀</option>
+			                                            <option value="40">회계팀</option>
+			                                        </select>
+			                                    </div>
+			                                </div>
+			                                <div class="form-group">
+			                                    <label class="control-label col-md-4 col-sm-4">직급 :</label>
+			                                    <div class="col-md-6 col-sm-6">
+			                                        <select class="form-control" id="m_pno" name="pno">
+			                                            <option value="1">사원</option>
+			                                            <option value="2">주임</option>
+			                                            <option value="3">대리</option>
+			                                            <option value="4">과장</option>
+			                                            <option value="5">차장</option>
+			                                            <option value="6">부장</option>
+			                                            <option value="7">이사</option>
+			                                        </select>
+			                                    </div>
+			                                </div>
+											<div class="modal-footer">
+												<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
+												<button type="button" onclick="modifyPay();" class="btn btn-sm btn-primary" id="">변경</button> 
+											</div>
+		                            	 </form> 
+										</div>
+									</div>
+								</div>
+						</div>										
 
-							<table id="data-table" class="table table-striped table-bordered">
+							<table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
 								<thead>
 									<tr>
 										<th>No.</th>
-										<th>사원번호</th>
+										<th>사번</th>
 										<th>이름</th>
-										<th width="70">부서</th>
+										<th width="50">부서</th>
 										<th>직급</th>
-										<th>지급일자</th>
+										<th width="70">지급일자</th>
 										<th>기본급여</th>
 										<th>식대</th>
 										<th>야근수당</th>
 										<th>휴일수당</th>
 										<th>성과급</th>
 										<th>기타수당</th>
-										<th width="95">관리</th>
+										<th width="91">관리</th>
 									</tr>
 								</thead>
 								<tbody id="payTablePlace">
@@ -373,9 +464,7 @@
 					</div>
 				</div>
 			</div>
- 	<!-- ================== BEGIN BASE JS ================== -->
-	<!-- ================== END BASE JS ================== -->
-	
+
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 
 	<!-- 추가 버튼 -->
@@ -420,38 +509,26 @@
 	<!-- 급여조회 테이블 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/js/dataTables.select.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-colreorder.demo.min.js"></script> <!-- 검색창이랑 페이지 숫자 담당 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-select.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>	
 	
 	<script>
-		$(document).ready(function() {
-			App.init();
-		});
+		
 	
 	 /* 생년월일, 입사날짜, 전화번호 */ 
 	
 		$(document).ready(function() {
 			App.init();
+			TableManageTableSelect.init();
 			FormPlugins.init();
+			
 		});
 	
-	 /* 파일업로드  */
 	
-		$(document).ready(function() {
-			App.init();
-			FormMultipleUpload.init();
-		});
-	
-	/*  급여조회 */ 
-	
-		$(document).ready(function() {
-			App.init();
-			TableManageColReorder.init();
-		});
 		
-		/* 급여 조회 리스트*/
+	/* 급여 조회 리스트 */
 		function displayPay() {
 			$.ajax({
 				type: "GET",
@@ -466,14 +543,13 @@
 					
 					var html="";
 					$(json).each(function() {				
-						
 						html+="<tr>";
 						html+="<td>"+this.pmno+"</td>";
 						html+="<td>"+this.member.mno+"</td>";
 						html+="<td>"+this.member.mname+"</td>";
 						html+="<td>"+this.department.dname+"</td>";
 						html+="<td>"+this.position.pname+"</td>";
-						html+="<td>"+this.pdate.substring(0,10)+"</td>";
+						html+="<td>"+this.pdate+"</td>";
 						html+="<td>"+this.pbasic+"</td>";
 						html+="<td>"+this.pmeal+"</td>";
 						html+="<td>"+this.povertime+"</td>";
@@ -481,7 +557,7 @@
 						html+="<td>"+this.pbonus+"</td>";
 						html+="<td>"+this.petc+"</td>";
 						html+="<td><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
-						+" <button href='#modal-dialog1' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
+						+" <button href='#modal-dialog3' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.pmno+">수정</button></td>";
 						html+="</tr>";
 						
 					});			
@@ -498,7 +574,7 @@
 		}
 		displayPay();
 	
-		/* 급여 삭제 */
+	/* 급여 삭제 */
 		
 		function deletePay(pmno) {
 			if(confirm("급여내역을 삭제하시겠습니까?")) {
@@ -506,8 +582,143 @@
 			}
 		}	
 		
+ 	
+	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
+	
+	$(document).on("click", "#modify_link", function() {
+			var pmno=$(this).data("id");
+			$("#m_pmno").val(pmno); 
+			
+			$.ajax({
+				type: "GET",
+				url: "pay_view/"+pmno,
+				dataType: "json",
+				success: function(json) {
+					$("#m_pdate").val(json.pdate);
+					$("#m_pbasic").val(json.pbasic);
+					$("#m_pmeal").val(json.pmeal);
+					$("#m_povertime").val(json.povertime);
+					$("#m_pholiday").val(json.pholiday);
+					$("#m_pbonus").val(json.pbonus);
+					$("#m_petc").val(json.petc);
+					$("#m_mno").val(json.mno);
+					$("#m_dno").val(json.dno);
+					$("#m_pno").val(json.pno);				
+				},
+				error: function(xhr) {
+					alert("에러코드 = "+xhr.status);
+				}
+			});
+		});
+	
+ 	/* 급여 수정 내용 입력 후 변경버튼 클릭시 */
+	
+	function modifyPay() {
+		var pmno=$("#m_pmno").val();
+		var pdate=$("#m_pdate").val();
+		var pbasic=$("#m_pbasic").val();
+		var pmeal=$("#m_pmeal").val();
+		var povertime=$("#m_povertime").val();
+		var pholiday=$("#m_pholiday").val();
+		var pbonus=$("#m_pbonus").val();
+		var petc=$("#m_petc").val();
+		var mno=$("#m_mno").val();
+		var dno=$("#m_dno").val();
+		var pno=$("#m_pno").val();
 		
+		$.ajax({
+			type: "PUT",
+			url: "pay_modify",
+			headers: {"content-type":"application/json", "X-HTTP-Method-override":"PUT"},
+			data: JSON.stringify({ 
+				"pmno":pmno,
+				"pdate":pdate, 
+				"pbasic":pbasic,
+				"pmeal":pmeal,
+				"povertime":povertime,
+				"pholiday":pholiday,
+				"pbonus":pbonus,
+				"petc":petc,
+				"mno":mno,
+				"dno":dno,
+				"pno":pno			
+			}),
+			dataType: "text",
+			success: function(text) {
+				if(text=="success") {					
+					location.reload();
+				}
+			},
+			error: function(xhr) {
+				alert("에러 발생 코드 "+xhr.status);				
+			}
+		});	
+ 	}
+	
+ 	
+ 	/* 급여 추가 */
+ 	
+ 	function insertPay() {
+ 		var pmno=$("#i_pmno").val();
+		var pdate=$("#i_pdate").val();
+		var pbasic=$("#i_pbasic").val();
+		var pmeal=$("#i_pmeal").val();
+		var povertime=$("#i_povertime").val();
+		var pholiday=$("#i_pholiday").val();
+		var pbonus=$("#i_pbonus").val();
+		var petc=$("#i_petc").val();
+		var mno=$("#i_mno").val();
+		var dno=$("#i_dno").val();
+		var pno=$("#i_pno").val();
 		
+		$.ajax({
+			type: "POST",
+			url: "pay_insert",
+			headers: {"content-type":"application/json"},
+			data: JSON.stringify({
+				"pmno":pmno,
+				"pdate":pdate,
+				"pbasic":pbasic,
+				"pmeal":pmeal,
+				"povertime":povertime,
+				"pholiday":pholiday,
+				"pbonus":pbonus,
+				"petc":petc,
+				"mno":mno,
+				"dno":dno,
+				"pno":pno
+			}),
+			
+			dataType: "text",
+			success: function(text) {
+				if(text=="success") {
+				location.reload();	
+				}
+			}
+		});
+ 	}
+  
+ 	/* 테이블 클릭 시 해당 사원의 급여명세서 modal 출력 */ 
+ 	
+    $('#data-table tbody').on( 'click', 'tr', function () {
+         $('#aTag').get(0).click();
+        var memInfo = $('#data-table').DataTable().row(this).data();
+            
+        $("#pay_name").text(memInfo[2]);
+        $("#pay_department").text(memInfo[3]);
+        $("#pay_position").text(memInfo[4]);
+        $("#pay_day").text(memInfo[5]);
+        $("#pay_basic").text(memInfo[6]);
+        $("#pay_meal").text(memInfo[7]);
+        $("#pay_overtime").text(memInfo[8]);
+        $("#pay_holiday").text(memInfo[9]);
+        $("#pay_bonus").text(memInfo[10]);
+        $("#pay_etc").text(memInfo[11]);
+        
+
+   });
+ 
+ 	 
 	</script>	
 	
 	

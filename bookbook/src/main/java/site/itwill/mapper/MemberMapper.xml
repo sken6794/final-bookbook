@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.itwill.mapper.MemberMapper">
 	<insert id="insertMember">
-		<selectKey resultType="int" keyProperty="MNO" order="BEFORE">
+<!-- 		<selectKey resultType="int" keyProperty="MNO" order="BEFORE">
 			select seq_member.nextval from dual
-		</selectKey>
-		insert into member values(
-		#{MNO}, #{MNAME}, #{MPW}, #{MBIRTH}, #{MPHONE}, #{MEMAIL}, #{MADDRESS}, 
-		#{MJOINDATE}, NULL, NULL, 1, 11, #{DNO}, #{PNO})
+		</selectKey> -->
+		insert into member(MNO, MNAME, MPW, MBIRTH, MPHONE, MEMAIL, MADDRESS, MJOINDATE, MQUITDATE, MQUITREASON, MSTATE, MDAYOFF, DNO, PNO ) 
+		values(seq_member.nextval, #{mname}, #{mpw}, #{mbirth}, #{mphone}, #{memail}, #{maddress}, #{mjoindate}, 
+			NULL, NULL, 1, 11, #{dno}, #{pno})
 	</insert>
 	
 	<resultMap type="Department" id="department">
@@ -38,13 +38,20 @@
 		where M.MNO=#{MNO} or D.DNAME=#{DNAME} or P.PNAME=#{PNAME}
 	</select>
 	
+	<select id="selectRestMember">
+		select mname, mbirth, mphone, memail, maddress, mquitdate, mquitreason, mstate, mdayoff, dno, mno 
+		from member where mno=#{mno}
+	</select>
+	
 	<update id="updateMember">
-		update MEMBER set MNAME=#{MNAME}, MPW=#{MPW}, MBIRTH=#{MBIRTH}, MPHONE=#{MPHONE}, MPHONE=#{MPHONE}
-			, MADDRESS=#{MADDRESS}, MJOINDATE=#{MJOINDATE}, MQUITDATE=#{MQUITDATE}, MQUITREASON=#{MQUITREASON}
-			, MSTATE=#{MSTATE}, MDAYOFF=#{MDAYOFF}, DNO=#{DNO}, PNO=#{PNO} where MNO=#{MNO} 
+		update MEMBER set MNAME=#{MNAME}, MPW=#{MPW}, MBIRTH=#{MBIRTH}, MPHONE=#{MPHONE}, MADDRESS=#{MADDRESS}
+		, MJOINDATE=#{MJOINDATE}, MQUITDATE=#{MQUITDATE}, MQUITREASON=#{MQUITREASON}
+		, MSTATE=#{MSTATE}, MDAYOFF=#{MDAYOFF}, DNO=#{DNO}, PNO=#{PNO} where MNO=#{MNO} 
 	</update>
 	
 	<delete id="deleteMember">
 		delete from MEMBER where MNO=#{MNO}
 	</delete>
+	
+	
 </mapper>
