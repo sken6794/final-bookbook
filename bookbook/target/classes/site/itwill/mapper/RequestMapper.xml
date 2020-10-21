@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.itwill.mapper.RequestMapper">
+	<insert id="insertRequest">
+		insert into request(rno, rdate, rstaff, rqty, rprice, rstate, bcode) 
+		values(seq_request.nextval, sysdate, #{rstaff}, #{rqty}, null, 1, #{bcode})
+	</insert>
 
 	<resultMap type="Book" id="book">
 		<result column="bcode" property="bcode"/>
@@ -12,12 +16,23 @@
 		<result column="rno" property="rno"/>
 		<result column="rdate" property="rdate"/>
 		<result column="rstaff" property="rstaff"/>
+		<result column="rqty" property="rqty"/>
 		<result column="R.RPRICE" property="rprice"/>
 		<result column="rstate" property="rstate"/>
 		<collection property="book" resultMap="book"/>
 	</resultMap>
 	<select id="selectRequestList" resultMap="requestList" >
+		SELECT R.RNO, B.BCODE, B.BNAME, B.BPUBLISHER, R.RDATE, R.RSTAFF, R.RQTY, R.RQTY*B.BPRICE "R.RPRICE", R.RSTATE 
+		FROM REQUEST R JOIN BOOK B ON B.BCODE = R.BCODE ORDER BY R.RDATE DESC
+	</select>
+	
+	<select id="selectRequest" resultType="Request">
 		SELECT R.RNO, B.BCODE, B.BNAME, B.BPUBLISHER, R.RDATE, R.RSTAFF, R.RQTY, R.RQTY*B.BPRICE "R.RPICE", R.RSTATE 
 		FROM REQUEST R JOIN BOOK B ON B.BCODE = R.BCODE
+		WHERE B.BCODE=#{BCODE} OR R.RSTAFF=#{RSTAFF} OR R.RSTATE=#{RSTATE} OR R.RDATE=#{RDATE} OR B.BPUBLISHER=#{BPUBLISHER}
 	</select>
+	
+	<delete id="deleteRequest">
+		DELETE FROM REQUEST WHERE RNO=#{RNO}
+	</delete>
 </mapper>

@@ -23,4 +23,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.getMapper(OrderMapper.class).selectOrderList();
 	}
 
+	@Override
+	public int deleteOrder(int ono) {
+		return sqlSession.getMapper(OrderMapper.class).deleteOrder(ono);
+
+	}
+
 }

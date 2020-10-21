@@ -13,15 +13,7 @@ table { text-align: center;}
 		<meta content="" name="description" />
 		<meta content="" name="author" />
 		<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	
+
 	
 	<!-- 생년월일,입사날짜 datepicker -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
@@ -34,7 +26,7 @@ table { text-align: center;}
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 	<!-- 주문조회 테이블 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
@@ -157,10 +149,11 @@ table { text-align: center;}
 									<th>주문수량</th>
 									<th>주문금액</th>
 									<th>주문일자</th>
+									<th>관리</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="order" items="${orderList }">
+<%-- 								<c:forEach var="order" items="${orderList }">
 								<tr>
 									<td><input type="checkbox"></td>
 									<td>${order.ono }</td>
@@ -170,8 +163,10 @@ table { text-align: center;}
 									<td>${order.oqty }</td>
 									<td>${order.oprice}</td>
 									<td>${order.odate.substring(0,10) }</td>
+									<td><button onclick="deleteOrder(${order.ono});" class="btn btn-sm btn-white">삭제</button></td>
+									
 								</tr>
-								</c:forEach>
+								</c:forEach> --%>
 							</tbody>
 						</table>
 						</div>
@@ -251,19 +246,20 @@ table { text-align: center;}
 			App.init();
 		});
 
-	 /* 생년월일, 입사날짜, 전화번호 */ 
-
-		$(document).ready(function() {
-			App.init();
-			FormPlugins.init();
-		});
 
 	 /* 주문조회 */ 
 
 		$(document).ready(function() {
 			App.init();
-			TableManageColReorder.init();
+			TableManageTableSelect.init();
 		});
+	 
+	 /* 주문 삭제*/
+		function deleteOrder(ono) {
+			if(confirm("정말로 삭제하시겠습니까?")) {
+				location.href="order_delete/"+ono;
+			}
+		}
 	</script>
 </body>
 </html>

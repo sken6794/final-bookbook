@@ -12,6 +12,18 @@ public class PayManageServiceImpl implements PayManageService {
 	@Autowired
 	private PayManageDAO payManageDAO;
 	
+	
+	@Override
+	public void addPay(PayManage pay) {
+		payManageDAO.insertPay(pay);
+	}
+	
+	@Override
+	public void removePay(int pmno) {
+		payManageDAO.selectPayList();
+		
+	}
+	
 	@Override
 	public List<PayManage> getPayList() {
 		return payManageDAO.selectPayList();

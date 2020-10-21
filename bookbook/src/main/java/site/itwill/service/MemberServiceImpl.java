@@ -18,4 +18,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectMemberList();
 	}
 
+	@Override
+	public void removeMember(int mno) {
+		memberDAO.deleteMember(mno);
+	}
+
+	@Override
+	public void addMember(Member member) {
+		memberDAO.insertMember(member);
+	}
+
 }

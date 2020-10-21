@@ -19,6 +19,17 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Member> selectMemberList() {
 		return sqlSession.getMapper(MemberMapper.class).selectMemberList();
 	}
+
+	@Override
+	public int deleteMember(int mno) {
+		return sqlSession.getMapper(MemberMapper.class).deleteMember(mno);
+
+	}
+
+	@Override
+	public int insertMember(Member member) {
+		return sqlSession.getMapper(MemberMapper.class).insertMember(member);
+	}
 	
 	
 

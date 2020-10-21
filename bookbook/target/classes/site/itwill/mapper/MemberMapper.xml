@@ -7,7 +7,7 @@
 		</selectKey>
 		insert into member values(
 		#{MNO}, #{MNAME}, #{MPW}, #{MBIRTH}, #{MPHONE}, #{MEMAIL}, #{MADDRESS}, 
-		#{MJOINDATE}, NULL, NULL, #{MIMAGE}, 1, 11, #{DNO}, #{PNO})
+		#{MJOINDATE}, NULL, NULL, 1, 11, #{DNO}, #{PNO})
 	</insert>
 	
 	<resultMap type="Department" id="department">
@@ -41,7 +41,7 @@
 	<update id="updateMember">
 		update MEMBER set MNAME=#{MNAME}, MPW=#{MPW}, MBIRTH=#{MBIRTH}, MPHONE=#{MPHONE}, MPHONE=#{MPHONE}
 			, MADDRESS=#{MADDRESS}, MJOINDATE=#{MJOINDATE}, MQUITDATE=#{MQUITDATE}, MQUITREASON=#{MQUITREASON}
-			, MIMAGE=#{MIMAGE}, MSTATE=#{MSTATE}, MDAYOFF=#{MDAYOFF}, DNO=#{DNO}, PNO=#{PNO} where MNO=#{MNO} 
+			, MSTATE=#{MSTATE}, MDAYOFF=#{MDAYOFF}, DNO=#{DNO}, PNO=#{PNO} where MNO=#{MNO} 
 	</update>
 	
 	<delete id="deleteMember">

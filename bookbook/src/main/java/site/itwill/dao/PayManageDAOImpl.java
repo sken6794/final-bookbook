@@ -18,4 +18,14 @@ public class PayManageDAOImpl implements PayManageDAO{
 		return sqlSession.getMapper(PayManageMapper.class).selectPayList();
 	}
 
+	@Override
+	public int insertPay(PayManage pay) {
+		return sqlSession.getMapper(PayManageMapper.class).insertPay(pay);
+	}
+
+	@Override
+	public int deletePay(int pmno) {
+		return sqlSession.getMapper(PayManageMapper.class).deletePay(pmno);
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import site.itwill.dao.OrderDAO;
 import site.itwill.dto.Order;
@@ -12,15 +13,23 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDAO orderDAO;
 	
+	@Transactional
 	@Override
 	public void addOrder(Order order) {
 		orderDAO.insertOrder(order);
+	}
+	
+	@Transactional
+	@Override
+	public void removeOrder(int ono) {
+		orderDAO.deleteOrder(ono);
 	}
 	
 	@Override
 	public List<Order> getOrderList() {
 		return orderDAO.selectOrderList();
 	}
+
 
 
 

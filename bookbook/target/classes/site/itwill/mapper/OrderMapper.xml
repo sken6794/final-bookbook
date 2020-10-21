@@ -24,4 +24,7 @@
 		FROM "ORDER" O JOIN BOOK B ON O.BCODE = B.BCODE	ORDER BY O.ODATE DESC
 	</select>
 
+	<delete id="deleteOrder">
+		DELETE FROM "ORDER" WHERE ONO=#{ONO}
+	</delete>
 </mapper>

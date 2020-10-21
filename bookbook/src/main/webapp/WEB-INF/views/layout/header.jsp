@@ -164,7 +164,7 @@
 					    </a>
 						<ul class="sub-menu">
 						    <li><a href="${pageContext.request.contextPath}/order">주문 조회</a></li>
-						    <li><a href="${pageContext.request.contextPath}/addOrder">주문 등록</a></li>
+						    <li><a href="${pageContext.request.contextPath}/add_order">주문 등록</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -175,7 +175,7 @@
 					    </a>
 						<ul class="sub-menu">
 						    <li><a href="${pageContext.request.contextPath}/request">발주 현황</a></li>
-						    <li><a href="${pageContext.request.contextPath}/addRequest">발주 등록</a></li>
+						    <li><a href="${pageContext.request.contextPath}/add_request">발주 등록</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
