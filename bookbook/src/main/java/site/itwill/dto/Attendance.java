@@ -12,6 +12,7 @@ public class Attendance {
 	private int mno;
 	private String alogin;
 	private String alogout;
+	private Member member;
 	
 	public Attendance() {
 		// TODO Auto-generated constructor stub
@@ -48,6 +49,15 @@ public class Attendance {
 	public void setAlogout(String alogout) {
 		this.alogout = alogout;
 	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+	
 	
 	
 }

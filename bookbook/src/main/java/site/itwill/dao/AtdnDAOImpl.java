@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
+import site.itwill.dto.Member;
 import site.itwill.mapper.AtdnMapper;
 @Repository
 public class AtdnDAOImpl implements AtdnDAO{
@@ -17,6 +19,29 @@ public class AtdnDAOImpl implements AtdnDAO{
 	public List<AttendanceMember> selectAtdn() {
 		
 		return sqlSession.getMapper(AtdnMapper.class).selectAtdn();
+	}
+
+	@Override
+	public AttendanceMember selectAtdnNum(int mno) {
+		return sqlSession.getMapper(AtdnMapper.class).selectAtdnNum(mno);
+	}
+
+	@Override
+	public int updateAtdn(AttendanceMember atdnmember) {
+		
+		return sqlSession.getMapper(AtdnMapper.class).updateAleaveStatus(atdnmember);
+	}
+
+	@Override
+	public int insertAtdn(Member member) {
+		
+		return sqlSession.getMapper(AtdnMapper.class).insertAtdn(member);
+	}
+
+	@Override
+	public List<Attendance> selectAtdninout() {
+		
+		return sqlSession.getMapper(AtdnMapper.class).selectAtdninout();
 	}
 
 }

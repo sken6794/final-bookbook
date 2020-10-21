@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import site.itwill.dto.Attendance;
+import site.itwill.dto.AttendanceMember;
 import site.itwill.service.AtdnService;
+import site.itwill.service.AtndServiceImpl;
 
 @Controller
 public class AtdnController {
@@ -21,9 +25,26 @@ public class AtdnController {
 		return "atdn/atdn_member";
 	}
 	
-	@RequestMapping("atdn_update/{mno}")
-	public String atdnUpdate(@PathVariable int mno, Model model) {
-		return "redirect:/atdn_member";
+	//휴가 승인하는 메소드
+	@RequestMapping(value = "atdn_update/{mno}",method = RequestMethod.PUT)
+	@ResponseBody
+	public String atdnUpdate(@PathVariable int mno) {
+		AttendanceMember atdn= atdnService.getAtdnNum(mno);
+		atdn.setAleavestatus(1);
+		atdnService.modifyAtdn(atdn);
+		
+		return "success";
+	}
+	
+	//연장 승인하는 메소드
+	@RequestMapping(value = "atdn_update2/{mno}",method = RequestMethod.PUT)
+	@ResponseBody
+	public String atdnUpdate2(@PathVariable int mno) {
+		AttendanceMember atdn= atdnService.getAtdnNum(mno);
+		atdn.setAovertimestatus(1);
+		atdnService.modifyAtdn(atdn);
+		
+		return "success";
 	}
 	
 	@RequestMapping("/overtime/{num}")
@@ -33,8 +54,11 @@ public class AtdnController {
 		return "atdn/overtime_add";
 	}
 	
+	//출퇴근 조회 페이지
 	@RequestMapping("/atdn")
-	public String atdn() {
+	public String atdn(Model model) {
+		
+		model.addAttribute("atdninout", atdnService.getAtdnListinout());
 		return "atdn/atdn_display";
 	}
 	

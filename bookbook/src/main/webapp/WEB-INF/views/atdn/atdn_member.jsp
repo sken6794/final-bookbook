@@ -9,7 +9,7 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	
 
 		
@@ -61,8 +61,8 @@
 	                                        <td>${atdn.department.dname}</td>
 	                                        <td>${atdn.position.pname}</td>
 	                                        <td>${atdn.member.mdayoff}</td>
-	                                        <td><a href="atdn_update/${atdn.member.mno  }">${atdn.aleavestatus }대기중</a></td>
-	                                        <td>${atdn.aovertimestatus }</td>
+	                                        <td><a href="javascript:updateAtdn(${atdn.member.mno  })" class="btn btn-sm btn-success">${atdn.aleavestatus }대기중</a></td>
+	                                        <td><a href="javascript:updateAtdn2(${atdn.member.mno  })" class="btn btn-sm btn-success">${atdn.aovertimestatus }대기중</a></td>
 	                                        <td>${atdn.aovertime }</td>
 	                                        <td>${atdn.aovertimetext }</td>
 	                                        <td>${atdn.astarttime }</td>
@@ -110,6 +110,49 @@
 			var num = 1;
 			location.href="overtime/"+num;
 		}
+			
+	</script>
+	<script type="text/javascript">
+	//휴가 승인
+	function updateAtdn(mno) {
+		if(confirm("요청을 승인 하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"atdn_update/"+mno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="success"){
+						alert("승인되었습니다.")
+					}
+				},
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
+	
+	//연장 근무 승인
+	function updateAtdn2(mno) {
+		if(confirm("요청을 승인 하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"atdn_update2/"+mno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="success"){
+						alert("승인되었습니다.")
+					}
+				},
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
+	
 	</script>
 </body>
 </html>

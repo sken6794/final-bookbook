@@ -36,7 +36,6 @@
 		<result column="pname" property="pname"/>
 	</resultMap>
 	<resultMap type="AttendanceMember" id="atdnmember">
-		
 		<result column="aleavestatus" property="aleavestatus"/>
 		<result column="aovertimestatus" property="aovertimestatus"/>
 		<result column="aleave" property="aleave"/>
@@ -49,16 +48,63 @@
 		<collection property="department" resultMap="department"/>
 		<collection property="position" resultMap="position"/>
 	</resultMap>
+	<resultMap type="Attendance" id="attendance">
+		<result column="atno" property="atno"/>
+		<result column="alogin" property="alogin"/>
+		<result column="alogout" property="alogout"/>
+		<collection property="member" resultMap="member"/>
+	</resultMap>
+	
 	
 	<select id="selectAtdn" resultMap="atdnmember">
 		select member_atdn.*, mname, dname, pname from member_atdn 
 		join member on member_atdn.mno=member.mno
 		join position on member.pno=position.pno
 		join department on member.dno=department.dno
+		order by member.mno
 	</select>
 	
-	<insert id="insertAtdn">
+	<select id="selectAtdnNum" resultType="AttendanceMember">
+		select * from member_atdn where mno=#{mno} 
+	</select>
 	
+	<!-- 로그인 할 때 같이 실행되면서 출근시간 -->
+	<insert id="insertAtdn">
+		<selectKey resultType="hashmap" keyProperty="logindate, atno" order="BEFORE">
+			select to_CHAR(sysdate, 'YY-MM-DD HH24:MI')as logindate, seq_atdn_atno.nextval as atno from dual
+		</selectKey>
+		insert into attendance values (#{atno}, #{mno},#{logindate},null)
 	</insert>
+	
+	<update id="">
+		
+	</update>
+	
+	<!-- 근태 상태 변경 -->
+	<update id="updateAleaveStatus">
+		update member_atdn
+		<set>
+			<if test="aleavestatus!=null and aleavestatus!=''">
+			aleavestatus=#{aleavestatus},
+			</if>
+			<if test="aovertime!=null and aovertime!=''">
+			aovertime=#{aovertime},
+			</if>
+			<if test="aleave!=null and aleave!=''">
+			aleave=#{aleave},
+			</if>
+			<if test="abtrip!=null and abtrip!=''">
+			abtrip=#{abtrip}
+			</if>
+			where mno=#{mno}
+		</set> 
+	</update>
+	
+	<!-- 출퇴근 조회  -->
+	<select id="selectAtdninout" resultMap="attendance">
+		select attendance.*, mname from attendance
+		join member on member.mno=attendance.mno
+		order by member.mno
+	</select>
 	
 </mapper>
