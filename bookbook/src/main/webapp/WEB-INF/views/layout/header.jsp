@@ -185,10 +185,7 @@
 						    <span>입고관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">입고 등록</a></li>
-						    <li><a href="index.html">입고 검색</a></li>
-						    <li><a href="index.html">입고 수정</a></li>
-						    <li><a href="index.html">입고 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/bookin">입고 검색</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -198,10 +195,7 @@
 						    <span>출고관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">출고 등록</a></li>
-						    <li><a href="index.html">출고 검색</a></li>
-						    <li><a href="index.html">출고 수정</a></li>
-						    <li><a href="index.html">출고 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/bookout">출고 검색</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -211,10 +205,7 @@
 						    <span>재고관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">재고 등록</a></li>
-						    <li><a href="index.html">재고 검색</a></li>
-						    <li><a href="index.html">재고 수정</a></li>
-						    <li><a href="index.html">재고 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/stock">재고 검색</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -235,7 +226,8 @@
 						    <span>근태관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">근태 현황</a></li>
+						    <li><a href="${pageContext.request.contextPath}/atdn_member">근태 현황</a></li>
+						    <li><a href="${pageContext.request.contextPath}/atdn">출퇴근 조회</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
