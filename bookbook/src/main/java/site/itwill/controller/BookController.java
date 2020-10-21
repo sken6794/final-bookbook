@@ -143,13 +143,5 @@ public class BookController {
 	
 	
 	
-	@RequestMapping(value="/chat", method = RequestMethod.GET)
-	public String chat() {
-		return "chat/chat";
-	}
 	
-	@RequestMapping(value="/chatRoom", method = RequestMethod.GET)
-	public String chatRoom() {
-		return "chat/chatRoom";
-	}
 }

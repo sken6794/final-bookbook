@@ -282,8 +282,8 @@
 		$(document).ready(function() {
 			App.init();
 			//Dashboard.init();
-			TableManageTableSelect.init();
-			FormPlugins.init();
+			//TableManageTableSelect.init();
+			//FormPlugins.init();
 			tableClickIdx = -1;
 		});
 		

@@ -47,15 +47,15 @@
 																	</tr>
 																</thead>
 																<tbody>
-																	<c:forEach begin="1" step="1" end="10">
+																	<c:forEach var="chatPerson" items="${chatList }">
 																	<tr>
-																		<td>1</td>
-																		<td>금융 관리 프로그램 제작팀</td>
-																		<td>박정호</td>
-																		<td>사원</td>
-																		<td>1차 긴급 회의</td>
-																		<td>3/8</td>
-																		<td>Lock</td>
+																		<td>${chatPerson.chat.cno}</td>
+																		<td>${chatPerson.chat.croomname}</td>
+																		<td>${chatPerson.chat.ccreator}</td>
+																		<td>${chatPerson.member.position.pname}</td>
+																		<td>${chatPerson.chat.cinfo}</td>
+																		<td>${chatPerson.chat.cperson}</td>
+																		<td>${chatPerson.chat.csecret}</td>
 																	</tr>
 																	</c:forEach>
 																	

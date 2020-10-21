@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.ChatMapper">
+		
+		<resultMap type="ChatPerson" id="chatResultMap">
+				<id column="cpno" property="cpno" />
+				<association property="chat" javaType="Chat">
+					<id column="cno" property="cno" />
+					<result column="croomno" property="croomno"/>
+					<result column="croomname" property="croomname"/>
+					<result column="ccreator" property="ccreator"/>
+					<result column="cdate" property="cdate"/>
+					<result column="cinfo" property="cinfo"/>
+					<result column="cperson" property="cperson"/>
+					<result column="csecret" property="csecret"/>
+					<result column="clog" property="clog"/>
+				</association>
+				<association property="member" javaType="Member">
+					<id column="mno" property="mno" />
+					<result column="mname" property="mname"/>
+					<association property="department" javaType="Department">
+						<id column="dno" property="dno" />
+						<result column="dname" property="dname"/>
+					</association>
+					<association property="position" javaType="Position">
+						<id column="pno" property="pno" />
+						<result column="pname" property="pname"/>
+					</association>
+				</association>
+		</resultMap>
+
+		<select id="getAllChatList" resultMap="chatResultMap">
+			SELECT C.*, (SELECT MNAME FROM MEMBER WHERE MNO = C.CCREATOR) "ccreator", M.MNAME "mname", 
+			(SELECT DNAME FROM DEPARTMENT WHERE DNO = M.DNO) "dname", (SELECT PNAME FROM POSITION WHERE PNO = M.PNO) "pname" 
+			FROM CHAT C JOIN CHAT_PERSON CP ON C.CNO = CP.CNO
+			JOIN MEMBER M ON M.MNO = CP.MNO 
+			JOIN DEPARTMENT D ON M.DNO = D.DNO 
+			JOIN POSITION P ON M.PNO = P.PNO
+		</select>
+</mapper>
