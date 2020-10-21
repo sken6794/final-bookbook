@@ -247,7 +247,11 @@
 						    <span>전자결재</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">전자결재 양식</a></li>
+						    <li><a href="${pageContext.request.contextPath}/total_docu">전체 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/wait_docu">상신 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/complete_docu">결재 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/delete_docu">삭제 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/recieve_docu">수신 문서</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
