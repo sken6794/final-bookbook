@@ -164,24 +164,14 @@
         <script src="assets/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
     <![endif]-->
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			App.init();
-		});
-	</script>
-	<!-- 생년월일, 입사날짜, 전화번호 -->
+	
 	<script>
 		$(document).ready(function() {
 			App.init();
 			FormPlugins.init();
-		});
-	</script>
-	<!-- 파일업로드 -->
-	<script> 
-		$(document).ready(function() {
-			App.init();
 			FormMultipleUpload.init();
 		});
+
 	</script>
 </body>
 </html>

@@ -9,5 +9,6 @@ public interface MemberService {
 	void removeMember(int mno);
 	void modifyMember(Member member);
 	Member getRestMember(int mno);
+	public List<Member> getMember(Member member);
 	public List<Member> getMemberList();
 }

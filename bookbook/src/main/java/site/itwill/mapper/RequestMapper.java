@@ -9,5 +9,6 @@ public interface RequestMapper {
 	int deleteRequest(int rno);
 	int updateRequest(Request request);
 	Request selectRestRequest(int rno);
+	List<Request> selectRequest(Request request);
 	List<Request> selectRequestList();
 }

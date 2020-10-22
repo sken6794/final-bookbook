@@ -29,10 +29,18 @@
 	<select id="selectRequest" resultType="Request">
 		SELECT R.RNO, B.BCODE, B.BNAME, B.BPUBLISHER, R.RDATE, R.RSTAFF, R.RQTY, R.RQTY*B.BPRICE "R.RPICE", R.RSTATE 
 		FROM REQUEST R JOIN BOOK B ON B.BCODE = R.BCODE
-		WHERE B.BCODE=#{BCODE} OR R.RSTAFF=#{RSTAFF} OR R.RSTATE=#{RSTATE} OR R.RDATE=#{RDATE} OR B.BPUBLISHER=#{BPUBLISHER}
+		WHERE B.BCODE=#{bcode} OR R.RSTAFF=#{rstaff} OR R.RSTATE=#{rstate} OR R.RDATE=#{rdate}
 	</select>
 	
+	<select id="selectRestRequest" resultType="Request">
+		select RNO, RSTAFF, RQTY, RSTATE, BCODE from REQUEST where rno=#{rno} ORDER BY RDATE DESC
+	</select>	
+	
 	<delete id="deleteRequest">
-		DELETE FROM REQUEST WHERE RNO=#{RNO}
+		DELETE FROM REQUEST WHERE RNO=#{rno}
 	</delete>
+	
+	<update id="updateRequest">
+		UPDATE REQUEST SET RNO=#{rno}, RQTY=#{rqty}, RSTATE=#{rstate}, BCODE=#{bcode} WHERE RNO=#{rno}
+	</update>
 </mapper>

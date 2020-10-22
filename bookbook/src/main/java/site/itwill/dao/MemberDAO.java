@@ -2,6 +2,7 @@ package site.itwill.dao;
 
 import java.util.List;
 
+
 import site.itwill.dto.Member;
 
 public interface MemberDAO {
@@ -9,6 +10,6 @@ public interface MemberDAO {
 	int deleteMember(int mno);
 	int updateMember(Member member);
 	Member selectRestMember(int mno);
-	//Member selectMember(int mno, string dname, string pname)
+	List<Member> selectMember(Member member);
 	List<Member> selectMemberList();
 }

@@ -103,7 +103,8 @@ table { text-align: center;}
                     <!-- </div> -->
                     <br>
 		                <div style="text-align: center;">
-		                <a href="javascript:;" class="btn btn-sm btn-white">조회</a>
+		                <button type="button" onclick="" class="btn btn-sm btn-white">조회</button>
+		                <button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
 		                </div>			
                    </form>
                 <hr>   		
@@ -169,27 +170,27 @@ table { text-align: center;}
 				                                        <input type="text" class="form-control" placeholder="기타수당" name="petc" id="i_petc"/>
 				                                    </div>
 				                            </div>		                                	
-			                                <div class="form-group">
-			                                    <label class="control-label col-md-4 col-sm-4">사원번호 :</label>
-			                                    <div class="col-md-6 col-sm-6">
-			                                        <input type="text" class="form-control" placeholder="사원번호" style="float: left;" name="mno" id="i_mno"/>
-			                                    </div>
-			                                </div>
+				                            <div class="form-group">
+				                                    <label class="control-label col-md-4 col-sm-4">사원번호:</label>
+				                                    <div class="col-md-6 col-sm-6">
+				                                        <input type="text" class="form-control" placeholder="사원번호" name="mno" id="i_mno"/>
+				                                    </div>
+				                            </div>	
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control" name="dno" id="i_dno">
+			                                        <select class="form-control" id="i_dno" name="dno">
 			                                            <option value="10">도서 1팀</option>
 			                                            <option value="20">도서 2팀</option>
 			                                            <option value="30">영업팀</option>
 			                                            <option value="40">회계팀</option>
 			                                        </select>
 			                                    </div>
-			                                </div>
+			                                </div>				                            	 
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">직급 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control" name="pno" id="i_pno">
+			                                        <select class="form-control" id="i_pno" name="pno">
 			                                            <option value="1">사원</option>
 			                                            <option value="2">주임</option>
 			                                            <option value="3">대리</option>
@@ -199,7 +200,7 @@ table { text-align: center;}
 			                                            <option value="7">이사</option>
 			                                        </select>
 			                                    </div>
-			                                </div>
+			                                </div>                             	
 											<div class="modal-footer">
 												<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
 												<button type="button" onclick="insertPay();" class="btn btn-sm btn-primary">등록</button>
@@ -223,16 +224,16 @@ table { text-align: center;}
 										<table class="table" style="text-align: center;">
 	                              		<thead>
 	                                    	<tr>
-	                                        	<th>사원명</th>
-	                                        	<th>지급일</th>
+	                                        	<th style="text-align: center;">사원명</th>
+	                                        	<th style="text-align: center;">지급일</th>
 	                                  		  </tr>
 	                                    	<tr>
 	                                        	<td id="pay_name"></td>
 	                                        	<td id="pay_day"></td>
 	                                  		  </tr>
 	                                    	<tr>
-	                                        	<th>부서</th>
-	                                        	<th>직책</th>
+	                                        	<th style="text-align: center;">부서</th>
+	                                        	<th style="text-align: center;">직책</th>
 	                                  		</tr>
 	                                    	<tr>
 	                                        	<td id="pay_department"></td>
@@ -247,8 +248,8 @@ table { text-align: center;}
                                  		<table class="table table-striped" style="text-align: center;">
                                  		<thead>
 	                              			<tr>
-	                                     		<th>지급항목</th>
-	                                       		<th>지급액</th>
+	                                     		<th style="text-align: center;">지급항목</th>
+	                                       		<th style="text-align: center;">지급액</th>
 	                                    	</tr>
                                 		</thead>
                                 		<tbody>
@@ -277,8 +278,8 @@ table { text-align: center;}
 	                                        <td id="pay_etc"></td>
 	                                    </tr>
 	                                    <tr>
-	                                        <td>합산 지급액</td>
-	                                        <td>000</td>
+	                                        <td style="font-weight: bold;">합산 지급액</td>
+	                                        <td id="totalPay" style="font-weight: bold;"></td>
 	                                    </tr>
                                 		</tbody>
                             	</table>
@@ -288,34 +289,34 @@ table { text-align: center;}
 	                            <table class="table table-striped" style="text-align: center;">
 	                               <thead>
 	                            		<tr>
-	                                     	<th>공제항목</th>
-	                                       	<th>공제액</th>
+	                                     	<th style="text-align: center;">공제항목</th>
+	                                       	<th style="text-align: center;">공제액</th>
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
 	                                    <tr>
 	                                        <td>국민연금</td>
-	                                        <td>4.5%</td>
+	                                        <td id="tax1"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>건강보험</td>
-	                                        <td>3.335%</td>
+	                                        <td id="tax2"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>장기요양</td>
-	                                        <td>건강보험의 10.25%</td>
+	                                        <td id="tax3"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>고용보험</td>
-	                                        <td>0.8%</td>
+	                                        <td id="tax4"></td>
 	                                    </tr>
 	                                    <tr>
 	                                        <td>근로소득세</td>
-	                                        <td>10%</td>
+	                                        <td id="tax5"></td>
 	                                    </tr>
 	                                    <tr>
-	                                        <td>합산 공제액</td>
-	                                        <td></td>
+	                                        <td style="font-weight: bold;">합산 공제액</td>
+	                                        <td id="totaltax" style="font-weight: bold;"></td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
@@ -325,10 +326,10 @@ table { text-align: center;}
                          		<table class="table" style="text-align: center;">
 	                            <thead>
 	                               <tr>
-	                                  <th>실 수령액</th>
+	                                  <th style="text-align: center;">실 수령액</th>
 	                               </tr>
 	                               <tr>
-	                     		      <td>000</td>
+	                     		      <td id="finalTotal" style="size: 15" style="font-weight: bold;"></td>
 	                               </tr>
 	                             </thead>
 	                             </table>
@@ -406,7 +407,7 @@ table { text-align: center;}
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control" id="m_dno" name="dno">
+			                                        <select class="form-control" id="m_dno" name="dno" disabled="disabled">
 			                                            <option value="10">도서 1팀</option>
 			                                            <option value="20">도서 2팀</option>
 			                                            <option value="30">영업팀</option>
@@ -417,7 +418,7 @@ table { text-align: center;}
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">직급 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control" id="m_pno" name="pno">
+			                                        <select class="form-control" id="m_pno" name="pno" disabled="disabled">
 			                                            <option value="1">사원</option>
 			                                            <option value="2">주임</option>
 			                                            <option value="3">대리</option>
@@ -515,19 +516,19 @@ table { text-align: center;}
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>	
 	
 	<script>
+	
+	$(document).ready(function() {
+		App.init();
+		TableManageTableSelect.init();
+		FormPlugins.init();		
+	});
 		
+	/* 초기화 버튼 */
+	function initBtn() {
+		displayMember();
+	}
 	
-	 /* 생년월일, 입사날짜, 전화번호 */ 
-	
-		$(document).ready(function() {
-			App.init();
-			TableManageTableSelect.init();
-			FormPlugins.init();
 			
-		});
-	
-	
-		
 	/* 급여 조회 리스트 */
 		function displayPay() {
 			$.ajax({
@@ -670,6 +671,7 @@ table { text-align: center;}
 		var mno=$("#i_mno").val();
 		var dno=$("#i_dno").val();
 		var pno=$("#i_pno").val();
+
 		
 		$.ajax({
 			type: "POST",
@@ -687,6 +689,7 @@ table { text-align: center;}
 				"mno":mno,
 				"dno":dno,
 				"pno":pno
+
 			}),
 			
 			dataType: "text",
@@ -698,23 +701,60 @@ table { text-align: center;}
 		});
  	}
   
+      Number.prototype.format = function(){
+          if(this==0) return 0;
+       
+          var reg = /(^[+-]?\d+)(\d{3})/;
+          var n = (this + '');
+       
+          while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+       
+          return n;
+      };
+        
  	/* 테이블 클릭 시 해당 사원의 급여명세서 modal 출력 */ 
  	
     $('#data-table tbody').on( 'click', 'tr', function () {
          $('#aTag').get(0).click();
-        var memInfo = $('#data-table').DataTable().row(this).data();
-            
-        $("#pay_name").text(memInfo[2]);
-        $("#pay_department").text(memInfo[3]);
-        $("#pay_position").text(memInfo[4]);
-        $("#pay_day").text(memInfo[5]);
-        $("#pay_basic").text(memInfo[6]);
-        $("#pay_meal").text(memInfo[7]);
-        $("#pay_overtime").text(memInfo[8]);
-        $("#pay_holiday").text(memInfo[9]);
-        $("#pay_bonus").text(memInfo[10]);
-        $("#pay_etc").text(memInfo[11]);
+        var payInfo = $('#data-table').DataTable().row(this).data();        
         
+        $("#pay_name").val(payInfo[2]);
+        $("#pay_department").text(payInfo[3]);
+        $("#pay_position").text(payInfo[4]);
+        $("#pay_day").text(payInfo[5]);
+        $("#pay_basic").text(payInfo[6]);
+        $("#pay_meal").text(payInfo[7]);
+        $("#pay_overtime").text(payInfo[8]);
+        $("#pay_holiday").text(payInfo[9]);
+        $("#pay_bonus").text(payInfo[10]);
+        $("#pay_etc").text(payInfo[11]);
+        
+        
+        var basic = parseInt(payInfo[6]);
+        var meal = parseInt(payInfo[7]);
+        var overtime = parseInt(payInfo[8]);
+        var holiday = parseInt(payInfo[9]);
+        var bonus = parseInt(payInfo[10]);
+        var etc = parseInt(payInfo[11]);
+        var total = (basic+meal+overtime+holiday+bonus+etc).format();
+        var total2 = basic+meal+overtime+holiday+bonus+etc;
+        var tax1 = total2*0.045;
+        var tax2 = Math.round(total2*0.03335);
+        var tax3 = Math.round((total2*0.03335)*0.05);
+        var tax4 = total2*0.008;
+        var tax5 = total2*0.1;
+        var totaltax = (Math.round((tax1+tax2+tax3+tax4+tax5)/10)*10).format();
+        var totaltax2 = Math.round((tax1+tax2+tax3+tax4+tax5)/10)*10;    
+        var finalTotal = (total2-totaltax2).format();
+        
+        $("#totalPay").text(total);
+        $("#tax1").text(tax1);
+        $("#tax2").text(tax2);
+        $("#tax3").text(tax3);
+        $("#tax4").text(tax4);
+        $("#tax5").text(tax5);
+        $("#totaltax").text(totaltax);
+        $("#finalTotal").text(finalTotal);
 
    });
  

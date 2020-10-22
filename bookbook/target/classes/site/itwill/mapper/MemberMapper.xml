@@ -34,9 +34,9 @@
 	</select>
 	
 	<select id="selectMember" resultType="Member">
-		select M.MNO, M.MNAME, D.DNAME, M.MBIRTH, P.PNAME, M.MJOINDATE, M.MEMAIL, M.MPHONE, M.MADDRESS 
+		select M.MNO, M.MNAME, D.DNAME, P.PNAME, M.MBIRTH, M.MJOINDATE, M.MEMAIL, M.MPHONE, M.MADDRESS 
 		from MEMBER M join DEPARTMENT D on M.DNO = D.DNO join POSITION P on M.PNO = P.PNO 
-		where M.MNO=#{mno} or D.DNAME=#{dname} or P.PNAME=#{pname}
+		where M.MNO=#{mno} or D.DNO=#{dno} or P.PNO=#{pno}
 	</select>
 	
 	<select id="selectRestMember" resultType="Member">

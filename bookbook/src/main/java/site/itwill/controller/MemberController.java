@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.Member;
 import site.itwill.dto.PayManage;
+import site.itwill.dto.Request;
 import site.itwill.service.MemberService;
 
 @Controller
@@ -33,6 +34,19 @@ public class MemberController {
 		return "member/member";
 	}
 	
+	@RequestMapping(value = "/member_search")
+	@ResponseBody
+	public List<Member> member(@RequestBody Member member) throws Exception {
+		return memberService.getMember(member);
+	}
+
+	/*
+	 * @RequestMapping(value = "/member_search")
+	 * 
+	 * @ResponseBody public String member(@RequestBody Member member, Model model)
+	 * throws Exception { model.addAttribute("member",
+	 * memberService.getMember(member)); return "member/member"; }
+	 */	
 	@RequestMapping("/member_list") 
 	@ResponseBody 
 	public List<Member> restMemberJSONList() { 

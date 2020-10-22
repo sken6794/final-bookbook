@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,12 @@ public class RequestController {
 		return "request/request";
 	}
 	
+	@RequestMapping(value = "/request_search")
+	public String request(@RequestBody Request request, Model model) throws Exception {
+		model.addAttribute("request", requestService.getRequest(request));
+		return "request/request";
+	}
+
 	@RequestMapping("/request_list")
 	public ResponseEntity<List<Request>> restRequestList() {
 		ResponseEntity<List<Request>> entity=null;
@@ -54,19 +61,10 @@ public class RequestController {
 	@RequestMapping(value="/add_request", method = RequestMethod.POST)
 	public String addRequest(@ModelAttribute("request") Request request) {
 		
-		Date date=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yy/MM/dd");
-		String rdate=sdf.format(date);
-		request.setRdate(rdate);
-		
-		System.out.println("rno ="+request.getRno());
-		System.out.println("rdate ="+request.getRdate());
-		System.out.println("rstaff ="+request.getRstaff());
-		System.out.println("rqty ="+request.getRqty());
-		System.out.println("rprice ="+request.getRprice());
-		System.out.println("rstate ="+request.getRstate());
-		System.out.println("bcode ="+request.getBcode());
-
+		/*
+		 * Date date=new Date(); SimpleDateFormat sdf=new SimpleDateFormat("yy/MM/dd");
+		 * String rdate=sdf.format(date); request.setRdate(rdate);
+		 */
 		requestService.addRequest(request);
 		
 		return "redirect:/add_request";		
@@ -77,4 +75,21 @@ public class RequestController {
 		requestService.removeRequest(rno);
 		return "redirect:/request";
 	}
+	
+	//발주번호 받아서 저장(변경할때 필요)
+	@RequestMapping(value = "/request_view/{rno}", method = RequestMethod.GET)
+	@ResponseBody
+	public Request restRequestView(@PathVariable int rno) {
+		return requestService.getRestRequest(rno);
+	}
+	
+	//사원정보 변경
+	@RequestMapping(value = "/request_modify", method = {RequestMethod.PUT, RequestMethod.PATCH})
+	@ResponseBody
+	public String restRequestModify(@RequestBody Request request) {
+		requestService.modifyRequest(request);
+		return "success";
+	}	
+	
+	
 }

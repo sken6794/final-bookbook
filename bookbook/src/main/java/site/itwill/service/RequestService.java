@@ -9,5 +9,6 @@ public interface RequestService {
 	void removeRequest(int rno);
 	void modifyRequest(Request request);
 	Request getRestRequest(int rno);
+	public List<Request> getRequest(Request request);
 	public List<Request> getRequestList();
 }

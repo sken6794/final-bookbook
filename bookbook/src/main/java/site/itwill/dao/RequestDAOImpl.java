@@ -40,6 +40,11 @@ public class RequestDAOImpl implements RequestDAO{
 
 	}
 
+	@Override
+	public List<Request> selectRequest(Request request) {
+		return sqlSession.getMapper(RequestMapper.class).selectRequest(request);
+	}
+
 
 
 }

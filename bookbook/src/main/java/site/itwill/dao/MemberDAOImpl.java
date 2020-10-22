@@ -40,8 +40,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public int updateMember(Member member) {
 		return sqlSession.getMapper(MemberMapper.class).updateMember(member);
 	}
-	
-	
+
+	@Override
+	public List<Member> selectMember(Member member) {
+		return sqlSession.getMapper(MemberMapper.class).selectMember(member);
+	}
 
 
 }

@@ -84,7 +84,8 @@ table { text-align: center;}
                          </div>
                       	<br>
 	                        <div style="text-align: center;">
-	                        <a href="javascript:;" class="btn btn-sm btn-white">조회</a>
+	                        <button type="button" onclick="" class="btn btn-sm btn-white">조회</button>
+	                        <button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
 	                        </div>
                       </form>
                       <hr>
@@ -145,15 +146,15 @@ table { text-align: center;}
 							<thead>
 								<tr>
 									<th><input type="checkbox"></th>
-									<th>주문번호</th>
-									<th>회원 ID</th>
-									<th width="150">도서명</th>
-									<th>출판사</th>
-									<th>주문수량</th>
-									<th>주문금액</th>
-									<th>주문일자</th>
-									<th>진행상태</th>
-									<th width="100">관리</th>
+									<th style="text-align: center;">주문번호</th>
+									<th style="text-align: center;">회원 ID</th>
+									<th width="150" style="text-align: center;">도서명</th>
+									<th style="text-align: center;">출판사</th>
+									<th style="text-align: center;">주문수량</th>
+									<th style="text-align: center;">주문금액</th>
+									<th style="text-align: center;">주문일자</th>
+									<th style="text-align: center;">진행상태</th>
+									<th width="100" style="text-align: center;">관리</th>
 								</tr>
 							</thead>
 							<tbody id="orderTablePlace">
@@ -239,7 +240,12 @@ table { text-align: center;}
 			App.init();
 			TableManageTableSelect.init();
 		});
-
+		
+	/* 초기화 버튼 */
+		function initBtn() {
+			displayMember();
+		}
+			
 
 	/* 주문 조회 리스트*/
 	

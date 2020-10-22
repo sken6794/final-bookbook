@@ -22,7 +22,7 @@ public class PayManageServiceImpl implements PayManageService {
 	@Transactional
 	@Override
 	public void removePay(int pmno) {
-		payManageDAO.selectPayList();	
+		payManageDAO.deletePay(pmno);	
 	}
 	
 	@Transactional

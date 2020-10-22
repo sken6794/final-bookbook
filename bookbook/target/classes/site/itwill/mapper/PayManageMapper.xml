@@ -35,7 +35,7 @@
 	<select id="selectPayList" resultMap="payList">
 		SELECT P.PMNO, M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
 		FROM PAYMANAGE P JOIN MEMBER M ON M.MNO = P.MNO JOIN DEPARTMENT D ON D.DNO = P.DNO 
-		JOIN POSITION PO ON PO.PNO = P.PNO ORDER BY P.PDATE DESC, M.MNO ASC
+		JOIN POSITION PO ON PO.PNO = P.PNO ORDER BY PDATE DESC, MNO ASC
 	</select>
 	
 	<select id="selectRestPay" resultType="PayManage">
@@ -49,6 +49,6 @@
 	</update>
 	
 	<delete id="deletePay">
-	
+		delete from PAYMANAGE where PMNO=#{PMNO}
 	</delete>
 </mapper>

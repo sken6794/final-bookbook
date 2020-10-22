@@ -41,6 +41,10 @@ public class RequestServiceImpl implements RequestService {
 		return requestDAO.selectRestRequest(rno);
 	}
 
+	@Override
+	public List<Request> getRequest(Request request) {
+		return requestDAO.selectRequest(request);
+	}
 
 
 }

@@ -43,5 +43,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectMemberList();
 	}
 
+	@Override
+	public List<Member> getMember(Member member) {
+		return memberDAO.selectMember(member);
+	}
+
+
 
 }
