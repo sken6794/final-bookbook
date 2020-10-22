@@ -7,7 +7,7 @@ import site.itwill.dto.Schedule;
 public interface ScheduleService {
 	void addSchedule(Schedule schedule);
 	void modifySchedule(Schedule schedule);
-	void removeSchedule(int _id);
-	Schedule getSchedule(int _id);
+	void removeSchedule(int id);
+	Schedule getSchedule(int id);
 	List<Schedule> getScheduleList();
 }

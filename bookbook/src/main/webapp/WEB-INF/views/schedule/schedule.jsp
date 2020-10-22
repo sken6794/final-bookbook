@@ -1,32 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<head>
-   <meta charset="utf-8" />
-   <title>일정관리</title>
-   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-   <meta content="" name="description" />
-   <meta content="" name="author" />
-   <!-- ================== BEGIN BASE CSS STYLE ================== -->
-   <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-   <!-- ================== END BASE CSS STYLE ================== -->
-   
-    
-   <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+
+   <!-- 
+   ================== BEGIN PAGE LEVEL STYLE ================== 
    <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />   
+   -->
+   <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
    <!-- ================== END PAGE LEVEL STYLE ================== -->
    
@@ -199,21 +179,6 @@
    	</div>
       <!-- end #content -->
 
-    
-   <!-- ================== BEGIN BASE JS ================== -->
-   <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-   <!--[if lt IE 9]>
-      <script src="${pageContext.request.contextPath}/resources/assets/crossbrowserjs/html5shiv.js"></script>
-      <script src="${pageContext.request.contextPath}/resources/assets/crossbrowserjs/respond.min.js"></script>
-      <script src="${pageContext.request.contextPath}/resources/assets/crossbrowserjs/excanvas.min.js"></script>
-   <![endif]-->
-   <script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-   <!-- ================== END BASE JS ================== -->
-   
    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
    <script src="${pageContext.request.contextPath}/resources/assets/plugins/gritter/js/jquery.gritter.js"></script>
    <script src="${pageContext.request.contextPath}/resources/assets/plugins/flot/jquery.flot.min.js"></script>
@@ -224,7 +189,6 @@
    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"></script>
    <script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.min.js"></script>
-   <script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
    <!-- ================== END PAGE LEVEL JS ================== -->
    
    <!-- 풀캘린더 js 시작 -->

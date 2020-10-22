@@ -28,13 +28,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	@Transactional
 	@Override
-	public void removeSchedule(int _id) {
-		scheduleDAO.deleteSchedule(_id);
+	public void removeSchedule(int id) {
+		scheduleDAO.deleteSchedule(id);
 	}
 
 	@Override
-	public Schedule getSchedule(int _id) {
-		return scheduleDAO.selectSchedule(_id);
+	public Schedule getSchedule(int id) {
+		return scheduleDAO.selectSchedule(id);
 	}
 	
 	@Override

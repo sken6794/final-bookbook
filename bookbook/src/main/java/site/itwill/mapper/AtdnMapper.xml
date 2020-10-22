@@ -75,11 +75,11 @@
 		</selectKey>
 		insert into attendance values (#{atno}, #{mno},#{logindate},null)
 	</insert>
-	
+	<!--  
 	<update id="">
 		
 	</update>
-	
+	-->
 	<!-- 근태 상태 변경 -->
 	<update id="updateAleaveStatus">
 		update member_atdn
@@ -105,11 +105,6 @@
 		select attendance.*, mname from attendance
 		join member on member.mno=attendance.mno
 		order by member.mno
-	</select>
-	
-	<!-- Member -->
-	<select id="selectMemberOne" resultType="Member">
-		select * from member where mno=#{mno}
 	</select>
 	
 </mapper>
