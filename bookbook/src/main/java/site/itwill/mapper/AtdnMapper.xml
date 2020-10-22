@@ -107,4 +107,9 @@
 		order by member.mno
 	</select>
 	
+	<!-- Member -->
+	<select id="selectMemberOne" resultType="Member">
+		select * from member where mno=#{mno}
+	</select>
+	
 </mapper>

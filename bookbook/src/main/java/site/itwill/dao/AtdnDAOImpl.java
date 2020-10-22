@@ -44,4 +44,10 @@ public class AtdnDAOImpl implements AtdnDAO{
 		return sqlSession.getMapper(AtdnMapper.class).selectAtdninout();
 	}
 
+	@Override
+	public Member selectMemberOne(int mno) {
+		
+		return sqlSession.getMapper(AtdnMapper.class).selectMemberOne(mno);
+	}
+
 }

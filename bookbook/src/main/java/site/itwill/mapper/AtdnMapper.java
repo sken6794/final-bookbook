@@ -15,5 +15,6 @@ public interface AtdnMapper {
 	int updateAtdnover();
 	int updateAleaveStatus(AttendanceMember atdnmember);
 	
-	
+	//Member
+	Member selectMemberOne(int mno);
 }

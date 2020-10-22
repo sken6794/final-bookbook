@@ -13,4 +13,7 @@ public interface AtdnDAO {
 	int updateAtdn(AttendanceMember atdnmember);
 	int insertAtdn(Member member);
 	List<Attendance> selectAtdninout();
+	
+	//Member
+	Member selectMemberOne(int mno);
 }

@@ -9,6 +9,7 @@ import site.itwill.dao.AtdnDAO;
 import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
 import site.itwill.dto.Member;
+import site.itwill.exception.LoginAuthFailException;
 
 @Service
 public class AtndServiceImpl implements AtdnService{
@@ -27,21 +28,39 @@ public class AtndServiceImpl implements AtdnService{
 	}
 
 	@Override
-	public int modifyAtdn(AttendanceMember atdnmember) {
+	public void modifyAtdn(AttendanceMember atdnmember) {
 		
-		return atdnDAO.updateAtdn(atdnmember);
+		 atdnDAO.updateAtdn(atdnmember);
 	}
 
 	@Override
-	public int addAtdn(Member member) {
+	public void addAtdn(Member member) {
 		
-		return atdnDAO.insertAtdn(member);
+		 atdnDAO.insertAtdn(member);
 	}
 
 	@Override
 	public List<Attendance> getAtdnListinout() {
 		
 		return atdnDAO.selectAtdninout();
+	}
+
+	@Override
+	public void loginAuth(Member member) throws LoginAuthFailException {
+		Member authMember = atdnDAO.selectMemberOne(member.getMno());
+		if(authMember==null) {
+			throw new LoginAuthFailException(member.getMno(),"사원번호의 사원이 존재하지 않습니다.");
+		}
+		
+		if(!authMember.getMpw().equals(member.getMpw())){
+			throw new LoginAuthFailException(member.getMno(), "사원번호가 없거나 비밀번호가 맞지 않습니다.");
+		}
+	}
+
+	@Override
+	public Member getMember(int mno) {
+		
+		return atdnDAO.selectMemberOne(mno);
 	}
 	
 }
