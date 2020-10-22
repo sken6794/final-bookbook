@@ -8,4 +8,5 @@ public interface DocumentDAO {
 	int insertDocument(Document document);
 	List<Document> selectDocumentList();
 	Document selectDocument(int docno);
+	int updateDocument(Document document);
 }

@@ -26,8 +26,15 @@ public class DocumentServiceImpl implements DocumentService {
 
 	@Override
 	public Document getDocument(int docno) {
-		return documentDAO.selectDocument(docno);
+		Document document = documentDAO.selectDocument(docno);
+		return document;
 	}
+
+	@Override
+	public void modifyDocument(Document document) {
+		documentDAO.updateDocument(document);
+	}
+	
 	
 
 

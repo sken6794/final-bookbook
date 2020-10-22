@@ -51,6 +51,28 @@
 			from document doc join member on doc.mno=member.mno
 	</select>
 	 -->
+	 
+	<update id="updateDocument">
+	update document
+		<set>
+			<if test="docname!=null and docname!=''">
+				docname=#{docname},
+			</if>
+			<if test="doccon!=null and doccon!=''">
+				doccon=#{doccon},
+			</if>
+			<if test="docstate!=null and docstate!=''">
+				docstate=#{docstate},
+			</if>
+			<if test="doccomp!=null and doccomp!=''">
+				doccomp=sysdate
+			</if>
+			<if test="reject!=null and reject!=''">
+				reject=#{reject}
+			</if>
+		</set>
+	where docno=#{docno}
+	</update>
 	
 		<!-- 승인자 선택 : 직급이 제일 높고 근무 중 -->
 	<!-- 
