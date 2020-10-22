@@ -10,10 +10,11 @@ public interface AtdnMapper {
 	List<AttendanceMember> selectAtdn();
 	List<Attendance> selectAtdninout();
 	AttendanceMember selectAtdnNum(int mno);
-	int insertAtdn(Member member);
+	int insertAtdn(Attendance attendance);
 	int updateAtdntrip();
 	int updateAtdnover();
 	int updateAleaveStatus(AttendanceMember atdnmember);
+	int logoutAtdn(Attendance attendance);
 	
 	//Member
 	Member selectMemberOne(int mno);

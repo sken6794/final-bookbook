@@ -11,8 +11,9 @@ public interface AtdnDAO {
 	public List<AttendanceMember> selectAtdn();
 	AttendanceMember selectAtdnNum(int mno);
 	int updateAtdn(AttendanceMember atdnmember);
-	int insertAtdn(Member member);
+	int insertAtdn(Attendance Attendance);
 	List<Attendance> selectAtdninout();
+	int logoutAtdn(Attendance Attendance);
 	
 	//Member
 	Member selectMemberOne(int mno);

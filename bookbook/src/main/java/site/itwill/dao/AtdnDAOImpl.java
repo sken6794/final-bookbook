@@ -33,9 +33,9 @@ public class AtdnDAOImpl implements AtdnDAO{
 	}
 
 	@Override
-	public int insertAtdn(Member member) {
+	public int insertAtdn(Attendance attendance) {
 		
-		return sqlSession.getMapper(AtdnMapper.class).insertAtdn(member);
+		return sqlSession.getMapper(AtdnMapper.class).insertAtdn(attendance);
 	}
 
 	@Override
@@ -48,6 +48,12 @@ public class AtdnDAOImpl implements AtdnDAO{
 	public Member selectMemberOne(int mno) {
 		
 		return sqlSession.getMapper(AtdnMapper.class).selectMemberOne(mno);
+	}
+
+	@Override
+	public int logoutAtdn(Attendance attendance) {
+		
+		return sqlSession.getMapper(AtdnMapper.class).logoutAtdn(attendance);
 	}
 
 }

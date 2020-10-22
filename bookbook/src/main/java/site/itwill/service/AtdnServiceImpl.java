@@ -12,7 +12,7 @@ import site.itwill.dto.Member;
 import site.itwill.exception.LoginAuthFailException;
 
 @Service
-public class AtndServiceImpl implements AtdnService{
+public class AtdnServiceImpl implements AtdnService{
 	@Autowired
 	private AtdnDAO atdnDAO;
 	
@@ -34,9 +34,9 @@ public class AtndServiceImpl implements AtdnService{
 	}
 
 	@Override
-	public void addAtdn(Member member) {
+	public void addAtdn(Attendance attendance) {
 		
-		 atdnDAO.insertAtdn(member);
+		 atdnDAO.insertAtdn(attendance);
 	}
 
 	@Override
@@ -61,6 +61,12 @@ public class AtndServiceImpl implements AtdnService{
 	public Member getMember(int mno) {
 		
 		return atdnDAO.selectMemberOne(mno);
+	}
+
+	@Override
+	public void logoutAtdn(Attendance attendance) {
+		atdnDAO.logoutAtdn(attendance);
+		
 	}
 	
 }

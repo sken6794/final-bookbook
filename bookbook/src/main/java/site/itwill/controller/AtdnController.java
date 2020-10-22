@@ -1,5 +1,7 @@
 package site.itwill.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,20 +11,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import site.itwill.dto.AtdnMember;
 import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
 import site.itwill.service.AtdnService;
-import site.itwill.service.AtndServiceImpl;
+import site.itwill.service.AtdnServiceImpl;
 
 @Controller
 public class AtdnController {
 	@Autowired
 	private AtdnService atdnService;
 	
-	@RequestMapping("/atdn_member")
+	/*
+	@RequestMapping(value = "/atdn_member",method = RequestMethod.GET)
+	@ResponseBody
 	public String atdnMember(Model model) {
 		model.addAttribute("atdn", atdnService.getAtdnList());
 		return "atdn/atdn_member";
+	}
+	*/
+	@RequestMapping("/atdnList")
+	public String atdnList() {
+		return "atdn/atdn_member";
+	}
+	
+	@RequestMapping(value = "/atdn_member",method = RequestMethod.GET)
+	@ResponseBody
+	public List<AttendanceMember> atdnMember() {
+		List<AttendanceMember> atdnList = atdnService.getAtdnList();
+		return atdnList;
 	}
 	
 	//ÈÞ°¡ ½ÂÀÎÇÏ´Â ¸Þ¼Òµå

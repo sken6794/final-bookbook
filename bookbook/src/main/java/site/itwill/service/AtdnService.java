@@ -13,7 +13,8 @@ public interface AtdnService {
 	List<Attendance> getAtdnListinout();
 	AttendanceMember getAtdnNum(int mno);
 	void modifyAtdn(AttendanceMember atdnmember);
-	void addAtdn(Member member);
+	void addAtdn(Attendance attendance);
+	void logoutAtdn(Attendance attendance);
 	
 	//Member
 	void loginAuth(Member member) throws LoginAuthFailException;

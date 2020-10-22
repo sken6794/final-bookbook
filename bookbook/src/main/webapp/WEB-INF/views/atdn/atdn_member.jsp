@@ -10,7 +10,7 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
 
 		
 		<!-- begin #content -->
@@ -35,7 +35,8 @@
                             </div>
                             <h4 class="panel-title">Data Table - Default</h4>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="atdnListDiv">
+                        <%-- 
                             <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
@@ -53,7 +54,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                
+                                	
                                    	<c:forEach var="atdn" items="${atdn }">
 	                                    <tr class="odd gradeX">
 	                                        <td>${atdn.member.mno }</td>
@@ -68,9 +69,11 @@
 	                                        <td>${atdn.astarttime }</td>
 	                                        <td>${atdn.aendtime }</td>
 	                                    </tr>  
-                                    </c:forEach>                                 
+                                    </c:forEach>     
+                                                               
                                 </tbody>                               
                             </table>
+                            --%>  
                         </div>
                     </div>
                     <div class="col-md-2 btn btn-inverse m-r-3 m-b-3">
@@ -89,7 +92,44 @@
 		
 	</div>
 	<!-- end page container -->
-	
+	<!-- 핸들바스 스크립트 -->
+	<script id="template" type="text/x-handlebars-template">
+    <table id="data-table" class="table table-striped table-bordered">
+      <thead>
+       <tr>
+        <th>사원 코드</th>
+        <th>사원 이름</th>
+        <th>부서</th>
+        <th>직급</th>
+        <th>남은 휴가 일수</th>
+        <th>휴가 승인여부</th>
+        <th>연장 승인 여부</th>
+        <th>요청 종류</th>
+        <th>비고</th>
+        <th>시작 시간</th>
+        <th>종료 시간</th>
+      </tr>
+     </thead>
+      <tbody>
+      {{#each .}}
+      <tr class="odd gradeX">
+         <td>{{member.mno }}</td>
+         <td>{{member.mname}}</td>
+         <td>{{department/dname}}</td>
+         <td>{{position.pname}}</td>
+         <td>{{member.mdayoff}}</td>
+         <td>{{aleavestatus}}</td>
+         <td>{{aovertimestatus}}</td>
+         <td>{{aovertime}}</td>
+         <td>{{aovertimetext}}</td>
+         <td>{{astarttime}}</td>
+         <td>{{aendtime}}</td>
+         
+      </tr>
+      {{/each}}
+	 </tbody>
+   </table>
+   </script>
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -113,6 +153,24 @@
 			
 	</script>
 	<script type="text/javascript">
+	atdnDisplay();
+	//조회 요청 함수
+	function atdnDisplay() {
+		$.ajax({
+			type:"GET",
+			url:"atdn_member",
+			dataType:"json",
+			success:function(json){
+				var source=$("#template").html();
+				var template=Handlebars.compile(source);
+				$("#atdnListDiv").html(template(json.atdnList));
+			},
+			error:function(xhr) {
+	            alert("에러코드 = "+xhr.status);
+	        }
+		});
+		
+	}
 	//휴가 승인
 	function updateAtdn(mno) {
 		if(confirm("요청을 승인 하시겠습니까?")){
@@ -124,6 +182,7 @@
 				success: function (text) {
 					if(text=="success"){
 						alert("승인되었습니다.")
+						location.href="${pageContext.request.contextPath}/atdn/atdnList";
 					}
 				},
 				error: function(xhr) {

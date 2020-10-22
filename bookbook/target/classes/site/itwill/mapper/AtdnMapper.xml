@@ -69,15 +69,19 @@
 	</select>
 	
 	<!-- 로그인 할 때 같이 실행되면서 출근시간 -->
-	<insert id="insertAtdn">
-		<selectKey resultType="hashmap" keyProperty="logindate, atno" order="BEFORE">
-			select to_CHAR(sysdate, 'YY-MM-DD HH24:MI')as logindate, seq_atdn_atno.nextval as atno from dual
+	<insert id="insertAtdn" parameterType="attendance">
+		<selectKey resultType="int" keyProperty="atno" order="BEFORE">
+			select seq_atdn_atno.nextval from dual
 		</selectKey>
-		insert into attendance values (#{atno}, #{mno},#{logindate},null)
+		insert into attendance values (#{atno}, #{mno},#{alogin},null)
 	</insert>
 	
-	<update id="">
-		
+	<!-- 로그아웃 할 때 실행 -->
+	<update id="logoutAtdn">
+		update attendance set alogout=#{alogout}
+	      where atno = (select atno from
+	       (select rownum rn, atdn.* from
+	        (select * from attendance where mno = #{mno} order by atno desc) atdn order by atno desc) where rn =1) 
 	</update>
 	
 	<!-- 근태 상태 변경 -->
