@@ -33,19 +33,18 @@ public class MemberController {
 		return "member/member";
 	}
 	
+	@RequestMapping("/member_list") 
+	@ResponseBody 
+	public List<Member> restMemberJSONList() { 
+		return memberService.getMemberList(); 
+	}
+	
 	@RequestMapping(value = "/member_insert", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberInsert(@RequestBody Member member) {
 		memberService.addMember(member);
 		return "success";
 	}
-	
-	  @RequestMapping("/member_list") 
-	  @ResponseBody 
-	  public List<Member> restMemberJSONList() { 
-		  return memberService.getMemberList(); 
-	  }
-	
 	
 	/*
 	 * @RequestMapping("/member_list") public ResponseEntity<List<Member>>
@@ -66,10 +65,10 @@ public class MemberController {
 		return "redirect:/member";
 	}
 	
-	//사원번호 받기
+	//사원번호 받아서 저장(변경할때 필요)
 	@RequestMapping(value = "/member_view/{mno}", method = RequestMethod.GET)
 	@ResponseBody
-	public Member restBoardView(@PathVariable int mno) {
+	public Member restMemberView(@PathVariable int mno) {
 		return memberService.getRestMember(mno);
 	}
 	

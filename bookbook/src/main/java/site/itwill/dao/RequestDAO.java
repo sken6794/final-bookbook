@@ -7,6 +7,7 @@ import site.itwill.dto.Request;
 public interface RequestDAO {
 	int insertRequest(Request request);
 	int deleteRequest(int rno);
-	Request selectRequest(Request request);
+	int updateRequest(Request request);
+	Request selectRestRequest(int rno);
 	List<Request> selectRequestList();
 }

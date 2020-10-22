@@ -12,26 +12,26 @@ import site.itwill.mapper.PayManageMapper;
 public class PayManageDAOImpl implements PayManageDAO{
 	@Autowired
 	private SqlSession sqlSession;
-	
-	@Override
-	public List<PayManage> selectPayList() {
-		return sqlSession.getMapper(PayManageMapper.class).selectPayList();
-	}
 
 	@Override
 	public int insertPay(PayManage pay) {
 		return sqlSession.getMapper(PayManageMapper.class).insertPay(pay);
+	}
+	
+	@Override
+	public int updatePay(PayManage pay) {
+		return sqlSession.getMapper(PayManageMapper.class).updatePay(pay);
+		
 	}
 
 	@Override
 	public int deletePay(int pmno) {
 		return sqlSession.getMapper(PayManageMapper.class).deletePay(pmno);
 	}
-
+	
 	@Override
-	public int updatePay(PayManage pay) {
-		return sqlSession.getMapper(PayManageMapper.class).updatePay(pay);
-
+	public List<PayManage> selectPayList() {
+		return sqlSession.getMapper(PayManageMapper.class).selectPayList();
 	}
 
 	@Override

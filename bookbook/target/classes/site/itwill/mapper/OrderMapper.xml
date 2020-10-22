@@ -26,14 +26,18 @@
 	<select id="selectOrder">
 		SELECT O.ONO, O.OID, B.BNAME, B.BPUBLISHER, O.ODATE, O.OQTY, O.OQTY*B.BPRICE "O.OPRICE", O.OSTATE 
 		FROM "ORDER" O JOIN BOOK B ON O.BCODE = B.BCODE 
-		WHERE O.OID=#{OID} OR O.ODATE=#{ODATE} OR O.OSTATE=#{OSTATE}
+		WHERE O.OID=#{oid} OR O.ODATE=#{odate} OR O.OSTATE=#{ostate}
+	</select>
+
+	<select id="selectRestOrder" resultType="Order">
+		select OID, OQTY, OSTATE, BCODE from "ORDER" where ono=#{ono} ORDER BY ODATE DESC
 	</select>
 
 	<delete id="deleteOrder">
-		DELETE FROM "ORDER" WHERE ONO=#{ONO}
+		DELETE FROM "ORDER" WHERE ono=#{ono}
 	</delete>
 	
 	<update id="updateOrder">
-		UPDATE "ORDER" SET #{OQTY},#{OSTATE},#{BCODE} WHERE ONO={ONO}
+		UPDATE "ORDER" SET OID=#{oid}, OQTY=#{oqty}, OSTATE=#{ostate}, BCODE=#{bcode} WHERE ONO=#{ono}
 	</update>
 </mapper>
