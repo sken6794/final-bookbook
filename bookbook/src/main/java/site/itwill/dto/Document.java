@@ -37,6 +37,23 @@ public class Document {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	public Document(int docno, String docname, String doccon, int docstate, int docaprv, String docdate, String doccomp,
+			String reject, Member member, Department department) {
+		super();
+		this.docno = docno;
+		this.docname = docname;
+		this.doccon = doccon;
+		this.docstate = docstate;
+		this.docaprv = docaprv;
+		this.docdate = docdate;
+		this.doccomp = doccomp;
+		this.reject = reject;
+		this.member = member;
+		this.department = department;
+	}
+
+
 	public int getDocno() {
 		return docno;
 	}

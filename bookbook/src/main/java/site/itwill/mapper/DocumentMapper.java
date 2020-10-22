@@ -8,4 +8,5 @@ public interface DocumentMapper {
 	int insertDocument(Document document);
 	public List<Document> selectDocumentList();
 	Document selectDocument(int docno);
+	int updateDocument(Document document);
 }
