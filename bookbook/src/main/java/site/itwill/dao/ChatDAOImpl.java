@@ -20,4 +20,23 @@ public class ChatDAOImpl implements ChatDAO{
 		return sqlSession.getMapper(ChatMapper.class).getAllChatList();
 	}
 
+	@Override
+	public List<Chat> searchRoom(String rname) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(ChatMapper.class).searchRoom(rname);
+	}
+
+	@Override
+	public int insertChat(Chat chat) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(ChatMapper.class).insertChat(chat);
+	}
+	
+	@Override
+	public int insertChatPerson(Chat chat) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(ChatMapper.class).insertChatPerson(chat);
+	}
+
+
 }

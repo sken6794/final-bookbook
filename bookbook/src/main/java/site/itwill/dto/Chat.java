@@ -2,6 +2,7 @@ package site.itwill.dto;
 
 public class Chat {
 		private int cno;
+		private int cpno;
 		private String croomno;
 		private String croomname;
 		private int ccreator;
@@ -9,6 +10,7 @@ public class Chat {
 		private String cinfo;
 		private int cperson;
 		private int csecret;
+		private String cpw;
 		private String clog;
 		
 		
@@ -16,6 +18,30 @@ public class Chat {
 		public Chat() {
 			// TODO Auto-generated constructor stub
 		}
+
+		public int getCpno() {
+			return cpno;
+		}
+
+
+
+		public void setCpno(int cpno) {
+			this.cpno = cpno;
+		}
+
+
+
+		public String getCpw() {
+			return cpw;
+		}
+
+
+
+		public void setCpw(String cpw) {
+			this.cpw = cpw;
+		}
+
+
 
 		public int getCno() {
 			return cno;

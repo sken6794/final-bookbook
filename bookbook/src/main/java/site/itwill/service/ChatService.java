@@ -7,4 +7,6 @@ import site.itwill.dto.Chat;
 
 public interface ChatService {
 	public List<Chat> getAllChatList();
+	public List<Chat> searchRoom(String rname);
+	public int insertChat(Chat chat);
 }

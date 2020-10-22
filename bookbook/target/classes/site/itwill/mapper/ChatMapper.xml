@@ -29,6 +29,7 @@
 				</association>
 		</resultMap>
 
+		<!-- 
 		<select id="getAllChatList" resultMap="chatResultMap">
 			SELECT C.*, (SELECT MNAME FROM MEMBER WHERE MNO = C.CCREATOR) "ccreator", M.MNAME "mname", 
 			(SELECT DNAME FROM DEPARTMENT WHERE DNO = M.DNO) "dname", (SELECT PNAME FROM POSITION WHERE PNO = M.PNO) "pname" 
@@ -37,4 +38,39 @@
 			JOIN DEPARTMENT D ON M.DNO = D.DNO 
 			JOIN POSITION P ON M.PNO = P.PNO
 		</select>
+		 -->
+		<select id="getAllChatList" resultMap="chatResultMap">
+			select distinct c.cno, c.croomname, c.cinfo, c.cperson, c.csecret, m.mname, p.pname
+			from chat c join chat_person cp on c.cno = cp.cno
+			join member m on m.mno = cp.mno
+			join position p on p.pno = m.pno
+			where p.pno in (select pno from member where mno in (select distinct c.ccreator from chat c join chat_person cp on c.cno = cp.cno))
+		</select>
+		
+		<select id="searchRoom" resultMap="chatResultMap">
+			select distinct c.cno, c.croomname, c.cinfo, c.cperson, c.csecret, m.mname, p.pname
+			from chat c join chat_person cp on c.cno = cp.cno
+			join member m on m.mno = cp.mno
+			join position p on p.pno = m.pno
+			where p.pno in (select pno from member where mno in (select distinct c.ccreator from chat c join chat_person cp on c.cno = cp.cno))
+			<if test="rname!=null and rname!=''">
+				and c.croomname like '%' || #{rname} || '%'
+			</if>
+		</select>
+		
+		<insert id="insertChat" useGeneratedKeys="true" keyProperty="id">
+					<selectKey resultType="int" keyProperty="cno" order="BEFORE" >
+						select seq_chat.nextval from dual
+					</selectKey>
+					insert into chat values(#{cno}, #{croomno}, #{croomname},#{ccreator}, #{cdate}, #{cinfo}, #{cperson}, #{csecret}, #{cpw}, null)
+		</insert>
+		
+		<insert id="insertChatPerson">
+					<selectKey resultType="int" keyProperty="cpno" order="BEFORE">
+						select seq_chat_person.nextval "cpno" from dual
+					</selectKey>
+					insert into chat_person values(#{cpno}, #{ccreator}, #{cno})
+		</insert>
+		 
+		
 </mapper>
