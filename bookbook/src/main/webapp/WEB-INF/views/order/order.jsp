@@ -90,7 +90,7 @@ table { text-align: center;}
                       <hr>
 					<br>
 					<!-- 주문내역 수정 팝업 -->
-					<div class="modal fade" id="modal-dialog">
+					<div class="modal fade" id="modal-modify">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -102,32 +102,39 @@ table { text-align: center;}
 									<!-- 주문 수정 form -->
 									<form class="form-horizontal">
 									<div class="modal-body">
+									<input type="hidden" name="ono" id="m_ono">
+			                                <div class="form-group">
+			                                    <label class="control-label col-md-4 col-sm-4">회원 ID :</label>
+			                                    <div class="col-md-6 col-sm-6">
+			                                        <input type="text" class="form-control" style="float: left;" name="oid" id="m_oid" disabled="disabled">
+			                                    </div>
+			                                </div>
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">주문 수량 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <input type="text" class="form-control" placeholder="수량" style="float: left;">
+			                                        <input type="text" class="form-control" placeholder="수량" style="float: left;" name="oqty" id="m_oqty">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">주문 상태 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control">
-			                                            <option>주문완료</option>
-			                                            <option>배송중</option>
-			                                            <option>배송완료</option>
+			                                        <select class="form-control" name="ostate" id="m_ostate">
+			                                            <option value="1">주문완료</option>
+			                                            <option value="2">배송중</option>
+			                                            <option value="3">배송완료</option>
 			                                        </select>
 			                                    </div>
 			                                </div>                                
 				                            <div class="form-group">
 				                                    <label class="control-label col-md-4 col-sm-4">도서코드 :</label>
 				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="도서코드" />
+				                                        <input type="text" class="form-control" placeholder="도서코드" name="bcode" id="m_bcode"/>
 				                                    </div>
 				                            </div>
 										</div>
 										<div class="modal-footer">
 											<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-											<a href="javascript:;" class="btn btn-sm btn-primary">수정</a>
+											<button type="button" onclick="modifyOrder();" class="btn btn-sm btn-primary">수정</button>
 										</div>
 		                            	</form>
 									</div>
@@ -145,6 +152,7 @@ table { text-align: center;}
 									<th>주문수량</th>
 									<th>주문금액</th>
 									<th>주문일자</th>
+									<th>진행상태</th>
 									<th width="100">관리</th>
 								</tr>
 							</thead>
@@ -224,19 +232,17 @@ table { text-align: center;}
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-colreorder.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
+	
 	<script>
-		$(document).ready(function() {
-			App.init();
-		});
-
-	 /* 주문조회 테이블 관련 */ 
-
+	
 		$(document).ready(function() {
 			App.init();
 			TableManageTableSelect.init();
 		});
-	 
-		/* 주문 조회 리스트*/
+
+
+	/* 주문 조회 리스트*/
+	
 		function displayOrder() {
 			$.ajax({
 				type: "GET",
@@ -250,7 +256,11 @@ table { text-align: center;}
 					}
 					
 					var html="";
-					$(json).each(function() {				
+					$(json).each(function() {	
+						var state="";
+						if(this.ostate=="1") state="주문완료";
+						if(this.ostate=="2") state="배송중";
+						if(this.ostate=="3") state="배송완료";
 						
 						html+="<tr>";
 						html+="<td><input type='checkbox'></td>";
@@ -261,8 +271,9 @@ table { text-align: center;}
 						html+="<td>"+this.oqty+"</td>";
 						html+="<td>"+this.oprice+"</td>";
 						html+="<td>"+this.odate.substring(0,10)+"</td>";
+						html+="<td>"+state+"</td>";
 						html+="<td><button onclick='deleteOrder("+this.ono+");' class='btn btn-sm btn-white'>삭제</button> "
-						+" <button href='#modal-dialog1' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
+						+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.ono+">수정</button></td>";
 						html+="</tr>";
 					
 						
@@ -279,15 +290,71 @@ table { text-align: center;}
 				}
 			});
 		}
+		
 		displayOrder();
 	 
 	 
-	 /* 주문 삭제*/
+	/* 주문 삭제 */
 		function deleteOrder(ono) {
 			if(confirm("정말로 삭제하시겠습니까?")) {
 				location.href="order_delete/"+ono;
 			}
 		}
+	 
+	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
+ 		
+ 		$(document).on("click", "#modify_link", function() {
+ 				var ono=$(this).data("id");
+ 				$("#m_ono").val(ono); 
+ 				
+ 				$.ajax({
+ 					type: "GET",
+ 					url: "order_view/"+ono,
+ 					dataType: "json",
+ 					success: function(json) {
+ 						$("#m_oid").val(json.oid);
+ 						$("#m_oqty").val(json.oqty);
+ 						$("#m_ostate").val(json.ostate);
+ 						$("#m_bcode").val(json.bcode);
+			
+ 					},
+ 					error: function(xhr) {
+ 						alert("에러코드 = "+xhr.status);
+ 					}
+ 				});
+ 			});
+	
+ 	/* 주문 수정 데이터 보내기 */
+ 		
+ 		function modifyOrder() {
+ 			var ono=$("#m_ono").val();
+ 			var oid=$("#m_oid").val();
+ 			var oqty=$("#m_oqty").val();
+ 			var ostate=$("#m_ostate").val();
+ 			var bcode=$("#m_bcode").val();
+ 			
+ 			$.ajax({
+ 				type: "PUT",
+ 				url: "order_modify",
+ 				headers: {"content-type":"application/json", "X-HTTP-Method-override":"PUT"},
+ 				data: JSON.stringify({ 
+ 					"ono":ono,
+ 					"oid":oid,
+ 					"oqty":oqty,
+ 					"ostate":ostate, 
+ 					"bcode":bcode,		
+ 				}),
+ 				dataType: "text",
+ 				success: function(text) {
+ 					if(text=="success") {					
+ 						location.reload();
+ 					}
+ 				},
+ 				error: function(xhr) {
+ 					alert("에러 발생 코드 "+xhr.status);				
+ 				}
+ 			});	
+ 		} 
 	</script>
 </body>
 </html>
