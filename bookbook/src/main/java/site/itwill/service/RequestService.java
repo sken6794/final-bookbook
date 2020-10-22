@@ -7,6 +7,7 @@ import site.itwill.dto.Request;
 public interface RequestService {
 	void addRequest(Request request);
 	void removeRequest(int rno);
-	Request getRequest(Request request);
+	void modifyRequest(Request request);
+	Request getRestRequest(int rno);
 	public List<Request> getRequestList();
 }

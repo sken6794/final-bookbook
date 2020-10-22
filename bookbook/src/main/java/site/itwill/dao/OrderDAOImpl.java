@@ -17,6 +17,16 @@ public class OrderDAOImpl implements OrderDAO {
 	public int insertOrder(Order order) {
 		return sqlSession.getMapper(OrderMapper.class).insertOrder(order);
 	}
+
+	@Override
+	public int updateOrder(Order order) {
+		return sqlSession.getMapper(OrderMapper.class).updateOrder(order);
+	}
+	
+	@Override
+	public int deleteOrder(int ono) {
+		return sqlSession.getMapper(OrderMapper.class).deleteOrder(ono);
+	}
 	
 	@Override
 	public List<Order> selectOrderList() {
@@ -24,9 +34,8 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public int deleteOrder(int ono) {
-		return sqlSession.getMapper(OrderMapper.class).deleteOrder(ono);
-
+	public Order selectRestOrder(int ono) {
+		return sqlSession.getMapper(OrderMapper.class).selectRestOrder(ono);
 	}
 
 }

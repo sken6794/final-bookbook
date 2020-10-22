@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import site.itwill.dao.PayManageDAO;
 import site.itwill.dto.PayManage;
@@ -12,16 +13,22 @@ public class PayManageServiceImpl implements PayManageService {
 	@Autowired
 	private PayManageDAO payManageDAO;
 	
-	
+	@Transactional
 	@Override
 	public void addPay(PayManage pay) {
 		payManageDAO.insertPay(pay);
 	}
 	
+	@Transactional
 	@Override
 	public void removePay(int pmno) {
-		payManageDAO.selectPayList();
-		
+		payManageDAO.selectPayList();	
+	}
+	
+	@Transactional
+	@Override
+	public void modifyRestPay(PayManage pay) {
+		payManageDAO.updatePay(pay);
 	}
 	
 	@Override
@@ -29,10 +36,6 @@ public class PayManageServiceImpl implements PayManageService {
 		return payManageDAO.selectPayList();
 	}
 
-	@Override
-	public void modifyRestPay(PayManage pay) {
-		payManageDAO.updatePay(pay);
-	}
 
 	@Override
 	public PayManage getRestPay(int pmno) {

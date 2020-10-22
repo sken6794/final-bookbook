@@ -67,7 +67,7 @@ public class PayManageController {
 	//급여번호 받기
 	@RequestMapping(value = "/pay_view/{pmno}", method = RequestMethod.GET)
 	@ResponseBody
-	public PayManage restBoardView(@PathVariable int pmno) {
+	public PayManage restPayView(@PathVariable int pmno) {
 		return payManageService.getRestPay(pmno);
 	}
 	

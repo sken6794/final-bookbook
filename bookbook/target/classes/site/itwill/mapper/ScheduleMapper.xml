@@ -4,7 +4,7 @@
 	
 	<!-- 컬럼명과 DTO 변수명이 다르므로 수동매핑 -->
 	<resultMap type="Schedule" id="scheduleResultMap">
-		<id column="sno" property="_id"/>
+		<id column="sno" property="id"/>
 		<result column="stitle" property="title"/>
 		<result column="scontent" property="description"/>
 		<result column="sstart" property="start"/>
@@ -19,7 +19,7 @@
 	
 	<!-- 일정 출력 -->
 	<select id="selectSchedule" resultMap="scheduleResultMap">
-		select * from schedule where sno=#{_id}
+		select * from schedule where sno=#{id}
 	</select>
 	
 	<!-- 전체 일정 출력 -->
@@ -31,10 +31,10 @@
 	
 	<!-- 일정 작성 - #{ dto변수명 } -->
 	<insert id="insertSchedule">
-		<selectKey resultType="int" keyProperty="_id" order="BEFORE">
+		<selectKey resultType="int" keyProperty="id" order="BEFORE">
 			select schedule_seq.nextval from dual
 		</selectKey>
-		insert into schedule values(#{_id}, #{title}, #{description},
+		insert into schedule values(#{id}, #{title}, #{description},
 			#{start}, #{end}, #{type}, #{username}, 
 			#{backgroundColor}, #{textColor}, #{allDay}, #{mno})
 	</insert>
@@ -44,10 +44,10 @@
 		update schedule set stitle=#{title}, scontent=#{description}, 
 			sstart=#{start}, send=#{end}, scategory=#{type}, sdname=#{username}, 
 			scolor=#{backgroundColor}, stextcolor=#{textColor}, sallday=#{allDay}
-			where sno=#{_id}
+			where sno=#{id}
 	</update>
 	
 	<delete id="deleteSchedule">
-		delete from schedule where sno=#{_id}
+		delete from schedule where sno=#{id}
 	</delete>
 </mapper>

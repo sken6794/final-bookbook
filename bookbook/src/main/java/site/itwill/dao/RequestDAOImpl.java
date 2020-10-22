@@ -19,6 +19,11 @@ public class RequestDAOImpl implements RequestDAO{
 	}
 	
 	@Override
+	public int updateRequest(Request request) {
+		return sqlSession.getMapper(RequestMapper.class).updateRequest(request);
+	}
+	
+	@Override
 	public int deleteRequest(int rno) {
 		return sqlSession.getMapper(RequestMapper.class).deleteRequest(rno);
 	}
@@ -28,9 +33,10 @@ public class RequestDAOImpl implements RequestDAO{
 		return sqlSession.getMapper(RequestMapper.class).selectRequestList();
 	}
 
+
 	@Override
-	public Request selectRequest(Request request) {
-		return sqlSession.getMapper(RequestMapper.class).selectRequest(request);
+	public Request selectRestRequest(int rno) {
+		return sqlSession.getMapper(RequestMapper.class).selectRestRequest(rno);
 
 	}
 

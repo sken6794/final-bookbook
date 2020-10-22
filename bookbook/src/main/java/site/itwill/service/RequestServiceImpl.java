@@ -21,19 +21,26 @@ public class RequestServiceImpl implements RequestService {
 	
 	@Transactional
 	@Override
+	public void modifyRequest(Request request) {
+		requestDAO.updateRequest(request);
+	}
+	
+	@Transactional
+	@Override
 	public void removeRequest(int rno) {
 		requestDAO.deleteRequest(rno);
 	}
-	
+
 	@Override
 	public List<Request> getRequestList() {
 		return requestDAO.selectRequestList();
 	}
 
 	@Override
-	public Request getRequest(Request request) {
-		return requestDAO.selectRequest(request);
+	public Request getRestRequest(int rno) {
+		return requestDAO.selectRestRequest(rno);
 	}
+
 
 
 }

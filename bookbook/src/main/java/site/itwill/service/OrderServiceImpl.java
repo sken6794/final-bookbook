@@ -21,6 +21,12 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Transactional
 	@Override
+	public void modifyOrder(Order order) {
+		orderDAO.updateOrder(order);
+	}
+	
+	@Transactional
+	@Override
 	public void removeOrder(int ono) {
 		orderDAO.deleteOrder(ono);
 	}
@@ -28,6 +34,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getOrderList() {
 		return orderDAO.selectOrderList();
+	}
+
+	@Override
+	public Order getRestOrder(int ono) {
+		return orderDAO.selectRestOrder(ono);
 	}
 
 

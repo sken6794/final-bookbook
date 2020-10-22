@@ -105,28 +105,31 @@ var calendar = $('#calendar').fullCalendar({
   events: function (start, end, timezone, callback) {
     $.ajax({
       type: "get",
-      //url: "data.json", - 임시값이 들어있는 data.json 파일
       url: "scheduleList",
       data: {
         // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-        //startDate : moment(start).format('YYYY-MM-DD'),
-        //endDate   : moment(end).format('YYYY-MM-DD')
+        startDate : moment(start).format('YYYY-MM-DD'),
+        endDate   : moment(end).format('YYYY-MM-DD')
       },
       success: function (response) {
-      
-        var fixedDate = response.map(function (array) {
-          if (array.allDay && array.start !== array.end) {
+         var fixedDate = response.map(function (array) {
+	         if(array.allDay==='true'){
+	    	 	array.allDay=true;
+	    	 }else{
+	    	 	array.allDay=false;
+	    	 }
+        	    	 
+          if (array.allDay && array.start.substring(0,10) !== array.end.substring(0,10)) {
             array.end = moment(array.end).add(1, 'days'); 
             // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
           }
-          
           return array;
         });
-        
         callback(fixedDate);
       }
     });
   },
+
 
   eventAfterAllRender: function (view) {
     if (view.name == "month") $(".fc-content").css('height', 'auto');
@@ -145,7 +148,7 @@ var calendar = $('#calendar').fullCalendar({
       type: "get",
       url: "",
       data: {
-        //id: event._id,
+        //id: event.id,
         //....
       },
       success: function (response) {

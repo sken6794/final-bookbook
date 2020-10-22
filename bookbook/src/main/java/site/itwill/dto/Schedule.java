@@ -1,7 +1,7 @@
 package site.itwill.dto;
 
 public class Schedule {
-	private int _id;
+	private int id;
 	private String title;
 	private String description;
 	private String start;
@@ -30,12 +30,12 @@ public class Schedule {
 		this.mno = mno;
 	}
 
-	public int get_id() {
-		return _id;
+	public int getid() {
+		return id;
 	}
 
-	public void set_id(int _id) {
-		this._id = _id;
+	public void setid(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {

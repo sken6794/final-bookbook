@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import site.itwill.dto.Member;
 import site.itwill.dto.Order;
 import site.itwill.dto.PayManage;
 import site.itwill.service.OrderService;
@@ -31,8 +33,7 @@ public class OrderController {
 	@ResponseBody
 	public List<Order> restOrderJSONList() {
 		return orderService.getOrderList();
-	}
-	
+	}	
 	
 	@RequestMapping(value="/add_order", method = RequestMethod.GET)
 	public String addOrder() {
@@ -47,19 +48,34 @@ public class OrderController {
 		order.setOdate(odate);
 		
 		/*
-		 * if(order.getOid().equals("")) { model.addAttribute("message",
-		 * "회원 ID를 입력해주세요."); return "order/addOrder"; }
+		 if(order.getOid().equals("")) { 
+		 model.addAttribute("message", "회원 ID를 입력해주세요."); 
+		 return "order/addOrder"; }
 		 */
 		orderService.addOrder(order);
 		
 		return "redirect:/add_order";
 		
-	}
-	
+	}	
 	
 	@RequestMapping(value = "/order_delete/{ono}")
 	public String orderDelete(@PathVariable int ono) {
 		orderService.removeOrder(ono);
 		return "redirect:/order";
 	}
+	
+	//사원번호 받아서 저장(변경할때 필요)
+	@RequestMapping(value = "/order_view/{ono}", method = RequestMethod.GET)
+	@ResponseBody
+	public Order restOrderView(@PathVariable int ono) {
+		return orderService.getRestOrder(ono);
+	}
+	
+	//사원정보 변경
+	@RequestMapping(value = "/order_modify", method = {RequestMethod.PUT, RequestMethod.PATCH})
+	@ResponseBody
+	public String restOrderModify(@RequestBody Order order) {
+		orderService.modifyOrder(order);
+		return "success";
+	}	
 }

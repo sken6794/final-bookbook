@@ -8,8 +8,7 @@ import site.itwill.dto.Schedule;
 public interface ScheduleDAO {
 	int insertSchedule(Schedule schedule);
 	int updateSchedule(Schedule schedule);
-	int deleteSchedule(int _id);
-	Schedule selectSchedule(int _id);
+	int deleteSchedule(int id);
+	Schedule selectSchedule(int id);
 	List<Schedule> selectScheduleList();
-	//List<Schedule> selectScheduleList(Map<String, Object> map);
 }

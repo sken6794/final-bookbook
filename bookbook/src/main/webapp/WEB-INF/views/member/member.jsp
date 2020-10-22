@@ -137,89 +137,89 @@
 										<h4 class="modal-title" style="text-align: center; font-weight: bold;">사원정보수정</h4>
 									</div>
 								<!-- 정보수정 form -->
-									<form class="form-horizontal" method="post" enctype="multipart/form-data">
+									<form class="form-horizontal">
 									<div class="modal-body">
-										
+										<input type="hidden" name="mno" id="m_mno">
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">이름 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="이름" />
+		                                        <input type="text" class="form-control" placeholder="이름" name="mname" id="m_mname"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">생년월일 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" value="01/01/2020" />
+		                                        <input type="text" class="form-control" id="m_mbirth" placeholder="Select Date" value="01/01/2020" name="mbirth"/>
 		                                    </div>
 		                                </div>                             
 										<div class="form-group">
 											<label class="control-label col-md-4 col-sm-4" for="message">전화번호 :</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" id="data-phone" data-parsley-type="number" placeholder="(XXX) XXXX XXX" />
+												<input class="form-control" type="text" id="m_mphone" data-parsley-type="number" placeholder="(010) XXXX XXX" name="mphone" />
 											</div>
 										</div>
 		                                <div class="form-group">
 											<label class="control-label col-md-4 col-sm-4" for="email">Email :</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text" id="email" name="email" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" />
+												<input class="form-control" type="text" id="m_memail" name="memail" data-parsley-type="email" placeholder="email@example.com" data-parsley-required="true" />
 											</div>
 										</div>										
 										<div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">주소 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="주소" />
+		                                        <input type="text" class="form-control" placeholder="주소" name="maddress" id="m_maddress"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">퇴사날짜 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
+		                                        <input type="text" class="form-control" id="m_mquitdate" placeholder="ex.20/01/01" name="mquitdate" />
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">퇴사이유 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="퇴사이유" />
+		                                        <input type="text" class="form-control" placeholder="퇴사이유" id="m_mquitreason" name="mquitreason" />
 		                                    </div>
 		                                </div>	
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">사원상태 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
-		                                            <option>1</option>
-		                                            <option>2</option>
-		                                            <option>3</option>
+		                                        <select class="form-control" name="mstate" id="m_mstate">
+		                                            <option value="1">근무</option>
+		                                            <option value="2">휴직</option>
+		                                            <option value="3">퇴직</option>
 		                                        </select>
 		                                    </div>
 		                                </div>	
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">연차일수 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" />
+		                                        <input type="text" class="form-control" name="mdayoff" id="m_mdayoff"/>
 		                                    </div>
 		                                </div>			                                	                                	                                
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">부서 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
-		                                            <option>도서 1팀</option>
-		                                            <option>도서 2팀</option>
-		                                            <option>영업팀</option>
-		                                            <option>회계팀</option>
+		                                        <select class="form-control" name="dno" id="m_dno">
+		                                            <option value="10">도서 1팀</option>
+		                                            <option value="20">도서 2팀</option>
+		                                            <option value="30">영업팀</option>
+		                                            <option value="40">회계팀</option>
 		                                        </select>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">직급 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
-		                                            <option>사원</option>
-		                                            <option>주임</option>
-		                                            <option>대리</option>
-		                                            <option>과장</option>
-		                                            <option>차장</option>
-		                                            <option>부장</option>
-		                                            <option>이사</option>
+		                                        <select class="form-control" name="pno" id="m_pno">
+		                                            <option value="1">사원</option>
+		                                            <option value="2">주임</option>
+		                                            <option value="3">대리</option>
+		                                            <option value="4">과장</option>
+		                                            <option value="5">차장</option>
+		                                            <option value="6">부장</option>
+		                                            <option value="7">이사</option>
 		                                        </select>
 		                                    </div>
 		                                </div>		                                	                                
@@ -227,7 +227,7 @@
 									</div>
 									<div class="modal-footer">
 										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-										<button type="submit" id="insertBtn" class="btn btn-sm btn-success">수정</button>
+										<button type="button" class="btn btn-sm btn-success" onclick="modifyMember();">수정</button>
 									</div>
 		                            </form>
 								</div>
@@ -292,7 +292,7 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">입사날짜 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="i_mjoindate" placeholder="2020/01/01" name="mjoindate" />
+		                                        <input type="text" class="form-control" id="i_mjoindate" placeholder="20/01/01" name="mjoindate" />
 <!-- 		                                    <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="mdate" id="i_mdate"/> -->
 		                                    </div>
 		                                </div>
@@ -334,7 +334,6 @@
                         <table id="data-table" class="table table-striped table-bordered" width="100%">
                             <thead>
                               <tr>
-                                  <th><input type="checkbox"></th>
                                   <th>사원번호</th>
                                   <th>사원이름</th>
                                   <th>부서</th>
@@ -342,7 +341,8 @@
                                   <th>생년월일</th>
                                   <th>입사일자</th>
                                   <th>이메일</th>
-                                  <th>전화번호</th>
+                                  <th width="120">전화번호</th>
+                                  <th width="100">주소</th>
                                   <th width="120">관리</th>
                               </tr>
                             </thead>
@@ -447,7 +447,6 @@
 					$(json).each(function() {				
 						
 						html+="<tr>";
-						html+="<td><input type='checkbox'></td>";
 						html+="<td>"+this.mno+"</td>";
 						html+="<td>"+this.mname+"</td>";
 						html+="<td>"+this.department.dname+"</td>";
@@ -456,8 +455,9 @@
 						html+="<td>"+this.mjoindate+"</td>";
 						html+="<td>"+this.memail+"</td>";
 						html+="<td>"+this.mphone+"</td>";
+						html+="<td>"+this.maddress+"</td>";
 						html+="<td><button onclick='deleteMember("+this.mno+");' class='btn btn-sm btn-white'>삭제</button> "
-						+" <button href='#modal-update' class='btn btn-sm btn-success' data-toggle='modal'>수정</button></td>";
+						+" <button href='#modal-update' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.mno+">수정</button></td>";
 						html+="</tr>";				
 						
 						});
@@ -528,8 +528,80 @@
 			});
 		}  
 		
-		
+ 	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
+ 		
+ 		$(document).on("click", "#modify_link", function() {
+ 				var mno=$(this).data("id");
+ 				$("#m_mno").val(mno); 
+ 				
+ 				$.ajax({
+ 					type: "GET",
+ 					url: "member_view/"+mno,
+ 					dataType: "json",
+ 					success: function(json) {
+ 						$("#m_mname").val(json.mname);
+ 						$("#m_mbirth").val(json.mbirth);
+ 						$("#m_mphone").val(json.mphone);
+ 						$("#m_memail").val(json.memail);
+ 						$("#m_maddress").val(json.maddress);
+ 						$("#m_mquitdate").val(json.mquitdate);
+ 						$("#m_mquitreason").val(json.mquitreason);
+ 						$("#m_mstate").val(json.mstate);
+ 						$("#m_mdayoff").val(json.mdayoff);
+ 						$("#m_dno").val(json.dno);
+ 						$("#m_pno").val(json.pno);				
+ 					},
+ 					error: function(xhr) {
+ 						alert("에러코드 = "+xhr.status);
+ 					}
+ 				});
+ 			});
 	
+ 	/* 사원정보 수정 데이터 보내기 */
+ 		
+ 		function modifyMember() {
+ 			var mno=$("#m_mno").val();
+ 			var mname=$("#m_mname").val();
+ 			var mbirth=$("#m_mbirth").val();
+ 			var mphone=$("#m_mphone").val();
+ 			var memail=$("#m_memail").val();
+ 			var maddress=$("#m_maddress").val();
+ 			var mquitdate=$("#m_mquitdate").val();
+ 			var mquitreason=$("#m_mquitreason").val();
+ 			var mstate=$("#m_mstate").val();
+ 			var mdayoff=$("#m_mdayoff").val();
+ 			var dno=$("#m_dno").val();
+ 			var pno=$("#m_pno").val();
+ 			
+ 			$.ajax({
+ 				type: "PUT",
+ 				url: "member_modify",
+ 				headers: {"content-type":"application/json", "X-HTTP-Method-override":"PUT"},
+ 				data: JSON.stringify({ 
+ 					"mno":mno,
+ 					"mname":mname,
+ 					"mbirth":mbirth, 
+ 					"mphone":mphone,
+ 					"memail":memail,
+ 					"maddress":maddress,
+ 					"mquitdate":mquitdate,
+ 					"mquitreason":mquitreason,
+ 					"mstate":mstate,
+ 					"mdayoff":mdayoff,
+ 					"dno":dno,
+ 					"pno":pno			
+ 				}),
+ 				dataType: "text",
+ 				success: function(text) {
+ 					if(text=="success") {					
+ 						location.reload();
+ 					}
+ 				},
+ 				error: function(xhr) {
+ 					alert("에러 발생 코드 "+xhr.status);				
+ 				}
+ 			});	
+ 		}
 	
 	</script>
 <!-- 어디에 쓰이는 것인가? - 아 행클릭하면 지정해놓은 사이트로 이동
