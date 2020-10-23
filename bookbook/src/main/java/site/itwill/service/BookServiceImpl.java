@@ -24,4 +24,29 @@ public class BookServiceImpl implements BookService{
 	public int updateBookLoc(Map<String, String> map) {
 		return bookDAO.updateBookLoc(map);
 	}
+
+	@Override
+	public Book selectBook(String bookCode) {
+		return bookDAO.selectBook(bookCode);
+	}
+
+	@Override
+	public int insertBook(Book book) {
+		return bookDAO.insertBook(book);
+	}
+
+	@Override
+	public List<Book> selectBookList() {
+		return bookDAO.selectBookList();
+	}
+
+	@Override
+	public List<Book> selectDynamicBookList(Book book) {
+		return bookDAO.selectDynamicBookList(book);
+	}
+
+	@Override
+	public int deleteBook(int num) {
+		return bookDAO.deleteBook(num);
+	}
 }

@@ -1,5 +1,7 @@
 package site.itwill.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Book {
 
 	private int bcode;
@@ -15,8 +17,66 @@ public class Book {
 	private String boutdate;
 	private String bindate;
 	
+	private String bostartDate;
+	private String boendDate;
+	
+	
+	//입력파일을 저장하기 위한 필드
+	private MultipartFile file;
+	
+	private BookStock bookstock;
+	private BookIn bookin;
+	
 	public Book() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String getBostartDate() {
+		return bostartDate;
+	}
+
+
+
+	public void setBostartDate(String bostartDate) {
+		this.bostartDate = bostartDate;
+	}
+
+
+
+	public String getBoendDate() {
+		return boendDate;
+	}
+
+
+
+	public void setBoendDate(String boendDate) {
+		this.boendDate = boendDate;
+	}
+
+
+
+	public BookStock getBookstock() {
+		return bookstock;
+	}
+
+	public void setBookstock(BookStock bookstock) {
+		this.bookstock = bookstock;
+	}
+
+	public BookIn getBookin() {
+		return bookin;
+	}
+
+	public void setBookin(BookIn bookin) {
+		this.bookin = bookin;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+	
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 	public int getBcode() {

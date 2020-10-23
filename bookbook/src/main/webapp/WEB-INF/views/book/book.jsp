@@ -118,28 +118,23 @@
 			<div class="col-md-12" id="mask_content" >
 							<div class="row">
 							<div style="height: 150px;"></div>
+										<div class= "col-md-2"></div>
 										<div class="col-md-5" id="book_image">
-												<img src="${pageContext.request.contextPath}/resources/assets/img/secrete.jpg">
+												<img src="">
 										</div>
 										<div class="col-md-5 text-column">
-											<h1>The Secrete : 비밀을 찾아서</h1>
-											<h2>생각연구소</h2>
-											<h5>작가이름 : 애덤 그랜트</h5>
-											<h5>출판날짜 : 2013년</h5>
-											<h5>카테고리 : 자기개발</h5>
-											<h5>도서위치 : A구역 32번</h5>
-											<h5>판매가격 : 16000원</h5>
-											<h5>재고수량 : 12개</h5>
-											<p>
-											위대한 성공의 비밀을 소개한 책, 『시크릿』으로 단번에 유명해진 론다 번은 호주의 TV PD이자 방송 작가이다. 
-											위대한 성공의 비밀을 전 세계 사람들과 공유하겠다는 마음을 먹고 미국으로 건너갔다. 
-											뛰어난 저술가, 과학자, 철학자들과의 공동작업으로 『시크릿』의 DVD와 책이 제작되었고, 
-											이는 미국에서 '시크릿 신드롬'으로 이어졌다. 
-											오프라 윈프리 쇼와 래리 킹 라이브 등 미국 최고의 프로에서 집중적으로 조명을 받았다. 
-											그녀의 『시크릿』은 한국에도 선풍적인 인기를 끌며 수 주간 베스트셀러에 오르기도 했다.
+											<h1 id="bname"></h1>
+											<h2 id="bpublisher"></h2>
+											<h5 id="bwriter"></h5>
+											<h5 id="boutdate"></h5>
+											<h5 id="bcategory"></h5>
+											<h5 id="bloc"></h5>
+											<h5 id="bprice"></h5>
+											<h5 id="bquantity"></h5>
+											<p id="binfo">
+											
 											</p>
 										</div>
-										<div class="col-md-2"></div>
 							</div>
 						
 			</div>
@@ -474,18 +469,18 @@
 	
 	<script>
 		$(document).ready(function() {
+			createBook();
 			App.init();
-			//Dashboard.init();
 			TableManageTableSelect.init();
-
+			
 			// sortable 기능
 		    $( "#A, #B, #C, #D, #E, #F, #G, #H, #I" ).sortable({
 		        connectWith: ".connectedSortable"
 		    }).disableSelection();
-    
-		    createBook();	
-			
+		    
 		});
+		
+		
 		
 		//updateLocBtn (도서 정보 저장 버튼)
 		$("#updateLocBtn").click(function(){
@@ -496,8 +491,6 @@
 				// 북코드
 				var bcode = $(this).attr("value");
 				
-				//alert(bookcode);
-				//alert($(this).parent().parent().attr("id"));
 				//위치	
 				var bloc = $(this).parent().parent().attr("id");
 				var dataSet = {
@@ -509,9 +502,7 @@
 			});
 				
 			 var jsonData = JSON.stringify(param);
-			 //alert(jsonData);
-			//alert("??")
-			 
+
 			 $.ajax({
 					type: "GET",
 	        	  	url: "bookUpdateLoc",
@@ -521,6 +512,7 @@
 		      			if(result=="success"){
 		      				 var contextPath= getContextPath();
 		      				 location.href=contextPath+"/book";
+		      				alert("도서 위치가 변경 되었습니다.");
 		      			}else{
 		      				//alert("실패");
 		      			}
@@ -536,7 +528,7 @@
 		}
 
 		 // 도서 데이터 가져와 ul li만들기
-	      function createBook(data){ // data는 서버에서 넘어온 값(도서번호)
+	      function createBook(){ // data는 서버에서 넘어온 값(도서번호)
 	          $.ajax({
 	        	  	type: "GET",
 	        	  	url: "allBookList",
@@ -693,7 +685,30 @@
 	   		
 	   		$('.connectedSortable').on('click', 'div',function(e) {
 	   			// 클릭한 북코드
-	   			var bookcode = $(this).children().attr("value");
+	   			e.stopPropagation() ;
+	   			 bookCode = $(this).attr("value");
+	   			
+	   			$.ajax({
+	   				type: "GET",
+	        	  	url: "selectBook?bookCode="+bookCode,
+	        	  	headers: {"content-type":"application/json"},
+		      		dataType: "json",
+		      		success: function(json) {
+		      			
+		      			$("#book_image img").attr("src","${pageContext.request.contextPath}/resources/upload/"+json.bimage)
+		      			$("#bname").text(json.bname);
+		      			$("#bpublisher").text(json.bpublisher);
+		      			$("#bwriter").text("작가이름 : " + json.bwriter);
+		      			$("#boutdate").text("출판날짜 : " + json.boutdate);
+		      			$("#bcategory").text("카테고리 : " + json.bcategory);
+		      			$("#bloc").text("도서위치 : " + json.bloc +"구역 "+json.bcode+"번");
+		      			$("#bprice").text("판매가격 : "+json.bprice + "원");
+		      			$("#bquantity").text("재고수량 "+json.bquantity+"개");
+		      			$("#binfo").text(json.binfo);
+		      			//띄어쓰기 할것
+		      			//text.value.replace(/(\n|\r\n)/g, '<br>');
+		      		},
+	   			})
 	   			wrapWindowByMask();
 	   		
 	   		});

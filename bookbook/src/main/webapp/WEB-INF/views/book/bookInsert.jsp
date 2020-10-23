@@ -25,29 +25,30 @@
 							                        </div>
 	
 														<div class="panel-body panel-form">
-															<form class="form-horizontal form-bordered" data-parsley-validate="true" novalidate="">
+															<form class="form-horizontal form-bordered" id="bookForm"
+															enctype="multipart/form-data" data-parsley-validate="true" novalidate="">
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">도서 이름 </label>
 																	<div class="col-md-6 col-sm-6">
-																		<input type="text" class="form-control" placeholder="도서 이름을 입력해 주세요.">
+																		<input type="text" name="bname" class="form-control" placeholder="도서 이름을 입력해 주세요.">
 																	</div>
 																</div>
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">출판사 이름</label>
 																	<div class="col-md-6 col-sm-6">
-																		<input type="text" class="form-control" placeholder="출판사 이름을 입력해 주세요.">
+																		<input type="text" name="bpublisher" class="form-control" placeholder="출판사 이름을 입력해 주세요.">
 																	</div>
 																</div>
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">작가 이름</label>
 																	<div class="col-md-6 col-sm-6">
-																		<input type="text" class="form-control" placeholder="작가 이름을 입력해 주세요.">
+																		<input type="text" name="bwriter" class="form-control" placeholder="작가 이름을 입력해 주세요.">
 																	</div>
 																</div>
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">카테고리</label>
 																	<div class="col-md-6 col-sm-6">
-																		<select class="form-control">
+																		<select name="bcategory" class="form-control">
 								                                            <option>전체</option>
 								                                            <option>시</option>
 								                                            <option>잡지</option>
@@ -61,48 +62,51 @@
 								                                        </select>
 																	</div>
 																</div>
-																
+																<!-- 
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">재고 수량</label>
 																	<div class="col-md-6 col-sm-6">
-																		<input id="spinner" name="value" > 권
+																		<input  id="spinner" name="bquantity" > 권
 																	</div>
 																</div>
+																 -->
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">출판 날짜</label>
 																	<div class="col-md-6 col-sm-6">
 																		<div class="input-group date" id="date1">
-								                                            <input type="text" class="form-control">
+								                                            <input type="text" name="boutdate" class="form-control">
 								                                            <span class="input-group-addon">
 								                                                <span class="glyphicon glyphicon-calendar"></span>
 								                                            </span>
 								                                        </div>
 																	</div>
 																</div>
+																<!-- 
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">입고 날짜</label>
 																	<div class="col-md-6 col-sm-6">
 																		<div class="input-group date" id="date2">
-								                                            <input type="text" class="form-control">
+								                                            <input type="text" name="bindate" class="form-control">
 								                                            <span class="input-group-addon">
 								                                                <span class="glyphicon glyphicon-calendar"></span>
 								                                            </span>
 								                                        </div>
 																	</div>
 																</div>
+																 -->
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">도서 위치</label>
 																	<div class="col-md-6 col-sm-6">
-																		<select class="form-control">
-								                                            <option>A구역</option>
-								                                            <option>B구역</option>
-								                                            <option>C구역</option>
-								                                            <option>D구역</option>
-								                                            <option>E구역</option>
-								                                            <option>F구역</option>
-								                                            <option>G구역</option>
-								                                            <option>H구역</option>
-								                                            <option>I구역</option>
+																		<select name="bloc" class="form-control">
+								                                            <option>A</option>
+								                                            <option>B</option>
+								                                            <option>C</option>
+								                                            <option>D</option>
+								                                            <option>E</option>
+								                                            <option>F</option>
+								                                            <option>G</option>
+								                                            <option>H</option>
+								                                            <option>I</option>
 								                                        </select>
 																	</div>
 																</div>
@@ -112,7 +116,7 @@
 																	<div class="col-md-6 col-sm-6">
 																		<p>
 																		  <label for="amount">판매 가격을</label>
-																		  <input type="text" id="amount" size="4" readonly style="border:0; color:#242A30; font-weight:bold;" >원으로 설정합니다.
+																		  <input type="text" name="bprice" id="amount" size="4" readonly style="border:0; color:#242A30; font-weight:bold;" >원으로 설정합니다.
 																		</p>
 																		<div id="slider"></div>
 																	</div>
@@ -120,13 +124,13 @@
 																<div class="form-group">
 																	<label class="control-label col-md-4 col-sm-4">도서 이미지 업로드</label>
 																	<div class="col-md-6 col-sm-6">
-																		<input type="file" class="form-control" >
+																		<input type="file" name="file" class="form-control" >
 																	</div>
 																</div>
 																<div class="form-group">
 																	<label class="control-label col-md-4" for="message">도서 설명</label>
 																	<div class="col-md-6">
-																		<textarea class="form-control" id="message" name="message" rows="10" data-parsley-range="[20,3000]" placeholder="최소 20 - 최대 3000 글자" data-parsley-id="3913"></textarea><ul class="parsley-errors-list" id="parsley-id-3913"></ul>
+																		<textarea class="form-control" name="binfo" id="message" name="message" rows="10" data-parsley-range="[20,3000]" placeholder="최소 20 - 최대 3000 글자" data-parsley-id="3913"></textarea><ul class="parsley-errors-list" id="parsley-id-3913"></ul>
 																	</div>
 																</div>
 																<div class="form-group">
@@ -134,7 +138,7 @@
 																	<div class="row">
 																		<div class="col-md-9"></div>
 																		<div class="col-md-3 col-sm-6">
-																			<button type="button" class="btn btn-inverse m-r-5 m-b-5">도서정보 저장</button>
+																			<button type="button" id="insertBtn" class="btn btn-inverse m-r-5 m-b-5">도서정보 저장</button>
 																		</div>
 																	</div>
 																</div>
@@ -154,12 +158,9 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			//Dashboard.init();
 			FormPlugins.init();
 			
 			$(function(){
-
-			
 				$.fn.datepicker.dates['kr'] = {
 						days: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"],
 						daysShort: ["일", "월", "화", "수", "목", "금", "토", "일"],
@@ -212,6 +213,36 @@
 				    $( "#amount" ).val( $( "#slider" ).slider( "value" ));
 					 // 스피너 값 가져오기
 				     // alert( spinner.spinner( "value" ) );
-			} );		
+			} );
+			 
+			 
+			 //insert Ajax 요청
+			
+			 $("#insertBtn").click(function(){
+				 
+				 /*
+				 var formData = $("#bookForm").serialize() ;
+				 */
+			
+				var form = $('#bookForm')[0]; 
+				var formData = new FormData(form); 
+				 $.ajax({
+						type: "POST",
+						enctype: 'multipart/form-data',
+						processData: false,
+				        contentType: false,
+		        	  	url: "bookInsert",
+		        	  	data : formData,
+			      		dataType: "text",
+			      		success: function(json) {
+			      			if(json=="success"){
+			      				location.href="bookSelect";
+			      			}
+			      		}
+					 
+				 })
+			 });
+			
+
 		});
 	</script>
