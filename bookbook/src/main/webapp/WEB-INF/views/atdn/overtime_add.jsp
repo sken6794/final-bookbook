@@ -46,15 +46,15 @@
                             <h4 class="panel-title">Datepicker</h4>
                         </div>
                         <div class="panel-body panel-form">
-                            <form class="form-horizontal form-bordered"  method="post">
+                            <form class="form-horizontal form-bordered"  method="post" action="addOvertime">
                                 
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">근무 구분</label>
                                     <div class="col-md-4">
                                         <select name="aovertime" class="form-control">
-	                                		<option value="1">초과근무</option>
-	                                		<option value="2">휴가</option>
-	                                		<option value="3">출장</option>
+	                                		<option value="초과근무">초과근무</option>
+	                                		<option value="휴가">휴가</option>
+	                                		<option value="출장">출장</option>
                                 		</select>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">신청 시간</label>
+                                    <label class="col-md-4 control-label">신청 기간</label>
                                     <div class="col-md-8">
                                         <div class="input-group input-daterange">
                                             <input type="text" class="form-control" name="startdate" placeholder="Date Start" />
@@ -95,12 +95,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">                                    
-                                    <div class="col-md-4 col-md-offset-8 btn btn-inverse">
-                                        <button type="submit" class="btn btn-inverse m-r-3 m-b-3">저장</button>
-                                    </div>
-                                </div>
+                             <div class="col-md-3 col-md-offset-9">
+	                            <button type="submit" class="btn btn-inverse p-l-40 p-r-40">저장</button>
+	                         </div>  
                             </form>
+							 <p></p>                                                      
+                                  
+                                
                         </div>
                     </div>
                   

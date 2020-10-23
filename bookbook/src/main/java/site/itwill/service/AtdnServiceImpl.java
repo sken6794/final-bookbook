@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import site.itwill.dao.AtdnDAO;
+import site.itwill.dto.AtdnMember;
 import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
 import site.itwill.dto.Member;
@@ -16,12 +17,14 @@ public class AtdnServiceImpl implements AtdnService{
 	@Autowired
 	private AtdnDAO atdnDAO;
 	
+	
 	@Override
 	public List<AttendanceMember> getAtdnList() {
 		
 		return atdnDAO.selectAtdn();
 	}
-
+	
+	
 	@Override
 	public AttendanceMember getAtdnNum(int mno) {
 		return atdnDAO.selectAtdnNum(mno);
@@ -66,6 +69,26 @@ public class AtdnServiceImpl implements AtdnService{
 	@Override
 	public void logoutAtdn(Attendance attendance) {
 		atdnDAO.logoutAtdn(attendance);
+		
+	}
+
+	@Override
+	public Attendance getAtdnOne(int mno) {
+		
+		return atdnDAO.selectAtdnOne(mno);
+	}
+
+
+	@Override
+	public void addAttendance(AttendanceMember atdnmember) {
+		atdnDAO.insertAttendance(atdnmember);
+		
+	}
+
+
+	@Override
+	public void removeAttendance(int mno) {
+		atdnDAO.deleteAttendance(mno);
 		
 	}
 	

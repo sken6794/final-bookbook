@@ -10,11 +10,17 @@ import site.itwill.exception.LoginAuthFailException;
 
 public interface AtdnService {
 	List<AttendanceMember> getAtdnList();
+	//List<AtdnMember> getAtdnList();
 	List<Attendance> getAtdnListinout();
 	AttendanceMember getAtdnNum(int mno);
 	void modifyAtdn(AttendanceMember atdnmember);
+	void addAttendance(AttendanceMember atdnmember);
+	void removeAttendance(int mno);
+	
 	void addAtdn(Attendance attendance);
 	void logoutAtdn(Attendance attendance);
+	
+	Attendance getAtdnOne(int mno);
 	
 	//Member
 	void loginAuth(Member member) throws LoginAuthFailException;

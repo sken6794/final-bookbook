@@ -1,6 +1,8 @@
 package site.itwill.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -43,16 +45,27 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session) throws ParseException {
 		Member member = (Member)session.getAttribute("loginMember");
 		
 		//시간
 		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
 		String logoutTime = format.format(System.currentTimeMillis());
 		
+		String loginTime = atdnService.getAtdnOne(member.getMno()).getAlogin();
+		
+		Date outT= format.parse(logoutTime);
+		Date inT= format.parse(loginTime);
+		
+		long calTime = outT.getTime()-inT.getTime();
+		long calTimes = calTime/(60*60*1000);
+		calTimes = Math.abs(calTimes);
+		System.out.println("계산 시간 = "+calTimes);
+		
 		Attendance attendance = new Attendance();
 		attendance.setMno(member.getMno());
 		attendance.setAlogout(logoutTime);
+		attendance.setAtime(calTimes);
 		atdnService.logoutAtdn(attendance);
 		session.invalidate();
 		return "redirect:/login";

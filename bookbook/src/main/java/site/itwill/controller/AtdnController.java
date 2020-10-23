@@ -1,46 +1,38 @@
 package site.itwill.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import site.itwill.dto.AtdnMember;
-import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
+import site.itwill.dto.Member;
 import site.itwill.service.AtdnService;
-import site.itwill.service.AtdnServiceImpl;
 
 @Controller
 public class AtdnController {
 	@Autowired
 	private AtdnService atdnService;
 	
-	/*
+	//근무 신청 조회
 	@RequestMapping(value = "/atdn_member",method = RequestMethod.GET)
-	@ResponseBody
+
 	public String atdnMember(Model model) {
 		model.addAttribute("atdn", atdnService.getAtdnList());
 		return "atdn/atdn_member";
 	}
-	*/
-	@RequestMapping("/atdnList")
-	public String atdnList() {
-		return "atdn/atdn_member";
-	}
 	
-	@RequestMapping(value = "/atdn_member",method = RequestMethod.GET)
-	@ResponseBody
-	public List<AttendanceMember> atdnMember() {
-		List<AttendanceMember> atdnList = atdnService.getAtdnList();
-		return atdnList;
-	}
+	
+	
+	
+	
 	
 	//휴가 승인하는 메소드
 	@RequestMapping(value = "atdn_update/{mno}",method = RequestMethod.PUT)
@@ -64,11 +56,28 @@ public class AtdnController {
 		return "success";
 	}
 	
-	@RequestMapping("/overtime/{num}")
-	public String overtime(@PathVariable int num) {
+	//신청 버튼 누르고 페이지 이동
+	@RequestMapping("/overtime")
+	public String overtime() {
 		
 		
 		return "atdn/overtime_add";
+	}
+	//저장 누를 때
+	@RequestMapping(value = "/addOvertime",method = RequestMethod.POST)
+	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) {
+		AttendanceMember atdn = new AttendanceMember();
+		Member member = (Member)session.getAttribute("loginMember");
+		atdn.setMno(member.getMno());
+		atdn.setAovertime(atdnmember.getAovertime());
+		atdn.setAovertimetext(atdnmember.getAovertimetext());
+		atdn.setAstartdate(atdnmember.getAstartdate());
+		atdn.setAenddate(atdnmember.getAenddate());
+		atdn.setAstarttime(atdnmember.getAstarttime());
+		atdn.setAendtime(atdnmember.getAendtime());
+		
+		
+		return "redirect:/atdn_member";
 	}
 	
 	//출퇴근 조회 페이지
@@ -81,20 +90,7 @@ public class AtdnController {
 	
 	
 	
-	@RequestMapping(value = "/overtime/*", method = RequestMethod.POST)
-	public String overtimeadd(@RequestParam String aovertime) {
-		String a= aovertime;
-		/*수정중
-		String b= atdnmember.getAstarttime();
-		String c= atdnmember.getAendtime();
-		String d= atdnmember.getAovertimetext();
-		*/
-		System.out.println("실행됨");
-		System.out.println("a = "+a);
-		
-		
-		return "atdn/overtime_add";
-	}
+	
 	
 	
 	

@@ -36,7 +36,7 @@
                             <h4 class="panel-title">Data Table - Default</h4>
                         </div>
                         <div class="panel-body" id="atdnListDiv">
-                        <%-- 
+                     
                             <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
@@ -61,9 +61,27 @@
 	                                        <td>${atdn.member.mname}</td>
 	                                        <td>${atdn.department.dname}</td>
 	                                        <td>${atdn.position.pname}</td>
-	                                        <td>${atdn.member.mdayoff}</td>
+	                                        <td>${atdn.member.mdayoff} 일</td>
+	                                        <%-- 
 	                                        <td><a href="javascript:updateAtdn(${atdn.member.mno  })" class="btn btn-sm btn-success">${atdn.aleavestatus }대기중</a></td>
 	                                        <td><a href="javascript:updateAtdn2(${atdn.member.mno  })" class="btn btn-sm btn-success">${atdn.aovertimestatus }대기중</a></td>
+	                                        --%>
+	                                        <c:choose>
+	                                        <c:when test="${atdn.aleavestatus==0 }">
+	                                        <td><a href="javascript:updateAtdn(${atdn.member.mno  })" class="btn btn-sm btn-warning">대기중</a></td>
+	                                        </c:when>
+	                                        <c:otherwise>
+	                                        <td><a href="javascript:updateAtdn(${atdn.member.mno  })" class="btn btn-sm btn-success">승인</a></td>
+	                                        </c:otherwise>
+	                                        </c:choose>
+	                                        <c:choose>
+	                                        <c:when test="${atdn.aovertimestatus==0 }">
+	                                        <td><a href="javascript:updateAtdn2(${atdn.member.mno  })" class="btn btn-sm btn-warning">대기중</a></td>
+	                                        </c:when>
+	                                        <c:otherwise>
+	                                        <td><a href="javascript:updateAtdn2(${atdn.member.mno  })" class="btn btn-sm btn-success">승인</a></td>
+	                                        </c:otherwise>
+	                                        </c:choose>
 	                                        <td>${atdn.aovertime }</td>
 	                                        <td>${atdn.aovertimetext }</td>
 	                                        <td>${atdn.astarttime }</td>
@@ -73,12 +91,12 @@
                                                                
                                 </tbody>                               
                             </table>
-                            --%>  
+                             <div class="col-md-2 col-md-offset-10">
+                    			<a class="btn btn-inverse p-l-40 p-r-40" href="javascript:addAtdn(${loginMember.mno});">신청</a>
+                   			 </div>
                         </div>
                     </div>
-                    <div class="col-md-2 btn btn-inverse m-r-3 m-b-3">
-                    <button type="button" class="btn btn-inverse" onclick="addAtdn();">신청</button>
-                    </div>
+                    
                     <!-- end panel -->
                 </div>
                 <!-- end col-12 -->
@@ -146,15 +164,16 @@
 			TableManageDefault.init();
 		});
 		
-		function addAtdn() {
-			var num = 1;
-			location.href="overtime/"+num;
+		function addAtdn(mno) {
+			
+			location.href="overtime";
 		}
 			
 	</script>
 	<script type="text/javascript">
-	atdnDisplay();
+	//atdnDisplay();
 	//조회 요청 함수
+	/*
 	function atdnDisplay() {
 		$.ajax({
 			type:"GET",
@@ -171,6 +190,7 @@
 		});
 		
 	}
+	*/
 	//휴가 승인
 	function updateAtdn(mno) {
 		if(confirm("요청을 승인 하시겠습니까?")){
@@ -182,7 +202,7 @@
 				success: function (text) {
 					if(text=="success"){
 						alert("승인되었습니다.")
-						location.href="${pageContext.request.contextPath}/atdn/atdnList";
+						location.href="${pageContext.request.contextPath}/atdn_member";
 					}
 				},
 				error: function(xhr) {
@@ -203,6 +223,7 @@
 				success: function (text) {
 					if(text=="success"){
 						alert("승인되었습니다.")
+						location.href="${pageContext.request.contextPath}/atdn_member";
 					}
 				},
 				error: function(xhr) {

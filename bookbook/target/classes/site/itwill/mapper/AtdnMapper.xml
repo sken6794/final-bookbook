@@ -18,14 +18,21 @@
 			<id column="mno" property="mno"/>
 			<result column="mname" property="mname"/>
 			<result column="mdayoff" property="mdayoff"/>
-			<result column="dno" property="dno"/>
-			<result column="pno" property="pno"/>
 		</association>
-		
+		<association property="department" javaType="Department">
+			<id column="dno" property="dno"/>
+			<result column="dname" property="dname"/>
+		</association>
+		<association property="position" javaType="Position">
+			<id column="pno" property="pno"/>
+			<result column="pname" property="pname"/>
+		</association>			
 	</resultMap>
-	 -->
+	 -->	
+	 
+	 
 	<resultMap type="Member" id="member">
-		<result column="mno" property="mno"/>
+		<id column="mno" property="mno"/>
 		<result column="mname" property="mname"/>
 		<result column="mdayoff" property="mdayoff"/>
 	</resultMap>
@@ -36,6 +43,7 @@
 		<result column="pname" property="pname"/>
 	</resultMap>
 	<resultMap type="AttendanceMember" id="atdnmember">
+		<id column="mno" property="mno"/>
 		<result column="aleavestatus" property="aleavestatus"/>
 		<result column="aovertimestatus" property="aovertimestatus"/>
 		<result column="aleave" property="aleave"/>
@@ -48,22 +56,38 @@
 		<collection property="department" resultMap="department"/>
 		<collection property="position" resultMap="position"/>
 	</resultMap>
+	 
 	<resultMap type="Attendance" id="attendance">
 		<result column="atno" property="atno"/>
 		<result column="alogin" property="alogin"/>
 		<result column="alogout" property="alogout"/>
+		<result column="atime" property="atime"/>
 		<collection property="member" resultMap="member"/>
 	</resultMap>
-	
-	
+	 
+	 
+	 
+	<!-- 사원-근태 조회 -->
 	<select id="selectAtdn" resultMap="atdnmember">
-		select member_atdn.*, mname, dname, pname from member_atdn 
+		select member_atdn.*, mname, mdayoff, dname, pname from member_atdn 
 		join member on member_atdn.mno=member.mno
 		join position on member.pno=position.pno
 		join department on member.dno=department.dno
 		order by member.mno
 	</select>
+	 
+	<!-- 사원-근태 삽입 --> 
+	<insert id="insertAttendance">
+		insert into member_atdn values(#{mno}, 0,0,0,0,#{aovertime},#{aovertimetext},#{astartdate}
+			,#{aenddate},#{astarttime},#{aendtime})
+	</insert>
+	<!-- 사원-근태 삭제  -->
+	<delete id="deleteAtdn">
+		delete from member_atdn where mno=#{mno}
+	</delete>
 	
+	
+	<!-- 사원-근태 1명 조회 -->
 	<select id="selectAtdnNum" resultType="AttendanceMember">
 		select * from member_atdn where mno=#{mno} 
 	</select>
@@ -73,12 +97,12 @@
 		<selectKey resultType="int" keyProperty="atno" order="BEFORE">
 			select seq_atdn_atno.nextval from dual
 		</selectKey>
-		insert into attendance values (#{atno}, #{mno},#{alogin},null)
+		insert into attendance values (#{atno}, #{mno},#{alogin},null, null)
 	</insert>
 	
 	<!-- 로그아웃 할 때 실행 -->
 	<update id="logoutAtdn">
-		update attendance set alogout=#{alogout}
+		update attendance set alogout=#{alogout}, atime = #{atime}
 	      where atno = (select atno from
 	       (select rownum rn, atdn.* from
 	        (select * from attendance where mno = #{mno} order by atno desc) atdn order by atno desc) where rn =1) 
@@ -90,6 +114,9 @@
 		<set>
 			<if test="aleavestatus!=null and aleavestatus!=''">
 			aleavestatus=#{aleavestatus},
+			</if>
+			<if test="aovertimestatus!=null and aovertimestatus!=''">
+			aovertimestatus=#{aovertimestatus},
 			</if>
 			<if test="aovertime!=null and aovertime!=''">
 			aovertime=#{aovertime},
@@ -110,6 +137,16 @@
 		join member on member.mno=attendance.mno
 		order by member.mno
 	</select>
+	
+	<!-- 사원번호를 전달해 제일 최근 날짜의 출퇴근 조회 -->
+	<select id="selectAtdnOne" resultType="Attendance">
+		select * from attendance where atno = (select atno from
+    (select rownum rn, atdn.* from
+        (select * from attendance where mno = #{mno} order by atno desc) atdn order by atno desc) where rn =1)
+	</select>
+	
+	
+	
 	
 	<!-- Member -->
 	<select id="selectMemberOne" resultType="Member">
