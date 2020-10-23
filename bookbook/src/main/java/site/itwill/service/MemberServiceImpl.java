@@ -32,7 +32,6 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updateMember(member);
 	}
 	
-	@Transactional
 	@Override
 	public Member getRestMember(int mno) {
 		return memberDAO.selectRestMember(mno);

@@ -9,6 +9,7 @@ public interface PayManageDAO {
 	int deletePay(int pmno);
 	int updatePay(PayManage pay);
 	PayManage selectRestPay(int pmno);
+	List<PayManage> selectPay(PayManage pay);
 	List<PayManage> selectPayList();
 
 }

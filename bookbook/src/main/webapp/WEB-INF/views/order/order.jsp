@@ -68,15 +68,26 @@ table { text-align: center;}
                             	<div class="form-group">
 									<label class="control-label col-md-4 col-sm-4">회원 ID</label>
 									<div class="col-md-6 col-sm-6">
-                                       <input type="text" class="form-control" placeholder="회원 ID" />
+                                       <input type="text" class="form-control" placeholder="회원 ID" name="oid" id="s_oid" />
 									</div>
 								</div>									
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4">주문 상태 :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select class="form-control" name="ostate" id="s_ostate">
+                                        <option value="0">-</option>
+                                        <option value="1">주문완료</option>
+                                        <option value="2">배송중</option>
+                                        <option value="3">배송완료</option>
+                                    </select>
+                                </div>
+                            </div>                             
                             </div>
                             <div class="col-md-5">
 	                           	<div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4">주문일자</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
+                                        <input type="text" class="form-control" id="s_odate" placeholder="20/01/01" name="odate"/>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +95,7 @@ table { text-align: center;}
                          </div>
                       	<br>
 	                        <div style="text-align: center;">
-	                        <button type="button" onclick="" class="btn btn-sm btn-white">조회</button>
+	                        <button type="button" onclick="selectOrder();" class="btn btn-sm btn-white">조회</button>
 	                        <button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
 	                        </div>
                       </form>
@@ -145,7 +156,6 @@ table { text-align: center;}
 						<table id="data-table" class="table table-striped table-bordered">
 							<thead>
 								<tr>
-									<th><input type="checkbox"></th>
 									<th style="text-align: center;">주문번호</th>
 									<th style="text-align: center;">회원 ID</th>
 									<th width="150" style="text-align: center;">도서명</th>
@@ -243,7 +253,10 @@ table { text-align: center;}
 		
 	/* 초기화 버튼 */
 		function initBtn() {
-			displayMember();
+			displayOrder();
+	 		$("#s_oid").val("");
+	 		$("#s_ostate").val("");
+	 		$("#s_odate").val("");
 		}
 			
 
@@ -269,17 +282,20 @@ table { text-align: center;}
 						if(this.ostate=="3") state="배송완료";
 						
 						html+="<tr>";
-						html+="<td><input type='checkbox'></td>";
 						html+="<td>"+this.ono+"</td>";
 						html+="<td>"+this.oid+"</td>";
 						html+="<td>"+this.book.bname+"</td>";
 						html+="<td>"+this.book.bpublisher+"</td>";
 						html+="<td>"+this.oqty+"</td>";
 						html+="<td>"+this.oprice+"</td>";
-						html+="<td>"+this.odate.substring(0,10)+"</td>";
+						html+="<td>"+this.odate+"</td>";
 						html+="<td>"+state+"</td>";
+						if(state!=3) {
 						html+="<td><button onclick='deleteOrder("+this.ono+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.ono+">수정</button></td>";
+						} else {
+							html+="-";
+						}
 						html+="</tr>";
 					
 						
@@ -287,8 +303,8 @@ table { text-align: center;}
 				
 					
 					$("#data-table").dataTable().fnDestroy();
-					$("#orderTablePlace").html(html);
 					$("#data-table").dataTable(); 
+					$("#orderTablePlace").html(html);
 					
 				},
 				error: function(xhr) {
@@ -361,6 +377,67 @@ table { text-align: center;}
  				}
  			});	
  		} 
+ 	
+ 	
+	/* 검색 내역 리스트 */
+ 		
+ 		function selectOrder() {
+	 		var oid=$("#s_oid").val();
+	 		var ostate=$("#s_ostate").val();
+	 		var odate=$("#s_odate").val();
+ 		
+	 		$.ajax({
+	 			type: "POST",
+	 			url: "order_search",
+	 			headers: {"content-type":"application/json"},
+	 			data: JSON.stringify({
+	 				"oid":oid,
+	 				"ostate":ostate,
+	 				"odate":odate
+	 				}),
+	 			dataType: "json",
+	 			success: function(json) {
+						if(json.length==0) {
+							var html="<tr><td class='center' colspan='9'>검색된 주문내역이 없습니다.</td></tr>";
+							$("#orderTablePlace").html(html);
+							return;
+						}
+	 					
+	 					var html="";
+	 					$(json).each(function() {
+	 						var state="";
+							if(this.ostate=="1") state="주문완료";
+							if(this.ostate=="2") state="배송중";
+							if(this.ostate=="3") state="배송완료";
+							
+							html+="<tr>";
+							html+="<td>"+this.ono+"</td>";
+							html+="<td>"+this.oid+"</td>";
+							html+="<td>"+this.book.bname+"</td>";
+							html+="<td>"+this.book.bpublisher+"</td>";
+							html+="<td>"+this.oqty+"</td>";
+							html+="<td>"+this.oprice+"</td>";
+							html+="<td>"+this.odate+"</td>";
+							html+="<td>"+state+"</td>";		
+							if(state!=3) {
+							html+="<td><button onclick='deleteOrder("+this.ono+");' class='btn btn-sm btn-white'>삭제</button> "
+							+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.ono+">수정</button></td>";
+							} else {
+								html+=" ";
+							}
+							html+="</tr>";
+	 					});
+	 					
+						$("#data-table").dataTable().fnDestroy();
+						$("#data-table").dataTable(); 
+	 					$("#orderTablePlace").html(html);
+	 				},
+	 				error: function(xhr) {
+	 					alert("에러 발생 = "+xhr.status);
+	 				}
+	 			});
+	 		}
+	 	 	
 	</script>
 </body>
 </html>

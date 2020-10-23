@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +64,7 @@ table { text-align: center;}
                           	<div class="form-group">
 							<label class="control-label col-md-4 col-sm-4">사원번호</label>
 							<div class="col-md-6 col-sm-6">
-                                     <input type="text" class="form-control" placeholder="사원번호" />
+                                     <input type="text" class="form-control" placeholder="사원번호" name="mno" id="s_mno"/>
 							</div>
 							</div>									
                           </div>
@@ -71,12 +72,12 @@ table { text-align: center;}
                           	<div class="form-group">
 							<label class="control-label col-md-4 col-sm-4">부서</label>
 							<div class="col-md-6 col-sm-6">
-                                   <select class="form-control">
-                                   	  <option>전체</option>
-                                      <option>도서 1팀</option>
-                                      <option>도서 2팀</option>
-                                      <option>영업팀</option>
-                                      <option>회계팀</option>
+                                   <select class="form-control" name="dno" id="s_dno">
+                                      <option value="0">-</option>
+                                      <option value="10">도서 1팀</option>
+                                      <option value="20">도서 2팀</option>
+                                      <option value="30">영업팀</option>
+                                      <option value="40">회계팀</option>
                                    </select>
 							</div>
 						</div>
@@ -85,15 +86,15 @@ table { text-align: center;}
                           	<div class="form-group">
                                   <label class="control-label col-md-4 col-sm-4">직급</label>
                                   <div class="col-md-6 col-sm-6">
-                                  <select class="form-control">
-                                  	 <option>전체</option>
-                                     <option>사원</option>
-                                     <option>주임</option>
-                                     <option>대리</option>
-                                     <option>과장</option>
-                                     <option>차장</option>
-                                     <option>부장</option>
-                                     <option>이사</option>
+                                  <select class="form-control" name="pno" id="s_pno">
+                                     <option value="0">-</option>
+                                     <option value="1">사원</option>
+                                     <option value="2">주임</option>
+                                     <option value="3">대리</option>
+                                     <option value="4">과장</option>
+                                     <option value="5">차장</option>
+                                     <option value="6">부장</option>
+                                     <option value="7">이사</option>
                                   </select>
                                   </div>
                               </div>
@@ -103,7 +104,7 @@ table { text-align: center;}
                     <!-- </div> -->
                     <br>
 		                <div style="text-align: center;">
-		                <button type="button" onclick="" class="btn btn-sm btn-white">조회</button>
+		                <button type="button" onclick="selectPay();" class="btn btn-sm btn-white">조회</button>
 		                <button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
 		                </div>			
                    </form>
@@ -243,84 +244,85 @@ table { text-align: center;}
                                  		</table>
                                 	 </div>                	
 			                         <br>
-                         			<div class="row">
-                            		<div class="col-md-6">
-                                 		<table class="table table-striped" style="text-align: center;">
-                                 		<thead>
-	                              			<tr>
-	                                     		<th style="text-align: center;">지급항목</th>
-	                                       		<th style="text-align: center;">지급액</th>
-	                                    	</tr>
-                                		</thead>
-                                		<tbody>
-	                                    <tr>
-	                                        <td>기본급</td>
-	                                        <td id="pay_basic"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>식대</td>
-	                                        <td id="pay_meal"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>야근수당</td>
-	                                        <td id="pay_overtime"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>휴일수당</td>
-	                                        <td id="pay_holiday"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>성과급</td>
-	                                        <td id="pay_bonus"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>기타수당</td>
-	                                        <td id="pay_etc"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td style="font-weight: bold;">합산 지급액</td>
-	                                        <td id="totalPay" style="font-weight: bold;"></td>
-	                                    </tr>
-                                		</tbody>
-                            	</table>
-                            	</div>
-                           
+			              <div id="print">
+                         	<div class="row">
                            		<div class="col-md-6">
-	                            <table class="table table-striped" style="text-align: center;">
-	                               <thead>
-	                            		<tr>
-	                                     	<th style="text-align: center;">공제항목</th>
-	                                       	<th style="text-align: center;">공제액</th>
-	                                    </tr>
-	                                </thead>
-	                                <tbody>
-	                                    <tr>
-	                                        <td>국민연금</td>
-	                                        <td id="tax1"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>건강보험</td>
-	                                        <td id="tax2"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>장기요양</td>
-	                                        <td id="tax3"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>고용보험</td>
-	                                        <td id="tax4"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>근로소득세</td>
-	                                        <td id="tax5"></td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td style="font-weight: bold;">합산 공제액</td>
-	                                        <td id="totaltax" style="font-weight: bold;"></td>
-	                                    </tr>
-	                                </tbody>
-	                            </table>
-                           		</div>
+                                		<table class="table table-striped" style="text-align: center;">
+                                		<thead>
+                              			<tr>
+                                     		<th style="text-align: center;">지급항목</th>
+                                       		<th style="text-align: center;">지급액</th>
+                                    	</tr>
+                               		</thead>
+                               		<tbody>
+                                    <tr>
+                                        <td>기본급</td>
+                                        <td id="pay_basic"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>식대</td>
+                                        <td id="pay_meal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>야근수당</td>
+                                        <td id="pay_overtime"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>휴일수당</td>
+                                        <td id="pay_holiday"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>성과급</td>
+                                        <td id="pay_bonus"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>기타수당</td>
+                                        <td id="pay_etc"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">합산 지급액</td>
+                                        <td id="totalPay" style="font-weight: bold;"></td>
+                                    </tr>
+                               		</tbody>
+                           			</table>
+                           			</div>
+                          
+	                           		<div class="col-md-6">
+		                            <table class="table table-striped" style="text-align: center;">
+		                               <thead>
+		                            		<tr>
+		                                     	<th style="text-align: center;">공제항목</th>
+		                                       	<th style="text-align: center;">공제액</th>
+		                                    </tr>
+		                                </thead>
+		                                <tbody>
+		                                    <tr>
+		                                        <td>국민연금</td>
+		                                        <td id="tax1"></td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td>건강보험</td>
+		                                        <td id="tax2"></td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td>장기요양</td>
+		                                        <td id="tax3"></td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td>고용보험</td>
+		                                        <td id="tax4"></td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td>근로소득세</td>
+		                                        <td id="tax5"></td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td style="font-weight: bold;">합산 공제액</td>
+		                                        <td id="totaltax" style="font-weight: bold;"></td>
+		                                    </tr>
+		                                </tbody>
+		                            </table>
+                          		</div>
                          	</div>
                          	<div class="row">
                          		<table class="table" style="text-align: center;">
@@ -334,9 +336,10 @@ table { text-align: center;}
 	                             </thead>
 	                             </table>
                          	</div>
+                         	</div>
                          	</div> 
 								<div class="modal-footer">
-									<input type="button" value="인쇄" onclick="window.print()" class="btn btn-sm btn-white">
+									<input type="button" value="인쇄" onclick="printPage();" class="btn btn-sm btn-white">
 									<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
 								</div>
 							</div>
@@ -438,7 +441,6 @@ table { text-align: center;}
 									</div>
 								</div>
 						</div>										
-
 							<table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
 								<thead>
 									<tr>
@@ -525,8 +527,11 @@ table { text-align: center;}
 		
 	/* 초기화 버튼 */
 	function initBtn() {
-		displayMember();
-	}
+		displayPay();
+ 		$("#s_mno").val("");
+ 		$("#s_dno").val("");
+ 		$("#s_pno").val("");
+	};
 	
 			
 	/* 급여 조회 리스트 */
@@ -700,6 +705,63 @@ table { text-align: center;}
 			}
 		});
  	}
+ 	
+	/* 검색 내역 리스트 */
+		
+		function selectPay() {
+ 		var mno=$("#s_mno").val();
+ 		var dno=$("#s_dno").val();
+ 		var pno=$("#s_pno").val();
+		
+ 		$.ajax({
+ 			type: "POST",
+ 			url: "pay_search",
+ 			headers: {"content-type":"application/json"},
+ 			data: JSON.stringify({
+ 				"mno":mno,
+ 				"dno":dno,
+ 				"pno":pno
+ 				}),
+ 			dataType: "json",
+ 			success: function(json) {
+					if(json.length==0) {
+						var html="<tr><td class='center' colspan='13'>검색된 급여내역이 없습니다.</td></tr>";
+						$("#payTablePlace").html(html);
+						return;
+					}
+ 					
+ 					var html="";
+ 					$(json).each(function() {
+						html+="<tr>";
+						html+="<td>"+this.pmno+"</td>";
+						html+="<td>"+this.member.mno+"</td>";
+						html+="<td>"+this.member.mname+"</td>";
+						html+="<td>"+this.department.dname+"</td>";
+						html+="<td>"+this.position.pname+"</td>";
+						html+="<td>"+this.pdate+"</td>";
+						html+="<td>"+this.pbasic+"</td>";
+						html+="<td>"+this.pmeal+"</td>";
+						html+="<td>"+this.povertime+"</td>";
+						html+="<td>"+this.pholiday+"</td>";
+						html+="<td>"+this.pbonus+"</td>";
+						html+="<td>"+this.petc+"</td>";
+						html+="<td><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button href='#modal-dialog3' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.pmno+">수정</button></td>";
+						html+="</tr>";
+ 					});
+ 					
+					$("#data-table").dataTable().fnDestroy();
+					$("#data-table").dataTable(); 
+ 					$("#payTablePlace").html(html);
+ 				},
+ 				error: function(xhr) {
+ 					alert("에러 발생 = "+xhr.status);
+ 				}
+ 			});
+ 		}
+ 	
+ 	
+ 	
   
       Number.prototype.format = function(){
           if(this==0) return 0;
@@ -718,18 +780,6 @@ table { text-align: center;}
          $('#aTag').get(0).click();
         var payInfo = $('#data-table').DataTable().row(this).data();        
         
-        $("#pay_name").val(payInfo[2]);
-        $("#pay_department").text(payInfo[3]);
-        $("#pay_position").text(payInfo[4]);
-        $("#pay_day").text(payInfo[5]);
-        $("#pay_basic").text(payInfo[6]);
-        $("#pay_meal").text(payInfo[7]);
-        $("#pay_overtime").text(payInfo[8]);
-        $("#pay_holiday").text(payInfo[9]);
-        $("#pay_bonus").text(payInfo[10]);
-        $("#pay_etc").text(payInfo[11]);
-        
-        
         var basic = parseInt(payInfo[6]);
         var meal = parseInt(payInfo[7]);
         var overtime = parseInt(payInfo[8]);
@@ -737,28 +787,63 @@ table { text-align: center;}
         var bonus = parseInt(payInfo[10]);
         var etc = parseInt(payInfo[11]);
         var total = (basic+meal+overtime+holiday+bonus+etc).format();
-        var total2 = basic+meal+overtime+holiday+bonus+etc;
+        var total2 = basic+meal+overtime+holiday+bonus+etc; //그냥 total 쓰면 NaN 나서 추가
         var tax1 = total2*0.045;
+        var tax1format = (total2*0.045).format();
         var tax2 = Math.round(total2*0.03335);
+        var tax2format = (Math.round(total2*0.03335)).format();
         var tax3 = Math.round((total2*0.03335)*0.05);
+        var tax3format = (Math.round((total2*0.03335)*0.05)).format();
         var tax4 = total2*0.008;
+        var tax4format = (total2*0.008).format();
         var tax5 = total2*0.1;
+        var tax5format = (total2*0.1).format();
         var totaltax = (Math.round((tax1+tax2+tax3+tax4+tax5)/10)*10).format();
         var totaltax2 = Math.round((tax1+tax2+tax3+tax4+tax5)/10)*10;    
         var finalTotal = (total2-totaltax2).format();
         
         $("#totalPay").text(total);
-        $("#tax1").text(tax1);
-        $("#tax2").text(tax2);
-        $("#tax3").text(tax3);
-        $("#tax4").text(tax4);
-        $("#tax5").text(tax5);
+        $("#tax1").text(tax1format);
+        $("#tax2").text(tax2format);
+        $("#tax3").text(tax3format);
+        $("#tax4").text(tax4format);
+        $("#tax5").text(tax5format);
         $("#totaltax").text(totaltax);
         $("#finalTotal").text(finalTotal);
 
+        var paybasic=basic.format();
+        var paymeal=meal.format();
+        var payovertime=overtime.format();
+        var payholiday=holiday.format();
+        var paybonus=bonus.format();
+        var payetc=etc.format();
+        
+        $("#pay_name").text(payInfo[2]);
+        $("#pay_department").text(payInfo[3]);
+        $("#pay_position").text(payInfo[4]);
+        $("#pay_day").text(payInfo[5]);
+        $("#pay_basic").text(paybasic);
+        $("#pay_meal").text(paymeal);
+        $("#pay_overtime").text(payovertime);
+        $("#pay_holiday").text(payholiday);
+        $("#pay_bonus").text(paybonus);
+        $("#pay_etc").text(payetc);
+        
    });
  
- 	 
+    function printPage(){
+    	 var initBody;
+    	 window.onbeforeprint = function(){
+    	  initBody = document.body.innerHTML;
+    	  document.body.innerHTML =  document.getElementById('print').innerHTML;
+    	 };
+    	 window.onafterprint = function(){
+    	  document.body.innerHTML = initBody;
+    	 };
+    	 window.print();
+    	 return false;
+    	}
+ 	
 	</script>	
 	
 	

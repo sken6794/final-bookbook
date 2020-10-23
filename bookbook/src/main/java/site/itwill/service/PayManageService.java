@@ -9,5 +9,6 @@ public interface PayManageService {
 	void removePay(int pmno);
 	void modifyRestPay(PayManage pay);
 	PayManage getRestPay(int pmno);
+	public List<PayManage> getPay(PayManage pay);
 	public List<PayManage> getPayList();
 }

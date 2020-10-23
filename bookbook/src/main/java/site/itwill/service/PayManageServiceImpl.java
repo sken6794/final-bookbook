@@ -36,10 +36,13 @@ public class PayManageServiceImpl implements PayManageService {
 		return payManageDAO.selectPayList();
 	}
 
-
 	@Override
 	public PayManage getRestPay(int pmno) {
 		return payManageDAO.selectRestPay(pmno);
 	}
 
+	@Override
+	public List<PayManage> getPay(PayManage pay) {
+		return payManageDAO.selectPay(pay);
+	}
 }
