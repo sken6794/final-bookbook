@@ -571,7 +571,7 @@ table { text-align: center;}
 						html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button class='btn btn-sm btn-success modify_link' data-toggle='modal' data-id="+this.pmno+">수정</button></td>";
 						/* } */ 
-						}
+						
 						html+="</tr>";
 						
 						});			
