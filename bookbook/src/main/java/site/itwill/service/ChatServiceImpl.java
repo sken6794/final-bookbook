@@ -1,7 +1,5 @@
 package site.itwill.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +14,6 @@ import site.itwill.dao.ChatDAO;
 import site.itwill.dto.Chat;
 import site.itwill.dto.ChatPerson;
 import site.itwill.dto.Member;
-import site.itwill.socket.ChatRoom;
 import site.itwill.socket.ChatRoomRepository;
 
 @Service
@@ -70,18 +67,35 @@ public class ChatServiceImpl implements ChatService{
 		// 채팅 방 정보 넣기
 		chatDAO.insertChat(chat);
 		
-		System.out.println("cno : " + chat.getCno());
-		System.out.println("creator : " + chat.getCcreator());
+		//System.out.println("cno : " + chat.getCno());
+		//System.out.println("creator : " + chat.getCcreator());
 
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("cno",chat.getCno()+"");
-		map.put("ccreator", chat.getCcreator()+"");
-		map.put("cpsession", null);
-		
+		//Map<String, String> map = new HashMap<String, String>();
+		//map.put("cno",chat.getCno()+"");
+		//map.put("ccreator", chat.getCcreator()+"");
 		// 채팅 관련 인원 넣기
-		chatDAO.insertChatPerson(map);
+		//chatDAO.insertChatPerson(map);
+		//insertChatPerson(chat.getCno()+"", member);
 		
 		return chat;
+	}
+
+	@Override
+	public void insertChatPerson(String cno, Member member) {
+		// TODO Auto-generated method stub
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("cno",cno);
+		map.put("ccreator", member.getMno()+"");
+		chatDAO.insertChatPerson(map);
+		
+	}
+
+	@Override
+	public void deleteChatPerson(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		
+		chatDAO.deleteChatPerson(map);
 	}
 
 	
