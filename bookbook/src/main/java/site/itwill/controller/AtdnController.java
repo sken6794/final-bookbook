@@ -1,5 +1,8 @@
 package site.itwill.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,17 +68,30 @@ public class AtdnController {
 	}
 	//저장 누를 때
 	@RequestMapping(value = "/addOvertime",method = RequestMethod.POST)
-	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) {
+	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session
+			,@RequestParam Date astartdate,@RequestParam Date aenddate
+			,@RequestParam Date astarttime,@RequestParam Date aendtime) {
 		AttendanceMember atdn = new AttendanceMember();
 		Member member = (Member)session.getAttribute("loginMember");
 		atdn.setMno(member.getMno());
 		atdn.setAovertime(atdnmember.getAovertime());
 		atdn.setAovertimetext(atdnmember.getAovertimetext());
+		/*
 		atdn.setAstartdate(atdnmember.getAstartdate());
 		atdn.setAenddate(atdnmember.getAenddate());
 		atdn.setAstarttime(atdnmember.getAstarttime());
 		atdn.setAendtime(atdnmember.getAendtime());
+		*/
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+		String a = sdf.format(astartdate);
+		String b = sdf.format(aenddate);
+		String c = sdf2.format(astarttime);
+		String d = sdf2.format(aendtime);
 		
+		System.out.println("a,b,c,d 실행 = "+a+b+c+d);
+		
+		//atdnService.addAttendance(atdn);
 		
 		return "redirect:/atdn_member";
 	}
