@@ -45,7 +45,7 @@
 													<div class="form-group">
 															 	<label class="col-md-3 control-label">개설자</label>
 															 	 <div class="col-md-8">
-										                                        <input type="text" id="creator"  value="${list.member.}" class="form-control" readonly="readonly">
+										                                        <input type="text" id="creator"  value="" class="form-control" readonly="readonly">
 										                         </div>
 													</div>
 													<div class="form-group">
