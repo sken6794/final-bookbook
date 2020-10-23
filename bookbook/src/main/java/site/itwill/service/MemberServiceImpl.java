@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import site.itwill.dao.MemberDAO;
 import site.itwill.dto.Member;
+import site.itwill.exception.LoginAuthFailException;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -46,7 +47,16 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> getMember(Member member) {
 		return memberDAO.selectMember(member);
 	}
+	
+/*ㄴ
+	@Override
+	public void loginAuth(Member member) throws LoginAuthFailException {
+		Member memberinfo=memberDAO.selectRestMember(member.getMno());
+		if(memberinfo==null) {
+			throw new LoginAuthFailException(memberinfo.getMno(),"존재하지 않는 사원번호입니다.");
+		}
+		비밀번호 검사 ~ (UserinfoServiceImpl 참고..)
+*/		
+	}
 
 
-
-}

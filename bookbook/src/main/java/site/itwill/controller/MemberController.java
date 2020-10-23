@@ -57,7 +57,9 @@ public class MemberController {
 	@RequestMapping(value = "/member_insert", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberInsert(@RequestBody Member member) {
+		
 		memberService.addMember(member);
+		
 		return "success";
 	}
 	
