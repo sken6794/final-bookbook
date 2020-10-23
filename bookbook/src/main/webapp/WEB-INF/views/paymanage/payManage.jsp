@@ -116,6 +116,7 @@ table { text-align: center;}
 						</c:if>
 					</p>
 					<p class="text-left">* 원하는 사원 클릭 시 급여명세서 출력</p>
+					<p class="text-left">* 급여 내역 등록은 [직급 : 3 (대리) 이상]부터 가능합니다. << 현재 직급 : ${loginMember.pno } >></p>
 					<br>
 					<!-- 추가 클릭 시 급여데이터 추가팝업창 -->
 					<div class="modal fade" id="modal-dialog1">
@@ -460,7 +461,7 @@ table { text-align: center;}
 										<th>휴일수당</th>
 										<th>성과급</th>
 										<th>기타수당</th>
-										<th width="91">관리</th>
+										<c:if test="${loginMember.pno >=3 }"><th width="91">관리</th></c:if>
 									</tr>
 								</thead>
 								<tbody id="payTablePlace">
@@ -566,8 +567,10 @@ table { text-align: center;}
 						html+="<td>"+this.pholiday+"</td>";
 						html+="<td>"+this.pbonus+"</td>";
 						html+="<td>"+this.petc+"</td>";
+						if( ${loginMember.pno} >= 3) {
 						html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button class='btn btn-sm btn-success modify_link' data-toggle='modal' data-id="+this.pmno+">수정</button></td>";
+						} 
 						html+="</tr>";
 						
 					});			
@@ -620,9 +623,6 @@ table { text-align: center;}
 				location.href="pay_delete/"+pmno;
 			}
 		}	
-	
-	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
-
 	
 
 	

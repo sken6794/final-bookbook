@@ -92,20 +92,6 @@
 										<label class="control-label col-md-4">도서코드 :</label>
 										<div class="col-md-8">
 											<input type="text" name="bcode" class="form-control" placeholder="도서코드" value="${order.bcode }" />
-										
-<!-- 	select 값 넣는 방법
-										<select class="form-control" name="bcode">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-											</select> -->
 										</div>
 									</div>
 								<br>
