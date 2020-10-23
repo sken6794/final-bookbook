@@ -111,7 +111,9 @@ table { text-align: center;}
                 <hr>   		
 					<p class="text-right m-b-0" style="margin-right: 13px;">
 						<span style="display: none;"><a id="aTag" href="#modal-dialog2" class="btn btn-sm btn-success" data-toggle="modal">급여명세서</a></span>
-						<a href="#modal-dialog1" class="btn btn-sm btn-white" data-toggle="modal">추가</a>
+						<c:if test="${loginMember.pno >= 3 }"> 
+						<a href="#modal-dialog1" class="btn btn-sm btn-success" data-toggle="modal">추가</a>
+						</c:if>
 					</p>
 					<p class="text-left">* 원하는 사원 클릭 시 급여명세서 출력</p>
 					<br>
@@ -220,7 +222,9 @@ table { text-align: center;}
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 									<h4 class="modal-title" style="text-align: center; font-weight: bold;">2020년 9월 명세서</h4>
 								</div>
+								
 								<div class="modal-body">
+								<div id="print">
 									<div class="row">
 										<table class="table" style="text-align: center;">
 	                              		<thead>
@@ -244,7 +248,7 @@ table { text-align: center;}
                                  		</table>
                                 	 </div>                	
 			                         <br>
-			              <div id="print">
+			              
                          	<div class="row">
                            		<div class="col-md-6">
                                 		<table class="table table-striped" style="text-align: center;">
@@ -340,7 +344,7 @@ table { text-align: center;}
                          	</div> 
 								<div class="modal-footer">
 									<input type="button" value="인쇄" onclick="printPage();" class="btn btn-sm btn-white">
-									<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
+									<a onclick="close()" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
 								</div>
 							</div>
 						</div>
@@ -433,7 +437,7 @@ table { text-align: center;}
 			                                    </div>
 			                                </div>
 											<div class="modal-footer">
-												<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
+												<a href="javascript:;" id="close" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
 												<button type="button" onclick="modifyPay();" class="btn btn-sm btn-primary" id="">변경</button> 
 											</div>
 		                            	 </form> 
@@ -532,8 +536,8 @@ table { text-align: center;}
  		$("#s_dno").val("");
  		$("#s_pno").val("");
 	};
+
 	
-			
 	/* 급여 조회 리스트 */
 		function displayPay() {
 			$.ajax({
@@ -562,8 +566,8 @@ table { text-align: center;}
 						html+="<td>"+this.pholiday+"</td>";
 						html+="<td>"+this.pbonus+"</td>";
 						html+="<td>"+this.petc+"</td>";
-						html+="<td><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
-						+" <button href='#modal-dialog3' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.pmno+">수정</button></td>";
+						html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button class='btn btn-sm btn-success modify_link' data-toggle='modal' data-id="+this.pmno+">수정</button></td>";
 						html+="</tr>";
 						
 					});			
@@ -572,6 +576,33 @@ table { text-align: center;}
 					$("#payTablePlace").html(html);
 					$("#data-table").dataTable(); 
 					 
+					$(".modify_link").click(function() {
+						$("#modal-dialog3").modal("show");
+					
+						var pmno=$(this).attr("data-id");
+						$("#m_pmno").val(pmno); 
+						
+						$.ajax({
+							type: "GET",
+							url: "pay_view/"+pmno,
+							dataType: "json",
+							success: function(json) {
+								$("#m_pdate").val(json.pdate);
+								$("#m_pbasic").val(json.pbasic);
+								$("#m_pmeal").val(json.pmeal);
+								$("#m_povertime").val(json.povertime);
+								$("#m_pholiday").val(json.pholiday);
+								$("#m_pbonus").val(json.pbonus);
+								$("#m_petc").val(json.petc);
+								$("#m_mno").val(json.mno);
+								$("#m_dno").val(json.dno);
+								$("#m_pno").val(json.pno);				
+							},
+							error: function(xhr) {
+								alert("에러코드 = "+xhr.status);
+							}
+						});
+					});
 				},
 				error: function(xhr) {
 					alert("에러코드 = "+xhr.status);
@@ -580,6 +611,8 @@ table { text-align: center;}
 		}
 		displayPay();
 	
+		
+		
 	/* 급여 삭제 */
 		
 		function deletePay(pmno) {
@@ -587,35 +620,11 @@ table { text-align: center;}
 				location.href="pay_delete/"+pmno;
 			}
 		}	
-		
- 	
-	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
 	
-	$(document).on("click", "#modify_link", function() {
-			var pmno=$(this).data("id");
-			$("#m_pmno").val(pmno); 
-			
-			$.ajax({
-				type: "GET",
-				url: "pay_view/"+pmno,
-				dataType: "json",
-				success: function(json) {
-					$("#m_pdate").val(json.pdate);
-					$("#m_pbasic").val(json.pbasic);
-					$("#m_pmeal").val(json.pmeal);
-					$("#m_povertime").val(json.povertime);
-					$("#m_pholiday").val(json.pholiday);
-					$("#m_pbonus").val(json.pbonus);
-					$("#m_petc").val(json.petc);
-					$("#m_mno").val(json.mno);
-					$("#m_dno").val(json.dno);
-					$("#m_pno").val(json.pno);				
-				},
-				error: function(xhr) {
-					alert("에러코드 = "+xhr.status);
-				}
-			});
-		});
+	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
+
+	
+
 	
  	/* 급여 수정 내용 입력 후 변경버튼 클릭시 */
 	
@@ -745,7 +754,7 @@ table { text-align: center;}
 						html+="<td>"+this.pholiday+"</td>";
 						html+="<td>"+this.pbonus+"</td>";
 						html+="<td>"+this.petc+"</td>";
-						html+="<td><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
+						html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button href='#modal-dialog3' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.pmno+">수정</button></td>";
 						html+="</tr>";
  					});
@@ -831,6 +840,8 @@ table { text-align: center;}
         
    });
  
+ 	/* 명세서 부분만 출력 */
+ 	
     function printPage(){
     	 var initBody;
     	 window.onbeforeprint = function(){
@@ -844,8 +855,13 @@ table { text-align: center;}
     	 return false;
     	}
  	
-	</script>	
-	
+	function close() {
+	   window.open('','_self').close();     	
+	}
+		
+
+
+</script>
 	
 <!-- /* 	
 	var $ = jQuery;

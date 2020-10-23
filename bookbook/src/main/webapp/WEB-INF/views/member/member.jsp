@@ -38,11 +38,7 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	
 	<!-- ================== END BASE CSS STYLE ================== -->
-	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
-	
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->	
 	<!-- ================== BEGIN BASE JS ================== -->
 	
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
@@ -123,10 +119,12 @@
 	                <button type="button" onclick="selectMember();" class="btn btn-sm btn-white">조회</button>
 	                <button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
 	                </div>			
-               </form>
+               	</form>
 						<hr>
 						<p class="text-right m-b-0">
-						<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>
+						<c:if test="${loginMember.pno >= 4 }"> 
+						<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>								
+						</c:if>
 						</p>
 						<br>
 						<!-- 수정 버튼 클릭 시 입력폼 팝업 -->
@@ -258,6 +256,7 @@
 		                                    <label class="control-label col-md-4 col-sm-4">이름 :</label>
 		                                    <div class="col-md-6 col-sm-6">
 		                                        <input type="text" class="form-control" placeholder="이름"  name="mname" id="i_mname"/>
+		                                      
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
@@ -269,7 +268,7 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">생년월일 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="i_mbirth" placeholder="ex. 940628" name="mbirth" />
+		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="ex. 940629 " name="mbirth" />
 <!-- 		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" name="mbirth" /> -->
 		                                    </div>
 		                                </div>                             
@@ -295,7 +294,7 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">입사날짜 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="i_mjoindate" placeholder="20/01/01" name="mjoindate" />
+		                                        <input type="text" class="form-control" id="i_mjoindate" placeholder="ex. 20/01/01" name="mjoindate" />
 <!-- 		                                    <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="mdate" id="i_mdate"/> -->
 		                                    </div>
 		                                </div>
@@ -405,23 +404,6 @@
 	<!-- 이메일 input -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
 
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/masked-input/masked-input.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/password-indicator/js/password-indicator.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-tag-it/js/tag-it.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/moment.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/js/select2.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>	
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
 	<script>
@@ -499,7 +481,7 @@
 			var mno=$("#i_mno").val();
 			var mname=$("#i_mname").val();
 			var mpw=$("#i_mpw").val();
-			var mbirth=$("#i_mbirth").val();
+			var mbirth=$("#datepicker-default").val();
 			var mphone=$("#i_mphone").val();
 			var memail=$("#i_memail").val();
 			var maddress=$("#i_maddress").val();

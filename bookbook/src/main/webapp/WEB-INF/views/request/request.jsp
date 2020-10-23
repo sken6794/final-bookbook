@@ -86,7 +86,7 @@ table { text-align: center;}
 		                           	<div class="form-group">
 	                                    <label class="control-label col-md-4 col-sm-4">발주일자</label>
 	                                    <div class="col-md-6 col-sm-6">
-	                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="rdate" />
+	                                        <input type="text" class="form-control" id="s_rdate" placeholder="ex. 20/01/01" name="rdate" />
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
@@ -364,7 +364,7 @@ table { text-align: center;}
  		function selectRequest() {
  		var bcode=$("#s_bcode").val();
  		var rstaff=$("#s_rstaff").val();
- 		var rdate=$("#datepicker-autoClose").val();
+ 		var rdate=$("#s_rdate").val();
  		var rstate=$("#s_rstate").val();
  		
  		$.ajax({
