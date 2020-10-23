@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import site.itwill.dao.ChatDAO;
 import site.itwill.dto.Chat;
+import site.itwill.dto.ChatPerson;
+import site.itwill.socket.ChatRoom;
+import site.itwill.socket.ChatRoomRepository;
 
 @Service
 public class ChatServiceImpl implements ChatService{
@@ -19,10 +22,19 @@ public class ChatServiceImpl implements ChatService{
 	@Autowired
 	ChatDAO chatDAO;
 	
+	private ChatRoomRepository chatRoomRepository;
+	
+	
 	@Override
 	public List<Chat> getAllChatList() {
 		// TODO Auto-generated method stub
-		return chatDAO.getAllChatList();
+		return  chatDAO.getAllChatList();
+	}
+	
+	@Override
+	public List<ChatPerson> getChatMemnerList(String cno){
+		// TODO Auto-generated method stub
+		return chatDAO.getChatMemnerList(cno);
 	}
 
 	@Override
@@ -32,11 +44,9 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public int insertChat(Chat chat) {
-			
-		
+	public Chat insertChat(Chat chat) {
+
 		String croomno = System.currentTimeMillis()+"";
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		Date today = new Date();
 		String cdate = sdf.format(today);
@@ -51,18 +61,25 @@ public class ChatServiceImpl implements ChatService{
 		chat.setCroomno(croomno);
 		// 오늘날짜 추가
 		chat.setCdate(cdate);
-		
 		// 임시로 로그인 한 member의 mno
-		chat.setCcreator(39);
+		chat.setCcreator(1);
 		
+		// 채팅 방 정보 넣기
 		chatDAO.insertChat(chat);
-		//System.out.println("cno : " + chat.getCno());
 		
-		//Map<String, Integer> map = new HashMap<String, Integer>();
-		//map.put("cno", chat.getCno());
-		//map.put("cno", chat.getCno());
+		System.out.println("cno : " + chat.getCno());
+		System.out.println("creator : " + chat.getCcreator());
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("cno",chat.getCno()+"");
+		map.put("ccreator", chat.getCcreator()+"");
+		map.put("cpsession", null);
 		
-		chatDAO.insertChatPerson(chat);
-		return 0;
+		// 채팅 관련 인원 넣기
+		chatDAO.insertChatPerson(map);
+		
+		return chat;
 	}
+
+	
 }

@@ -29,16 +29,17 @@
 				</association>
 		</resultMap>
 
-		<!-- 
-		<select id="getAllChatList" resultMap="chatResultMap">
-			SELECT C.*, (SELECT MNAME FROM MEMBER WHERE MNO = C.CCREATOR) "ccreator", M.MNAME "mname", 
-			(SELECT DNAME FROM DEPARTMENT WHERE DNO = M.DNO) "dname", (SELECT PNAME FROM POSITION WHERE PNO = M.PNO) "pname" 
+		 
+		<select id="getChatMemnerList" resultMap="chatResultMap">
+			SELECT C.*, (SELECT MNAME FROM MEMBER WHERE MNO = C.CCREATOR) "temp", M.MNAME "mname", 
+			(SELECT DNAME FROM DEPARTMENT WHERE DNO = M.DNO) "dname", 
+			(SELECT PNAME FROM POSITION WHERE PNO = M.PNO) "pname" 
 			FROM CHAT C JOIN CHAT_PERSON CP ON C.CNO = CP.CNO
 			JOIN MEMBER M ON M.MNO = CP.MNO 
 			JOIN DEPARTMENT D ON M.DNO = D.DNO 
-			JOIN POSITION P ON M.PNO = P.PNO
+			JOIN POSITION P ON M.PNO = P.PNO WHERE C.CNO=#{cno}
 		</select>
-		 -->
+		 
 		<select id="getAllChatList" resultMap="chatResultMap">
 			select distinct c.cno, c.croomname, c.cinfo, c.cperson, c.csecret, m.mname, p.pname
 			from chat c join chat_person cp on c.cno = cp.cno
@@ -65,12 +66,22 @@
 					insert into chat values(#{cno}, #{croomno}, #{croomname},#{ccreator}, #{cdate}, #{cinfo}, #{cperson}, #{csecret}, #{cpw}, null)
 		</insert>
 		
-		<insert id="insertChatPerson">
+		<insert id="insertChatPerson" parameterType="map">
 					<selectKey resultType="int" keyProperty="cpno" order="BEFORE">
 						select seq_chat_person.nextval "cpno" from dual
 					</selectKey>
 					insert into chat_person values(#{cpno}, #{ccreator}, #{cno})
 		</insert>
 		 
-		
+		 
+		 
+		 <select id="selectChatRoom" >
+		 		select * from chat where cno =#{cno}
+		 </select>
+		 
+		 <!-- 
+		 <update id="updateChatSession">
+		 		update chat_person set cpsession = #{cpesession} where mno=#{mno} and cno=#{cno}
+		 </update>
+		 -->
 </mapper>

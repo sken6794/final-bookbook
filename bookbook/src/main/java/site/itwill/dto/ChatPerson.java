@@ -11,6 +11,7 @@ public class ChatPerson {
 	private Member member;
 	
 	
+	
 	 public ChatPerson() {
 		// TODO Auto-generated constructor stub
 	}

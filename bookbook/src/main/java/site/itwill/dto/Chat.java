@@ -12,25 +12,31 @@ public class Chat {
 		private int csecret;
 		private String cpw;
 		private String clog;
+		private String temp;
 		
 		
 		
 		public Chat() {
 			// TODO Auto-generated constructor stub
 		}
+		
 
+		public String getTemp() {
+			return temp;
+		}
+
+		public void setTemp(String temp) {
+			this.temp = temp;
+		}
+		
 		public int getCpno() {
 			return cpno;
 		}
 
-
-
 		public void setCpno(int cpno) {
 			this.cpno = cpno;
 		}
-
-
-
+		
 		public String getCpw() {
 			return cpw;
 		}

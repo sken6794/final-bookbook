@@ -51,7 +51,7 @@
 				                                    		<button type="button" id="roomSelectBtn" class="btn btn-inverse m-r-5 m-b-5">검색</button>
 				                                    </div>
 				                                    <div class="col-md-2">
-				                                    		<button type="button" class="btn btn-inverse m-r-5 m-b-5">새로고침</button>
+				                                    		<button type="button" id="refresh" class="btn btn-inverse m-r-5 m-b-5">새로고침</button>
 				                                    </div>
 				                                </div>
 				                                <div class="row">
@@ -112,7 +112,7 @@
 				                                <div class="form-group">
 				                                    <div class="col-md-10"></div>
 				                                    <div class="col-md-2">
-				                                    		<button type="button" class="btn btn-inverse m-r-5 m-b-5">방입장</button>
+				                                    		<button type="button" id="enterBtn" class="btn btn-inverse m-r-5 m-b-5">방입장</button>
 				                                    </div>
 				                                </div>
 				                            </form>
@@ -229,6 +229,11 @@
 			 	});
 			});
 			
+			
+			$("#refresh").click(function(){
+				location.href="chat";
+			});
+			
 			$("#insertBtn").click(function(){
 				 
 				 var formData = $("#chatForm").serialize() ;
@@ -237,15 +242,12 @@
 						type: "POST",
 		        	  	url: "insertChat",
 		        	  	data : formData,
-			      		success: function(json) {
-			      			if(json=="success"){
-			      				location.href="chat";
-			      			}
+			      		success: function(data) {
+			      				//alert(json);
+			      				//location.href="chat";
+			      				location.href="enterRoom?cno="+data.cno;
 			      		}
-					 
 				 })
-				 
-				 
 			});
 			
 			$("#roomSelectBtn").click(function(){
@@ -329,10 +331,15 @@
 	        	 }else{
 	        		 tableClickIdx = -1;
 	        	 }
-				 
 				 //alert(tableClickIdx);
-				 
 			 });
+ 			
+ 		     $("#enterBtn").click(function(){
+ 		    	 // 로그인시 고쳐야할 부분..(임시)
+ 		    	 location.href="enterRoom?cno="+tableClickIdx;
+ 		    	//location.href="enterRoom?cno="+data.cno+"&mno="+data.ccreator;
+ 		     });
+ 			
 			 
 		});
 		
