@@ -22,8 +22,14 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Transactional
 	@Override
-	public void modifyNotice(int nno) {
-		noticeDAO.updateNotice(nno);
+	public void modifyNotice(Notice notice) {
+		noticeDAO.updateNotice(notice);
+	}
+	
+	@Transactional
+	@Override
+	public void readCount(int nno) {
+		noticeDAO.countUp(nno);
 	}
 
 	@Transactional

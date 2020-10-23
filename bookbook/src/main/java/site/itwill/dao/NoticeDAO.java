@@ -6,7 +6,8 @@ import site.itwill.dto.Notice;
 
 public interface NoticeDAO {
 	int insertNotice(Notice notice);
-	int updateNotice(int nno);
+	int updateNotice(Notice notice);
+	int countUp(int nno);
 	int deleteNotice(int nno);
 	Notice selectNotice(int nno);
 	List<Notice> selectNoticeList();

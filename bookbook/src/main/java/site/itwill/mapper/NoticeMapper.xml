@@ -35,6 +35,16 @@
 			, ncategory=#{ncategory}, nstate=#{nstate} where nno=#{nno}
 	</update>
 	
+	<!-- 조회수 증가 -->
+	<update id="countUp">
+		update notice set ncount = ncount+1 where nno=#{nno}
+	</update>
+	
+	<!-- ??????? -->
+	<select id="noticeCount" resultType="int">
+		select count(nno) from notice
+	</select>
+	
 	<!-- 게시판번호를 전달받아 공지 삭제 -->
 	<delete id="deleteNotice">
 		delete from notice where nno=#{nno}
@@ -53,7 +63,7 @@
 	<!-- <select id="selectNoticeList" resultMap="noticeMemberResultMap"> -->
 		select n.nno, n.ntitle, n.ncontent, n.ndate, n.ncount,
 		    n.norigin, n.nupload, n.ncategory, n.nwriter, n.nstate, m.mno
-		    from notice n join member m on n.mno=m.mno order by nno desc
+		    from notice n join member m on n.mno=m.mno order by n.ndate desc
 	</select>
 
 </mapper>

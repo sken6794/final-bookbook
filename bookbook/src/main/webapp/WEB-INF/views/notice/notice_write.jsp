@@ -11,9 +11,6 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
-	
-	
-	
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css" rel="stylesheet" />
@@ -65,21 +62,19 @@
                             </div>
                             
                    			<!-- !!!임시값 준 것이므로 로그인 생기면 세션에서 받아오게 처리해줄 것!!! -->
-                            <input type="hidden" id="nwriter" name="nwriter" value="박사과"/>  
-                            <input type="hidden" id="mno" name="mno" value="4"/>  
-                            <input type="hidden" id="nstate" name="nstate" value="1"/>  
-                           
-                            <!-- 
-                            //비공개가 꼭 필요할까....
+                            <input type="hidden" id="nwriter" name="nwriter" value="권앵두"/>  
+                            <input type="hidden" id="mno" name="mno" value="10"/>               
+                          
 							<div class="form-group">
 								<label class="col-md-2 control-label">공개여부</label>
 								<div class="col-md-9">
 									<label class="checkbox-inline">
-										<input type="checkbox" value="0" />비공개로 전환
+										<input type="checkbox" id="nstate" name="nstate" value="0" />비공개로 전환
 									</label>
 								</div>
 							</div>
-		 					
+							
+                            <!-- 
 		 					//파일처리할 거면 form태그 수정해줘야함.
 							<div class="form-group">
 								<label class="col-md-2 control-label">첨부파일</label>
@@ -94,94 +89,25 @@
 							<label class="col-md-2 control-label">공지내용</label>
 							<div class="panel panel-inverse" data-sortable-id="form-wysiwyg-1" style="border: #b6c2c9;">											
 								<div class="col-md-9" >
-								<!-- <div class="panel-body panel-form" > -->
-			
-											<textarea class="ckeditor" id="ncontent" name="ncontent" rows="100" value=""></textarea>
-											<!-- 
-											//에디터 안먹으면 그냥 일반 텍스트에어리어 사용 
-											<textarea class="form-control" id="insertContent" rows="20"></textarea> 
-											-->
-											<br>
-											<!-- 
-											<button type="submit" class="col-md-3 btn btn-inverse" style="float: right;"
-											onclick="location.href='noticeInsert'">작성완료</button>
- 											-->
-											<button type="submit" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
-										
-									<!-- </div> -->
+									<textarea class="ckeditor" id="ncontent" name="ncontent" rows="100"></textarea>
+									<br><br>
+									<button type="submit" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
 								</div>
 							</div>
 							<!-- end panel -->
 						</div>
-                           </form>
-                           <br>
-                       </div>
-                   </div>
-                   <!-- end panel -->
-               </div>
-               <!-- end col-6 -->
-           </div>
-           <!-- end row -->
+                        </form>
+                        <br>
+                    </div>
+                </div>
+                <!-- end panel -->
+            </div>
+            <!-- end col-6 -->
+        </div>
+        <!-- end row -->
 	</div>
 	<!-- end #content -->
        
-<!-- 스크립트 : ajax하려면 ...?ㅎ
-      
-<script type="text/javascript">
-	$("#insertBtn").click(function() {
-		// 입력값을 반환받아 저장
-		var mno=$("#insertMno").val();
-		var write=$("#insertWriter").val();
-		var title=$("#insertTitle").val();
-		var content=$("#insertContent").val();
-		var category=$("#insertCategory").val();
-		
-
-		if(mno=="") {
-			alert("[에러]작성자의 사원번호가 기록되지 않았습니다.");
-			return;
-		}
-		
-		if(write=="") {
-			alert("[에러]작성자의 이름이 기록되지 않았습니다.");
-			return;
-		}
-		
-		if(title=="") {
-			alert("제목을 입력해 주세요.");
-			return;
-		}
-		
-		if(content=="") {
-			alert("내용을 입력해 주세요.");
-			return;
-		}
-		
-		$.ajax({
-			type: "POST",
-			url: noticeInsert,
-			headers: {"content-type":"application/json"},
-			data: JSON.stringify({
-				"ntitle":title, 
-				"ncontent":content, 
-				"ncategory":category,
-				"nwriter":writer,
-				"mno":mno
-				}),
-			dataType: "text", 
-			success: function(text) {
-				if(text=="success") {
-					alert("[완료]새 공지가 저장되었습니다.");
-					location.href='noticeList';
-				}
-			},
-			error: function(xhr) {
-				alert("에러코드 = "+xhr.status)
-			}
-		});
-	});
-</script>
---> 
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>

@@ -16,7 +16,6 @@
 		function noticeDelete(nno) {
 			if (confirm("정말로 삭제 하시겠습니까?") ) {
 				location.href='noticeRemove?nno='+nno;
-				//location.href='noticeList';
 			}
 		}
 	</script>
@@ -41,25 +40,23 @@
 						<tbody>
 							<tr>
 								<th scope="col" style="width: 100%; text-align: left;"> &nbsp;&nbsp;제목 ㅣ${notice.ntitle }
-									<p style="float: right; margin-right: 20px;"><span style="font-weight: bold;">공지분류ㅣ</span> ${notice.ncategory }</p>
+									<p style="float: right; margin-right: 2%;"><span style="font-weight: bold;">공지분류ㅣ</span> ${notice.ncategory }</p>
 								</th>
 							</tr>
 							<tr>
 								<th scope="col" style="width: 15%; text-align: left; font-weight: 400;">
 									&nbsp;&nbsp;<span style="font-weight: bold;">작성자</span> ㅣ ${notice.nwriter }
-									<p style="float: right; margin-right: 20px;"><span style="font-weight: bold;">공지날짜ㅣ</span> ${fn:substring(notice.ndate,0,10) }</p>	        
+									<p style="float: right; margin-right: 2%;"><span style="font-weight: bold;">공지날짜ㅣ</span> ${fn:substring(notice.ndate,0,10) }</p>	        
 									&nbsp;&nbsp;
-									<p style="float: right; margin-right: 20px;"><span style="font-weight: bold;">조회수ㅣ</span> ${notice.ncount }</p>
+									<p style="float: right; margin-right: 2%;"><span style="font-weight: bold;">조회수ㅣ</span> ${notice.ncount +1}</p>
 									
 								</th>                     
 							</tr>
 							<tr>
-								
 								<td scope="col" style="float: center;">
 									<br>
 									${notice.ncontent }
 									<br><br>       
-									<span style="font-weight: bold;">첨부파일ㅣ</span> ${notice.norigin }										
 								</td>	
 							</tr>
 						</tbody>
@@ -69,7 +66,7 @@
 					<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
 					value="삭제" onClick="noticeDelete('${notice.nno}');">삭제</button>						
 					<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
-					onclick="location.href='updateNotice'">수정</button>				
+					onclick="location.href='modify?nno=${notice.nno}'">수정</button>				
 				</div>
 			
 			</div>

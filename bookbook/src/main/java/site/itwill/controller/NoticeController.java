@@ -47,10 +47,11 @@ public class NoticeController {
 		return "notice/notice_list";
 	}
 	
-	//공지 내용 출력
+	//공지 내용 출력 - 내용 출력시 조회수 추가하기
 	@RequestMapping(value="/notice", method=RequestMethod.GET)
 	public String notice(@RequestParam int nno, Model model) {
 		model.addAttribute("notice", noticeService.getNotice(nno));
+		noticeService.readCount(nno);
 		return "notice/notice_detail";
 	}
 	
@@ -63,20 +64,22 @@ public class NoticeController {
 	//작성하기
 	@RequestMapping(value = "/noticeInsert", method = RequestMethod.POST)
 	public String noticeInsert(Notice notice) {
-		System.out.println("noticeInsert^3^");
 		noticeService.addNotice(notice);
-		
 		return "redirect:noticeList";
 	}
 	
-	@RequestMapping(value="/modify", method = RequestMethod.POST)
-	public String modify() {
+	//수정하기로 이동
+	@RequestMapping(value="/modify", method = RequestMethod.GET)
+	public String modify(@RequestParam int nno, Model model) {
+		model.addAttribute("notice", noticeService.getNotice(nno));
 		return "notice/notice_modify";
 	}
 	
+	//수정하기
 	@RequestMapping(value="/noticeUpdate", method = RequestMethod.POST)
-	public String noticeUpdate() {
-		return "notice/notice_modify";
+	public String noticeUpdate(Notice notice) {
+		noticeService.modifyNotice(notice);
+		return "redirect:noticeList";
 	}
 	
 	/*
