@@ -41,6 +41,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.selectRestOrder(ono);
 	}
 
+	@Override
+	public List<Order> getOrder(Order order) {
+		return orderDAO.selectOrder(order);
+	}
+
 
 
 

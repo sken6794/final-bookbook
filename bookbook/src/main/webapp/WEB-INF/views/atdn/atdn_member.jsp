@@ -166,7 +166,7 @@
 		
 		function addAtdn(mno) {
 			
-			location.href="overtime/"+mno;
+			location.href="overtime";
 		}
 			
 	</script>

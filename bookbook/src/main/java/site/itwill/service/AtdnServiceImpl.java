@@ -77,5 +77,19 @@ public class AtdnServiceImpl implements AtdnService{
 		
 		return atdnDAO.selectAtdnOne(mno);
 	}
+
+
+	@Override
+	public void addAttendance(AttendanceMember atdnmember) {
+		atdnDAO.insertAttendance(atdnmember);
+		
+	}
+
+
+	@Override
+	public void removeAttendance(int mno) {
+		atdnDAO.deleteAttendance(mno);
+		
+	}
 	
 }

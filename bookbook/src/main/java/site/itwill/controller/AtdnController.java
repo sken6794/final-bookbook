@@ -1,8 +1,11 @@
 package site.itwill.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.AttendanceMember;
+import site.itwill.dto.Member;
 import site.itwill.service.AtdnService;
 
 @Controller
@@ -52,11 +56,28 @@ public class AtdnController {
 		return "success";
 	}
 	
-	@RequestMapping("/overtime/{num}")
-	public String overtime(@PathVariable int num) {
+	//신청 버튼 누르고 페이지 이동
+	@RequestMapping("/overtime")
+	public String overtime() {
 		
 		
 		return "atdn/overtime_add";
+	}
+	//저장 누를 때
+	@RequestMapping(value = "/addOvertime",method = RequestMethod.POST)
+	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) {
+		AttendanceMember atdn = new AttendanceMember();
+		Member member = (Member)session.getAttribute("loginMember");
+		atdn.setMno(member.getMno());
+		atdn.setAovertime(atdnmember.getAovertime());
+		atdn.setAovertimetext(atdnmember.getAovertimetext());
+		atdn.setAstartdate(atdnmember.getAstartdate());
+		atdn.setAenddate(atdnmember.getAenddate());
+		atdn.setAstarttime(atdnmember.getAstarttime());
+		atdn.setAendtime(atdnmember.getAendtime());
+		
+		
+		return "redirect:/atdn_member";
 	}
 	
 	//출퇴근 조회 페이지

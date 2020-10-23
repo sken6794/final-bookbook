@@ -65,4 +65,19 @@ public class AtdnDAOImpl implements AtdnDAO{
 		return sqlSession.getMapper(AtdnMapper.class).selectAtdnOne(mno);
 	}
 
+
+	@Override
+	public int insertAttendance(AttendanceMember atdnmember) {
+		return sqlSession.getMapper(AtdnMapper.class).insertAttendance(atdnmember);
+	}
+
+
+	@Override
+	public int deleteAttendance(int mno) {
+		return sqlSession.getMapper(AtdnMapper.class).deleteAttendance(mno);
+	}
+
+
+	
+
 }

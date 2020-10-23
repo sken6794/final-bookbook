@@ -93,6 +93,7 @@ table { text-align: center;}
 	                                    <label class="control-label col-md-4 col-sm-4">진행상태</label>
 	                                    <div class="col-md-6 col-sm-6">
 	                                        <select class="form-control" name="rstate" id="s_rstate">
+	                                            <option value="0">-</option>
 	                                            <option value="1">발주요청</option>
 	                                            <option value="2">진행중</option>
 	                                            <option value="3">입고완료</option>
@@ -240,7 +241,15 @@ table { text-align: center;}
 			FormPlugins.init();
 		});
 
-
+	/* 초기화 버튼 */
+		function initBtn() {
+			displayRequest();
+			$("#s_bcode").val("");
+			$("#s_rstaff").val("");
+			$("#s_rdate").val("");
+			$("#s_rstate").val("");
+		}
+	
 	 /* 발주 내역 리스트 */
 		function displayRequest() {
 			$.ajax({
@@ -276,6 +285,9 @@ table { text-align: center;}
 						html+="</tr>";
 						
 					});
+					
+					$("#data-table").dataTable().fnDestroy();
+					$("#data-table").dataTable(); 
 					$("#requestTablePlace").html(html);
 					
 				},
@@ -353,7 +365,7 @@ table { text-align: center;}
  		var bcode=$("#s_bcode").val();
  		var rstaff=$("#s_rstaff").val();
  		var rdate=$("#datepicker-autoClose").val();
- 		var rstate=$("s_rstate").val();
+ 		var rstate=$("#s_rstate").val();
  		
  		$.ajax({
  			type: "POST",
@@ -390,7 +402,7 @@ table { text-align: center;}
 						html+="<td>"+this.rqty+"</td>";
 						html+="<td>"+this.rprice+"</td>";
 						html+="<td>"+state+"</td>";
-						if(state==1) {
+						if(state!=3) {
 						html+="<td><button onclick='deleteRequest("+this.rno+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.rno+">수정</button></td>";
 						} else {
@@ -398,7 +410,7 @@ table { text-align: center;}
 						}
 						html+="</tr>";
  					});
- 					$("requestTablePlace").html(html);
+ 					$("#requestTablePlace").html(html);
  				},
  				error: function(xhr) {
  					alert("에러 발생 = "+xhr.status);

@@ -90,6 +90,7 @@
 						 <label class="control-label col-md-4 col-sm-4">부서</label>
 						 <div class="col-md-6 col-sm-6">
                            <select class="form-control" name="dno" id="s_dno">
+                              <option value="0">-</option>
                               <option value="10">도서 1팀</option>
                               <option value="20">도서 2팀</option>
                               <option value="30">영업팀</option>
@@ -103,6 +104,7 @@
                            <label class="control-label col-md-4 col-sm-4">직급</label>
                            <div class="col-md-6 col-sm-6">
                            <select class="form-control" name="pno" id="s_pno">
+                              <option value="0">-</option>
                               <option value="1">사원</option>
                               <option value="2">주임</option>
                               <option value="3">대리</option>
@@ -434,9 +436,12 @@
 	/* 초기화 버튼 */
 	function initBtn() {
 		displayMember();
+ 		$("#s_mno").val("");
+ 		$("#s_dno").val("");
+ 		$("#s_pno").val("");
 	}
 		
-	/* 사원 리스트*/
+	/* 사원 리스트 */
 		function displayMember() {
 			$.ajax({
 				type: "GET",
@@ -651,7 +656,7 @@
 	 					
 						$("#data-table").dataTable().fnDestroy();
 						$("#data-table").dataTable(); 
-	 					$("memberTablePlace").html(html);
+	 					$("#memberTablePlace").html(html);
 	 				},
 	 				error: function(xhr) {
 	 					alert("에러 발생 = "+xhr.status);
@@ -660,11 +665,4 @@
 	 		}
 	 	
 	</script>
-<!-- 어디에 쓰이는 것인가? - 아 행클릭하면 지정해놓은 사이트로 이동
-	<script>
-	$(document).ready(function($) {
-    $('*[data-href]').on('click', function() {
-        window.location = $(this).data("href");
-   	});
-});
-	</script> -->
+

@@ -76,7 +76,15 @@
 		order by member.mno
 	</select>
 	 
-	 
+	<!-- 사원-근태 삽입 --> 
+	<insert id="insertAttendance">
+		insert into member_atdn values(#{mno}, 0,0,0,0,#{aovertime},#{aovertimetext},#{astartdate}
+			,#{aenddate},#{astarttime},#{aendtime})
+	</insert>
+	<!-- 사원-근태 삭제  -->
+	<delete id="deleteAtdn">
+		delete from member_atdn where mno=#{mno}
+	</delete>
 	
 	
 	<!-- 사원-근태 1명 조회 -->

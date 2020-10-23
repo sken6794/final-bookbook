@@ -1,9 +1,6 @@
 package site.itwill.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import site.itwill.dto.Order;
+import site.itwill.dto.PayManage;
 import site.itwill.dto.Request;
 import site.itwill.service.RequestService;
 @Controller
@@ -32,12 +28,20 @@ public class RequestController {
 		return "request/request";
 	}
 	
-	@RequestMapping(value = "/request_search")
-	public String request(@RequestBody Request request, Model model) throws Exception {
+	
+	@RequestMapping(value = "/request_search", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Request> request(@RequestBody Request request) {
+		return requestService.getRequest(request);
+	}	
+	
+/*	@RequestMapping(value = "/request_search")
+  	@ResponseBody
+	public String request(@RequestBody Request request, Model model)  {
 		model.addAttribute("request", requestService.getRequest(request));
 		return "request/request";
 	}
-
+*/
 	@RequestMapping("/request_list")
 	public ResponseEntity<List<Request>> restRequestList() {
 		ResponseEntity<List<Request>> entity=null;

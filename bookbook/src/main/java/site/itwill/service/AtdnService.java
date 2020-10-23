@@ -14,6 +14,9 @@ public interface AtdnService {
 	List<Attendance> getAtdnListinout();
 	AttendanceMember getAtdnNum(int mno);
 	void modifyAtdn(AttendanceMember atdnmember);
+	void addAttendance(AttendanceMember atdnmember);
+	void removeAttendance(int mno);
+	
 	void addAtdn(Attendance attendance);
 	void logoutAtdn(Attendance attendance);
 	

@@ -21,6 +21,8 @@ public interface AtdnMapper {
 	int updateAtdnover();
 	int updateAleaveStatus(AttendanceMember atdnmember);
 	
+	int insertAttendance(AttendanceMember atdnmember);
+	int deleteAttendance(int mno);
 	
 	
 	//Member
