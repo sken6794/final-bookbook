@@ -16,10 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.HtmlUtils;
 
+import site.itwill.dto.Notice;
 import site.itwill.service.NoticeService;
 
 @Controller
@@ -35,33 +40,63 @@ public class NoticeController {
 	private WebApplicationContext context;
 	*/
 	
+	//공지 목록 출력
 	@RequestMapping(value="/noticeList", method=RequestMethod.GET)
 	public String notice(Model model) {
 		model.addAttribute("noticeList", noticeService.getNoticeList());
 		return "notice/notice_list";
 	}
 	
+	//공지 내용 출력
 	@RequestMapping(value="/notice", method=RequestMethod.GET)
-	public String notice(Model model, int nno) {
-		model.addAttribute("noticeList", noticeService.getNotice(nno));
+	public String notice(@RequestParam int nno, Model model) {
+		model.addAttribute("notice", noticeService.getNotice(nno));
 		return "notice/notice_detail";
 	}
 	
-	@RequestMapping(value="/noticeInsert", method = RequestMethod.GET)
-	public String noticeInsert() {
-		return "notice/notice_write";
+	//작성하기로 이동
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String write() {
+		return "notice/notice_write";		
 	}
 	
-	@RequestMapping(value="/noticeUpdate", method = RequestMethod.GET)
+	//작성하기
+	@RequestMapping(value = "/noticeInsert", method = RequestMethod.POST)
+	public String noticeInsert(Notice notice) {
+		System.out.println("noticeInsert^3^");
+		noticeService.addNotice(notice);
+		
+		return "redirect:noticeList";
+	}
+	
+	@RequestMapping(value="/modify", method = RequestMethod.POST)
+	public String modify() {
+		return "notice/notice_modify";
+	}
+	
+	@RequestMapping(value="/noticeUpdate", method = RequestMethod.POST)
 	public String noticeUpdate() {
 		return "notice/notice_modify";
 	}
 	
-	@RequestMapping(value="/noticeDelete", method=RequestMethod.GET)
+	/*
+	@RequestMapping(value="/noticeInsert", method = RequestMethod.POST)
 	@ResponseBody
-	public String noticeDelete(@PathVariable int nno) {
+	public String noticeInsert(@RequestBody Notice notice) {
+		notice.setNtitle(HtmlUtils.htmlEscape(notice.getNtitle()));
+		notice.setNcontent(HtmlUtils.htmlEscape(notice.getNcontent()));
+		noticeService.addNotice(notice);
+		//return "redirect:/noticeList";
+		return "success";
+	}
+	*/
+	
+	
+	//공지 삭제
+	@RequestMapping(value="/noticeRemove", method=RequestMethod.GET)
+	public String noticeDelete(@RequestParam int nno) {
 		noticeService.removeNotice(nno);
-		return "notice/notice_list";
+		return "redirect:/noticeList";
 	}
 	
 	/*

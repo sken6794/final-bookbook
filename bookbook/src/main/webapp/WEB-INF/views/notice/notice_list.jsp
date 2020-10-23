@@ -69,31 +69,33 @@
                           </div>
                           <h4 class="panel-title">공지사항</h4>
                       </div>
-                          <button type="button" class="btn btn-inverse m-r-1 m-b-1"
-                            style="float: right" onclick="location.href='noticeInsert'">작성하기</button>
+                          
                       <div class="panel-body">
                           <table id="data-table" class="table table-striped table-bordered">
                               <thead>
                                   <tr>
-                                      <th style="text-align: center;">분류</th>
-                                      <th style="text-align: center;">제목</th>
-                                      <th style="text-align: center;">날짜</th>
-                                      <th style="text-align: center;">조회수</th>
+                                      <th style="text-align: center; width:15%;">분류</th>
+                                      <th style="text-align: center; width:45%;">제목</th>
+                                      <th style="text-align: center; width:15%;">날짜</th>
+                                      <th style="text-align: center; width:15%;">조회수</th>
                                   </tr>
                               </thead>
                               <tbody style="text-align: center;">
-                            <c:forEach var="notice" items="${noticeList }">
+                            	<c:forEach var="notice" items="${noticeList }">
 								<tr>
                                     <td>${notice.ncategory }</td>
-									<td><a href="notice_detail" id="gray">${notice.ntitle }</a></td>
+									<td><a href="notice?nno=${notice.nno}" id="gray">${notice.ntitle }</a></td>
 									<td>${fn:substring(notice.ndate,0,10) }</td>
 									<td>${notice.ncount }</td>
 								</tr>
-							</c:forEach>
+								</c:forEach>
 							
                               </tbody>
-                          </table>
-							
+                          	</table>
+							<div style="float: right;">
+									<button type="button" class="btn btn-white m-r-3 m-b-3"
+	                             onclick="location.href='write'">작성하기</button>
+							</div>	
                       </div>
                   </div>
                   <!-- end panel -->

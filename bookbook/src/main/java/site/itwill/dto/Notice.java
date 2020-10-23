@@ -8,7 +8,7 @@ CREATE TABLE NOTICE (
     NCOUNT NUMBER,
     NORIGIN VARCHAR2(1500),
     NUPLOAD VARCHAR2(1500),
-    NCATEGORY VARCHAR2(30) DEFAULT '기타',
+    NCATEGORY VARCHAR2(30) DEFAULT '湲고��',
     NWRITER VARCHAR2(30) NOT NULL,
     NSTATE NUMBER(1) DEFAULT 1,
     MNO NUMBER CONSTRAINT NOTICE_MNO_FK REFERENCES MEMBER(MNO)
@@ -25,12 +25,20 @@ public class Notice {
 	private String ncategory;
 	private String nwriter;
 	private int nstate;
+	private int mno;
 	
-	//로그인 사용자의 사원번호, 직급을 가져오기 위한 사원 테이블
-	private Member member;	
+	private Member member;
 	
 	public Notice() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public int getMno() {
+		return mno;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
 	}
 
 	public int getNno() {

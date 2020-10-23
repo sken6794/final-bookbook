@@ -19,12 +19,14 @@ public class NoticeServiceImpl implements NoticeService {
 	public void addNotice(Notice notice) {
 		noticeDAO.insertNotice(notice);
 	}
-
+	
+	@Transactional
 	@Override
 	public void modifyNotice(int nno) {
 		noticeDAO.updateNotice(nno);
 	}
 
+	@Transactional
 	@Override
 	public void removeNotice(int nno) {
 		noticeDAO.deleteNotice(nno);

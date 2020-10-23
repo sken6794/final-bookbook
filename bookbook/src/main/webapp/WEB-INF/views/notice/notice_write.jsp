@@ -12,16 +12,7 @@
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	
-	<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	<!-- ================== END BASE CSS STYLE ================== -->
+	
 	
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
@@ -36,11 +27,6 @@
 <body>
 	<!-- begin #content -->
 	<div id="content" class="content">
-		<!-- begin breadcrumb -->
-		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-		</ol>
-		<!-- end breadcrumb -->
 		
 		<!-- begin row -->
 		<div class="row">
@@ -58,11 +44,11 @@
 						<h4 class="panel-title">공지작성</h4>
                        </div>
                        <div class="panel-body">
-                           <form class="form-horizontal">
+                           <form class="form-horizontal" action="${pageContext.request.contextPath}/noticeInsert" name="wysihtml5" method="POST">
 							<div class="form-group">
 								<label class="col-md-2 control-label">분류</label>
 								<div class="col-md-3">
-									<select class="form-control">
+									<select class="form-control" id="ncategory" name="ncategory">
 										<option>협력</option>
 										<option>발주/재고</option>
 										<option>인사</option>
@@ -74,10 +60,17 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label">공지 제목</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="제목을 입력하세요."/>
-                                    
+                                    <input type="text" class="form-control" id="ntitle" name="ntitle" placeholder="제목을 입력하세요."/>  
                                 </div>
                             </div>
+                            
+                   			<!-- !!!임시값 준 것이므로 로그인 생기면 세션에서 받아오게 처리해줄 것!!! -->
+                            <input type="hidden" id="nwriter" name="nwriter" value="박사과"/>  
+                            <input type="hidden" id="mno" name="mno" value="4"/>  
+                            <input type="hidden" id="nstate" name="nstate" value="1"/>  
+                           
+                            <!-- 
+                            //비공개가 꼭 필요할까....
 							<div class="form-group">
 								<label class="col-md-2 control-label">공개여부</label>
 								<div class="col-md-9">
@@ -86,26 +79,36 @@
 									</label>
 								</div>
 							</div>
-		
+		 					
+		 					//파일처리할 거면 form태그 수정해줘야함.
 							<div class="form-group">
 								<label class="col-md-2 control-label">첨부파일</label>
 								<div class="col-md-6">
-									<input type="file" />
+									<input type="file" id="norigin"/>
 								</div>
 							</div>
+		 					-->
 							
 							<div class="form-group">
 							<!-- begin panel -->
 							<label class="col-md-2 control-label">공지내용</label>
 							<div class="panel panel-inverse" data-sortable-id="form-wysiwyg-1" style="border: #b6c2c9;">											
 								<div class="col-md-9" >
-									<div class="panel-body panel-form" >
-										<form class="form-horizontal" action="/" name="wysihtml5" method="POST">
-											<textarea class="ckeditor" id="editor1" name="editor1" rows="100" placeholder="사내 규정에 맞게 입력하세요."></textarea>
+								<!-- <div class="panel-body panel-form" > -->
+			
+											<textarea class="ckeditor" id="ncontent" name="ncontent" rows="100" value=""></textarea>
+											<!-- 
+											//에디터 안먹으면 그냥 일반 텍스트에어리어 사용 
+											<textarea class="form-control" id="insertContent" rows="20"></textarea> 
+											-->
 											<br>
+											<!-- 
+											<button type="submit" class="col-md-3 btn btn-inverse" style="float: right;"
+											onclick="location.href='noticeInsert'">작성완료</button>
+ 											-->
 											<button type="submit" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
-										</form>
-									</div>
+										
+									<!-- </div> -->
 								</div>
 							</div>
 							<!-- end panel -->
@@ -121,87 +124,64 @@
            <!-- end row -->
 	</div>
 	<!-- end #content -->
-	
-	
-	
-       <!-- begin theme-panel -->
-       <div class="theme-panel">
-           <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
-           <div class="theme-panel-content">
-               <h5 class="m-t-0">Color Theme</h5>
-               <ul class="theme-list clearfix">
-                   <li class="active"><a href="javascript:;" class="bg-green" data-theme="default" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-red" data-theme="red" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-blue" data-theme="blue" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-purple" data-theme="purple" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-orange" data-theme="orange" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-black" data-theme="black" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black">&nbsp;</a></li>
-               </ul>
-               <div class="divider"></div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Header Styling</div>
-                   <div class="col-md-7">
-                       <select name="header-styling" class="form-control input-sm">
-                           <option value="1">default</option>
-                           <option value="2">inverse</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label">Header</div>
-                   <div class="col-md-7">
-                       <select name="header-fixed" class="form-control input-sm">
-                           <option value="1">fixed</option>
-                           <option value="2">default</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Sidebar Styling</div>
-                   <div class="col-md-7">
-                       <select name="sidebar-styling" class="form-control input-sm">
-                           <option value="1">default</option>
-                           <option value="2">grid</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label">Sidebar</div>
-                   <div class="col-md-7">
-                       <select name="sidebar-fixed" class="form-control input-sm">
-                           <option value="1">fixed</option>
-                           <option value="2">default</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Sidebar Gradient</div>
-                   <div class="col-md-7">
-                       <select name="content-gradient" class="form-control input-sm">
-                           <option value="1">disabled</option>
-                           <option value="2">enabled</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Content Styling</div>
-                   <div class="col-md-7">
-                       <select name="content-styling" class="form-control input-sm">
-                           <option value="1">default</option>
-                           <option value="2">black</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-12">
-                       <a href="#" class="btn btn-inverse btn-block btn-sm" data-click="reset-local-storage"><i class="fa fa-refresh m-r-3"></i> Reset Local Storage</a>
-                   </div>
-               </div>
-           </div>
-       </div>
-       <!-- end theme-panel -->
+       
+<!-- 스크립트 : ajax하려면 ...?ㅎ
+      
+<script type="text/javascript">
+	$("#insertBtn").click(function() {
+		// 입력값을 반환받아 저장
+		var mno=$("#insertMno").val();
+		var write=$("#insertWriter").val();
+		var title=$("#insertTitle").val();
+		var content=$("#insertContent").val();
+		var category=$("#insertCategory").val();
 		
-	
+
+		if(mno=="") {
+			alert("[에러]작성자의 사원번호가 기록되지 않았습니다.");
+			return;
+		}
+		
+		if(write=="") {
+			alert("[에러]작성자의 이름이 기록되지 않았습니다.");
+			return;
+		}
+		
+		if(title=="") {
+			alert("제목을 입력해 주세요.");
+			return;
+		}
+		
+		if(content=="") {
+			alert("내용을 입력해 주세요.");
+			return;
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: noticeInsert,
+			headers: {"content-type":"application/json"},
+			data: JSON.stringify({
+				"ntitle":title, 
+				"ncontent":content, 
+				"ncategory":category,
+				"nwriter":writer,
+				"mno":mno
+				}),
+			dataType: "text", 
+			success: function(text) {
+				if(text=="success") {
+					alert("[완료]새 공지가 저장되었습니다.");
+					location.href='noticeList';
+				}
+			},
+			error: function(xhr) {
+				alert("에러코드 = "+xhr.status)
+			}
+		});
+	});
+</script>
+--> 
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
@@ -230,8 +210,8 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			FormWizard.init();
-			FormWysihtml5.init();
+			//FormWizard.init();
+			//FormWysihtml5.init();
 		});
 	</script>
 </body>
