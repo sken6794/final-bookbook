@@ -73,11 +73,13 @@
 					insert into chat_person values(#{cpno}, #{ccreator}, #{cno})
 		</insert>
 		 
-		 
-		 
 		 <select id="selectChatRoom" >
 		 		select * from chat where cno =#{cno}
 		 </select>
+		 
+		 <delete id="deleteChatPerson" parameterType="map">
+		 		delete from chat_person where mno=#{mno} and cno=#{cno}
+		 </delete>
 		 
 		 <!-- 
 		 <update id="updateChatSession">

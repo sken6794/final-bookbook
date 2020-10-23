@@ -15,4 +15,5 @@ public interface ChatDAO {
 	public int insertChatPerson(Map<String,String> map);
 	public Chat selectChatRoom(Chat chat);
 	//public void updateChatSession(ChatPerson chatPerson);
+	public void deleteChatPerson(Map<String,String> map);
 }

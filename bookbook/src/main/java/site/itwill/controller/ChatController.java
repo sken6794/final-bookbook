@@ -1,6 +1,8 @@
 package site.itwill.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import site.itwill.dto.Chat;
 import site.itwill.dto.ChatPerson;
 import site.itwill.dto.Member;
@@ -71,27 +75,43 @@ public class ChatController {
 	
 	@RequestMapping(value="/enterRoom", method = RequestMethod.GET)
     public String enterRoom(@RequestParam String cno, Model model, HttpSession session){
-
+		
+		Member loginMember =  (Member) session.getAttribute("loginMember");
+		chatService.insertChatPerson(cno, loginMember);
 		List<ChatPerson> list = chatService.getChatMemnerList(cno);
 		
-		//for(ChatPerson chat : list) {
-		//	System.out.println("개설자 : " + chat.getCcreator());
-		//	System.out.println("방이름 : " + chat.getCroomname());
-		//	System.out.println("방설명 : " + chat.getCinfo());
-		//}
-		Member loginMember =  (Member) session.getAttribute("loginMember");
+		System.out.println( "List Size = "+list.size());
 		
 		model.addAttribute("mno", loginMember.getMno());
 		model.addAttribute("mname", loginMember.getMname());
-		model.addAttribute("list",list);
+		//model.addAttribute("list",list);
     	model.addAttribute("cno",cno);
-    	//model.addAttribute("mno",mno);
+    	
+    	
+       
+        JSONArray mapResult = JSONArray.fromObject(list);
+        model.addAttribute("mapResult", mapResult);
+  
   
         return "chat/chatRoom";
     }
 	
+	// 방인원 나감
+	@RequestMapping(value="/outRoom", method = RequestMethod.GET)
+	public String outRoom(@RequestParam String cno, @RequestParam String mno) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("cno", cno);
+		map.put("mno", mno);
+		chatService.deleteChatPerson(map);
+		return "redirect:/chat";
+	}
+	
+	
 	@RequestMapping(value="/chatRoom", method = RequestMethod.GET)
 	public String chatRoom() {
+		
+		
+		
 		return "chat/chatRoom";
 	}
 	
