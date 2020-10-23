@@ -31,7 +31,14 @@
 		<collection property="department" resultMap="department"/>
 		<collection property="position" resultMap="position"/>
 	</resultMap>
-
+	<select id="selectPay" resultMap="payList">
+		SELECT P.PMNO, M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
+		FROM PAYMANAGE P JOIN MEMBER M ON M.MNO = P.MNO 
+		JOIN DEPARTMENT D ON D.DNO = P.DNO 
+		JOIN POSITION PO ON PO.PNO = P.PNO
+		WHERE m.mno=#{mno} OR d.dno=#{dno} OR p.pno=#{pno} 
+		ORDER BY P.PDATE DESC, M.MNO ASC
+	</select>
 	<select id="selectPayList" resultMap="payList">
 		SELECT P.PMNO, M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
 		FROM PAYMANAGE P JOIN MEMBER M ON M.MNO = P.MNO JOIN DEPARTMENT D ON D.DNO = P.DNO 

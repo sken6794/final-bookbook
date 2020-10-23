@@ -38,4 +38,9 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.getMapper(OrderMapper.class).selectRestOrder(ono);
 	}
 
+	@Override
+	public List<Order> selectOrder(Order order) {
+		return sqlSession.getMapper(OrderMapper.class).selectOrder(order);
+	}
+
 }

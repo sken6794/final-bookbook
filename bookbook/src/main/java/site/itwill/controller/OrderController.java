@@ -78,4 +78,10 @@ public class OrderController {
 		orderService.modifyOrder(order);
 		return "success";
 	}	
+	
+	@RequestMapping(value = "/order_search")
+	@ResponseBody
+	public List<Order> order(@RequestBody Order order) {
+		return orderService.getOrder(order);
+	}
 }

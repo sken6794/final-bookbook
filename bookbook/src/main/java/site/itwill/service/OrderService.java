@@ -9,5 +9,6 @@ public interface OrderService {
 	void removeOrder(int ono);
 	void modifyOrder(Order order);
 	Order getRestOrder(int ono);
+	List<Order> getOrder(Order order);
 	List<Order> getOrderList();
 }

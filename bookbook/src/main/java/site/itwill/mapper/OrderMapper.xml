@@ -21,16 +21,16 @@
 	</resultMap>
 	<select id="selectOrderList" resultMap="orderList">
 		SELECT O.ONO, O.OID, B.BNAME, B.BPUBLISHER, O.ODATE, O.OQTY, O.OQTY*B.BPRICE "O.OPRICE", O.OSTATE 
-		FROM "ORDER" O JOIN BOOK B ON O.BCODE = B.BCODE	ORDER BY O.ODATE DESC
+		FROM "ORDER" O JOIN BOOK B ON O.BCODE = B.BCODE	ORDER BY O.ODATE DESC, O.OSTATE ASC
 	</select>
-	<select id="selectOrder">
+	<select id="selectOrder" resultMap="orderList">
 		SELECT O.ONO, O.OID, B.BNAME, B.BPUBLISHER, O.ODATE, O.OQTY, O.OQTY*B.BPRICE "O.OPRICE", O.OSTATE 
 		FROM "ORDER" O JOIN BOOK B ON O.BCODE = B.BCODE 
-		WHERE O.OID=#{oid} OR O.ODATE=#{odate} OR O.OSTATE=#{ostate}
+		WHERE O.OID=#{oid} OR O.ODATE=#{odate} OR O.OSTATE=#{ostate} ORDER BY O.ODATE DESC, O.OSTATE ASC
 	</select>
 
 	<select id="selectRestOrder" resultType="Order">
-		select OID, OQTY, OSTATE, BCODE from "ORDER" where ono=#{ono} ORDER BY ODATE DESC
+		select OID, OQTY, OSTATE, BCODE from "ORDER" where ono=#{ono} ORDER BY O.ODATE DESC, O.OSTATE ASC
 	</select>
 
 	<delete id="deleteOrder">

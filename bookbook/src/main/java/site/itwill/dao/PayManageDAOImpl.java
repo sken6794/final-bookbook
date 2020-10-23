@@ -40,4 +40,9 @@ public class PayManageDAOImpl implements PayManageDAO{
 
 	}
 
+	@Override
+	public List<PayManage> selectPay(PayManage pay) {
+		return sqlSession.getMapper(PayManageMapper.class).selectPay(pay);
+	}
+
 }
