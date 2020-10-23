@@ -61,9 +61,8 @@
                                 </div>
                             </div>
                             
-                   			<!-- !!!임시값 준 것이므로 로그인 생기면 세션에서 받아오게 처리해줄 것!!! -->
-                            <input type="hidden" id="nwriter" name="nwriter" value="권앵두"/>  
-                            <input type="hidden" id="mno" name="mno" value="10"/>               
+                            <input type="hidden" id="nwriter" name="nwriter" value="${loginMember.mname }"/>  
+                            <input type="hidden" id="mno" name="mno" value="${loginMember.mno }"/>               
                           
 							<div class="form-group">
 								<label class="col-md-2 control-label">공개여부</label>
