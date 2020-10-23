@@ -125,7 +125,7 @@
 							<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/assets/img/user-13.jpg" alt="" /></a>
 						</div>
 						<div class="info">
-							박정호 님 
+							${loginMember.mname} 님 
 							<small>Full Stack Developer</small>
 						</div>
 					</li>

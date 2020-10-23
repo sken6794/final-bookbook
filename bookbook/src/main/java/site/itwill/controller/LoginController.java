@@ -41,7 +41,7 @@ public class LoginController {
 		attendance.setAlogin(loginTime);
 		atdnService.addAtdn(attendance);
 		session.setAttribute("loginMember", atdnService.getMember(member.getMno()));
-		return "redirect:/";
+		return "redirect:/book";
 	}
 	
 	@RequestMapping("/logout")

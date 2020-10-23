@@ -206,43 +206,10 @@
 			App.init();
 			var webSocket;
 
-             nickname = "박정호";
+             nickname = "${mname}";
              roomId = ${cno};
-             
-           
-             $(function(){
-            	 var result = new Array();
-            	 <c:forEach items="${list}" var ="info">
-            	 		//var json = new Object();
-            	 		//json.chat="${info.chat}";
-            	 		//json.member="${info.member}";
-            	 		//result.push(json)
-            	 		//jsonResult = JSON.stringify(result);
-            	 		//alert(jsonResult.chat.ccreator);
-            	 		//alert(${info.chat});
-            	 </c:forEach>
-            	 		
-            	 		//jsonResult.
-            	 		//alert(JSON.stringify(result));
-             })
-             
-             
-      		 //list = ${list};
-      		 //alert(list);
-      		 /*
-      		 var list = '<c:out value="${list}"/>';
-      		 
-      		$(list).each(function (index, item) { 
-				// 북코드
-				alert(item);
-				
-			});
-      		*/
- 
- 
+          
 
-
-  
 		    connect();
 		    
 		    function connect(){

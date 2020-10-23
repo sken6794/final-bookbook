@@ -1,5 +1,7 @@
 package site.itwill.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import site.itwill.dao.ChatDAO;
 import site.itwill.dto.Chat;
 import site.itwill.dto.ChatPerson;
+import site.itwill.dto.Member;
 import site.itwill.socket.ChatRoom;
 import site.itwill.socket.ChatRoomRepository;
 
@@ -44,7 +47,7 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public Chat insertChat(Chat chat) {
+	public Chat insertChat(Chat chat, Member member) {
 
 		String croomno = System.currentTimeMillis()+"";
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
@@ -61,8 +64,8 @@ public class ChatServiceImpl implements ChatService{
 		chat.setCroomno(croomno);
 		// 오늘날짜 추가
 		chat.setCdate(cdate);
-		// 임시로 로그인 한 member의 mno
-		chat.setCcreator(1);
+		//로그인 한 member의 mno
+		chat.setCcreator(member.getMno());
 		
 		// 채팅 방 정보 넣기
 		chatDAO.insertChat(chat);
