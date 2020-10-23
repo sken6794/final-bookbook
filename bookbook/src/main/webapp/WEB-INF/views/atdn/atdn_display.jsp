@@ -43,7 +43,7 @@
                                         <th>사원 이름</th>
                                         <th>출근 시간</th>
                                         <th>퇴근 시간</th>
-                                        <th>비고</th>
+                                        <th>근무 시간</th>
                                        
                                     </tr>
                                 </thead>
@@ -55,7 +55,7 @@
 	                                        <td>${atdninout.member.mname}</td>
 	                                        <td>${atdninout.alogin}</td>
 	                                        <td>${atdninout.alogout}</td>
-	                                        <td>비고란</td>
+	                                        <td>${atdninout.atime} 시간</td>
 	                                        
 	                                    </tr>  
                                     </c:forEach>                                 

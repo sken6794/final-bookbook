@@ -6,12 +6,14 @@ ATNO    NOT NULL NUMBER
 MNO     NOT NULL NUMBER       
 ALOGIN           VARCHAR2(30) 
 ALOGOUT          VARCHAR2(30)
+ATIME			 NUMBER
  */
 public class Attendance {
 	private int atno;
 	private int mno;
 	private String alogin;
 	private String alogout;
+	private long atime;
 	private Member member;
 	
 	public Attendance() {
@@ -57,6 +59,18 @@ public class Attendance {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+
+	public long getAtime() {
+		return atime;
+	}
+
+	public void setAtime(long atime) {
+		this.atime = atime;
+	}
+
+	
+	
+	
 	
 	
 	

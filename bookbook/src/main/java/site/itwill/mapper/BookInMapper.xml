@@ -40,18 +40,42 @@
 		<collection property="book" resultMap="book"/>
 	</resultMap>
 	
+	<!-- 입고 리스트 -->
 	<select id="selectBookInList" resultMap="bookInBook">
 		select bookin.*, bname, bwriter, bprice, bquantity from bookin join book on bookin.bcode = book.bcode
 	</select>
 	
+	<!-- 출고 리스트 -->
 	<select id="selectBookOutList" resultMap="bookInBook">
 		select bookout.*, bname, bwriter, bprice, bquantity from bookout join book on bookout.bcode = book.bcode
 	</select>
 	
+	<!-- 재고 리스트 -->
 	<select id="selectStockList" resultMap="bookstock">
 		select bookstock.* , bname, bprice from bookstock
 		join book on book.bcode=bookstock.bcode
 		order by book.bcode desc
 	</select>
+	
+	<!-- 입고 삽입 -->
+	<insert id="insertBookin">
+		<selectKey resultType="int" keyProperty="boutno" order="BEFORE">
+			select seq_bookin.nextval from dual
+		</selectKey>
+		insert into bookin values(#{binno},#{bcode},#{inqty},#{indate})
+	</insert>
+	<!-- 출고 삽입 -->
+	<insert id="insertBookout">
+		<selectKey resultType="int" keyProperty="boutno" order="BEFORE">
+			select seq_bookout.nextval from dual
+		</selectKey>
+		insert into bookout values(#{boutno},#{bcode},#{outqty},#{outdate})
+	</insert>
+	
+	<!-- 재고 변경 -->
+	<update id="updateStock">
+		update bookstock set stockqty = stockqty-#{outqty} where bcode = #{bcode}
+	</update>
+	
 	
 </mapper> 

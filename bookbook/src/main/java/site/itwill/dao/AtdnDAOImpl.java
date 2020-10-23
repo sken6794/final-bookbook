@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import site.itwill.dto.AtdnMember;
 import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
 import site.itwill.dto.Member;
@@ -15,12 +16,14 @@ public class AtdnDAOImpl implements AtdnDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
 	@Override
 	public List<AttendanceMember> selectAtdn() {
 		
 		return sqlSession.getMapper(AtdnMapper.class).selectAtdn();
 	}
-
+	 
+	
 	@Override
 	public AttendanceMember selectAtdnNum(int mno) {
 		return sqlSession.getMapper(AtdnMapper.class).selectAtdnNum(mno);
@@ -54,6 +57,12 @@ public class AtdnDAOImpl implements AtdnDAO{
 	public int logoutAtdn(Attendance attendance) {
 		
 		return sqlSession.getMapper(AtdnMapper.class).logoutAtdn(attendance);
+	}
+
+	@Override
+	public Attendance selectAtdnOne(int mno) {
+		
+		return sqlSession.getMapper(AtdnMapper.class).selectAtdnOne(mno);
 	}
 
 }
