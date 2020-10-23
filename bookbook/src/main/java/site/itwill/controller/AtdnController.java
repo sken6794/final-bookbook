@@ -68,30 +68,36 @@ public class AtdnController {
 	}
 	//저장 누를 때
 	@RequestMapping(value = "/addOvertime",method = RequestMethod.POST)
-	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session
-			,@RequestParam Date astartdate,@RequestParam Date aenddate
-			,@RequestParam Date astarttime,@RequestParam Date aendtime) {
+	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) {
 		AttendanceMember atdn = new AttendanceMember();
 		Member member = (Member)session.getAttribute("loginMember");
 		atdn.setMno(member.getMno());
 		atdn.setAovertime(atdnmember.getAovertime());
 		atdn.setAovertimetext(atdnmember.getAovertimetext());
-		/*
-		atdn.setAstartdate(atdnmember.getAstartdate());
-		atdn.setAenddate(atdnmember.getAenddate());
-		atdn.setAstarttime(atdnmember.getAstarttime());
-		atdn.setAendtime(atdnmember.getAendtime());
-		*/
-		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
-		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
-		String a = sdf.format(astartdate);
-		String b = sdf.format(aenddate);
-		String c = sdf2.format(astarttime);
-		String d = sdf2.format(aendtime);
+		if(atdnmember.getAstartdate()==null || atdnmember.getAstartdate()=="") {
+			atdn.setAstartdate("");
+		} else {
+			atdn.setAstartdate(atdnmember.getAstartdate());
+		}
 		
-		System.out.println("a,b,c,d 실행 = "+a+b+c+d);
+		if(atdnmember.getAenddate()==null || atdnmember.getAenddate()=="") {
+			atdn.setAenddate("");
+		} else {
+			atdn.setAenddate(atdnmember.getAenddate());
+		}
 		
-		//atdnService.addAttendance(atdn);
+		if(atdnmember.getAstarttime()==null || atdnmember.getAstarttime()=="") {
+			atdn.setAstarttime("");
+		} else {
+			atdn.setAstarttime(atdnmember.getAstarttime());
+		}
+		
+		if(atdnmember.getAendtime()==null || atdnmember.getAendtime()=="") {
+			atdn.setAendtime("");
+		} else {
+			atdn.setAendtime(atdnmember.getAendtime());
+		}
+				atdnService.addAttendance(atdn);
 		
 		return "redirect:/atdn_member";
 	}
