@@ -14,21 +14,10 @@
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	
-	<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	<!-- ================== END BASE CSS STYLE ================== -->
-	
-	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<!-- 이 둘 중에서 순서sort 변경하는거 찾아보기 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
-	<!-- ================== END PAGE LEVEL STYLE ================== -->
+	<!-- ==================================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
@@ -69,123 +58,56 @@
                           </div>
                           <h4 class="panel-title">공지사항</h4>
                       </div>
-                          <button type="button" class="btn btn-inverse m-r-1 m-b-1"
-                            style="float: right" onclick="location.href='noticeInsert'">작성하기</button>
-                      <div class="panel-body">
-                          <table id="data-table" class="table table-striped table-bordered">
-                              <thead>
-                                  <tr>
-                                      <th style="text-align: center;">분류</th>
-                                      <th style="text-align: center;">제목</th>
-                                      <th style="text-align: center;">날짜</th>
-                                      <th style="text-align: center;">조회수</th>
-                                  </tr>
-                              </thead>
-                              <tbody style="text-align: center;">
-                            <c:forEach var="notice" items="${noticeList }">
-								<tr>
-                                    <td>${notice.ncategory }</td>
-									<td><a href="notice_detail" id="gray">${notice.ntitle }</a></td>
-									<td>${fn:substring(notice.ndate,0,10) }</td>
-									<td>${notice.ncount }</td>
-								</tr>
-							</c:forEach>
-							
-                              </tbody>
-                          </table>
-							
-                      </div>
+                          
+                  <div class="panel-body">
+                      <table id="data-table" class="table table-striped table-bordered">
+                          <thead>
+                              <tr>
+                                  <th style="text-align: center; width:8%;">번호</th>
+                                  <th style="text-align: center; width:12%;">분류</th>
+                                  <th style="text-align: center; width:40%;">제목</th>
+                                  <th style="text-align: center; width:15%;">날짜</th>
+                                  <th style="text-align: center; width:10%;">조회수</th>
+                              </tr>
+                          </thead>
+                          <tbody style="text-align: center;">
+							<c:choose>
+								<c:when test="${empty(noticeList) }">
+									<tr align="center">
+									<td colspan="5">등록된 공지 사항이 없습니다.</td>		
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="notice" items="${noticeList }">
+										<tr>
+											<td><c:out value="${notice.nno }"/></td>
+											<td>${notice.ncategory }</td>
+											<td><a href="notice?nno=${notice.nno}" id="gray">${notice.ntitle }</a></td>
+											<td>${fn:substring(notice.ndate,0,10) }</td>
+											<td><c:out value="${notice.ncount }"/></td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+                          </tbody>
+                      	</table>
+                      	
+                     <!-- 로그인 사용자의 직급이 과장(4) 이상일 때 작성하기 버튼 출력
+                     	  => 사원,주임,대리는 작성 불가 -->
+                    <c:if test="${loginMember.pno > 3 }">
+						<div style="float: right;">
+							<button type="button" class="btn btn-white m-r-3 m-b-3"
+                         	 onclick="location.href='write'">작성하기</button>
+						</div>
+					</c:if>	
                   </div>
-                  <!-- end panel -->
               </div>
-              <!-- end col-12 -->
+              <!-- end panel -->
           </div>
-          <!-- end row -->
+          <!-- end col-12 -->
+      </div>
+      <!-- end row -->
 </div>
-<!-- end #content -->
-		
-        <!-- begin theme-panel -->
-        <div class="theme-panel">
-            <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
-            <div class="theme-panel-content">
-                <h5 class="m-t-0">Color Theme</h5>
-                <ul class="theme-list clearfix">
-                    <li class="active"><a href="javascript:;" class="bg-green" data-theme="default" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default">&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-red" data-theme="red" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red">&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-blue" data-theme="blue" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue">&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-purple" data-theme="purple" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple">&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-orange" data-theme="orange" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange">&nbsp;</a></li>
-                    <li><a href="javascript:;" class="bg-black" data-theme="black" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black">&nbsp;</a></li>
-                </ul>
-                <div class="divider"></div>
-                <div class="row m-t-10">
-                    <div class="col-md-5 control-label double-line">Header Styling</div>
-                    <div class="col-md-7">
-                        <select name="header-styling" class="form-control input-sm">
-                            <option value="1">default</option>
-                            <option value="2">inverse</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row m-t-10">
-                    <div class="col-md-5 control-label">Header</div>
-                    <div class="col-md-7">
-                        <select name="header-fixed" class="form-control input-sm">
-                            <option value="1">fixed</option>
-                            <option value="2">default</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row m-t-10">
-                    <div class="col-md-5 control-label double-line">Sidebar Styling</div>
-                    <div class="col-md-7">
-                        <select name="sidebar-styling" class="form-control input-sm">
-                            <option value="1">default</option>
-                            <option value="2">grid</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row m-t-10">
-                    <div class="col-md-5 control-label">Sidebar</div>
-                    <div class="col-md-7">
-                        <select name="sidebar-fixed" class="form-control input-sm">
-                            <option value="1">fixed</option>
-                            <option value="2">default</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row m-t-10">
-                    <div class="col-md-5 control-label double-line">Sidebar Gradient</div>
-                    <div class="col-md-7">
-                        <select name="content-gradient" class="form-control input-sm">
-                            <option value="1">disabled</option>
-                            <option value="2">enabled</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row m-t-10">
-                    <div class="col-md-5 control-label double-line">Content Styling</div>
-                    <div class="col-md-7">
-                        <select name="content-styling" class="form-control input-sm">
-                            <option value="1">default</option>
-                            <option value="2">black</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row m-t-10">
-                    <div class="col-md-12">
-                        <a href="#" class="btn btn-inverse btn-block btn-sm" data-click="reset-local-storage"><i class="fa fa-refresh m-r-3"></i> Reset Local Storage</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end theme-panel -->
-		
-		<!-- begin scroll to top btn -->
-		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
-		<!-- end scroll to top btn -->
-	</div>
-	<!-- end page container -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
@@ -212,7 +134,12 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			TableManageDefault.init();
+			//TableManageDefault.init();
+			
+			$('#data-table').DataTable({
+				order: [[0, "desc"]],
+				ordering: true
+			});
 		});
 	</script>
 </body>

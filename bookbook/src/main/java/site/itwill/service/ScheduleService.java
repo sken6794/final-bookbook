@@ -5,5 +5,9 @@ import java.util.List;
 import site.itwill.dto.Schedule;
 
 public interface ScheduleService {
-	public List<Schedule> getScheduleList();
+	void addSchedule(Schedule schedule);
+	void modifySchedule(Schedule schedule);
+	void removeSchedule(int id);
+	Schedule getSchedule(int id);
+	List<Schedule> getScheduleList();
 }

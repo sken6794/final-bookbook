@@ -17,6 +17,7 @@ public class Request {
 	private int rqty;
 	private int rprice;
 	private int rstate;
+	private int bcode;
 	private Book book;
 	
 	public Request() {
@@ -69,6 +70,14 @@ public class Request {
 
 	public void setRstate(int rstate) {
 		this.rstate = rstate;
+	}
+
+	public int getBcode() {
+		return bcode;
+	}
+
+	public void setBcode(int bcode) {
+		this.bcode = bcode;
 	}
 
 	public Book getBook() {

@@ -103,7 +103,7 @@
 							<li><a href="javascript:;">Calendar</a></li>
 							<li><a href="javascript:;">Setting</a></li>
 							<li class="divider"></li>
-							<li><a href="javascript:;">Log Out</a></li>
+							<li><a href="logout">Log Out</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -164,7 +164,7 @@
 					    </a>
 						<ul class="sub-menu">
 						    <li><a href="${pageContext.request.contextPath}/order">주문 조회</a></li>
-						    <li><a href="${pageContext.request.contextPath}/addOrder">주문 등록</a></li>
+						    <li><a href="${pageContext.request.contextPath}/add_order">주문 등록</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -175,7 +175,7 @@
 					    </a>
 						<ul class="sub-menu">
 						    <li><a href="${pageContext.request.contextPath}/request">발주 현황</a></li>
-						    <li><a href="${pageContext.request.contextPath}/addRequest">발주 등록</a></li>
+						    <li><a href="${pageContext.request.contextPath}/add_request">발주 등록</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -185,10 +185,7 @@
 						    <span>입고관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">입고 등록</a></li>
-						    <li><a href="index.html">입고 검색</a></li>
-						    <li><a href="index.html">입고 수정</a></li>
-						    <li><a href="index.html">입고 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/bookin">입고 검색</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -198,10 +195,7 @@
 						    <span>출고관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">출고 등록</a></li>
-						    <li><a href="index.html">출고 검색</a></li>
-						    <li><a href="index.html">출고 수정</a></li>
-						    <li><a href="index.html">출고 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/bookout">출고 검색</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -211,10 +205,7 @@
 						    <span>재고관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">재고 등록</a></li>
-						    <li><a href="index.html">재고 검색</a></li>
-						    <li><a href="index.html">재고 수정</a></li>
-						    <li><a href="index.html">재고 삭제</a></li>
+						    <li><a href="${pageContext.request.contextPath}/stock">재고 검색</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -235,7 +226,8 @@
 						    <span>근태관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">근태 현황</a></li>
+						    <li><a href="${pageContext.request.contextPath}/atdn_member">근태 현황</a></li>
+						    <li><a href="${pageContext.request.contextPath}/atdn">출퇴근 조회</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -255,7 +247,11 @@
 						    <span>전자결재</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">전자결재 양식</a></li>
+						    <li><a href="${pageContext.request.contextPath}/document">전체 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/documentWait">상신 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/documentComplete">결재 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/documentDelete">삭제 문서</a></li>
+						    <li><a href="${pageContext.request.contextPath}/documentRecieve">수신 문서</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -265,7 +261,7 @@
 						    <span>일정관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">일정표</a></li>
+						    <li><a href="${pageContext.request.contextPath}/calendar">일정표</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -275,7 +271,7 @@
 						    <span>공지사항</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">공지 게시판</a></li>
+						    <li><a href="${pageContext.request.contextPath}/noticeList">공지 게시판</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">

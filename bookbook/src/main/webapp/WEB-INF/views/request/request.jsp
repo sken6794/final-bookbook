@@ -5,34 +5,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+table { text-align: center;}
+</style>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<meta content="" name="description" />
 		<meta content="" name="author" />
 		
-		<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	
-		
-	<!-- 생년월일,입사날짜 datepicker -->
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<!-- 발주조회 테이블 -->
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+	<!--  date picker -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-	<!-- 이메일 -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/parsley/src/parsley.css" rel="stylesheet" />
-	<!-- 파일 업로드 -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
-    <!-- 발주조회 테이블 -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />	
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/css/ion.rangeSlider.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/css/ion.rangeSlider.skinNice.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/password-indicator/css/password-indicator.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-tag-it/css/jquery.tagit.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
@@ -72,41 +72,31 @@
 	                            	<div class="form-group">
 										<label class="control-label col-md-4 col-sm-4">도서코드</label>
 										<div class="col-md-6 col-sm-6">
-                                        <input type="text" class="form-control" placeholder="도서코드" />
+                                        <input type="text" class="form-control" placeholder="도서코드" name="bcode" id="s_bcode"/>
 										</div>
 									</div>
 	                            	<div class="form-group">
 										<label class="control-label col-md-4 col-sm-4">담당자</label>
 										<div class="col-md-6 col-sm-6">
-                                        <input type="text" class="form-control" placeholder="담당자 사원번호" />
+                                        <input type="text" class="form-control" placeholder="담당자 사원번호" name="rstaff" id="s_rstaff"/>
 										</div>
-									</div>
-	                                <div class="form-group">
-	                                    <label class="control-label col-md-4 col-sm-4">진행상태</label>
-	                                    <div class="col-md-6 col-sm-6">
-	                                        <select class="form-control">
-	                                            <option>1</option>
-	                                            <option>2</option>
-	                                            <option>3</option>
-	                                        </select>
-	                                    </div>
-	                                </div>									
+									</div>									
 	                            </div>
 	                            <div class="col-md-5">
 		                           	<div class="form-group">
 	                                    <label class="control-label col-md-4 col-sm-4">발주일자</label>
 	                                    <div class="col-md-6 col-sm-6">
-	                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
+	                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" name="rdate" />
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-md-4 col-sm-4">출판사명</label>
+	                                    <label class="control-label col-md-4 col-sm-4">진행상태</label>
 	                                    <div class="col-md-6 col-sm-6">
-	                                        <select class="form-control">
-	                                            <option>영진닷컴</option>
-	                                            <option>수능닷컴</option>
-	                                            <option>이기적</option>
-	                                            <option>문학동네</option>
+	                                        <select class="form-control" name="rstate" id="s_rstate">
+	                                            <option value="0">-</option>
+	                                            <option value="1">발주요청</option>
+	                                            <option value="2">진행중</option>
+	                                            <option value="3">입고완료</option>
 	                                        </select>
 	                                    </div>
 	                                </div>
@@ -116,13 +106,13 @@
                        		<br>
                        		<br>
                        		<div style="text-align: center;">
-                       		<a href="javascript:;" class="btn btn-sm btn-white">조회</a>
-							<a href="#modal-dialog" class="btn btn-sm btn-success" data-toggle="modal">수정</a>
+                       		<button type="button" onclick="selectRequest();" class="btn btn-sm btn-white">조회</button>
+                       		<button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
                        		</div>
                        		<p class="text-right" style="margin-right: 10px;">* 진행상태 : 1(발주요청) , 2(진행중) , 3(입고완료)</p>
                        	</form>
                         <!-- 수정 버튼 클릭 시 입력폼 팝업 -->
-						<div class="modal fade" id="modal-dialog">
+						<div class="modal fade" id="modal-modify">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -133,104 +123,74 @@
 									</div>
 								<!-- 발주내역 수정 form -->
 									<form class="form-horizontal" method="post">
+									<input name="rno" id="m_rno" type="hidden">
 									<div class="modal-body">                         
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">발주담당자 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="담당자 사원번호" />
+		                                        <input type="text" class="form-control" placeholder="담당자 사원번호" name="rstaff" id="m_rstaff" disabled="disabled"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">발주수량 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="수량" />
+		                                        <input type="text" class="form-control" placeholder="수량" name="rqty" id="m_rqty"/>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">진행상태 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <select class="form-control">
-		                                            <option>1</option>
-		                                            <option>2</option>
-		                                            <option>3</option>
+		                                        <select class="form-control" name="rstate" id="m_rstate">
+		                                            <option value="1">발주요청</option>
+		                                            <option value="2">진행중</option>
+		                                            <option value="3">입고완료</option>
 		                                        </select>
 		                                    </div>
 		                                </div>
 										<div class="form-group">
 											<label class="control-label col-md-4 col-sm-4">도서코드 :</label>
 											<div class="col-md-6 col-sm-6">
-												<select class="form-control">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-													<option>6</option>
-													<option>7</option>
-													<option>8</option>
-													<option>9</option>
-													<option>10</option>
+												<select class="form-control" name="bcode" id="m_bcode">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
 												</select>
 											</div>
 										</div>		                                                	                                                   
 									</div>
 									<div class="modal-footer">
 										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-										<button type="submit" id="requestUpdate" class="btn btn-sm btn-success">수정</button>
+										<button type="button" onclick="modifyRequest();" class="btn btn-sm btn-success">수정</button>
 									</div>
 		                        </form>
 								</div>
 							</div>		
 						</div>   <!-- modal 끝 -->                         	
                        	<hr>
-                        <p class="text-right m-b-0">
-                        	<a href="javascript:;" class="btn btn-sm btn-white" style="margin-right: 13px;">삭제</a>
-                        </p>
-                            <table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
+                            <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                    	<th>선택</th>
                                         <th>발주번호</th>
                                         <th>도서코드</th>
-                                        <th>도서명</th>
+                                        <th width="120" style="text-align: center;">도서명</th>
                                         <th>출판사명</th>
-                                        <th>발주일자</th>
+                                        <th width="80" style="text-align: center;">발주일자</th>
                                         <th>담당자[사원번호]</th>
                                         <th>발주수량</th>
                                         <th>발주금액</th>
                                         <th>진행상태</th>
+                                        <th width="100" style="text-align: center;">관리</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <c:forEach var="request" items="${requestList }">
-                                	<tr>
-                               			 <td><input type="checkbox"></td>
-                               			 <td>${request.rno }</td>
-                               			 <td>${request.book.bno }</td>
-                               			 <td>${request.book.bname }</td>
-                               			 <td>${request.book.bpublisher }</td>
-                               			 <td>${request.rdate }</td>
-                               			 <td>${request.rstaff }</td>
-                               			 <td>${request.rqty }</td>
-                               			 <td>${request.rprice }</td>
-                               			 <td>${request.rstate }</td>
-                               		</tr>
-                               	</c:forEach>
-                                <!-- 	<c:forEach var="request" items="${requestList }">
-                                    <tr>
-                                    	<td><input type="checkbox"></td>
-                                        <td>${request.rno }</td>
-                                        <td>${request.book.bno }</td>
-                                        <td>${request.book.bname }</td>
-                                        <td>${request.book.bpublisher }</td>
-                                        <td>${request.rdate }</td>
-                                        <td>${request.rstaff }</td>
-                                        <td>${request.rqty }</td>
-                                        <td>${request.rprice }</td>
-                                        <td>${request.rstate }</td>
-                                    </tr>
-                                    </c:forEach>
-                                    --> 
+                                <tbody id="requestTablePlace">
+                                
                                 </tbody>
                             </table>                		                        
                     </div> <!-- panel body 끝 -->
@@ -238,28 +198,24 @@
             </div>
         </div>
     </div>         
- 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<!--[if lt IE 9]>
-		<script src="assets/crossbrowserjs/html5shiv.js"></script>
-		<script src="assets/crossbrowserjs/respond.min.js"></script>
-		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
-	<![endif]-->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 인사관리 추가 버튼 -->
+		<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+	
+	<!-- 추가 버튼 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/gritter/js/jquery.gritter.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/ui-modal-notification.demo.min.js"></script>
-	<!-- 이메일 input -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
-	<!-- 생년월일,입사날짜,전화번호 -->
+
+	<!-- 발주조회 테이블 -->
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-colreorder.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
+
+	<!-- 발주일자 date picker -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
@@ -276,54 +232,194 @@
     <script src="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/js/select2.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 이미지 파일 업로드 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/tmpl.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/load-image.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.iframe-transport.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-process.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-image.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-audio.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-video.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
-    <!--[if (gte IE 8)&(lt IE 10)]>
-        <script src="assets/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
-    <![endif]-->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
-	<!-- 발주조회 테이블 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/js/dataTables.select.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-select.demo.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>	
 	<script>
+	
 		$(document).ready(function() {
 			App.init();
-		});
-
-	 /* 생년월일, 입사날짜, 전화번호 */ 
-		$(document).ready(function() {
-			App.init();
+			TableManageColReorder.init();
 			FormPlugins.init();
 		});
 
-	 /* 파일업로드 */ 
-		$(document).ready(function() {
-			App.init();
-			FormMultipleUpload.init();
-		});
-
-	 /* 발주조회 테이블 */
-		$(document).ready(function() {
-			App.init();
-			TableManageTableSelect.init();
-		});	
+	/* 초기화 버튼 */
+		function initBtn() {
+			displayRequest();
+			$("#s_bcode").val("");
+			$("#s_rstaff").val("");
+			$("#s_rdate").val("");
+			$("#s_rstate").val("");
+		}
+	
+	 /* 발주 내역 리스트 */
+		function displayRequest() {
+			$.ajax({
+				type: "GET",
+				url: "request_list",
+				dataType: "json",
+				success: function(json) {
+					if(json.length==0) {
+						var html="<tr><td class='center' colspan='10'>등록된 발주내역이 존재하지 않습니다.</td></tr>";
+						$("#requestTablePlace").html(html);
+						return;
+					}
+					
+					var html="";
+					$(json).each(function() {
+						var state="";
+						if(this.rstate=="1") state="발주요청";
+						if(this.rstate=="2") state="진행중";
+						if(this.rstate=="3") state="입고완료";				
+						
+						html+="<tr>";
+						html+="<td>"+this.rno+"</td>";
+						html+="<td width='10px;'>"+this.book.bcode+"</td>";
+						html+="<td>"+this.book.bname+"</td>";
+						html+="<td>"+this.book.bpublisher+"</td>";
+						html+="<td>"+this.rdate+"</td>";
+						html+="<td>"+this.rstaff+"</td>";
+						html+="<td>"+this.rqty+"</td>";
+						html+="<td>"+this.rprice+"</td>";
+						html+="<td>"+state+"</td>";
+						html+="<td><button onclick='deleteRequest("+this.rno+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.rno+">수정</button></td>";
+						html+="</tr>";
+						
+					});
+					
+					$("#data-table").dataTable().fnDestroy();
+					$("#data-table").dataTable(); 
+					$("#requestTablePlace").html(html);
+					
+				},
+				error: function(xhr) {
+					alert("에러코드 = "+xhr.status);
+				}
+			});
+		}
+		displayRequest();
+		
+	 
+		function deleteRequest(rno) {
+			if(confirm("정말로 삭제하시겠습니까?")) {
+				location.href="request_delete/"+rno;
+			}
+		}
+		
+	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
+ 		
+ 		$(document).on("click", "#modify_link", function() {
+ 				var rno=$(this).data("id");
+ 				$("#m_rno").val(rno); 
+ 				
+ 				$.ajax({
+ 					type: "GET",
+ 					url: "request_view/"+rno,
+ 					dataType: "json",
+ 					success: function(json) {
+ 						$("#m_rstaff").val(json.rstaff);
+ 						$("#m_rqty").val(json.rqty);
+ 						$("#m_rstate").val(json.rstate);
+ 						$("#m_bcode").val(json.bcode);
+ 					},
+ 					error: function(xhr) {
+ 						alert("에러코드 = "+xhr.status);
+ 					}
+ 				});
+ 			});
+			
+ 	/* 발주 수정 데이터 보내기 */
+ 		
+ 		function modifyRequest() {
+ 			var rno=$("#m_rno").val();
+ 			var rstaff=$("#m_rstaff").val();
+ 			var rqty=$("#m_rqty").val();
+ 			var rstate=$("#m_rstate").val();
+ 			var bcode=$("#m_bcode").val();
+ 			
+ 			$.ajax({
+ 				type: "PUT",
+ 				url: "request_modify",
+ 				headers: {"content-type":"application/json", "X-HTTP-Method-override":"PUT"},
+ 				data: JSON.stringify({ 
+ 					"rno":rno,
+ 					"rstaff":rstaff,
+ 					"rqty":rqty,
+ 					"rstate":rstate, 
+ 					"bcode":bcode,		
+ 				}),
+ 				dataType: "text",
+ 				success: function(text) {
+ 					if(text=="success") {					
+ 						location.reload();
+ 					}
+ 				},
+ 				error: function(xhr) {
+ 					alert("에러 발생 코드 "+xhr.status);				
+ 				}
+ 			});	
+ 		} 		
+ 	
+ 	/* 검색 내역 리스트 */
+ 		
+ 		function selectRequest() {
+ 		var bcode=$("#s_bcode").val();
+ 		var rstaff=$("#s_rstaff").val();
+ 		var rdate=$("#datepicker-autoClose").val();
+ 		var rstate=$("#s_rstate").val();
+ 		
+ 		$.ajax({
+ 			type: "POST",
+ 			url: "request_search",
+ 			headers: {"content-type":"application/json"},
+ 			data: JSON.stringify({
+ 				"bcode":bcode,
+ 				"rstaff":rstaff,
+ 				"rdate":rdate,
+ 				"rstate":rstate
+ 				}),
+ 				dataType: "json",
+ 				success: function(json) {
+ 					if(json.length==0) {
+ 						var html="<tr><td class='center' colspan='10'>검색된 발주내용이 없습니다.</td></tr>";
+ 						$("#requestTablePlace").html(html);
+ 						return;
+ 					}
+ 					
+ 					var html="";
+ 					$(json).each(function() {
+ 						var state="";
+	 					if(this.rstate=="1") state="발주요청";
+						if(this.rstate=="2") state="진행중";
+						if(this.rstate=="3") state="입고완료";
+						
+						html+="<tr>";
+						html+="<td>"+this.rno+"</td>";
+						html+="<td width='10px;'>"+this.book.bcode+"</td>";
+						html+="<td>"+this.book.bname+"</td>";
+						html+="<td>"+this.book.bpublisher+"</td>";
+						html+="<td>"+this.rdate.substring(0,10)+"</td>";
+						html+="<td>"+this.rstaff+"</td>";
+						html+="<td>"+this.rqty+"</td>";
+						html+="<td>"+this.rprice+"</td>";
+						html+="<td>"+state+"</td>";
+						if(state!=3) {
+						html+="<td><button onclick='deleteRequest("+this.rno+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.rno+">수정</button></td>";
+						} else {
+							html+="-";
+						}
+						html+="</tr>";
+ 					});
+ 					$("#requestTablePlace").html(html);
+ 				},
+ 				error: function(xhr) {
+ 					alert("에러 발생 = "+xhr.status);
+ 				}
+ 		});
+ 	}
+ 	 
+ 	
+ 	
 	</script>
 </body>
 </html>

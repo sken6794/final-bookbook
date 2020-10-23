@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import site.itwill.dto.BookIn;
 import site.itwill.dto.BookInBook;
+import site.itwill.dto.BookOut;
 import site.itwill.dto.BookStock;
 import site.itwill.mapper.BookInMapper;
 @Repository
@@ -35,5 +36,20 @@ public class BookInDAOImpl implements BookInDAO{
 	public List<BookStock> selectStockList() {
 		
 		return sqlSession.getMapper(BookInMapper.class).selectStockList();
+	}
+	@Override
+	public int insertBookout(BookOut bookout) {
+		
+		return sqlSession.getMapper(BookInMapper.class).insertBookout(bookout);
+	}
+	@Override
+	public int insertBookin(BookIn bookin) {
+		
+		return sqlSession.getMapper(BookInMapper.class).insertBookin(bookin);
+	}
+	@Override
+	public int updateStock(BookOut bookout) {
+		
+		return sqlSession.getMapper(BookInMapper.class).updateStock(bookout);
 	}
 }

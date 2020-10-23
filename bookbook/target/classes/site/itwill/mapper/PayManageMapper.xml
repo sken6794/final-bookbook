@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.itwill.mapper.PayManageMapper">
+	<insert id="insertPay">
+		INSERT INTO PAYMANAGE(pmno, pdate, pbasic, pmeal, povertime, pholiday, pbonus, petc, mno, dno, pno) 
+		VALUES(seq_paymanage.nextval, #{pdate}, #{pbasic}, #{pmeal}, #{povertime}, #{pholiday}, #{pbonus}, #{petc}, 
+		#{mno}, #{dno}, #{pno})
+	</insert>
 	
 	<!-- 급여조회 -->
 	<resultMap type="Member" id="member">
@@ -14,6 +19,7 @@
 		<result column="pname" property="pname"/>
 	</resultMap>
 	<resultMap type="PayManage" id="payList">
+		<result column="pmno" property="pmno"/>
 		<result column="pdate" property="pdate"/>
 		<result column="pbasic" property="pbasic"/>
 		<result column="pmeal" property="pmeal"/>
@@ -25,11 +31,31 @@
 		<collection property="department" resultMap="department"/>
 		<collection property="position" resultMap="position"/>
 	</resultMap>
-
+	<select id="selectPay" resultMap="payList">
+		SELECT P.PMNO, M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
+		FROM PAYMANAGE P JOIN MEMBER M ON M.MNO = P.MNO 
+		JOIN DEPARTMENT D ON D.DNO = P.DNO 
+		JOIN POSITION PO ON PO.PNO = P.PNO
+		WHERE m.mno=#{mno} OR d.dno=#{dno} OR p.pno=#{pno} 
+		ORDER BY P.PDATE DESC, M.MNO ASC
+	</select>
 	<select id="selectPayList" resultMap="payList">
-		SELECT M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
+		SELECT P.PMNO, M.MNO, M.MNAME, D.DNAME, PO.PNAME, P.PDATE, P.PBASIC, P.PMEAL, P.POVERTIME, P.PHOLIDAY, P.PBONUS, P.PETC 
 		FROM PAYMANAGE P JOIN MEMBER M ON M.MNO = P.MNO JOIN DEPARTMENT D ON D.DNO = P.DNO 
-		JOIN POSITION PO ON PO.PNO = P.PNO ORDER BY P.PDATE DESC, M.MNO ASC
+		JOIN POSITION PO ON PO.PNO = P.PNO ORDER BY PDATE DESC, MNO ASC
 	</select>
 	
+	<select id="selectRestPay" resultType="PayManage">
+		select PDATE, PBASIC, PMEAL, POVERTIME, PHOLIDAY, PBONUS, PETC, MNO, DNO, PNO from PAYMANAGE where pmno=#{pmno}
+	</select>
+	
+	<update id="updatePay">
+		UPDATE PAYMANAGE SET PDATE=#{pdate}, PBASIC=#{pbasic}, PMEAL=#{pmeal}, POVERTIME=#{povertime}, PHOLIDAY=#{pholiday},
+		PBONUS=#{pbonus}, PETC=#{petc}, MNO=#{mno}, DNO=#{dno}, PNO=#{pno} 
+		where pmno=#{pmno}
+	</update>
+	
+	<delete id="deletePay">
+		delete from PAYMANAGE where PMNO=#{PMNO}
+	</delete>
 </mapper>

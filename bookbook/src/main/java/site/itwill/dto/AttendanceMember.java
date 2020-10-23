@@ -9,6 +9,8 @@ ALEAVE                   NUMBER(1)
 ABTRIP                   NUMBER(1)     
 AOVERTIME                VARCHAR2(255) 
 AOVERTIMETEXT            VARCHAR2(255) 
+ASTARTDATE               VARCHAR2(20)  
+AENDDATE                 VARCHAR2(20)
 ASTARTTIME               VARCHAR2(20)  
 AENDTIME                 VARCHAR2(20)  
  */
@@ -22,6 +24,8 @@ public class AttendanceMember {
 	private String aovertimetext;
 	private String astarttime;
 	private String aendtime;
+	private String astartdate;
+	private String aenddate;	
 	private Member member;
 	private Department department;
 	private Position position;
@@ -100,6 +104,22 @@ public class AttendanceMember {
 
 	public void setAendtime(String aendtime) {
 		this.aendtime = aendtime;
+	}
+	
+	public String getAstartdate() {
+		return astartdate;
+	}
+
+	public void setAstartdate(String astartdate) {
+		this.astartdate = astartdate;
+	}
+
+	public String getAenddate() {
+		return aenddate;
+	}
+
+	public void setAenddate(String aenddate) {
+		this.aenddate = aenddate;
 	}
 
 	public Member getMember() {

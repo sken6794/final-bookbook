@@ -47,6 +47,7 @@
 		</h1>
 		<!-- end page-header -->
 
+		
 		<!-- begin row -->
 		<div class="row">
 			<!-- begin col-12 -->
@@ -73,11 +74,10 @@
 
 					<div class="panel-body">
 						<div class="form-group">
-							<p class="text-right m-b-0" style="margin-right: 5px;">
-								<a href="javascript:;" class="btn btn-sm btn-white">등록</a> <a
-									href="#modal-dialog" class="btn btn-sm btn-danger"
-									data-toggle="modal">삭제</a>
-							</p>
+							<div class="text-right m-b-0" style="margin-right: 5px;">
+								<button type="button" class="btn btn-sm btn-white"onclick="location.href='${pageContext.request.contextPath }/documentForm';">
+								등록</button> 
+							</div>
 							<br>
 							<table id="data-table" class="table table-striped table-bordered">
 								<thead>
@@ -87,7 +87,6 @@
 									<th>작성자</th>
 									<th>등록날짜</th>
 									<th>문서상태</th>
-									<td>선택</td>
 									</tr>
 								</thead>
 								<!--  -->
@@ -95,11 +94,14 @@
 									<c:forEach var="document" items="${documentList }">
 										<tr>
 											<td>${document.docno}</td>
-											<td>${document.docname}</td>
+											<td>
+											<a href="${pageContext.request.contextPath }/documentSelect/${document.docno }" class="document">
+											${document.docname}
+											</a>
+											</td>
 											<td>${document.member.mname }</td>
 											<td>${document.docdate }</td>
 											<td>${document.docstate}</td>
-											<td><input type="checkbox" name="session" id="check"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -233,15 +235,6 @@
 			TableManageDefault.init();
 		});
 
-		$("#delete").click(function() {
-			var $check = $("#check");
-
-			if ($check.size() == 0) {
-				$("#displayDiv").text("당신은 좋아하는 계절이 없습니다.");
-				return;
-			}
-
-		});
 	</script>
 </body>
 </html>

@@ -20,10 +20,15 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 
 	@Override
-	public int updateNotice(int nno) {
-		return sqlSession.getMapper(NoticeMapper.class).updateNotice(nno);
+	public int updateNotice(Notice notice) {
+		return sqlSession.getMapper(NoticeMapper.class).updateNotice(notice);
 	}
-
+	
+	@Override
+	public int countUp(int nno) {
+		return sqlSession.getMapper(NoticeMapper.class).countUp(nno);
+	}
+	
 	@Override
 	public int deleteNotice(int nno) {
 		return sqlSession.getMapper(NoticeMapper.class).deleteNotice(nno);

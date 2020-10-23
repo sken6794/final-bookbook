@@ -63,33 +63,13 @@
 											<td
 												style="border-width: 2px 1px 2px 2px; border-style: solid; background-color: rgb(218, 218, 218); width: 174px; height: 37.3333px;"
 												colspan="1" rowspan="1">
-												<p>시행일자</p>
+												<p>시행일자</p>
 											</td>
 											<td
 												style="border-width: 2px 2px 2px 1px; border-style: solid;">
 												<div class="col-md-9">
 													<input type="date" class="form-control"
 														style="border-style: hidden;" placeholder="시행일자를 입력해주세요." />
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td
-												style="border-width: 2px 1px 2px 2px; border-style: solid; background-color: rgb(218, 218, 218); width: 174px; height: 37.3333px;"
-												colspan="1" rowspan="1">
-												<p>수신자</p>
-											</td>
-											<td
-												style="border-width: 2px 2px 2px 1px; border-style: solid;">
-												<div class="col-md-9">
-													<input type="text" class="form-control" id="rcv" list="rcv_list"
-														style="border-style: hidden;" placeholder="수신자를 입력해주세요." />
-														<datalist id="rcv_list">
-															<option>도서1팀</option>
-															<option>도서2팀</option>
-															<option>영업팀</option>
-															<option>회계팀</option>
-														</datalist>
 												</div>
 											</td>
 										</tr>
@@ -137,19 +117,20 @@
 								</div>
 
 								<hr>
-								<p style="line-height: 160%;">담당 </p>
+								<span style="line-height: 160%;">담당 </span>
 								<!-- ${member.mname} -->
-								<p style="line-height: 160%;">결재</p>
-								<p style="line-height: 160%;">전결</p>
-								<p style="line-height: 160%;">기안일</p>
-								<p style="line-height: 160%;">결제일</p>
+								<br>
+								<span style="line-height: 160%;">결재</span>
+								<br>
+								<span style="line-height: 160%;">기안일</span>
+								<br>
+								<span style="line-height: 160%;">결재일</span>
+								<br>
 								<p style="line-height: 160%;">
 									<span style="font-size: 10pt;">문서번호</span>
 								</p>
 								<div class="form-group">
-									<div class="col-md-9" align="right">
-										<button type="submit" id="tempSave"
-											class="btn btn-sm btn-white" style="margin: 1px;">임시저장</button>
+									<div class="col-md-9" align="right" style="width: 750px;">
 										<button type="submit" id="save" class="btn btn-sm btn-success"
 											style="margin: 1px;">상신</button>
 										<button type="submit" id="cancel"
@@ -408,16 +389,6 @@
 		});
 		
 		
-		$("#tempSave").click(function(){
-			if(confirm("임시저장하시겠습니까?")) {
-				return true;
-			} else {
-				return false;
-			}
-			//$("#docForm").attr("action","../template_content_html/draft_docu");
-			//$("#docForm").submit();
-		});
-		
 		$("#save").click(function(){
 			if(confirm("상신하시겠습니까?")) {
 				return true;
@@ -427,7 +398,7 @@
 		});
 		$("#cancel").click(function(){
 			if(confirm("취소하시겠습니까?")) {
-				return true;
+				return "document/total_docu";
 			} else {
 				return false;
 			}

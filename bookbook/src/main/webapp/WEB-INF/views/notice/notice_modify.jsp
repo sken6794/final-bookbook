@@ -13,17 +13,6 @@
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	
-	<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	<!-- ================== END BASE CSS STYLE ================== -->
-	
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css" rel="stylesheet" />
@@ -58,11 +47,11 @@
 						<h4 class="panel-title">공지수정</h4>
                        </div>
                        <div class="panel-body">
-                           <form class="form-horizontal">
+                           <form class="form-horizontal" action="${pageContext.request.contextPath}/noticeUpdate" name="wysihtml5" method="POST">
 							<div class="form-group">
 								<label class="col-md-2 control-label">분류</label>
                                    <div class="col-md-3">
-									<select class="form-control">
+									<select class="form-control" id="ncategory" name="ncategory">
 										<option>협력</option>
                                            <option>발주/재고</option>
                                            <option>인사</option>
@@ -74,50 +63,34 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">공지 제목</label>
 								<div class="col-md-9">
-									<input type="text" class="form-control" value="#수정될 제목"/>                                        
+									<input type="text" class="form-control" id="ntitle" name="ntitle" value="${notice.ntitle }"/>                                        
 								</div>
 							</div>
-							<!-- 
-                               <div class="form-group">
-                                   <label class="col-md-2 control-label">관련부서</label>
-                                   <div class="col-md-9">
-                                       <select class="form-control">
-                                           <option selected="selected">전체</option>
-                                           <option>인사부</option>
-                                           <option>도서부</option>
-                                           <option>영업부</option>
-                                       </select>
-                                   </div>
-							</div>
-							 -->
+							
+							<input type="hidden" id="nwriter" name="nwriter" value="${notice.nwriter }"/>  
+                            <input type="hidden" id="mno" name="mno" value="${notice.mno }"/>     
+                            <input type="hidden" id="nno" name="nno" value="${notice.nno }"/>
+							
 							<div class="form-group">
 								<label class="col-md-2 control-label">공개여부</label>
 								<div class="col-md-9">
 									<label class="checkbox-inline">
-										<input type="checkbox" value="0" />비공개로 전환
+										<input type="checkbox" id="nstate" name="nstate" value="${notice.nstate }" />비공개로 전환
 									</label>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">첨부파일</label>
-								<div class="col-md-6">
-									<input type="file" />
-								</div>
-							</div>
-
+						
 							<div class="form-group">
 							<!-- begin panel -->
 							<label class="col-md-2 control-label">공지내용</label>
 							<div class="panel panel-inverse" data-sortable-id="form-wysiwyg-1" style="border: #b6c2c9;">											
-									<div class="col-md-9" >
-										<div class="panel-body panel-form" >
-											<form class="form-horizontal" action="/" name="wysihtml5" method="POST">
-												<textarea class="ckeditor" id="editor1" name="editor1" rows="100" placeholder="사내 규정에 맞게 입력하세요.">#수정될 내용</textarea>
-											</form>
-											<br>
-											<button type="submit" class="col-md-2 btn btn-inverse" style="float: right;">작성완료</button>
-										</div>
-									</div>
+								<div class="col-md-9" >
+									<textarea class="ckeditor" id="ncontent" name="ncontent" rows="100">
+									${notice.ncontent}
+									</textarea>
+									<br><br>
+									<button type="submit" id="updateBtn" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
+								</div>
 							</div>
 							<!-- end panel -->
 						</div>
@@ -132,85 +105,22 @@
            <!-- end row -->
 	</div>
 	<!-- end #content -->
-	
-       <!-- begin theme-panel -->
-       <div class="theme-panel">
-           <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
-           <div class="theme-panel-content">
-               <h5 class="m-t-0">Color Theme</h5>
-               <ul class="theme-list clearfix">
-                   <li class="active"><a href="javascript:;" class="bg-green" data-theme="default" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-red" data-theme="red" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-blue" data-theme="blue" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-purple" data-theme="purple" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-orange" data-theme="orange" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange">&nbsp;</a></li>
-                   <li><a href="javascript:;" class="bg-black" data-theme="black" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black">&nbsp;</a></li>
-               </ul>
-               <div class="divider"></div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Header Styling</div>
-                   <div class="col-md-7">
-                       <select name="header-styling" class="form-control input-sm">
-                           <option value="1">default</option>
-                           <option value="2">inverse</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label">Header</div>
-                   <div class="col-md-7">
-                       <select name="header-fixed" class="form-control input-sm">
-                           <option value="1">fixed</option>
-                           <option value="2">default</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Sidebar Styling</div>
-                   <div class="col-md-7">
-                       <select name="sidebar-styling" class="form-control input-sm">
-                           <option value="1">default</option>
-                           <option value="2">grid</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label">Sidebar</div>
-                   <div class="col-md-7">
-                       <select name="sidebar-fixed" class="form-control input-sm">
-                           <option value="1">fixed</option>
-                           <option value="2">default</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Sidebar Gradient</div>
-                   <div class="col-md-7">
-                       <select name="content-gradient" class="form-control input-sm">
-                           <option value="1">disabled</option>
-                           <option value="2">enabled</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-5 control-label double-line">Content Styling</div>
-                   <div class="col-md-7">
-                       <select name="content-styling" class="form-control input-sm">
-                           <option value="1">default</option>
-                           <option value="2">black</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="row m-t-10">
-                   <div class="col-md-12">
-                       <a href="#" class="btn btn-inverse btn-block btn-sm" data-click="reset-local-storage"><i class="fa fa-refresh m-r-3"></i> Reset Local Storage</a>
-                   </div>
-               </div>
-           </div>
-       </div>
-       <!-- end theme-panel -->
-
-	
+	<script type="text/javascript">
+	$("#updateBtn").click(function() {
+		var title=$("ntitle").val();
+		var content=$("ncontent").val();
+		
+		if(title=="") {
+			alert("[안내]제목을 반드시 입력해주세요.");
+			return;
+		}
+		
+		if(content=="") {
+			alert("[안내]내용을 반드시 입력해주세요.");
+			return;
+		}
+	});
+	</script>
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>

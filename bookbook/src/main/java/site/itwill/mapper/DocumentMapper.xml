@@ -30,8 +30,13 @@
 		select doc.docno, doc.docname, member.mname, doc.docdate, doc.docstate 
 			from document doc join member on doc.mno=member.mno order by doc.docno desc
 	</select>
+	<select id="selectDocument" resultType="Document">
+	select doc.*, member.mname from document doc join member 
+		on doc.mno=member.mno where doc.docno = #{doc.docno}
+   </select>
+	
 
-	<!-- 작성된 전자결재 => 상신/임시저장 후 -->
+	<!-- 작성된 전자결재 => 상신/임시저장 후
 	<resultMap type="Document" id="documentSubmit">
 		<result column="docno" property="docno"/>
 		<result column="docname" property="docname"/>
@@ -45,7 +50,29 @@
 		select doc.docno, doc.docname, member.mname, doc.docaprv, doc.docdate, doc.docstate 
 			from document doc join member on doc.mno=member.mno
 	</select>
-	
+	 -->
+	 
+	<update id="updateDocument">
+	update document
+		<set>
+			<if test="docname!=null and docname!=''">
+				docname=#{docname},
+			</if>
+			<if test="doccon!=null and doccon!=''">
+				doccon=#{doccon},
+			</if>
+			<if test="docstate!=null and docstate!=''">
+				docstate=#{docstate},
+			</if>
+			<if test="doccomp!=null and doccomp!=''">
+				doccomp=sysdate
+			</if>
+			<if test="reject!=null and reject!=''">
+				reject=#{reject}
+			</if>
+		</set>
+	where docno=#{docno}
+	</update>
 	
 		<!-- 승인자 선택 : 직급이 제일 높고 근무 중 -->
 	<!-- 

@@ -32,6 +32,8 @@ public class Member {
 	private String mimage;
 	private String mstate;
 	private String mdayoff;
+	private int dno;
+	private int pno;
 	private Department department;
 	private Position position;
 	
@@ -137,6 +139,22 @@ public class Member {
 
 	public String getMdayoff() {
 		return mdayoff;
+	}
+
+	public int getDno() {
+		return dno;
+	}
+
+	public void setDno(int dno) {
+		this.dno = dno;
+	}
+
+	public int getPno() {
+		return pno;
+	}
+
+	public void setPno(int pno) {
+		this.pno = pno;
 	}
 
 	public void setMdayoff(String mdayoff) {

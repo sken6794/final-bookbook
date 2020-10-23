@@ -64,7 +64,7 @@
 						<h4 class="panel-title">전자결재</h4>
 					</div>
 					<div class="panel-body">
-						<form id="docForm" name="docForm" action="document" method="post"
+						<form id="documentSelect" name="documentSelect" action="document" method="post"
 							class="form-horizontal">
 							<p>
 								<br>
@@ -76,9 +76,9 @@
 								@SuppressWarnings("unchecked")
 								Map<String, String> document = (Map<String, String>) pageContext.getAttribute("document");
 								--%>
-							<table border="1" cellspacing="0" cellpadding="0" class=""
+							<table border="1" cellspacing="3" cellpadding="0" class=""
 								style="border-width: 0px; width: 740px; border-collapse: collapse; height: 576px; font-size: 10pt; background-image: none; background-repeat: repeat; background-position: 0% 0%;">
-								<tbody>
+								<tbody id="formAprv">
 									<tr>
 										<td
 											style="border-width: 2px 1px 2px 2px; border-style: solid; background-color: rgb(218, 218, 218); width: 174px; height: 37.3333px;"
@@ -87,18 +87,7 @@
 										</td>
 										<td
 											style="border-width: 2px 2px 2px 1px; border-style: solid;">
-											<div class="col-md-9">${document.docdate}</div>
-										</td>
-									</tr>
-									<tr>
-										<td
-											style="border-width: 2px 1px 2px 2px; border-style: solid; background-color: rgb(218, 218, 218); width: 174px; height: 37.3333px;"
-											colspan="1" rowspan="1">
-											<p>수신자</p>
-										</td>
-										<td
-											style="border-width: 2px 2px 2px 1px; border-style: solid;">
-											<div class="col-md-9">${document.docaprv }</div>
+											<div class="col-md-9" id="docDate">${document.docdate.substring(0,10)}</div>
 										</td>
 									</tr>
 									<tr>
@@ -109,7 +98,7 @@
 										</td>
 										<td
 											style="border-width: 2px 2px 2px 1px; border-style: solid;">
-											<div class="col-md-9">${document.docname }</div>
+											<div class="col-md-9" id="docName">${document.docname }</div>
 										</td>
 									</tr>
 									<tr>
@@ -124,7 +113,7 @@
 									<tr>
 										<td
 											style="border-width: 2px; border-style: solid; width: 682px; height: 435px;"
-											rowspan="1" colspan="2">${document.doccon }</td>
+											rowspan="1" colspan="2" id="doccon">${document.doccon }</td>
 									</tr>
 								</tbody>
 							</table>
@@ -142,22 +131,21 @@
 							</div>
 
 							<hr>
-							<p style="line-height: 160%;">담당 &nbsp;&nbsp; ${member.mname }</p>
-							<!-- ${member.mname} -->
-							<p style="line-height: 160%;">결재 &nbsp;&nbsp;
-								${document.docaprv }</p>
+							<span style="line-height: 160%;" id="mName">담당
+								&nbsp;&nbsp; ${document.member.mname}</span> <br> <span
+								style="line-height: 160%;" id="docAprv">결재 &nbsp;&nbsp;
+								${document.docaprv }</span>
 							<!-- 
 								if($(document.midaprv) == 휴가 중
 								휴가
 								 -->
-
-							<p style="line-height: 160%;">기안일 &nbsp;&nbsp;
-								${document.docdate }</p>
-							<p style="line-height: 160%;">결제일 &nbsp;&nbsp;
-								${document.doccomp }</p>
+							<br> <span style="line-height: 160%;" id="docDate">기안일
+									&nbsp;&nbsp; ${document.docdate.substring(0,10) }</span> <br> 
+									<span style="line-height: 160%;" id="docComp">
+									결재일 &nbsp;&nbsp; ${document.doccomp.substring(0,10) }</span> <br>
 							<p style="line-height: 160%;">
-								<span style="font-size: 10pt;">문서번호 &nbsp;&nbsp;
-									${document.docno }</span>
+								<span style="font-size: 10pt;" id="donNo">문서번호
+									&nbsp;&nbsp; ${document.docno }</span>
 							</p>
 							<div class="form-group">
 								<div class="col-md-9" align="right" style="width: 750px;">
@@ -352,7 +340,42 @@
 		$(document).ready(function() {
 			App.init();
 		});
+	</script>
 
+	<script type="text/javascript">
+	/*
+	displayForm();
+
+		function displayForm() {
+				type : "GET",
+				url : "documentSelect/{document.docno}",
+				dataType : "json",
+				success : function(json) {
+					//var aprv=$(json).find("aprv").text();
+
+					var html = "";
+					$(json).each(function() {
+						html += "<tr>";
+						html += "<td>" + this.docDate + "</td>";
+						html += "<td>" + this.docName + "</td>";
+						html += "<td>" + this.docCon + "</td>";
+						html += "<td>" + this.mName + "</td>";
+						html += "<td>" + this.docAprv + "</td>";
+						html += "<td>" + this.docDate + "</td>";
+						html += "<td>" + this.docComp + "</td>";
+						html += "<td>" + this.docNo + "</td>";
+						html += "</tr>";
+					});
+					$("#formAprv").html(html);
+
+					$("#form-stuff-1").dataTable();
+				},
+				error : function(xhr) {
+					alert("에러코드 = " + xhr.status);
+				}
+			});
+		}
+	*/
 		$("#aprv").click(function() {
 			if (confirm("결재하시겠습니까?")) {
 				return true;

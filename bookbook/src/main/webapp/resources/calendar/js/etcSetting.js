@@ -9,7 +9,7 @@ $('.filter').on('change', function () {
 });
 
 $("#type_filter").select2({
-    placeholder: "분류를 선택하세요.",
+    placeholder: "선택하세요.",
     allowClear: true
 });
 

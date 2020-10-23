@@ -1,7 +1,7 @@
 package site.itwill.dto;
 
 public class Schedule {
-	private int _id;
+	private int id;
 	private String title;
 	private String description;
 	private String start;
@@ -11,23 +11,31 @@ public class Schedule {
 	private String backgroundColor;
 	private String textColor;
 	private String allDay;
+	private String mno;
 	
+	/*
 	//로그인 사용자의 사원번호를 가져오기 위한 사원 테이블
 	private Member member;	
-
-	//위의 사원의 부서를 가져오기 위한 부서 테이블
-	private Department department;
+	*/
 	
 	public Schedule() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public int get_id() {
-		return _id;
+	
+	public String getMno() {
+		return mno;
 	}
 
-	public void set_id(int _id) {
-		this._id = _id;
+	public void setMno(String mno) {
+		this.mno = mno;
+	}
+
+	public int getid() {
+		return id;
+	}
+
+	public void setid(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -102,6 +110,7 @@ public class Schedule {
 		this.allDay = allDay;
 	}
 
+	/*
 	public Member getMember() {
 		return member;
 	}
@@ -110,12 +119,5 @@ public class Schedule {
 		this.member = member;
 	}
 
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}	
-	
+	*/
 }

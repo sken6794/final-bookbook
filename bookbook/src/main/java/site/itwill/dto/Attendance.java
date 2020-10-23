@@ -6,12 +6,15 @@ ATNO    NOT NULL NUMBER
 MNO     NOT NULL NUMBER       
 ALOGIN           VARCHAR2(30) 
 ALOGOUT          VARCHAR2(30)
+ATIME			 NUMBER
  */
 public class Attendance {
 	private int atno;
 	private int mno;
 	private String alogin;
 	private String alogout;
+	private long atime;
+	private Member member;
 	
 	public Attendance() {
 		// TODO Auto-generated constructor stub
@@ -48,6 +51,27 @@ public class Attendance {
 	public void setAlogout(String alogout) {
 		this.alogout = alogout;
 	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public long getAtime() {
+		return atime;
+	}
+
+	public void setAtime(long atime) {
+		this.atime = atime;
+	}
+
+	
+	
+	
+	
 	
 	
 }

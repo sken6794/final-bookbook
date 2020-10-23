@@ -23,6 +23,9 @@ public class PayManage {
 	private String pholiday;
 	private String pbonus;
 	private String petc;
+	private int mno;
+	private int dno;
+	private int pno;
 	private Member member;
 	private Department department;
 	private Position position;
@@ -93,6 +96,30 @@ public class PayManage {
 
 	public void setPetc(String petc) {
 		this.petc = petc;
+	}
+
+	public int getMno() {
+		return mno;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
+	public int getDno() {
+		return dno;
+	}
+
+	public void setDno(int dno) {
+		this.dno = dno;
+	}
+
+	public int getPno() {
+		return pno;
+	}
+
+	public void setPno(int pno) {
+		this.pno = pno;
 	}
 
 	public Member getMember() {

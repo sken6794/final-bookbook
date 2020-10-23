@@ -51,12 +51,12 @@
 	<div id="content" class="content">
 		<!-- begin breadcrumb -->
 		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">발주관리</a></li>
-			<li class="active">발주등록</li>
+			<li><a href="javascript:;">주문관리</a></li>
+			<li class="active">주문등록</li>
 		</ol>
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
-		<h1 class="page-header">발주관리 <small>발주등록</small></h1>
+		<h1 class="page-header">주문관리 <small>주문등록</small></h1>
 		<!-- end page-header -->
 		<br>
 			<div class="row">
@@ -70,37 +70,54 @@
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                             </div>
-                            <h4 class="panel-title">발주데이터 등록</h4>
+                            <h4 class="panel-title">주문데이터 등록</h4>
                         </div>
-                        <form class="form-horizontal form-bordered">
-                        	<div class="panel-body">
-                        		<div class="col-md-2"></div>
-                        		<div class="col-md-8">
-	                                <div class="form-group">
-	                           			<label class="control-label col-md-4">담당자 :</label>
-	                           			<div class="col-md-8">
-	                           				<input type="text" class="form-control" placeholder="담당자" />
-	                           			</div>
-	                                </div>
-	                                <div class="form-group">
-	                           			<label class="control-label col-md-4">발주수량 :</label>
-	                           			<div class="col-md-8">
-	                           				<input type="text" class="form-control" placeholder="수량" />
-	                           			</div>
-	                                </div>
-	                           		<div class="form-group">
-	                           			<label class="control-label col-md-4">도서코드 :</label>
-	                           			<div class="col-md-8">
-	                           				<input type="text" class="form-control" placeholder="코드번호" />
-	                           			</div>
-	                                </div>
-	                                <br>
-	                                <br>
-	                                <p><a href="javascript:;" class="btn btn-success btn-block">발주하기</a></p>
-                                </div>
-                                <div class="col-md-2"></div>
-                        	</div>
-                        </form>
+						<form class="form-horizontal form-bordered" method="post" action="add_order"> <!-- 주문데이터 등록탭 form 태그 -->
+							<div class="panel-body">
+								<div class="col-md-2"></div>
+								<div class="col-md-8">
+									<div class="form-group">
+										<label class="control-label col-md-4">회원 ID :</label>
+										<div class="col-md-8">
+											<input type="text" name="oid" class="form-control" placeholder="회원 ID" value="${order.oid }"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4">주문수량 :</label>
+										<div class="col-md-8">
+											<input type="text" name="oqty" class="form-control" placeholder="수량" value="${order.oqty }" />
+										</div>
+									</div>	                               									
+									<div class="form-group">
+										<label class="control-label col-md-4">도서코드 :</label>
+										<div class="col-md-8">
+											<input type="text" name="bcode" class="form-control" placeholder="도서코드" value="${order.bcode }" />
+										
+<!-- 	select 값 넣는 방법
+										<select class="form-control" name="bcode">
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+											</select> -->
+										</div>
+									</div>
+								<br>
+								<br>
+									<p>
+										<button type="submit" class="btn btn-success btn-block">주문하기</button>
+									</p>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+						</form>
+						<p style="color: red;">${message }</p>
                     </div>
 			    </div>
 			    <div class="col-md-1"></div>
@@ -146,42 +163,19 @@
     <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 이미지 파일 업로드 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/tmpl.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/load-image.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.iframe-transport.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-process.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-image.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-audio.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-video.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
-    <!--[if (gte IE 8)&(lt IE 10)]>
+	    <!--[if (gte IE 8)&(lt IE 10)]>
         <script src="assets/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
     <![endif]-->
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			App.init();
-		});
-	</script>
-	<!-- 생년월일, 입사날짜, 전화번호 -->
+	
 	<script>
 		$(document).ready(function() {
 			App.init();
 			FormPlugins.init();
-		});
-	</script>
-	<!-- 파일업로드 -->
-	<script> 
-		$(document).ready(function() {
-			App.init();
 			FormMultipleUpload.init();
 		});
+
+
 	</script>
 </body>
 </html>

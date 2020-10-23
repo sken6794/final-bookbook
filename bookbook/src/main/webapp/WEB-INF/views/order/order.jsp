@@ -13,15 +13,7 @@ table { text-align: center;}
 		<meta content="" name="description" />
 		<meta content="" name="author" />
 		<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	
+
 	
 	<!-- 생년월일,입사날짜 datepicker -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
@@ -34,7 +26,7 @@ table { text-align: center;}
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 	<!-- 주문조회 테이블 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
@@ -76,15 +68,26 @@ table { text-align: center;}
                             	<div class="form-group">
 									<label class="control-label col-md-4 col-sm-4">회원 ID</label>
 									<div class="col-md-6 col-sm-6">
-                                       <input type="text" class="form-control" placeholder="회원 ID" />
+                                       <input type="text" class="form-control" placeholder="회원 ID" name="oid" id="s_oid" />
 									</div>
 								</div>									
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4">주문 상태 :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select class="form-control" name="ostate" id="s_ostate">
+                                        <option value="0">-</option>
+                                        <option value="1">주문완료</option>
+                                        <option value="2">배송중</option>
+                                        <option value="3">배송완료</option>
+                                    </select>
+                                </div>
+                            </div>                             
                             </div>
                             <div class="col-md-5">
 	                           	<div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4">주문일자</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input type="text" class="form-control" id="datepicker-autoClose" placeholder="01/01/2020" />
+                                        <input type="text" class="form-control" id="s_odate" placeholder="20/01/01" name="odate"/>
                                     </div>
                                 </div>
                             </div>
@@ -92,17 +95,14 @@ table { text-align: center;}
                          </div>
                       	<br>
 	                        <div style="text-align: center;">
-	                        <a href="javascript:;" class="btn btn-sm btn-white">조회</a>
+	                        <button type="button" onclick="selectOrder();" class="btn btn-sm btn-white">조회</button>
+	                        <button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
 	                        </div>
                       </form>
                       <hr>
-					<p class="text-right m-b-0" style="margin-right: 5px;">
-						<a href="javascript:;" class="btn btn-sm btn-white">삭제</a>
-						<a href="#modal-dialog" class="btn btn-sm btn-success" data-toggle="modal">수정</a>
-					</p>	
 					<br>
 					<!-- 주문내역 수정 팝업 -->
-					<div class="modal fade" id="modal-dialog">
+					<div class="modal fade" id="modal-modify">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -114,32 +114,39 @@ table { text-align: center;}
 									<!-- 주문 수정 form -->
 									<form class="form-horizontal">
 									<div class="modal-body">
+									<input type="hidden" name="ono" id="m_ono">
+			                                <div class="form-group">
+			                                    <label class="control-label col-md-4 col-sm-4">회원 ID :</label>
+			                                    <div class="col-md-6 col-sm-6">
+			                                        <input type="text" class="form-control" style="float: left;" name="oid" id="m_oid" disabled="disabled">
+			                                    </div>
+			                                </div>
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">주문 수량 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <input type="text" class="form-control" placeholder="수량" style="float: left;">
+			                                        <input type="text" class="form-control" placeholder="수량" style="float: left;" name="oqty" id="m_oqty">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">주문 상태 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <select class="form-control">
-			                                            <option>주문완료</option>
-			                                            <option>배송중</option>
-			                                            <option>배송완료</option>
+			                                        <select class="form-control" name="ostate" id="m_ostate">
+			                                            <option value="1">주문완료</option>
+			                                            <option value="2">배송중</option>
+			                                            <option value="3">배송완료</option>
 			                                        </select>
 			                                    </div>
 			                                </div>                                
 				                            <div class="form-group">
 				                                    <label class="control-label col-md-4 col-sm-4">도서코드 :</label>
 				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="도서코드" />
+				                                        <input type="text" class="form-control" placeholder="도서코드" name="bcode" id="m_bcode"/>
 				                                    </div>
 				                            </div>
 										</div>
 										<div class="modal-footer">
 											<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-											<a href="javascript:;" class="btn btn-sm btn-primary">수정</a>
+											<button type="button" onclick="modifyOrder();" class="btn btn-sm btn-primary">수정</button>
 										</div>
 		                            	</form>
 									</div>
@@ -149,29 +156,19 @@ table { text-align: center;}
 						<table id="data-table" class="table table-striped table-bordered">
 							<thead>
 								<tr>
-									<th><input type="checkbox"></th>
-									<th>주문번호</th>
-									<th>회원 ID</th>
-									<th>도서명</th>
-									<th>출판사</th>
-									<th>주문수량</th>
-									<th>주문금액</th>
-									<th>주문일자</th>
+									<th style="text-align: center;">주문번호</th>
+									<th style="text-align: center;">회원 ID</th>
+									<th width="150" style="text-align: center;">도서명</th>
+									<th style="text-align: center;">출판사</th>
+									<th style="text-align: center;">주문수량</th>
+									<th style="text-align: center;">주문금액</th>
+									<th style="text-align: center;">주문일자</th>
+									<th style="text-align: center;">진행상태</th>
+									<th width="100" style="text-align: center;">관리</th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach var="order" items="${orderList }">
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>${order.ono }</td>
-									<td>${order.oid }</td>
-									<td>${order.book.bname }</td>
-									<td>${order.book.bpublisher }</td>
-									<td>${order.oqty }</td>
-									<td>${order.oprice}</td>
-									<td>${order.odate.substring(0,10) }</td>
-								</tr>
-								</c:forEach>
+							<tbody id="orderTablePlace">
+
 							</tbody>
 						</table>
 						</div>
@@ -246,24 +243,201 @@ table { text-align: center;}
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-colreorder.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
+	
 	<script>
+	
 		$(document).ready(function() {
 			App.init();
+			TableManageTableSelect.init();
 		});
+		
+	/* 초기화 버튼 */
+		function initBtn() {
+			displayOrder();
+	 		$("#s_oid").val("");
+	 		$("#s_ostate").val("");
+	 		$("#s_odate").val("");
+		}
+			
 
-	 /* 생년월일, 입사날짜, 전화번호 */ 
-
-		$(document).ready(function() {
-			App.init();
-			FormPlugins.init();
-		});
-
-	 /* 주문조회 */ 
-
-		$(document).ready(function() {
-			App.init();
-			TableManageColReorder.init();
-		});
+	/* 주문 조회 리스트*/
+	
+		function displayOrder() {
+			$.ajax({
+				type: "GET",
+				url: "order_list",
+				dataType: "json",
+				success: function(json) {
+					if(json.length==0) {
+						var html="<tr><td class='center' colspan='9'>등록된 주문내역이 존재하지 않습니다.</td></tr>";
+						$("#orderTablePlace").html(html);
+						return;
+					}
+					
+					var html="";
+					$(json).each(function() {	
+						var state="";
+						if(this.ostate=="1") state="주문완료";
+						if(this.ostate=="2") state="배송중";
+						if(this.ostate=="3") state="배송완료";
+						
+						html+="<tr>";
+						html+="<td>"+this.ono+"</td>";
+						html+="<td>"+this.oid+"</td>";
+						html+="<td>"+this.book.bname+"</td>";
+						html+="<td>"+this.book.bpublisher+"</td>";
+						html+="<td>"+this.oqty+"</td>";
+						html+="<td>"+this.oprice+"</td>";
+						html+="<td>"+this.odate+"</td>";
+						html+="<td>"+state+"</td>";
+						if(state!=3) {
+						html+="<td><button onclick='deleteOrder("+this.ono+");' class='btn btn-sm btn-white'>삭제</button> "
+						+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.ono+">수정</button></td>";
+						} else {
+							html+="-";
+						}
+						html+="</tr>";
+					
+						
+					});
+				
+					
+					$("#data-table").dataTable().fnDestroy();
+					$("#data-table").dataTable(); 
+					$("#orderTablePlace").html(html);
+					
+				},
+				error: function(xhr) {
+					alert("에러코드 = "+xhr.status);
+				}
+			});
+		}
+		
+		displayOrder();
+	 
+	 
+	/* 주문 삭제 */
+		function deleteOrder(ono) {
+			if(confirm("정말로 삭제하시겠습니까?")) {
+				location.href="order_delete/"+ono;
+			}
+		}
+	 
+	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
+ 		
+ 		$(document).on("click", "#modify_link", function() {
+ 				var ono=$(this).data("id");
+ 				$("#m_ono").val(ono); 
+ 				
+ 				$.ajax({
+ 					type: "GET",
+ 					url: "order_view/"+ono,
+ 					dataType: "json",
+ 					success: function(json) {
+ 						$("#m_oid").val(json.oid);
+ 						$("#m_oqty").val(json.oqty);
+ 						$("#m_ostate").val(json.ostate);
+ 						$("#m_bcode").val(json.bcode);
+			
+ 					},
+ 					error: function(xhr) {
+ 						alert("에러코드 = "+xhr.status);
+ 					}
+ 				});
+ 			});
+	
+ 	/* 주문 수정 데이터 보내기 */
+ 		
+ 		function modifyOrder() {
+ 			var ono=$("#m_ono").val();
+ 			var oid=$("#m_oid").val();
+ 			var oqty=$("#m_oqty").val();
+ 			var ostate=$("#m_ostate").val();
+ 			var bcode=$("#m_bcode").val();
+ 			
+ 			$.ajax({
+ 				type: "PUT",
+ 				url: "order_modify",
+ 				headers: {"content-type":"application/json", "X-HTTP-Method-override":"PUT"},
+ 				data: JSON.stringify({ 
+ 					"ono":ono,
+ 					"oid":oid,
+ 					"oqty":oqty,
+ 					"ostate":ostate, 
+ 					"bcode":bcode,		
+ 				}),
+ 				dataType: "text",
+ 				success: function(text) {
+ 					if(text=="success") {					
+ 						location.reload();
+ 					}
+ 				},
+ 				error: function(xhr) {
+ 					alert("에러 발생 코드 "+xhr.status);				
+ 				}
+ 			});	
+ 		} 
+ 	
+ 	
+	/* 검색 내역 리스트 */
+ 		
+ 		function selectOrder() {
+	 		var oid=$("#s_oid").val();
+	 		var ostate=$("#s_ostate").val();
+	 		var odate=$("#s_odate").val();
+ 		
+	 		$.ajax({
+	 			type: "POST",
+	 			url: "order_search",
+	 			headers: {"content-type":"application/json"},
+	 			data: JSON.stringify({
+	 				"oid":oid,
+	 				"ostate":ostate,
+	 				"odate":odate
+	 				}),
+	 			dataType: "json",
+	 			success: function(json) {
+						if(json.length==0) {
+							var html="<tr><td class='center' colspan='9'>검색된 주문내역이 없습니다.</td></tr>";
+							$("#orderTablePlace").html(html);
+							return;
+						}
+	 					
+	 					var html="";
+	 					$(json).each(function() {
+	 						var state="";
+							if(this.ostate=="1") state="주문완료";
+							if(this.ostate=="2") state="배송중";
+							if(this.ostate=="3") state="배송완료";
+							
+							html+="<tr>";
+							html+="<td>"+this.ono+"</td>";
+							html+="<td>"+this.oid+"</td>";
+							html+="<td>"+this.book.bname+"</td>";
+							html+="<td>"+this.book.bpublisher+"</td>";
+							html+="<td>"+this.oqty+"</td>";
+							html+="<td>"+this.oprice+"</td>";
+							html+="<td>"+this.odate+"</td>";
+							html+="<td>"+state+"</td>";		
+							if(state!=3) {
+							html+="<td><button onclick='deleteOrder("+this.ono+");' class='btn btn-sm btn-white'>삭제</button> "
+							+" <button href='#modal-modify' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.ono+">수정</button></td>";
+							} else {
+								html+=" ";
+							}
+							html+="</tr>";
+	 					});
+	 					
+						$("#data-table").dataTable().fnDestroy();
+						$("#data-table").dataTable(); 
+	 					$("#orderTablePlace").html(html);
+	 				},
+	 				error: function(xhr) {
+	 					alert("에러 발생 = "+xhr.status);
+	 				}
+	 			});
+	 		}
+	 	 	
 	</script>
 </body>
 </html>
