@@ -59,44 +59,55 @@
                           <h4 class="panel-title">공지사항</h4>
                       </div>
                           
-                      <div class="panel-body">
-                          <table id="data-table" class="table table-striped table-bordered">
-                              <thead>
-                                  <tr>
-                                      <th style="text-align: center; width:8%;">번호</th>
-                                      <th style="text-align: center; width:12%;">분류</th>
-                                      <th style="text-align: center; width:40%;">제목</th>
-                                      <th style="text-align: center; width:15%;">날짜</th>
-                                      <th style="text-align: center; width:10%;">조회수</th>
-                                  </tr>
-                              </thead>
-                              <tbody style="text-align: center;">
-                            	<c:forEach var="notice" items="${noticeList }">
-								<tr>
-									<td><c:out value="${notice.nno }"/></td>
-                                    <td>${notice.ncategory }</td>
-									<td><a href="notice?nno=${notice.nno}" id="gray">${notice.ntitle }</a></td>
-									<td>${fn:substring(notice.ndate,0,10) }</td>
-									<td><c:out value="${notice.ncount }"/></td>
-								</tr>
-								</c:forEach>
-							
-                              </tbody>
-                          	</table>
-							<div style="float: right;">
-									<button type="button" class="btn btn-white m-r-3 m-b-3"
-	                             onclick="location.href='write'">작성하기</button>
-							</div>	
-                      </div>
+                  <div class="panel-body">
+                      <table id="data-table" class="table table-striped table-bordered">
+                          <thead>
+                              <tr>
+                                  <th style="text-align: center; width:8%;">번호</th>
+                                  <th style="text-align: center; width:12%;">분류</th>
+                                  <th style="text-align: center; width:40%;">제목</th>
+                                  <th style="text-align: center; width:15%;">날짜</th>
+                                  <th style="text-align: center; width:10%;">조회수</th>
+                              </tr>
+                          </thead>
+                          <tbody style="text-align: center;">
+							<c:choose>
+								<c:when test="${empty(noticeList) }">
+									<tr align="center">
+									<td colspan="5">등록된 공지 사항이 없습니다.</td>		
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="notice" items="${noticeList }">
+										<tr>
+											<td><c:out value="${notice.nno }"/></td>
+											<td>${notice.ncategory }</td>
+											<td><a href="notice?nno=${notice.nno}" id="gray">${notice.ntitle }</a></td>
+											<td>${fn:substring(notice.ndate,0,10) }</td>
+											<td><c:out value="${notice.ncount }"/></td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+                          </tbody>
+                      	</table>
+                      	
+                     <!-- 로그인 사용자의 직급이 과장(4) 이상일 때 작성하기 버튼 출력
+                     	  => 사원,주임,대리는 작성 불가 -->
+                    <c:if test="${loginMember.pno > 3 }">
+						<div style="float: right;">
+							<button type="button" class="btn btn-white m-r-3 m-b-3"
+                         	 onclick="location.href='write'">작성하기</button>
+						</div>
+					</c:if>	
                   </div>
-                  <!-- end panel -->
               </div>
-              <!-- end col-12 -->
+              <!-- end panel -->
           </div>
-          <!-- end row -->
+          <!-- end col-12 -->
+      </div>
+      <!-- end row -->
 </div>
-<!-- end #content -->
-
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
@@ -123,7 +134,12 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			TableManageDefault.init();
+			//TableManageDefault.init();
+			
+			$('#data-table').DataTable({
+				order: [[0, "desc"]],
+				ordering: true
+			});
 		});
 	</script>
 </body>

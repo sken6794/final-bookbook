@@ -89,7 +89,7 @@
 									${notice.ncontent}
 									</textarea>
 									<br><br>
-									<button type="submit" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
+									<button type="submit" id="updateBtn" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
 								</div>
 							</div>
 							<!-- end panel -->
@@ -105,7 +105,22 @@
            <!-- end row -->
 	</div>
 	<!-- end #content -->
-	
+	<script type="text/javascript">
+	$("#updateBtn").click(function() {
+		var title=$("ntitle").val();
+		var content=$("ncontent").val();
+		
+		if(title=="") {
+			alert("[안내]제목을 반드시 입력해주세요.");
+			return;
+		}
+		
+		if(content=="") {
+			alert("[안내]내용을 반드시 입력해주세요.");
+			return;
+		}
+	});
+	</script>
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>

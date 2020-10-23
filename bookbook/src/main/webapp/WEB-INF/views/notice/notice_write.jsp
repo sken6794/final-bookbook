@@ -74,16 +74,6 @@
 								</div>
 							</div>
 							
-                            <!-- 
-		 					//파일처리할 거면 form태그 수정해줘야함.
-							<div class="form-group">
-								<label class="col-md-2 control-label">첨부파일</label>
-								<div class="col-md-6">
-									<input type="file" id="norigin"/>
-								</div>
-							</div>
-		 					-->
-							
 							<div class="form-group">
 							<!-- begin panel -->
 							<label class="col-md-2 control-label">공지내용</label>
@@ -91,7 +81,7 @@
 								<div class="col-md-9" >
 									<textarea class="ckeditor" id="ncontent" name="ncontent" rows="100"></textarea>
 									<br><br>
-									<button type="submit" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
+									<button type="submit" id="insertBtn" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
 								</div>
 							</div>
 							<!-- end panel -->
@@ -108,6 +98,23 @@
 	</div>
 	<!-- end #content -->
        
+<script type="text/javascript">
+$("#insertBtn").click(function() {
+	var title=$("ntitle").val();
+	var content=$("ncontent").val();
+	
+	if(title=="") {
+		alert("[안내]제목을 반드시 입력해주세요.");
+		return;
+	}
+	
+	if(content=="") {
+		alert("[안내]내용을 반드시 입력해주세요.");
+		return;
+	}
+});
+</script>
+
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>

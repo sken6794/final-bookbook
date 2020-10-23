@@ -1,24 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-   <!-- 
-   ================== BEGIN PAGE LEVEL STYLE ================== 
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />   
-   -->
-   <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
-   <!-- ================== END PAGE LEVEL STYLE ================== -->
+    
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
    
-   <!-- 풀캘린더 시작 -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/calendar/vendor/css/fullcalendar.min.css" />
+	<!-- 풀캘린더 시작 -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/calendar/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/calendar/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/calendar/vendor/css/select2.min.css' />
     <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/calendar/vendor/css/bootstrap-datetimepicker.min.css' />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/calendar/css/main.css">
-   <!-- 풀캘린더 끝 -->
+	<!-- 풀캘린더 끝 -->
    
    <!-- ================== BEGIN BASE JS ================== -->
    <script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
@@ -44,7 +40,6 @@
             <div id="loading"></div>
             <div id="calendar"></div>
         </div>
-
 
         <!-- 일정 추가 MODAL -->
         <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
@@ -191,8 +186,8 @@
    <script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.min.js"></script>
    <!-- ================== END PAGE LEVEL JS ================== -->
    
-   <!-- 풀캘린더 js 시작 -->
-   <script src="${pageContext.request.contextPath}/resources/calendar/vendor/js/jquery.min.js"></script>
+	<!-- 풀캘린더 js 시작 -->
+	<script src="${pageContext.request.contextPath}/resources/calendar/vendor/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/calendar/vendor/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/calendar/vendor/js/moment.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/calendar/vendor/js/fullcalendar.min.js"></script>

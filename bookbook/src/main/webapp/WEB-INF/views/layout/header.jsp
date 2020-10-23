@@ -261,7 +261,7 @@
 						    <span>일정관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">일정표</a></li>
+						    <li><a href="${pageContext.request.contextPath}/calendar">일정표</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
@@ -271,7 +271,7 @@
 						    <span>공지사항</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">공지 게시판</a></li>
+						    <li><a href="${pageContext.request.contextPath}/noticeList">공지 게시판</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">

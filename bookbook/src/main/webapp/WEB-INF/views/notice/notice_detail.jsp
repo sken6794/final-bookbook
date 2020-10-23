@@ -2,16 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	
-	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css" rel="stylesheet" />
-	<!-- ================== END PAGE LEVEL STYLE ================== -->
-	
-	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
-	<!-- ================== END BASE JS ================== -->
-	
+	<!-- <script src="//cdn.js.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	 -->
+
 	<script language="JavaScript">
 		function noticeDelete(nno) {
 			if (confirm("정말로 삭제 하시겠습니까?") ) {
@@ -27,11 +23,11 @@
 			<div class="panel panel-inverse" data-sortable-id="table-basic-2">
 				<div class="panel-heading">
 					<div class="panel-heading-btn">
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-						<!-- 작성하기로 이동 -->
-						<a href="#" class="btn btn-xs btn-icon btn-circle btn-warning"><i class="fa fa-pencil"></i></a>
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+					 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 					</div>
 					<h4 class="panel-title" id="notice_list">공지사항</h4>
 				</div>
@@ -63,10 +59,15 @@
 					</table>
 					<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
 					onclick="location.href='noticeList'">목록</button>	
-					<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
-					value="삭제" onClick="noticeDelete('${notice.nno}');">삭제</button>						
-					<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
-					onclick="location.href='modify?nno=${notice.nno}'">수정</button>				
+					
+					<!-- 본인이 작성한 경우에만 수정, 삭제 가능 -->
+					<c:if test="${loginMember.mno == notice.mno }">
+						<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
+						value="삭제" onClick="noticeDelete('${notice.nno}');">삭제</button>			
+						<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
+						onclick="location.href='modify?nno=${notice.nno}'">수정</button>				
+					</c:if>
+					
 				</div>
 			
 			</div>
