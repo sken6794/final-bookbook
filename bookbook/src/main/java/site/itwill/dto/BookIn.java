@@ -4,13 +4,13 @@ package site.itwill.dto;
 ---------- -------- ---------- 
 BINNO      NOT NULL NUMBER     
 BCODE      NOT NULL NUMBER     
-INQUANTITY          NUMBER(20) 
-INDATE              DATE 
+INQTY          NUMBER(20) 
+INDATE              VARCHAR2(20)
  */
 public class BookIn {
 	private int binno; 
 	private int bcode;
-	private int inquantity;
+	private int inqty;
 	private String indate;
 	
 	public BookIn() {
@@ -33,12 +33,14 @@ public class BookIn {
 		this.bcode = bcode;
 	}
 
-	public int getInquantity() {
-		return inquantity;
+	
+
+	public int getInqty() {
+		return inqty;
 	}
 
-	public void setInquantity(int inquantity) {
-		this.inquantity = inquantity;
+	public void setInqty(int inqty) {
+		this.inqty = inqty;
 	}
 
 	public String getIndate() {
