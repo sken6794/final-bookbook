@@ -80,6 +80,10 @@ public class ChatController {
     public String enterRoom(@RequestParam String cno, Model model, HttpSession session){
 		
 		Member loginMember =  (Member) session.getAttribute("loginMember");
+		
+		Chat chat = new Chat();
+		chat.setCno(Integer.parseInt(cno));
+		
 		chatService.insertChatPerson(cno, loginMember);
 		List<ChatPerson> list = chatService.getChatMemnerList(cno);
 		
@@ -90,8 +94,6 @@ public class ChatController {
 		//model.addAttribute("list",list);
     	model.addAttribute("cno",cno);
     	
-    	
-       
         JSONArray mapResult = JSONArray.fromObject(list);
         model.addAttribute("mapResult", mapResult);
   
@@ -124,7 +126,32 @@ public class ChatController {
 		}else {
 			result="fail";
 		}
+		return result;
+	}
+	
+	@RequestMapping(value="/comparePw", method = RequestMethod.GET)
+	@ResponseBody
+	public String comparePw(@RequestParam String cno, @RequestParam String pw, @RequestParam String goalPerson) {
+		Chat chat = new Chat();
+		chat.setCno(Integer.parseInt(cno));
+		chat = chatService.selectChatRoom(chat);
+		String result;
+		if(pw.equals(chat.getCpw())) {
+			result="success";
+		}else {
+			result="fail";
+		}
 		
+		int currentPerson = chatService.countEnterPerson(chat);
+		
+		String temp[] = goalPerson.split(" ");
+		
+		int person = Integer.parseInt(temp[0]);
+		if(currentPerson < person) {
+			result="success";
+		}else if(currentPerson>=person) {
+			result="overPerson";
+		}
 		return result;
 	}
 	

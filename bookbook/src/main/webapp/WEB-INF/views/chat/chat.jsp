@@ -119,7 +119,7 @@
 																				<th class="sorting" tabindex="0"
 																					aria-controls="data-table" rowspan="1" colspan="1"
 																					aria-label="Engine version: activate to sort column ascending"
-																					style="width: 50px;">인원</th>
+																					style="width: 100px;">제한 인원</th>
 																				<th class="sorting" tabindex="0"
 																					aria-controls="data-table" rowspan="1" colspan="1"
 																					aria-label="Engine version: activate to sort column ascending"
@@ -135,7 +135,7 @@
 																				<td>${chatPerson.member.mname}</td>
 																				<td>${chatPerson.member.position.pname}</td>
 																				<td>${chatPerson.chat.cinfo}</td>
-																				<td>${chatPerson.chat.cperson}명</td>
+																				<td>${chatPerson.chat.cperson} 명</td>
 																				<td>
 																					<c:if test="${chatPerson.chat.csecret eq 1}">
 																							비밀방
@@ -264,7 +264,8 @@
 			App.init();
 			TableManageTableSelect.init();
 			tableClickIdx=-1;
-			pwCheck;
+			pwCheck="";
+			goalPerson="";
 			mno = ${loginMember.mno};
 			$("#pwModal").hide();
 			
@@ -396,7 +397,8 @@
 				 //alert(chat);
 				 if($(this).hasClass('selected')){
 	        		 tableClickIdx = chatInfo[0];
-	        		 pwCheck = bookInfo[6];
+	        		 pwCheck = chatInfo[6];
+	        		 goalPerson = chatInfo[5];
 	        	 }else{
 	        		 tableClickIdx = -1;
 	        	 }
@@ -410,6 +412,26 @@
  		    	 }else{
 	 		    	 if(pwCheck == "비밀방"){
 	  		    		//$("#pwModal").show();
+	  		    		var pw = prompt("비밀번호를 입력 해 주세요.", "");
+						
+	  		    		$.ajax({
+							type: "GET",
+			        	  	url: "comparePw",
+			        	  	data: {
+			        	  		"cno" : tableClickIdx,
+			        	  		"pw"  : pw,
+			        	  		"goalPerson" : goalPerson
+			        	  	},
+				      		success: function(data) {
+				      			if(data== "success"){
+				      				 location.href="enterRoom?cno="+tableClickIdx;
+				      			}else if(data=="fail"){
+				      				alert("입력하신 비밀번호가 틀렸습니다.");
+				      			}else if(data=="overPerson"){
+				      				alert("정원을 초과 하였습니다.");
+				      			}
+				      		}
+					 	})
 	  		    	 }else{
 	 	 		    	 location.href="enterRoom?cno="+tableClickIdx;
 	  		    	 }

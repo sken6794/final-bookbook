@@ -65,6 +65,12 @@ public class ChatDAOImpl implements ChatDAO{
 		sqlSession.getMapper(ChatMapper.class).deleteChat(chat);
 	}
 
+	@Override
+	public int countEnterPerson(Chat chat) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(ChatMapper.class).countEnterPerson(chat);
+	}
+
 
 	/*
 	@Override
