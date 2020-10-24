@@ -24,7 +24,7 @@
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="assets/plugins/pace/pace.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top">
@@ -59,6 +59,7 @@
                         <label>
                             <input type="checkbox" /> Remember Me
                         </label>
+                       <span>&nbsp;&nbsp;&nbsp;${message }</span>
                     </div>
                     <div class="login-buttons">
                         <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>

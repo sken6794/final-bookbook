@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import site.itwill.dao.AtdnDAO;
 import site.itwill.dto.AtdnMember;
@@ -11,6 +12,7 @@ import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
 import site.itwill.dto.Member;
 import site.itwill.exception.LoginAuthFailException;
+import site.itwill.exception.UserinfoNotFoundException;
 
 @Service
 public class AtdnServiceImpl implements AtdnService{
@@ -26,18 +28,28 @@ public class AtdnServiceImpl implements AtdnService{
 	
 	
 	@Override
-	public AttendanceMember getAtdnNum(int mno) {
-		return atdnDAO.selectAtdnNum(mno);
+	public AttendanceMember getAtdnNum(int mno) throws UserinfoNotFoundException {
+		AttendanceMember attendancemember = atdnDAO.selectAtdnNum(mno);
+		if(attendancemember==null) {
+			throw new UserinfoNotFoundException("해당 사원번호가 존재하지 않습니다.");
+		}
+	
+		return attendancemember;
 	}
-
+	
+	@Transactional
 	@Override
-	public void modifyAtdn(AttendanceMember atdnmember) {
-		
+	public void modifyAtdn(AttendanceMember atdnmember) throws UserinfoNotFoundException {
+		AttendanceMember attendancemember = atdnDAO.selectAtdnNum(atdnmember.getMno());
+		if(attendancemember==null) {
+			throw new UserinfoNotFoundException("해당 사원번호가 존재하지 않습니다.");
+		}
 		 atdnDAO.updateAtdn(atdnmember);
 	}
-
+	
+	@Transactional
 	@Override
-	public void addAtdn(Attendance attendance) {
+	public void addAtdn(Attendance attendance) { 
 		
 		 atdnDAO.insertAtdn(attendance);
 	}
@@ -78,14 +90,18 @@ public class AtdnServiceImpl implements AtdnService{
 		return atdnDAO.selectAtdnOne(mno);
 	}
 
-
+	@Transactional
 	@Override
-	public void addAttendance(AttendanceMember atdnmember) {
+	public void addAttendance(AttendanceMember atdnmember) throws UserinfoNotFoundException {
+		AttendanceMember attendancemember = atdnDAO.selectAtdnNum(atdnmember.getMno());
+		if(attendancemember==null) {
+			throw new UserinfoNotFoundException("해당 사원번호가 존재하지 않습니다.");
+		}
 		atdnDAO.insertAttendance(atdnmember);
 		
 	}
 
-
+	@Transactional
 	@Override
 	public void removeAttendance(int mno) {
 		atdnDAO.deleteAttendance(mno);

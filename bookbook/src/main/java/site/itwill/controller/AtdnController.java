@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.AttendanceMember;
 import site.itwill.dto.Member;
+import site.itwill.exception.UserinfoNotFoundException;
 import site.itwill.service.AtdnService;
 
 @Controller
@@ -36,7 +37,7 @@ public class AtdnController {
 	//휴가 승인하는 메소드
 	@RequestMapping(value = "atdn_update/{mno}",method = RequestMethod.PUT)
 	@ResponseBody
-	public String atdnUpdate(@PathVariable int mno) {
+	public String atdnUpdate(@PathVariable int mno) throws UserinfoNotFoundException {
 		AttendanceMember atdn= atdnService.getAtdnNum(mno);
 		atdn.setAleavestatus(1);
 		atdnService.modifyAtdn(atdn);
@@ -47,7 +48,7 @@ public class AtdnController {
 	//연장 승인하는 메소드
 	@RequestMapping(value = "atdn_update2/{mno}",method = RequestMethod.PUT)
 	@ResponseBody
-	public String atdnUpdate2(@PathVariable int mno) {
+	public String atdnUpdate2(@PathVariable int mno) throws UserinfoNotFoundException {
 		AttendanceMember atdn= atdnService.getAtdnNum(mno);
 		atdn.setAovertimestatus(1);
 		atdnService.modifyAtdn(atdn);
@@ -56,7 +57,7 @@ public class AtdnController {
 	}
 	
 	//삭제
-	@RequestMapping(value = "deleteAtdn/{mno}",method = RequestMethod.PUT)
+	@RequestMapping(value = "atdndelete/{mno}",method = RequestMethod.PUT)
 	@ResponseBody
 	public String deleteAtdn(@PathVariable int mno) {
 		
@@ -74,7 +75,7 @@ public class AtdnController {
 	}
 	//저장 누를 때
 	@RequestMapping(value = "/addOvertime",method = RequestMethod.POST)
-	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) {
+	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) throws UserinfoNotFoundException {
 		AttendanceMember atdn = new AttendanceMember();
 		Member member = (Member)session.getAttribute("loginMember");
 		atdn.setMno(member.getMno());

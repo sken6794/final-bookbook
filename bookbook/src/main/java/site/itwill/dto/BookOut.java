@@ -4,13 +4,13 @@ package site.itwill.dto;
 ----------- -------- ------ 
 BOUTNO      NOT NULL NUMBER 
 BCODE       NOT NULL NUMBER 
-OUTQUANTITY          NUMBER 
+OUTQTY          NUMBER 
 OUTDATE              DATE 
  */
 public class BookOut {
 	private int boutno; 
 	private int bcode;
-	private int outquantity;
+	private int outqty;
 	private String outdate;
 	
 	public BookOut() {
@@ -33,12 +33,14 @@ public class BookOut {
 		this.bcode = bcode;
 	}
 
-	public int getOutquantity() {
-		return outquantity;
+	
+
+	public int getOutqty() {
+		return outqty;
 	}
 
-	public void setOutquantity(int outquantity) {
-		this.outquantity = outquantity;
+	public void setOutqty(int outqty) {
+		this.outqty = outqty;
 	}
 
 	public String getOutdate() {

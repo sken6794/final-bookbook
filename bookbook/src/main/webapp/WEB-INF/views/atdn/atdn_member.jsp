@@ -87,7 +87,7 @@
 	                                        <td>${atdn.aovertimetext }</td>
 	                                        <td>${atdn.astarttime }</td>
 	                                        <td>${atdn.aendtime }</td>
-	                                        <td><a href="javascript:deleteAtdn(${atdn.member.mno  })" class="btn btn-sm btn-warning">삭제</a></td>
+	                                        <td><a href="javascript:deleteAtdn(${atdn.member.mno  })" class="btn btn-sm btn-danger">삭제</a></td>
 	                                    </tr>  
                                     </c:forEach>     
                                                                

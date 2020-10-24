@@ -82,7 +82,7 @@
 			,#{aenddate},#{astarttime},#{aendtime})
 	</insert>
 	<!-- 사원-근태 삭제  -->
-	<delete id="deleteAtdn">
+	<delete id="deleteAttendance">
 		delete from member_atdn where mno=#{mno}
 	</delete>
 	
