@@ -73,6 +73,9 @@
 		<interceptor>
 			<mapping path="/atdn"/>
 			<mapping path="/atdn_member"/>
+			<mapping path="/bookin"/>
+			<mapping path="/bookout"/>
+			<mapping path="/stock"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>
 	</interceptors>
