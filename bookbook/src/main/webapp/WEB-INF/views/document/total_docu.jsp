@@ -1,21 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<head>
-<meta charset="utf-8" />
-<title>Color Admin | Managed Tables</title>
-<meta
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-	name="viewport" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-
-
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css"
@@ -47,7 +33,7 @@
 		</h1>
 		<!-- end page-header -->
 
-		
+
 		<!-- begin row -->
 		<div class="row">
 			<!-- begin col-12 -->
@@ -75,36 +61,49 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<div class="text-right m-b-0" style="margin-right: 5px;">
-								<button type="button" class="btn btn-sm btn-white"onclick="location.href='${pageContext.request.contextPath }/documentForm';">
-								등록</button> 
+								<button type="button" class="btn btn-sm btn-white"
+									onclick="location.href='${pageContext.request.contextPath }/documentAdd';">
+									등록</button>
 							</div>
 							<br>
 							<table id="data-table" class="table table-striped table-bordered">
-								<thead>
-									<tr>
-									<th>문서번호</th>
-									<th>문서제목</th>
-									<th>작성자</th>
-									<th>등록날짜</th>
-									<th>문서상태</th>
-									</tr>
-								</thead>
-								<!--  -->
-								<tbody>
-									<c:forEach var="document" items="${documentList }">
-										<tr>
-											<td>${document.docno}</td>
-											<td>
-											<a href="${pageContext.request.contextPath }/documentSelect/${document.docno }" class="document">
-											${document.docname}
-											</a>
-											</td>
-											<td>${document.member.mname }</td>
-											<td>${document.docdate }</td>
-											<td>${document.docstate}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
+										<thead>
+											<tr>
+												<th>문서번호</th>
+												<th>문서제목</th>
+												<th>작성자</th>
+												<th>등록날짜</th>
+												<th>문서상태</th>
+											</tr>
+										</thead>
+										<tbody>
+								<c:forEach var="document" items="${documentList }">
+										<c:if test="${document.docstate!=9 }">
+											<tr>
+												<td>${document.docno}</td>
+												<td><a
+													href="${pageContext.request.contextPath }/documentSelect/${document.docno }"
+													class="document"> ${document.docname} </a></td>
+												<td>${document.member.mname }</td>
+												<td>${fn:substring(document.docdate,0,10)  }</td>
+												<td><c:choose>
+														<c:when test="${document.docstate==0 }">
+															<p>임시저장</p>
+														</c:when>
+														<c:when test="${document.docstate==1 }">
+															<p>상신</p>
+														</c:when>
+														<c:when test="${document.docstate==2 }">
+															<p>결재완료</p>
+														</c:when>
+														<c:when test="${document.docstate==9 }">
+															<p>삭제</p>
+														</c:when>
+													</c:choose></td>
+											</tr>
+										</c:if>
+									</c:forEach >
+									</tbody>
 							</table>
 						</div>
 					</div>
@@ -232,9 +231,12 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			TableManageDefault.init();
+			//TableManageDefault.init();
+			$('#data-table').DataTable({
+				order : [ [ 0, "desc" ] ],
+				ordering : true
+			});
 		});
-
 	</script>
 </body>
 </html>

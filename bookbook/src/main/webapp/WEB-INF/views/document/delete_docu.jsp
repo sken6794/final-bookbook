@@ -1,20 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<head>
-<meta charset="utf-8" />
-<title>Color Admin | Managed Tables</title>
-<meta
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-	name="viewport" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css"
@@ -67,9 +54,14 @@
 								class="btn btn-xs btn-icon btn-circle btn-danger"
 								data-click="panel-remove"><i class="fa fa-times"></i></a>
 						</div>
-						<h4 class="panel-title">전체 문서</h4>
+						<h4 class="panel-title">삭제 문서</h4>
 					</div>
 					<div class="panel-body">
+					 <div class="form-group">
+					 <div class="text-right m-b-0" style="margin-right: 5px;">
+								 
+							</div>
+					 <br>
 						<table id="data-table" class="table table-striped table-bordered">
 							<thead>
 								<tr>
@@ -77,119 +69,26 @@
 									<th>문서제목</th>
 									<th>작성자</th>
 									<th>등록날짜</th>
-									<th>문서상태</th>
-									<td>선택</td>
 								</tr>
 							</thead>
-							<!--  -->
-
 							<tbody>
-								<tr class="odd gradeX">
-									<td>1</td>
-									<td>발주 관련 품의서</td>
-									<td>홍길동</td>
-									<td>2020/10/03</td>
-									<td>임시저장</td>
-									<td><input type="checkbox" name="session" id="check"></td>
-								</tr>
-								<tr class="even gradeC">
-									<td>2</td>
-									<td>휴가원</td>
-									<td>홍길동</td>
-									<td>2020/10/07</td>
-									<td>임시저장</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="odd gradeA">
-									<td>3</td>
-									<td>시말서</td>
-									<td>홍길동</td>
-									<td>2020/10/09</td>
-									<td>상신</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
-								<tr class="even gradeA">
-									<td>4</td>
-									<td>배송 지연 관련 업무협조문</td>
-									<td>홍길동</td>
-									<td>2020/10/10</td>
-									<td>결재</td>
-									<td><input type="checkbox" name="session"></td>
-								</tr>
+								<c:forEach var="document" items="${documentDeleteList }">
+										<c:if test="${document.docstate==9 }">
+										<tr>
+											<td>${document.docno}</td>
+											<td>
+											<a href="${pageContext.request.contextPath }/documentSelect/${document.docno }" class="document">
+											${document.docname}
+											</a>
+											</td>
+											<td>${document.member.mname }</td>
+											<td>${fn:substring(document.docdate,0,10)  }</td>
+											<td>
+										</tr>
+										</c:if>
+									</c:forEach>
 							</tbody>
 						</table>
-						<div class="form-group">
-							<div class="col-md-9" align="right">
-								<button type="submit" id="register" class="btn btn-sm btn-white"
-									style="margin: 1px;">등록</button>
-								<button type="submit" id="delete" class="btn btn-sm btn-danger"
-									style="margin: 1px;">삭제</button>
-									<div id="displayDiv"></div>
-							</div>
 						</div>
 					</div>
 				</div>

@@ -2,14 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="site.itwill.mapper.DocumentMapper">
-	<!-- 전자결재 입력-->
+	<!-- 전자결재 입력(mno는 로그인한 사용자의 사원번호...인데... 이걸 어케 하지...)-->
+	
+<!-- 
+이름       널?       유형             
+DOCNO    NOT NULL NUMBER         
+DOCNAME  NOT NULL VARCHAR2(50)   
+DOCCON   NOT NULL VARCHAR2(4000) 
+DOCSTATE NOT NULL NUMBER         
+DOCAPRV           NUMBER         
+DOCDATE           DATE           
+DOCCOMP           DATE           
+MNO               NUMBER         
+-->
 	<insert id="insertDocument">
+	<!--  
 		<selectKey resultType="int" keyProperty="docNo" order="BEFORE">
 		select seq_document.nextval from dual
-		</selectKey>
-		insert into document values(
-			#{docno}, #{docname}, #{doccont}, #{docstate}, #{docaprv}, sysdate, null, 
-			null ,#{mno}, #{pno})
+		</selectKey>-->
+		insert into document(docno, docname, doccon, docstate, docaprv, docdate, doccomp, mno)
+			values(seq_document.nextval, #{docname}, #{doccon},0,null ,#{docdate}, null, 6)
 	</insert> 
 
 	<!-- 전자결재 선택 -->
@@ -30,9 +42,23 @@
 		select doc.docno, doc.docname, member.mname, doc.docdate, doc.docstate 
 			from document doc join member on doc.mno=member.mno order by doc.docno desc
 	</select>
-	<select id="selectDocument" resultType="Document">
+	
+	<resultMap type="Document" id="documentMember">
+			<id column="docno" property="docno"/>
+			<result column="docname" property="docname"/>
+			<result column="doccon" property="doccon"/>
+			<result column="docstate" property="docstate"/>
+			<result column="docaprv" property="docaprv"/>
+			<result column="docdate" property="docdate"/>
+			<result column="doccomp" property="doccomp"/>
+		<association property="member" javaType="member">
+			<id column="mno" property="mno"/>
+			<id column="mname" property="mname"/>
+		</association>
+	</resultMap>
+	<select id="selectDocument" resultMap="documentMember">
 	select doc.*, member.mname from document doc join member 
-		on doc.mno=member.mno where doc.docno = #{doc.docno}
+		on doc.mno=member.mno where docno = #{docno}
    </select>
 	
 
@@ -52,7 +78,15 @@
 	</select>
 	 -->
 	 
-	<update id="updateDocument">
+	 <!--  동적 SQL 실패! (._.)
+	 <update id="updateDocument">
+		update document set docname=#{docname}, doccon=#{doccon}, docstate=#{docstate}
+			, doccomp=sysdate where docno=#{docno}
+	</update>
+	-->
+	 
+	 
+	<update id="updateDocument"  parameterType="Document">
 	update document
 		<set>
 			<if test="docname!=null and docname!=''">
@@ -64,16 +98,15 @@
 			<if test="docstate!=null and docstate!=''">
 				docstate=#{docstate},
 			</if>
+			<if test="docaprv!=null and docaprv!=''">
+				docaprv=#{docaprv},
+			</if>
 			<if test="doccomp!=null and doccomp!=''">
 				doccomp=sysdate
-			</if>
-			<if test="reject!=null and reject!=''">
-				reject=#{reject}
 			</if>
 		</set>
 	where docno=#{docno}
 	</update>
-	
 		<!-- 승인자 선택 : 직급이 제일 높고 근무 중 -->
 	<!-- 
 	<select id="selectAprv" resultMap="memeberAprv">
@@ -86,7 +119,7 @@
 	<!-- 전자결재 수정
 	<update id="updateDocument">
 		UPDATE DOCUMENT SET DOCNAME=#{DOCNAME}, DOCCON= #{DOCCON}, DOCSTATE=#{DOCSTATE},
-			DOCAPRV=#{DOCAPRV}, DOCCOMP=SYSDATE, REJECT=#{REJECT} WHERE DOCNO = #{DOCNO};
+			DOCAPRV=#{DOCAPRV}, DOCCOMP=SYSDATE WHERE DOCNO = #{DOCNO};
 	</update>
 	 -->
 	<!-- 전자결재 상태 
@@ -96,7 +129,7 @@
 	-->
 	<!-- 전자결재 반려 
 	<update id="updateReject">
-		UPDATE DOCUMENT SET DOCSTATE=5, REJECT=#{REJECT} WHERE DOCNO = #{DOCNO};
+		UPDATE DOCUMENT SET DOCSTATE=5 WHERE DOCNO = #{DOCNO};
 	</update>
 	-->
 	<!-- 전자결재 승인 

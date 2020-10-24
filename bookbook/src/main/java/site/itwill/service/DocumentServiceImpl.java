@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import site.itwill.dao.DocumentDAO;
 import site.itwill.dto.Document;
@@ -19,6 +20,7 @@ public class DocumentServiceImpl implements DocumentService {
 		return documentDAO.selectDocumentList();
 	}
 
+	@Transactional
 	@Override
 	public void addDocument(Document document) {
 		documentDAO.insertDocument(document);
@@ -30,13 +32,10 @@ public class DocumentServiceImpl implements DocumentService {
 		return document;
 	}
 
+	@Transactional
 	@Override
 	public void modifyDocument(Document document) {
 		documentDAO.updateDocument(document);
 	}
-	
-	
-
-
 	
 }

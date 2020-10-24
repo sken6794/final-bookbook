@@ -1,12 +1,9 @@
+<%@page import="java.util.Date"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- ================== BEGIN BASE JS ================== -->
 <link
@@ -35,7 +32,7 @@
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
 		<h1 class="page-header">
-			품의서<small>header small text goes here...</small>
+			전자 결재 시스템<small></small>
 		</h1>
 		<!-- end page-header -->
 
@@ -64,18 +61,14 @@
 						<h4 class="panel-title">전자결재</h4>
 					</div>
 					<div class="panel-body">
-						<form id="documentSelect" name="documentSelect" action="document" method="post"
-							class="form-horizontal">
+						<form id="documentSelect" name="documentSelectForm" class="form-horizontal">
+							<!-- form 태그에 action, method 뺌 -> action="${pageContext.request.contextPath}/documentModify" method="post"-->
 							<p>
 								<br>
 							</p>
 							<div style="text-align: center;">
 								<span style="font-size: 22pt; font-weight: 700;">전자결재</span>
 							</div>
-							<%--
-								@SuppressWarnings("unchecked")
-								Map<String, String> document = (Map<String, String>) pageContext.getAttribute("document");
-								--%>
 							<table border="1" cellspacing="3" cellpadding="0" class=""
 								style="border-width: 0px; width: 740px; border-collapse: collapse; height: 576px; font-size: 10pt; background-image: none; background-repeat: repeat; background-position: 0% 0%;">
 								<tbody id="formAprv">
@@ -83,7 +76,7 @@
 										<td
 											style="border-width: 2px 1px 2px 2px; border-style: solid; background-color: rgb(218, 218, 218); width: 174px; height: 37.3333px;"
 											colspan="1" rowspan="1">
-											<p>시행일자</p>
+											<p>&nbsp;&nbsp;시행일자</p>
 										</td>
 										<td
 											style="border-width: 2px 2px 2px 1px; border-style: solid;">
@@ -94,7 +87,7 @@
 										<td
 											style="border-width: 2px 1px 2px 2px; border-style: solid; background-color: rgb(218, 218, 218); width: 174px; height: 37.3333px;"
 											colspan="1" rowspan="1">
-											<p>제목</p>
+											<p>&nbsp;&nbsp;제목</p>
 										</td>
 										<td
 											style="border-width: 2px 2px 2px 1px; border-style: solid;">
@@ -122,8 +115,10 @@
 							</p>
 							<div style="text-align: center;">
 								<span style="font-size: 22pt; font-weight: 700;">
-									(주)북북도서판매협회 <img
-									src="${pageContext.request.contextPath}/resources/assets/img/seal.png">
+									(주)북북도서판매협회 <c:if test="${document.docstate==2 }">
+										<img
+											src="${pageContext.request.contextPath}/resources/assets/img/seal.png">
+									</c:if>
 								</span>
 							</div>
 							<div style="text-align: center;">
@@ -131,67 +126,76 @@
 							</div>
 
 							<hr>
+							<!-- 	
 							<span style="line-height: 160%;" id="mName">담당
 								&nbsp;&nbsp; ${document.member.mname}</span> <br> <span
 								style="line-height: 160%;" id="docAprv">결재 &nbsp;&nbsp;
 								${document.docaprv }</span>
-							<!-- 
-								if($(document.midaprv) == 휴가 중
-								휴가
 								 -->
 							<br> <span style="line-height: 160%;" id="docDate">기안일
-									&nbsp;&nbsp; ${document.docdate.substring(0,10) }</span> <br> 
-									<span style="line-height: 160%;" id="docComp">
-									결재일 &nbsp;&nbsp; ${document.doccomp.substring(0,10) }</span> <br>
+								&nbsp;&nbsp; ${document.docdate.substring(0,10) }</span> <br>
+							<c:set var="now" value="<%=new Date()%>" />
+							<span style="line-height: 160%;" id="docComp"> 결재일 <c:if
+									test="${document.docstate==2 }">
+									&nbsp;&nbsp; <fmt:formatDate value="${now }"
+										pattern="yyyy-MM-dd" />
+								</c:if></span> <br>
 							<p style="line-height: 160%;">
 								<span style="font-size: 10pt;" id="donNo">문서번호
 									&nbsp;&nbsp; ${document.docno }</span>
 							</p>
 							<div class="form-group">
 								<div class="col-md-9" align="right" style="width: 750px;">
+									
+									<!-- 문서 상태에 따라 나타나는 버튼 구분 -->
+									<c:choose>
+										<c:when test="${document.docstate==0 }">
+											<button type="button" id="modify"
+												onclick="location.href='${pageContext.request.contextPath }/documentModify?docno=${docno}';"
+												class="btn btn-sm btn-white" style="margin: 1px;">수정</button>
+											<a href="javascript:documentWait(${document.docno})" class="btn btn-sm btn-success">상신</a>
+											<a href="javascript:documentDelete(${document.docno})" class="btn btn-sm btn-danger">삭제</a>
+										</c:when>
+										<c:when test="${document.docstate==1 }">
+											<a href="javascript:documentComplete(${document.docno})" class="btn btn-sm btn-success">결재</a>
+											
+											<!--  
+											<button type="button"
+												class="btn btn-sm btn-danger" style="margin: 1px;">반려</button>
+												-->
+										</c:when>
+										<c:when test="${document.docstate== 2 }">
+										</c:when>
+										<c:when test="${document.docstate==9 }">
+											<p>삭제</p>
+										</c:when>
+									</c:choose>
+									<!-- 
 									<button type="submit" id="aprv" class="btn btn-sm btn-success"
 										style="margin: 1px;">결재</button>
+							 -->
+									<!-- 반려 -->
+									<!-- 
 									<a href="#modal-dialog" class="btn btn-sm btn-danger"
-										data-toggle="modal" style="margin: 1px;">반려</a>
-								</div>
-								<!-- 반려내용 팝업 -->
-								<div class="modal fade" id="modal-dialog">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<br> <br>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">×</button>
-												<h4 class="modal-title"
-													style="text-align: center; font-weight: bold;">반려사유</h4>
-											</div>
-											<!-- 반려 form -->
-											<form class="form-horizontal">
-												<div class="modal-body">
-													<div class="form-group">
-														<div class="col-md-6 col-sm-6" style="width: 500;">
-															<textarea rows="10" cols="80">${document.reject }</textarea>
-														</div>
-													</div>
-												</div>
-												<div class="modal-footer">
-													<a href="javascript:;" class="btn btn-sm btn-white"
-														data-dismiss="modal">닫기</a> <a href="javascript:;"
-														class="btn btn-sm btn-primary">확인</a>
-												</div>
-											</form>
-										</div>
-									</div>
+										data-toggle="modal" style="margin: 1px;">반려</a> -->
+										
+										<!-- <button type="button" id="saveBtn" onclick="saveCheck();"
+												class="btn btn-sm btn-success" style="margin: 1px;">상신</button> 상신 버튼 -->
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
-				<!-- end panel -->
 			</div>
-			<!-- end col-6 -->
 		</div>
-		<!-- end row -->
+		</form>
+	</div>
+	</div>
+	<!-- end panel -->
+	</div>
+	<!-- end col-6 -->
+	</div>
+	<!-- end row -->
 	</div>
 	<!-- end #content -->
 
@@ -343,48 +347,154 @@
 	</script>
 
 	<script type="text/javascript">
-	/*
-	displayForm();
 
-		function displayForm() {
-				type : "GET",
-				url : "documentSelect/{document.docno}",
-				dataType : "json",
-				success : function(json) {
-					//var aprv=$(json).find("aprv").text();
-
-					var html = "";
-					$(json).each(function() {
-						html += "<tr>";
-						html += "<td>" + this.docDate + "</td>";
-						html += "<td>" + this.docName + "</td>";
-						html += "<td>" + this.docCon + "</td>";
-						html += "<td>" + this.mName + "</td>";
-						html += "<td>" + this.docAprv + "</td>";
-						html += "<td>" + this.docDate + "</td>";
-						html += "<td>" + this.docComp + "</td>";
-						html += "<td>" + this.docNo + "</td>";
-						html += "</tr>";
-					});
-					$("#formAprv").html(html);
-
-					$("#form-stuff-1").dataTable();
+	function documentWait(docno) {
+		if(confirm("상신하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"documentWait/"+docno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="success"){
+						alert("상신되었습니다.")
+						location.href="../document";
+					}
 				},
-				error : function(xhr) {
-					alert("에러코드 = " + xhr.status);
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
+
+	function documentDelete(docno) {
+		if(confirm("삭제하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"documentDelete/"+docno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="delete"){
+						alert("삭제되었습니다.")
+						location.href="../document";
+					}
+				},
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
+	
+	function documentComplete(docno) {
+		if(confirm("결재하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"documentComplete/"+docno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="delete"){
+						alert("결재되었습니다.")
+						location.href="../document";
+					}
+				},
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
+	
+	
+	/*
+		function updateAtdn(mno) {
+		if(confirm("요청을 승인 하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"atdn_update/"+mno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="success"){
+						alert("승인되었습니다.")
+						location.href="${pageContext.request.contextPath}/atdn_member";
+					}
+				},
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
+	*/
+	
+	function deleteCheck() {
+		documentAddForm.method="POST";
+		documentAddForm.action="${pageContext.request.contextPath}/document";
+		documentAddForm.submit();
+	} 
+		/*
+		function modifyCheck() {
+			documentSelectForm.method="GET";
+			documentSelectForm.action="${pageContext.request.contextPath}/documentModify";
+			documentSelectForm.submit();
+		} 
+		function aprvCheck() {
+			documentAddForm.method="POST";
+			documentAddForm.action="${pageContext.request.contextPath}/document";
+			documentAddForm.submit();
+		} 
+		
+		function deleteCheck() {
+			documentAddForm.method="POST";
+			documentAddForm.action="${pageContext.request.contextPath}/document";
+			documentAddForm.submit();
+		} 
+		
+		function rejectCheck() {
+			documentAddForm.method="POST";
+			documentAddForm.action="${pageContext.request.contextPath}/document";
+			documentAddForm.submit();
+		} 
+		 */
+		/*
+			$("#modify").click(function() {
+				if (confirm("수정하시겠습니까?")) {
+					return "document/documentModify";
+				} else {
+					return false;
 				}
 			});
-		}
-	*/
-		$("#aprv").click(function() {
-			if (confirm("결재하시겠습니까?")) {
-				return true;
-			} else {
-				return false;
-			}
-			//$("#docForm").attr("action","../template_content_html/draft_docu");
-			//$("#docForm").submit();
-		});
+			$("#aprv").click(function() {
+				if (confirm("결재하시겠습니까?")) {
+					return true;
+				} else {
+					return false;
+				}
+			});
+
+
+			$("#delete").click(function() {
+				if (confirm("삭제하시겠습니까?")) {
+					return true;
+				} else {
+					return false;
+				}
+			});
+
+			$("#reject").click(function() {
+				if (confirm("반려하시겠습니까?")) {
+					return true;
+				} else {
+					return false;
+				}
+				//$("#docForm").attr("action","../template_content_html/draft_docu");
+				//$("#docForm").submit();
+			});
+		 */
 	</script>
 </body>
 </html>

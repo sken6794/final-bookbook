@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- ================== BEGIN BASE JS ================== -->
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
@@ -20,10 +22,10 @@
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
 			<h1 class="page-header">
-				전자 결재 시스템<small>문서 양식</small>
+				전자 결재 시스템<small>문서 수정</small>
 			</h1>
 			<!-- end page-header -->
-
+     
 			<!-- begin row -->
 			<div class="row">
 				<!-- begin col-6 -->
@@ -49,7 +51,8 @@
 							<h4 class="panel-title">전자 결재</h4>
 						</div>
 						<div class="panel-body">
-							<form id="documentAdd" name="documentAddForm" class="form-horizontal">
+							<form id="documentModify" name="documentModifyForm" class="form-horizontal"
+							action="${pageContext.request.contextPath}/modifyUpdate" method="POST">
 								<!-- action="document"
 								method="post"   -->
 								<p>
@@ -58,6 +61,7 @@
 								<div style="text-align: center;">
 									<span style="font-size: 22pt; font-weight: 700;">전자 결재</span>
 								</div>
+								 <input type="hidden" id="docno" name="docno" value="${documentMember.docno}"/>
 								<table border="1" cellspacing="0" cellpadding="0" class=""
 									style="border-width: 0px; width: 600px; border-collapse: collapse; height: 576px; font-size: 10pt; background-image: none; background-repeat: repeat; background-position: 0% 0%;">
 									<tbody>
@@ -70,8 +74,8 @@
 											<td
 												style="border-width: 2px 2px 2px 1px; border-style: solid;">
 												<div class="col-md-9">
-													<input type="date" class="form-control" name="docdate" value="${document.docdate}"
-														style="border-style: hidden;" placeholder="시행일자를 입력해주세요." />
+													<input type="date" class="form-control" name="docdate" value="${documentMember.docdate.substring(0,10)}"
+														style="border-style: hidden;" readonly="readonly">
 												</div>
 											</td>
 										</tr>
@@ -84,8 +88,8 @@
 											<td
 												style="border-width: 2px 2px 2px 1px; border-style: solid;">
 												<div class="col-md-9">
-													<input type="text" class="form-control" name="docname" value="${document.docname}"
-														style="border-style: hidden;" placeholder="제목을 입력해주세요." />
+													<input type="text" class="form-control" id="docname" name="docname" 
+														style="border-style: hidden;" value="${documentMember.docname}">
 												</div>
 											</td>
 										</tr>
@@ -101,9 +105,11 @@
 										<tr>
 											<td
 												style="border-width: 2px; border-style: solid; width: 682px; height: 435px;"
-												rowspan="1" colspan="2"><textarea rows="20" cols="100"
-													style="border-style: hidden;" name="doccon" value="${document.doccon}"
-													placeholder="내용을 입력해 주세요."></textarea></td>
+												rowspan="1" colspan="2">
+												<textarea rows="20" cols="100" style="border-style: hidden;" name="doccon">
+												${documentMember.doccon}
+												</textarea>
+											</td>
 										</tr> 
 									</tbody>
 								</table>
@@ -129,24 +135,25 @@
 								<span style="line-height: 160%;">결재</span>
 								 -->
 								<br>
-								<span style="line-height: 160%;" value="${docdate}">기안일</span>
+									<span style="line-height: 160%;" value="${documentMember.docdate}">
+										기안일 &nbsp;&nbsp; ${documentMember.docdate.substring(0,10)}
+									</span>
 								<br>
-								<span style="line-height: 160%;" value="${doccomp}">결재일</span>
+									<span style="line-height: 160%;" value="${documentMember.doccomp}">
+										결재일 
+									</span>
 								<br>
 								<p style="line-height: 160%;">
-									<span style="font-size: 10pt;" value="${docno}">문서번호 </span>
+									<span style="font-size: 10pt;" id="docno" value="${documentMember.docno}">
+										문서번호 &nbsp;&nbsp; ${documentMember.docno} 
+									</span>
 								</p>
 								<!-- 버튼 영역 시작 -->
 								<div class="form-group">
 									<div class="col-md-9" align="right" style="width: 750px;">
-									<button type="button" class="btn btn-sm btn-white"
-									onclick="tempSaveCheck();" style="margin: 1px;">임시저장</button>
-										<!-- 
-										<button type="button" class="btn btn-sm btn-success"
-											onclick="saveCheck();" 
-											style="margin: 1px;">상신</button>
-											 -->
-										<button type="button" class="btn btn-sm btn-warning" 
+									<button type="submit" class="btn btn-sm btn-white"
+									style="margin: 1px;">저장</button>
+									<button type="button" class="btn btn-sm btn-warning" 
 										style="margin: 1px;" onclick="cancelCheck();">취소</button>
 									</div>
 								</div>
@@ -161,105 +168,6 @@
 			<!-- end row -->
 		</div>
 		<!-- end #content -->
-
-		<!-- begin theme-panel -->
-		<div class="theme-panel">
-			<a href="javascript:;" data-click="theme-panel-expand"
-				class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
-			<div class="theme-panel-content">
-				<h5 class="m-t-0">Color Theme</h5>
-				<ul class="theme-list clearfix">
-					<li class="active"><a href="javascript:;" class="bg-green"
-						data-theme="default" data-click="theme-selector"
-						data-toggle="tooltip" data-trigger="hover" data-container="body"
-						data-title="Default">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-red" data-theme="red"
-						data-click="theme-selector" data-toggle="tooltip"
-						data-trigger="hover" data-container="body" data-title="Red">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-blue" data-theme="blue"
-						data-click="theme-selector" data-toggle="tooltip"
-						data-trigger="hover" data-container="body" data-title="Blue">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-purple"
-						data-theme="purple" data-click="theme-selector"
-						data-toggle="tooltip" data-trigger="hover" data-container="body"
-						data-title="Purple">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-orange"
-						data-theme="orange" data-click="theme-selector"
-						data-toggle="tooltip" data-trigger="hover" data-container="body"
-						data-title="Orange">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-black" data-theme="black"
-						data-click="theme-selector" data-toggle="tooltip"
-						data-trigger="hover" data-container="body" data-title="Black">&nbsp;</a></li>
-				</ul>
-				<div class="divider"></div>
-				<div class="row m-t-10">
-					<div class="col-md-5 control-label double-line">Header
-						Styling</div>
-					<div class="col-md-7">
-						<select name="header-styling" class="form-control input-sm">
-							<option value="1">default</option>
-							<option value="2">inverse</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-5 control-label">Header</div>
-					<div class="col-md-7">
-						<select name="header-fixed" class="form-control input-sm">
-							<option value="1">fixed</option>
-							<option value="2">default</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-5 control-label double-line">Sidebar
-						Styling</div>
-					<div class="col-md-7">
-						<select name="sidebar-styling" class="form-control input-sm">
-							<option value="1">default</option>
-							<option value="2">grid</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-5 control-label">Sidebar</div>
-					<div class="col-md-7">
-						<select name="sidebar-fixed" class="form-control input-sm">
-							<option value="1">fixed</option>
-							<option value="2">default</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-5 control-label double-line">Sidebar
-						Gradient</div>
-					<div class="col-md-7">
-						<select name="content-gradient" class="form-control input-sm">
-							<option value="1">disabled</option>
-							<option value="2">enabled</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-5 control-label double-line">Content
-						Styling</div>
-					<div class="col-md-7">
-						<select name="content-styling" class="form-control input-sm">
-							<option value="1">default</option>
-							<option value="2">black</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-12">
-						<a href="#" class="btn btn-inverse btn-block btn-sm"
-							data-click="reset-local-storage"><i
-							class="fa fa-refresh m-r-3"></i> Reset Local Storage</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end theme-panel -->
 	<!-- end page container -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -286,28 +194,28 @@
 		$(document).ready(function() {
 			App.init();
 		});
-
 		
-		function tempSaveCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/documentAdd";
-			documentAddForm.submit();
-		}
-		/*
-		function saveCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/documentAdd";
-			documentAddForm.submit();
-		}
-		*/
-	
+		$("#updateBtn").click(function() {
+			var title=$("docname").val();
+			var content=$("doccon").val();
+			
+			if(title=="") {
+				alert("[안내]제목을 반드시 입력해주세요.");
+				return;
+			}
+			
+			if(content=="") {
+				alert("[안내]내용을 반드시 입력해주세요.");
+				return;
+			}
+			
+		});
+		
 		function cancelCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/document";
-			documentAddForm.submit();
+			documentModifyForm.method="POST";
+			documentModifyForm.action="${pageContext.request.contextPath}/document";
+			documentModifyForm.submit();
 		} 
-		
-		
 
 /*
 		function cancelCheck() {

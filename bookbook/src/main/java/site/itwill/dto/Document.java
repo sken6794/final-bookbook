@@ -15,9 +15,7 @@ DOCSTATE NOT NULL NUMBER
 DOCAPRV           NUMBER         
 DOCDATE           DATE           
 DOCCOMP           DATE           
-REJECT            VARCHAR2(1000) 
 MNO               NUMBER         
-DNO               NUMBER         
  */
 
 public class Document {
@@ -28,9 +26,9 @@ public class Document {
 	private int docaprv;
 	private String docdate;
 	private String doccomp;
-	private String reject;
+	private int mno;
+	
 	private Member member;
-	private Department department;
 
 
 	public Document() {
@@ -39,7 +37,7 @@ public class Document {
 
 	
 	public Document(int docno, String docname, String doccon, int docstate, int docaprv, String docdate, String doccomp,
-			String reject, Member member, Department department) {
+			Member member, int mno) {
 		super();
 		this.docno = docno;
 		this.docname = docname;
@@ -48,9 +46,9 @@ public class Document {
 		this.docaprv = docaprv;
 		this.docdate = docdate;
 		this.doccomp = doccomp;
-		this.reject = reject;
+		this.mno = mno;
 		this.member = member;
-		this.department = department;
+
 	}
 
 
@@ -109,15 +107,18 @@ public class Document {
 	public void setDoccomp(String doccomp) {
 		this.doccomp = doccomp;
 	}
-
-	public String getReject() {
-		return reject;
-	}
-
-	public void setReject(String reject) {
-		this.reject = reject;
-	}
 	
+
+	public int getMno() {
+		return mno;
+	}
+
+
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
+
 	public Member getMember() {
 		return member;
 	}
@@ -126,12 +127,4 @@ public class Document {
 		this.member = member;
 	}
 	
-	public Department getDepartment() {
-		return department;
-	}
-	
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
 }

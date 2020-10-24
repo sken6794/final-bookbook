@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.Document;
 import site.itwill.service.DocumentService;
@@ -54,8 +55,7 @@ public class DocumentController {
       return "document/doc_modify";
    }
    
-   
-   
+   //수정 완료
    @RequestMapping(value = "/modifyUpdate", method = RequestMethod.POST)
    public String modifyUpdate(Document document) {
       documentService.modifyDocument(document);
@@ -63,11 +63,68 @@ public class DocumentController {
    }
    //----------------------------------------위는 성공... 건들지 않기로-------------------------------------------
    //상신(상태코드 : 1)
-   @RequestMapping(value="/documentWait", method=RequestMethod.GET)
-   public String documentWait(Document document) {
+   @RequestMapping(value="documentSelect/documentWait/{docno}", method=RequestMethod.PUT)
+   @ResponseBody
+   public String documentWait(@PathVariable int docno) {
+	   Document document= documentService.getDocument(docno);
+	   document.setDocstate(1);
+	   documentService.modifyDocument(document);
+	   return "success";
+   }
+   
+   @RequestMapping(value="/documentWait")
+   public String documentWaitList(Model model) {
+      model.addAttribute("documentWaitList", documentService.getDocumentList());
       return "document/wait_docu";
    }
    
+   @RequestMapping(value="/documentRecieve")
+   public String documentRecieveList(Model model) {
+	   model.addAttribute("documentRecieveList", documentService.getDocumentList());
+	   return "document/recieve_docu";
+   }
+   
+   @RequestMapping(value="/documentDelete")
+   public String documentDeleteList(Model model) {
+	   model.addAttribute("documentDeleteList", documentService.getDocumentList());
+	   return "document/delete_docu";
+   }
+   
+   @RequestMapping(value="/documentComplete")
+   public String documentCompleteList(Model model) {
+	   model.addAttribute("documentCompleteList", documentService.getDocumentList());
+	   return "document/complete_docu";
+   }
+   /*
+   //수신(상태코드 : 2)
+   @RequestMapping(value="documentSelect/documentRecieve/{docno}", method=RequestMethod.PUT)
+   @ResponseBody
+   public String documentRecieve(@PathVariable int docno) {
+	   Document document= documentService.getDocument(docno);
+	   document.setDocstate(2);
+	   documentService.modifyDocument(document);
+	   return "success";
+   }
+   */
+   //결재 완료(상태코드 : 2)
+   @RequestMapping(value="documentSelect/documentComplete/{docno}", method=RequestMethod.PUT)
+   @ResponseBody
+   public String documentComplete(@PathVariable int docno) {
+	   Document document= documentService.getDocument(docno);
+	   document.setDocstate(2);
+	   documentService.modifyDocument(document);
+	   return "success";
+   }
+   
+   //삭제(상태코드 : 9)
+   @RequestMapping(value="documentSelect/documentDelete/{docno}", method=RequestMethod.PUT)
+   @ResponseBody
+   public String documentDelete(@PathVariable int docno) {
+	   Document document= documentService.getDocument(docno);
+	   document.setDocstate(9);
+	   documentService.modifyDocument(document);
+	   return "success";
+   }
    /*
        @RequestMapping(value="/notice", method=RequestMethod.GET)
    public String notice(@RequestParam int nno, Model model) {
@@ -77,25 +134,6 @@ public class DocumentController {
    }
     * 
     * */
-   
-   //삭제(상태코드 : 9)
-   @RequestMapping(value="/documentDelete", method=RequestMethod.GET)
-   public String documentDeleteList() {
-      return "document/delete_docu";
-   }
-   
-   //수신(상태코드 : 2)
-   @RequestMapping(value="/documentRecieve", method=RequestMethod.GET)
-   public String documentRecieveList() {
-      return "document/recieve_docu";
-   }
-   
-   //결재 완료(상태코드 : 3)
-   @RequestMapping(value="/documentComplete", method=RequestMethod.GET)
-   public String documentCompleteList(Model model) {
-      model.addAttribute("documentCompleteList", documentService.getDocumentList());
-      return "document/complete_docu";
-   }
    /* 
    @RequestMapping(value = "/documentModify", method = RequestMethod.POST)
    public String documentModify(@ModelAttribute Document document, Model model) {
