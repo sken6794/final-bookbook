@@ -71,6 +71,8 @@
 	
 	<interceptors>
 		<interceptor>
+			<mapping path="/book"/>
+			<mapping path="/chat"/>
 			<mapping path="/atdn"/>
 			<mapping path="/atdn_member"/>
 			<beans:ref bean="loginAuthInterceptor"/>
