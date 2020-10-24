@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import site.itwill.dto.Member;
+
 import site.itwill.dto.Order;
-import site.itwill.dto.PayManage;
+
 import site.itwill.service.OrderService;
 @Controller
 public class OrderController {
@@ -47,11 +47,7 @@ public class OrderController {
 		String odate=sdf.format(date);
 		order.setOdate(odate);
 		
-		 if(order.getOid()==null) { 
-			 model.addAttribute("message", "회원 ID를 입력해주세요."); 
-			 return "redirect:/add_order"; 
-		 }
-
+		orderService.addOrder(order);
 		return "redirect:/add_order";
 		
 	}	
@@ -62,14 +58,14 @@ public class OrderController {
 		return "redirect:/order";
 	}
 	
-	//사원번호 받아서 저장(변경할때 필요)
+	//주문번호 받아서 저장(변경할때 필요)
 	@RequestMapping(value = "/order_view/{ono}", method = RequestMethod.GET)
 	@ResponseBody
 	public Order restOrderView(@PathVariable int ono) {
 		return orderService.getRestOrder(ono);
 	}
 	
-	//사원정보 변경
+	//주문정보 변경
 	@RequestMapping(value = "/order_modify", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	@ResponseBody
 	public String restOrderModify(@RequestBody Order order) {

@@ -65,7 +65,7 @@ table { text-align: center;}
                            <h4 class="panel-title">발주현황 조회</h4>
                        </div>
                        <div class="panel-body">
-                       <form class="form-horizontal">
+                     	  <form class="form-horizontal">
                        		<div class="panel-body panel-form" style="margin-top: 50px;">
                        			<div class="col-md-1"></div>
 	                            <div class="col-md-5">
@@ -109,8 +109,53 @@ table { text-align: center;}
                        		<button type="button" onclick="selectRequest();" class="btn btn-sm btn-white">조회</button>
                        		<button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
                        		</div>
+                       		<p class="text-right m-b-0">
+                       		<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>	
+                       		</p>
+                       		<br>
                        		<p class="text-right" style="margin-right: 10px;">* 진행상태 : 1(발주요청) , 2(진행중) , 3(입고완료)</p>
                        	</form>
+						<!-- 추가 버튼 클릭 시 입력폼 팝업 -->
+						<div class="modal fade" id="modal-insert">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<br>
+										<br>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 class="modal-title" style="text-align: center; font-weight: bold;">발주 등록</h4>
+									</div>
+								<!-- 사원등록 form -->
+									<form class="form-horizontal" method="post">
+									<div class="modal-body">
+		                                <div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">담당자 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" placeholder="담당자 사원번호"  name="mno" id="i_mno"/>                                      
+		                                    </div>
+		                                </div>
+										<div class="form-group">
+											<label class="control-label col-md-4 col-sm-4" for="message">발주수량 :</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="text"  data-parsley-type="number" placeholder="발주 수량"  name="oqty" id="i_oqty"/>
+											</div>
+										</div>
+										<div class="form-group">
+		                                    <label class="control-label col-md-4 col-sm-4">도서코드 :</label>
+		                                    <div class="col-md-6 col-sm-6">
+		                                        <input type="text" class="form-control" placeholder="도서코드" name="bcode" id="i_bcode"/>
+		                                    </div>
+		                                </div>
+									</div>
+									<div class="modal-footer">
+										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
+										<button type="button" id="insertRequest" class="btn btn-sm btn-success" >등록</button>
+									</div>
+		                            </form>
+
+								</div>
+							</div> 
+						</div>
                         <!-- 수정 버튼 클릭 시 입력폼 팝업 -->
 						<div class="modal fade" id="modal-modify">
 							<div class="modal-dialog">
@@ -172,32 +217,34 @@ table { text-align: center;}
 		                        </form>
 								</div>
 							</div>		
-						</div>   <!-- modal 끝 -->                         	
+						</div>   <!-- modal 끝 -->    
                        	<hr>
-                            <table id="data-table" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>발주번호</th>
-                                        <th>도서코드</th>
-                                        <th width="120" style="text-align: center;">도서명</th>
-                                        <th>출판사명</th>
-                                        <th width="80" style="text-align: center;">발주일자</th>
-                                        <th>담당자[사원번호]</th>
-                                        <th>발주수량</th>
-                                        <th>발주금액</th>
-                                        <th>진행상태</th>
-                                        <th width="100" style="text-align: center;">관리</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="requestTablePlace">
-                                
-                                </tbody>
-                            </table>                		                        
-                    </div> <!-- panel body 끝 -->
-                 </div><!-- panel inverse 끝 -->
-            </div>
-        </div>
-    </div>         
+                        <table id="data-table" class="table table-striped table-bordered">
+                           <thead>
+                               <tr>
+                                   <th>발주번호</th>
+                                   <th>도서코드</th>
+                                   <th width="120" style="text-align: center;">도서명</th>
+                                   <th>출판사명</th>
+                                   <th width="80" style="text-align: center;">발주일자</th>
+                                   <th>담당자[사원번호]</th>
+                                   <th>발주수량</th>
+                                   <th>발주금액</th>
+                                   <th>진행상태</th>
+                                   <th width="100" style="text-align: center;">관리</th>
+                               </tr>
+                           </thead>
+                           <tbody id="requestTablePlace">
+                           
+                           </tbody>
+                    </table>   
+
+ 				</div>
+			</div>
+		</div>                      	          	              		                        
+     </div> 
+  </div><!-- content 끝 -->
+  
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 		<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
@@ -419,6 +466,75 @@ table { text-align: center;}
  		});
  	}
  	 
+ 	/* 발주 데이터 추가 */
+		
+ 		$("#insertRequest").on('click', function () {
+ 				var oid=$("#i_oid").val();
+ 				var oqty=$("#i_oqty").val();
+ 				var bcode=$("#i_bcode").val();
+ 				
+ 				var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;			
+ 				if(mname=='') {
+ 					alert("사원 이름을 반드시 입력해주세요.");
+ 					return false;
+ 				}
+ 				if(mpw=='') {
+ 					alert("비밀번호를 입력해주세요.");
+ 					return false;
+ 				}
+ 				if(mbirth=='') {
+ 					alert("생년월일을 입력해주세요.");
+ 					return false;
+ 				}
+ 				if(mphone=='') {
+ 					alert("휴대전화 번호를 입력해주세요.");
+ 					return false;
+ 				}
+ 				if(memail=='') {
+ 					alert("이메일 주소를 입력해주세요.");
+ 					return false;
+ 				}
+ 				if(!emailReg.test($("#i_memail").val())) {
+ 					alert("이메일을 형식에 맞게 입력해 주세요.");
+ 					return false;
+ 				}
+ 				if(maddress=='') {
+ 					alert("집 주소를 입력해주세요.");
+ 					return false;
+ 				}
+ 				if(mjoindate=='') {
+ 					alert("입사날짜를 입력해주세요.");
+ 					return false;
+ 				}
+ 				
+ 				
+ 				$.ajax({
+ 					type: "POST",
+ 					url: "member_insert",
+ 					headers: {"content-type":"application/json"},
+ 					data: JSON.stringify({
+ 						"mno":mno,
+ 						"mname":mname,
+ 						"mpw":mpw,
+ 						"mbirth":mbirth,
+ 						"mphone":mphone,
+ 						"memail":memail,
+ 						"maddress":maddress,
+ 						"mjoindate":mjoindate,
+ 						"mquitdate":mquitdate,
+ 						"mquitreason":mquitreason,
+ 						"mstate":mstate,
+ 						"dno":dno,
+ 						"pno":pno
+ 					}),
+ 					
+ 					dataType: "text",
+ 					success: function(text) {	
+ 						location.reload();	
+ 					}
+ 				});
+ 		});
+
  	
  	
 	</script>

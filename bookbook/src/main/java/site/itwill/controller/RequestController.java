@@ -87,7 +87,7 @@ public class RequestController {
 		return requestService.getRestRequest(rno);
 	}
 	
-	//사원정보 변경
+	//발주정보 변경
 	@RequestMapping(value = "/request_modify", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	@ResponseBody
 	public String restRequestModify(@RequestBody Request request) {

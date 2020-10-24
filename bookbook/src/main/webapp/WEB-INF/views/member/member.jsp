@@ -119,7 +119,7 @@
 						<hr>
 						<p class="text-right m-b-0">
 						<c:if test="${loginMember.pno >= 4 }"> 
-						<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>								
+						<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>							
 						</c:if>
 						</p>
 						<br>

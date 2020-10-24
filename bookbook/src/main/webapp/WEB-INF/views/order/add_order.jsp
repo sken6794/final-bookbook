@@ -5,6 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#oidMsg, #oqtyMsg, #bcodeMsg {
+	margin-left: 7px;
+	color: red;
+}
+#oid, #oqty, #bcode { 
+	margin-bottom: 6px;
+}
+</style>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<meta content="" name="description" />
 		<meta content="" name="author" />
@@ -18,8 +27,7 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
-	
-		
+			
 	<!-- 생년월일,입사날짜,발주시간 datepicker -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
@@ -35,12 +43,6 @@
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-	<!-- 이메일 -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/parsley/src/parsley.css" rel="stylesheet" />
-	<!-- 파일 업로드 -->
-	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
@@ -72,26 +74,29 @@
                             </div>
                             <h4 class="panel-title">주문데이터 등록</h4>
                         </div>
-						<form class="form-horizontal form-bordered" method="post" action="add_order"> <!-- 주문데이터 등록탭 form 태그 -->
+						<form class="form-horizontal form-bordered" method="post" action="add_order" id="form"> <!-- 주문데이터 등록탭 form 태그 -->
 							<div class="panel-body">
 								<div class="col-md-2"></div>
 								<div class="col-md-8">
 									<div class="form-group">
 										<label class="control-label col-md-4">회원 ID :</label>
 										<div class="col-md-8">
-											<input type="text" name="oid" class="form-control" placeholder="회원 ID" value="${order.oid }"/>
+											<input type="text" name="oid" class="form-control" placeholder="회원 ID" value="${order.oid }" id="oid"/>
+											<span id="oidMsg" class="error"></span>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-4">주문수량 :</label>
 										<div class="col-md-8">
-											<input type="text" name="oqty" class="form-control" placeholder="수량" value="${order.oqty }" />
+											<input type="text" name="oqty" class="form-control" placeholder="수량" value="${order.oqty }" id="oqty"/>
+											<span id="oqtyMsg" class="error"></span>
 										</div>
 									</div>	                               									
 									<div class="form-group">
 										<label class="control-label col-md-4">도서코드 :</label>
 										<div class="col-md-8">
-											<input type="text" name="bcode" class="form-control" placeholder="도서코드" value="${order.bcode }" />
+											<input type="text" name="bcode" class="form-control" placeholder="도서코드" value="${order.bcode }" id="bcode"/>
+											<span id="bcodeMsg" class="error"></span>
 										</div>
 									</div>
 								<br>
@@ -103,7 +108,6 @@
 								<div class="col-md-2"></div>
 							</div>
 						</form>
-						<p style="color: red;">${message }</p>
                     </div>
 			    </div>
 			    <div class="col-md-1"></div>
@@ -126,11 +130,7 @@
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 인사관리 추가 버튼 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/gritter/js/jquery.gritter.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/ui-modal-notification.demo.min.js"></script>
-	<!-- 이메일 input -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
+
 	<!-- 생년월일,입사날짜,전화번호 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
@@ -161,6 +161,27 @@
 			FormMultipleUpload.init();
 		});
 
+		
+	   $("#form").submit(function() {
+		   $(".error").text("");
+		   
+		   if($("#oid").val()=="") {
+			   $("#oidMsg").text("회원 ID를 입력해 주세요.");
+			   return false;
+		   }
+		   
+		   if($("#oqty").val()=="") {
+			   $("#oqtyMsg").text("수량을 입력해 주세요.");
+			   return false;
+		   }
+		   
+		   if($("#bcode").val()=="") {
+			   $("#bcodeMsg").text("도서코드를 입력해 주세요.");
+			   return false;
+		   }
+		      
+	   });
+	   
 
 	</script>
 </body>
