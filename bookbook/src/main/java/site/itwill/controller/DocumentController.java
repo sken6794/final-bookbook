@@ -1,6 +1,8 @@
 package site.itwill.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.Document;
+import site.itwill.dto.Member;
 import site.itwill.service.DocumentService;
 
 @Controller
@@ -22,12 +25,15 @@ public class DocumentController {
    
    //전체 문서 뷰
    @RequestMapping(value="/document")
-   public String documentList(Model model) {
+   public String documentList(Model model, HttpSession session) throws Exception {
+	   Member loginMember= (Member) session.getAttribute("loginMember");
+	   model.addAttribute("loginMember", loginMember);
       model.addAttribute("documentList", documentService.getDocumentList());
       return "document/total_docu";
    }
    
    //문서 선택
+   
    @RequestMapping(value = "/documentSelect/{docno}", method = RequestMethod.GET)
    public String documentSelect(@PathVariable int docno, Model model) {
       model.addAttribute("document", documentService.getDocument(docno));
@@ -40,18 +46,17 @@ public class DocumentController {
    public String documentAdd() {
       return "document/doc_form";
    }
+   
    //문서작성
    @RequestMapping(value="/documentAdd", method = RequestMethod.POST)
    public String documentAdd(@ModelAttribute Document document, Model model) {
-      documentService.addDocument(document);
-      return "redirect:/document";
+    	   return "redirect:/document";
    }
    
    //문서 수정
    @RequestMapping(value = "/documentModify", method = RequestMethod.GET)
    public String documentModify(@RequestParam int docno, Model model) {
       model.addAttribute("documentMember", documentService.getDocument(docno));
-      
       return "document/doc_modify";
    }
    
@@ -61,8 +66,8 @@ public class DocumentController {
       documentService.modifyDocument(document);
       return "redirect:/document";
    }
-   //----------------------------------------위는 성공... 건들지 않기로-------------------------------------------
-   //상신(상태코드 : 1)
+
+   //상신, 수신(상태코드 : 1)
    @RequestMapping(value="documentSelect/documentWait/{docno}", method=RequestMethod.PUT)
    @ResponseBody
    public String documentWait(@PathVariable int docno) {

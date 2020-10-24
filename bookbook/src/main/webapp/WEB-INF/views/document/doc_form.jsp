@@ -99,10 +99,10 @@
 											</td>
 										</tr>
 										<tr>
-											<td
+											<td align="center"
 												style="border-width: 2px; border-style: solid; width: 682px; height: 435px;"
 												rowspan="1" colspan="2"><textarea rows="20" cols="100"
-													style="border-style: hidden;" name="doccon" value="${document.doccon}"
+													style="border-style: hidden; width: 750px; font-size: 20px;" name="doccon" value="${document.doccon}"
 													placeholder="내용을 입력해 주세요."></textarea></td>
 										</tr> 
 									</tbody>

@@ -105,7 +105,7 @@
 									</tr>
 									<tr>
 										<td
-											style="border-width: 2px; border-style: solid; width: 682px; height: 435px;"
+											style="border-width: 2px; border-style: solid; width: 682px; height: 435px;  font-size: 20px;"
 											rowspan="1" colspan="2" id="doccon">${document.doccon }</td>
 									</tr>
 								</tbody>

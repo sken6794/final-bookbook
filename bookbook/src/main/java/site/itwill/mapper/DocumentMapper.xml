@@ -21,7 +21,7 @@ MNO               NUMBER
 		select seq_document.nextval from dual
 		</selectKey>-->
 		insert into document(docno, docname, doccon, docstate, docaprv, docdate, doccomp, mno)
-			values(seq_document.nextval, #{docname}, #{doccon},0,null ,#{docdate}, null, 6)
+			values(seq_document.nextval, #{docname}, #{doccon},0,null ,#{docdate}, null, #{mno})
 	</insert> 
 
 	<!-- 전자결재 선택 -->

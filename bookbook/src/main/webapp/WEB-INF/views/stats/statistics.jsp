@@ -5,14 +5,14 @@
    <meta content="" name="description" />
    <meta content="" name="author" />
     
-    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+    <!-- ================== BEGIN PAGE LEVEL STYLE ==================
    <link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
    <link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />
    <link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
    <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
    <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" /> -->
    <!-- ================== END PAGE LEVEL STYLE ================== -->
    
    <!-- ================== BEGIN BASE JS ================== -->
@@ -96,7 +96,7 @@
          </div>
          
    <div class="row">
-      <div class="col-md-12"  >
+      <div class="col-md-6"  >
            <div class="panel panel-inverse" data-sortable-id="flot-chart-2" style="width: 800px; height: 50%;">
                <div class="panel-heading">
                    <div class="panel-heading-btn">
@@ -223,20 +223,7 @@
             </div>
        </div>
    </div>
-    <!-- ================== BEGIN BASE JS ================== -->
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!--[if lt IE 9]>
-        <script src="${pageContext.request.contextPath}/resources/assets/crossbrowserjs/html5shiv.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/assets/crossbrowserjs/respond.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/assets/crossbrowserjs/excanvas.min.js"></script>
-        <![endif]-->
-        <script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-        <!-- ================== END BASE JS ================== -->
-        
+   
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-buttons.demo.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>

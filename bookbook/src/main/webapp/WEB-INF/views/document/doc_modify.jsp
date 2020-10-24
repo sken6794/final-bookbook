@@ -106,7 +106,8 @@
 											<td
 												style="border-width: 2px; border-style: solid; width: 682px; height: 435px;"
 												rowspan="1" colspan="2">
-												<textarea rows="20" cols="100" style="border-style: hidden;" name="doccon">
+												<textarea rows="20" cols="100" style="border-style: hidden; font-size: 20px; width: 750px; text-align: left;" 
+												name="doccon">
 												${documentMember.doccon}
 												</textarea>
 											</td>
