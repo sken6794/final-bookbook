@@ -13,17 +13,17 @@ import site.itwill.service.StatisticsService;
 
 @Controller
 public class StatisticsController {
-	@Autowired
-	StatisticsService statisticsService;
-	
-	//통계 페이지 출력
-	@RequestMapping(value = "/stats", method = RequestMethod.GET)
-	public String stats(Model model, HttpSession session) throws Exception {
-		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember==null) {
-			return "login";
-		} else {			
-			return "stats/statistics";
-		}
-	}	
+   @Autowired
+   StatisticsService statisticsService;
+   
+   //통계 페이지 출력
+   @RequestMapping(value = "/stats", method = RequestMethod.GET)
+   public String stats(Model model, HttpSession session) throws Exception {
+      Member loginMember=(Member)session.getAttribute("loginMember");
+      if(loginMember==null) {
+         return "login";
+      } else {         
+         return "stats/statistics";
+      }
+   }   
 }
