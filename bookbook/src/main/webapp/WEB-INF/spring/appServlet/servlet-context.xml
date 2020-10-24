@@ -65,6 +65,21 @@
 		<beans:property name="defaultEncoding" value="utf-8"/>
 	</beans:bean>
 	
+	<!-- 인터셉터 Spring Bean 등록 -->
+	<beans:bean class="site.itwill.interceptor.LoginAuthInterceptor" id="loginAuthInterceptor"/>
+	<beans:bean class="site.itwill.interceptor.AdminAuthInterceptor" id="adminAuthInterceptor"/>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/atdn"/>
+			<mapping path="/atdn_member"/>
+			<beans:ref bean="loginAuthInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	
+	
+	
 	<beans:bean id="webSocketHandler" class="site.itwill.socket.handler.WebSocketHandler" />
 	<!-- 웹 소켓핸들러 -->
         <websocket:handlers>
