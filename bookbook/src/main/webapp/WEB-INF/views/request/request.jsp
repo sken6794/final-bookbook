@@ -13,6 +13,15 @@ table { text-align: center;}
 		<meta content="" name="author" />
 		
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/animate.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/style.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/resources/assets/css/theme/default.css" rel="stylesheet" id="theme" />
+	
 	<!-- 발주조회 테이블 -->
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/css/colReorder.bootstrap.min.css" rel="stylesheet" />
@@ -33,6 +42,14 @@ table { text-align: center;}
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	
+	<!-- 이메일 -->
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/parsley/src/parsley.css" rel="stylesheet" />
+	<!-- 파일 업로드 -->
+	<link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
+ 	
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
@@ -51,8 +68,6 @@ table { text-align: center;}
 		<h1 class="page-header">발주관리 <small>발주현황</small></h1>
 		<!-- end page-header -->
 		<br>
-		
-		<div class="row">
 			   <div class="col-md-12">
                    <div class="panel panel-inverse">
                        <div class="panel-heading">
@@ -113,7 +128,6 @@ table { text-align: center;}
                        		<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>	
                        		</p>
                        		<br>
-                       		<p class="text-right" style="margin-right: 10px;">* 진행상태 : 1(발주요청) , 2(진행중) , 3(입고완료)</p>
                        	</form>
 						<!-- 추가 버튼 클릭 시 입력폼 팝업 -->
 						<div class="modal fade" id="modal-insert">
@@ -131,13 +145,13 @@ table { text-align: center;}
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">담당자 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="담당자 사원번호"  name="mno" id="i_mno"/>                                      
+		                                        <input type="text" class="form-control" placeholder="담당자 사원번호"  name="rstaff" id="i_rstaff"/>                                      
 		                                    </div>
 		                                </div>
 										<div class="form-group">
 											<label class="control-label col-md-4 col-sm-4" for="message">발주수량 :</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text"  data-parsley-type="number" placeholder="발주 수량"  name="oqty" id="i_oqty"/>
+												<input class="form-control" type="text"  data-parsley-type="number" placeholder="발주 수량"  name="rqty" id="i_rqty"/>
 											</div>
 										</div>
 										<div class="form-group">
@@ -155,7 +169,7 @@ table { text-align: center;}
 
 								</div>
 							</div> 
-						</div>
+						</div> <!-- 추가 모달 끝 -->
                         <!-- 수정 버튼 클릭 시 입력폼 팝업 -->
 						<div class="modal fade" id="modal-modify">
 							<div class="modal-dialog">
@@ -219,7 +233,7 @@ table { text-align: center;}
 							</div>		
 						</div>   <!-- modal 끝 -->    
                        	<hr>
-                        <table id="data-table" class="table table-striped table-bordered">
+                        <table id="data-table" class="table table-striped table-bordered" width="100%">
                            <thead>
                                <tr>
                                    <th>발주번호</th>
@@ -237,18 +251,30 @@ table { text-align: center;}
                            <tbody id="requestTablePlace">
                            
                            </tbody>
-                    </table>   
+                    	</table>   
 
- 				</div>
-			</div>
-		</div>                      	          	              		                        
-     </div> 
-  </div><!-- content 끝 -->
+
+					</div>
+				</div>                      	          	              		                        
+    		 </div> 
+ 		 </div><!-- content 끝 -->
   
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-		<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
-	
+		<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="assets/crossbrowserjs/respond.min.js"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+	<!-- ================== END BASE JS ================== -->	
+	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/assets/plugins/parsley/dist/parsley.js"></script>
 	<!-- 추가 버튼 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/gritter/js/jquery.gritter.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/ui-modal-notification.demo.min.js"></script>
@@ -258,10 +284,9 @@ table { text-align: center;}
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/form-multiple-upload.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-colreorder.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-
+	
 	<!-- 발주일자 date picker -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
@@ -279,7 +304,7 @@ table { text-align: center;}
     <script src="${pageContext.request.contextPath}/resources/assets/plugins/select2/dist/js/select2.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>	
+	
 	<script>
 	
 		$(document).ready(function() {
@@ -469,63 +494,32 @@ table { text-align: center;}
  	/* 발주 데이터 추가 */
 		
  		$("#insertRequest").on('click', function () {
- 				var oid=$("#i_oid").val();
- 				var oqty=$("#i_oqty").val();
+ 				var rstaff=$("#i_rstaff").val();
+ 				var rqty=$("#i_rqty").val();
  				var bcode=$("#i_bcode").val();
- 				
- 				var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;			
- 				if(mname=='') {
- 					alert("사원 이름을 반드시 입력해주세요.");
+ 						
+ 				if(rstaff=='') {
+ 					alert("담당자 사원번호를 입력해주세요.");
  					return false;
  				}
- 				if(mpw=='') {
- 					alert("비밀번호를 입력해주세요.");
+ 				if(rqty=='') {
+ 					alert("발주 수량을 입력해주세요.");
  					return false;
  				}
- 				if(mbirth=='') {
- 					alert("생년월일을 입력해주세요.");
+ 				if(bcode=='') {
+ 					alert("도서코드를 입력해주세요.");
  					return false;
- 				}
- 				if(mphone=='') {
- 					alert("휴대전화 번호를 입력해주세요.");
- 					return false;
- 				}
- 				if(memail=='') {
- 					alert("이메일 주소를 입력해주세요.");
- 					return false;
- 				}
- 				if(!emailReg.test($("#i_memail").val())) {
- 					alert("이메일을 형식에 맞게 입력해 주세요.");
- 					return false;
- 				}
- 				if(maddress=='') {
- 					alert("집 주소를 입력해주세요.");
- 					return false;
- 				}
- 				if(mjoindate=='') {
- 					alert("입사날짜를 입력해주세요.");
- 					return false;
- 				}
- 				
+ 				}			
  				
  				$.ajax({
  					type: "POST",
- 					url: "member_insert",
+ 					url: "request_insert",
  					headers: {"content-type":"application/json"},
  					data: JSON.stringify({
- 						"mno":mno,
- 						"mname":mname,
- 						"mpw":mpw,
- 						"mbirth":mbirth,
- 						"mphone":mphone,
- 						"memail":memail,
- 						"maddress":maddress,
- 						"mjoindate":mjoindate,
- 						"mquitdate":mquitdate,
- 						"mquitreason":mquitreason,
- 						"mstate":mstate,
- 						"dno":dno,
- 						"pno":pno
+ 						"rstaff":rstaff,
+ 						"rqty":rqty,
+ 						"bcode":bcode
+
  					}),
  					
  					dataType: "text",

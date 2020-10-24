@@ -179,7 +179,6 @@
 					    </a>
 						<ul class="sub-menu">
 						    <li><a href="${pageContext.request.contextPath}/request">발주 현황</a></li>
-						    <li><a href="${pageContext.request.contextPath}/add_request">발주 등록</a></li>
 						</ul>
 					</li>
 					<li class="has-sub">
