@@ -71,7 +71,7 @@ table { text-align: center;}
                           <div class="col-md-3">
                           	<div class="form-group">
 							<label class="control-label col-md-4 col-sm-4">부서</label>
-							<div class="col-md-6 col-sm-6">
+								<div class="col-md-6 col-sm-6">
                                    <select class="form-control" name="dno" id="s_dno">
                                       <option value="0">-</option>
                                       <option value="10">도서 1팀</option>
@@ -79,9 +79,9 @@ table { text-align: center;}
                                       <option value="30">영업팀</option>
                                       <option value="40">회계팀</option>
                                    </select>
+								</div>
 							</div>
-						</div>
-					</div>									
+							</div>									
                           <div class="col-md-3">
                           	<div class="form-group">
                                   <label class="control-label col-md-4 col-sm-4">직급</label>
@@ -107,7 +107,7 @@ table { text-align: center;}
 		                <button type="button" onclick="selectPay();" class="btn btn-sm btn-white">조회</button>
 		                <button type="button" onclick="initBtn();" class="btn btn-sm btn-default">초기화</button>
 		                </div>			
-                   </form>
+                </form>
                 <hr>   		
 					<p class="text-right m-b-0" style="margin-right: 13px;">
 						<span style="display: none;"><a id="aTag" href="#modal-dialog2" class="btn btn-sm btn-success" data-toggle="modal">급여명세서</a></span>
@@ -224,7 +224,7 @@ table { text-align: center;}
 									<h4 class="modal-title" style="text-align: center; font-weight: bold;">2020년 9월 명세서</h4>
 								</div>
 								
-								<div class="modal-body">
+							<div class="modal-body">
 								<div id="print">
 									<div class="row">
 										<table class="table" style="text-align: center;">
@@ -341,14 +341,14 @@ table { text-align: center;}
 	                             </thead>
 	                             </table>
                          	</div>
-                         	</div>
-                         	</div> 
-								<div class="modal-footer">
-									<input type="button" value="인쇄" onclick="printPage();" class="btn btn-sm btn-white">
-									<a onclick="close()" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-								</div>
-							</div>
+                         	</div> <!-- print -->
+                        </div> 
+						<div class="modal-footer">
+							<input type="button" value="인쇄" onclick="printPage();" class="btn btn-sm btn-white">
+							<button type="button" onclick="close();" class="btn btn-sm btn-white" data-dismiss="modal">닫기</button>
 						</div>
+					</div>
+					</div>
 					</div>	
 					<!-- 수정 클릭 시 급여데이터 추가팝업창 -->
 					<div class="modal fade" id="modal-dialog3">
@@ -446,28 +446,28 @@ table { text-align: center;}
 									</div>
 								</div>
 						</div>										
-							<table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>사번</th>
-										<th>이름</th>
-										<th width="50">부서</th>
-										<th>직급</th>
-										<th width="70">지급일자</th>
-										<th>기본급여</th>
-										<th>식대</th>
-										<th>야근수당</th>
-										<th>휴일수당</th>
-										<th>성과급</th>
-										<th>기타수당</th>
-										<c:if test="${loginMember.pno >=3 }"><th width="91">관리</th></c:if>
-									</tr>
-								</thead>
-								<tbody id="payTablePlace">
+						<table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>사번</th>
+									<th>이름</th>
+									<th width="50">부서</th>
+									<th>직급</th>
+									<th width="70">지급일자</th>
+									<th>기본급여</th>
+									<th>식대</th>
+									<th>야근수당</th>
+									<th>휴일수당</th>
+									<th>성과급</th>
+									<th>기타수당</th>
+									<c:if test="${loginMember.pno >=3 }"><th width="91">관리</th></c:if>
+								</tr>
+							</thead>
+							<tbody id="payTablePlace">
 
-								</tbody>
-							</table>
+							</tbody>
+						</table>
 					</div>												
 					</div>
 				</div>
@@ -497,23 +497,7 @@ table { text-align: center;}
     <script src="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/form-plugins.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	<!-- 이미지 파일 업로드 -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/tmpl.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/load-image.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.iframe-transport.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-process.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-image.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-audio.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-video.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
-    <!--[if (gte IE 8)&(lt IE 10)]>
-        <script src="assets/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js"></script>
-    <![endif]-->
+
 	<!-- 급여조회 테이블 -->
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
@@ -553,6 +537,7 @@ table { text-align: center;}
 					}
 					
 					var html="";
+					var auth=${loginMember.pno};
 					$(json).each(function() {				
 						html+="<tr>";
 						html+="<td>"+this.pmno+"</td>";
@@ -567,10 +552,10 @@ table { text-align: center;}
 						html+="<td>"+this.pholiday+"</td>";
 						html+="<td>"+this.pbonus+"</td>";
 						html+="<td>"+this.petc+"</td>";
-						/* if( ${loginMember.pno >= 3}) { */
+						if( auth >= 3 ) { 
 						html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button class='btn btn-sm btn-success modify_link' data-toggle='modal' data-id="+this.pmno+">수정</button></td>";
-						/* } */ 
+						} 
 						
 						html+="</tr>";
 						
@@ -854,13 +839,22 @@ table { text-align: center;}
     	 };
     	 window.print();
     	 return false;
+    	 
+    	 function close() {
+    		   window.open('','_self').close();     	
+    		}
+    	 
     	}
  	
-	function close() {
+			$(document).on('click', '#close', function(){ 
+		        $.modal.close(); ;
+		        return true;
+		    });
+ 	
+/* 	function close() {
 	   window.open('','_self').close();     	
-	}
+	} */
 		
-
 
 </script>
 	

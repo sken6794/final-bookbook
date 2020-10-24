@@ -397,6 +397,7 @@
 					}
 					
 					var html="";
+					var auth=${loginMember.pno};
 					$(json).each(function() {				
 						
 						html+="<tr>";
@@ -409,10 +410,10 @@
 						html+="<td>"+this.memail+"</td>";
 						html+="<td>"+this.mphone+"</td>";
 						html+="<td>"+this.maddress+"</td>";
-						/* if( ${loginMember.pno} >=4) { */
+						if( auth >=4 ) { 
 						html+="<td><button onclick='deleteMember("+this.mno+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button href='#modal-update' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.mno+">수정</button></td>";
-						/* } */ 
+						 }
 						html+="</tr>";				
 						});
 							
