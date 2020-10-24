@@ -72,7 +72,7 @@
 						<div class="stats-icon"><i class="fa fa-shopping-cart"></i></div>
 						<div class="stats-info">
 							<h4>판매 도서량</h4>
-							<p>#sumOutQty 출력</p>	
+							<p>522 권</p>	
 						</div>
 						<div class="stats-link">
 							<a href="${pageContext.request.contextPath}/bookout">출고 조회<i class="fa fa-arrow-circle-o-right"></i></a>
@@ -86,7 +86,7 @@
 						<div class="stats-icon"><i class="fa fa-users"></i></div>
 						<div class="stats-info">
 							<h4>총 직원 수</h4>
-							<p>174명</p>	
+							<p>15 명</p>	
 						</div>
 						<div class="stats-link">						
 							<a href="${pageContext.request.contextPath}/member">인사관리<i class="fa fa-arrow-circle-o-right"></i></a>
@@ -94,7 +94,6 @@
 					</div>
 				</div>
 			</div>
-			
 			
    <div class="row">
 	   <div class="col-md-12"  >
@@ -174,25 +173,24 @@
                          </thead>
                          <tbody>
                              <tr>
-								<%-- <td>${department.dname }</td> --%>
                                 <td>도서 1팀</td>
 								<td>38,400,000</td>
-								<td>19</td>
+								<td>40,800,000</td>
                              </tr>
                              <tr>
                                 <td>도서 2팀</td>
 								<td>45,600,000</td>
-								<td>32</td>
+								<td>45,600,000</td>
 							 </tr>
 							 <tr>
 								<td>영업팀</td>
-								<td>66,000,000</td>
-								<td>48</td>
+								<td>198,000,000</td>
+								<td>208,800,000</td>
                              </tr>
                              <tr>
 								<td>회계팀</td>
-								<td>54,100,000</td>
-								<td>48</td>
+								<td>60,000,000</td>
+								<td>63,600,000</td>
                              </tr>
 						</tbody>
 					</table>

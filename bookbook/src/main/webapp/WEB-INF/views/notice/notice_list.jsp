@@ -18,11 +18,7 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 	<!-- ==================================== -->
-	
-	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
-	<!-- ================== END BASE JS ================== -->
-	
+
 <style>
     th, td {
         text-align: center;
