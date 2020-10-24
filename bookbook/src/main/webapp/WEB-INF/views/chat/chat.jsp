@@ -25,7 +25,7 @@
 	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-select.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
 
-
+<!-- 
 <div class="popover editable-container editable-popup fade top in"
 	role="tooltip" id="popover953924"
 	style="top: 172.6px; left: 349.588px; display: none;" id="pwModal">
@@ -59,7 +59,7 @@
 		</div>
 	</div>
 </div>
-
+ -->
 <!-- begin #content -->
 		<div id="content" class="content">
 				<!-- begin row -->
@@ -408,10 +408,8 @@
  		    	 if(tableClickIdx == -1 ){
  		    		 alert("입장하실 방을 클릭 해주세요");
  		    	 }else{
- 		    	  	 var chatInfo = $('#chat_table').DataTable().row(this).data();
- 		    	  	alert(chatInfo[0]);
-	 		    	 if(chatInfo[6] == "비밀방"){
-	  		    		$("#pwModal").show();
+	 		    	 if(pwCheck == "비밀방"){
+	  		    		//$("#pwModal").show();
 	  		    	 }else{
 	 	 		    	 location.href="enterRoom?cno="+tableClickIdx;
 	  		    	 }
