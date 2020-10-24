@@ -1,8 +1,5 @@
 package site.itwill.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.AttendanceMember;
@@ -55,6 +51,16 @@ public class AtdnController {
 		AttendanceMember atdn= atdnService.getAtdnNum(mno);
 		atdn.setAovertimestatus(1);
 		atdnService.modifyAtdn(atdn);
+		
+		return "success";
+	}
+	
+	//ªË¡¶
+	@RequestMapping(value = "deleteAtdn/{mno}",method = RequestMethod.PUT)
+	@ResponseBody
+	public String deleteAtdn(@PathVariable int mno) {
+		
+		atdnService.removeAttendance(mno);
 		
 		return "success";
 	}
