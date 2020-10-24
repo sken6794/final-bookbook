@@ -17,7 +17,7 @@
 		<association property="bookIn" javaType="BookIn">
 			<id column="binno" property="binno"/>
 			<result column="bcode" property="bcode"/>
-			<result column="inquantity" property="inquantity"/>
+			<result column="inqty" property="inqty"/>
 			<result column="indate" property="indate"/>
 		</association>
 		<association property="bookOut" javaType="BookOut">
@@ -42,7 +42,7 @@
 	
 	<!-- 입고 리스트 -->
 	<select id="selectBookInList" resultMap="bookInBook">
-		select bookin.*, bname, bwriter, bprice, bquantity from bookin join book on bookin.bcode = book.bcode
+		select bookin.*, bname, bwriter, bprice from bookin join book on bookin.bcode = book.bcode
 	</select>
 	
 	<!-- 출고 리스트 -->
@@ -59,7 +59,7 @@
 	
 	<!-- 입고 삽입 -->
 	<insert id="insertBookin">
-		<selectKey resultType="int" keyProperty="boutno" order="BEFORE">
+		<selectKey resultType="int" keyProperty="binno" order="BEFORE">
 			select seq_bookin.nextval from dual
 		</selectKey>
 		insert into bookin values(#{binno},#{bcode},#{inqty},#{indate})

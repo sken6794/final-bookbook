@@ -27,6 +27,7 @@ public class BookInController {
 	@RequestMapping(value = "/bookin", method = RequestMethod.GET)
 	public String bookin(Model model) {
 		model.addAttribute("bookInList", bookInService.getBookInList());
+		
 		return "bookinout/book_in";
 	}
 	

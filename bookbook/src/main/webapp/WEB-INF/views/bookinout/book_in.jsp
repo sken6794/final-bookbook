@@ -45,7 +45,7 @@
                                         <th>작가</th>
                                         <th>입고 가격</th>
                                         <th>입고 날짜</th>
-                                        <th>재고 수량</th>
+                                        <th>입고 수량</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,7 +58,7 @@
 	                                        <td>${bookin.book.bwriter}</td>
 	                                        <td>${bookin.book.bprice}</td>
 	                                        <td>${bookin.bookIn.indate }</td>
-	                                        <td>${bookin.book.bquantity }</td>
+	                                        <td>${bookin.bookIn.inqty }</td>
 	                                    </tr>  
                                     </c:forEach>                                 
                                 </tbody>
@@ -94,6 +94,7 @@
 			App.init();
 			TableManageDefault.init();
 		});
+		
 	</script>
 </body>
 </html>
