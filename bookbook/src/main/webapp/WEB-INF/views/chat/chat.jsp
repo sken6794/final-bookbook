@@ -24,8 +24,43 @@
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/table-manage-select.demo.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>
-	
-		<!-- begin #content -->
+
+
+<div class="popover editable-container editable-popup fade top in"
+	role="tooltip" id="popover953924"
+	style="top: 172.6px; left: 349.588px; display: none;" id="pwModal">
+	<div class="arrow" style="left: 50%;"></div>
+	<h3 class="popover-title">Enter Username</h3>
+	<div class="popover-content">
+		<div>
+			<div class="editableform-loading" style="display: none;"></div>
+			<form class="form-inline editableform" style="">
+				<div class="control-group form-group">
+					<div>
+						<div class="editable-input" style="position: relative;">
+							<input type="text" class="form-control input-sm"
+								style="padding-right: 24px;"> <span
+								class="editable-clear-x"></span>
+						</div>
+						<div class="editable-buttons">
+							<button type="submit"
+								class="btn btn-primary btn-sm editable-submit">
+								<i class="glyphicon glyphicon-ok"></i>
+							</button>
+							<button type="button"
+								class="btn btn-default btn-sm editable-cancel">
+								<i class="glyphicon glyphicon-remove"></i>
+							</button>
+						</div>
+					</div>
+					<div class="editable-error-block help-block" style="display: none;"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- begin #content -->
 		<div id="content" class="content">
 				<!-- begin row -->
 					<div class="row">
@@ -100,8 +135,16 @@
 																				<td>${chatPerson.member.mname}</td>
 																				<td>${chatPerson.member.position.pname}</td>
 																				<td>${chatPerson.chat.cinfo}</td>
-																				<td>${chatPerson.chat.cperson}</td>
-																				<td>${chatPerson.chat.csecret}</td>
+																				<td>${chatPerson.chat.cperson}명</td>
+																				<td>
+																					<c:if test="${chatPerson.chat.csecret eq 1}">
+																							비밀방
+																					</c:if>
+																					<c:if test="${chatPerson.chat.csecret eq 0}">
+																							공개방
+																					</c:if>
+																				</td>
+																				
 																			</tr>
 																			</c:forEach>
 																			
@@ -110,7 +153,10 @@
 					                                </div>
 				                                </div>
 				                                <div class="form-group">
-				                                    <div class="col-md-10"></div>
+				                                    <div class="col-md-8"></div>
+				                                    <div class="col-md-2">
+				                                    		<button type="button" id="deleteBtn" class="btn btn-inverse m-r-5 m-b-5">방삭제</button>
+				                                    </div>
 				                                    <div class="col-md-2">
 				                                    		<button type="button" id="enterBtn" class="btn btn-inverse m-r-5 m-b-5">방입장</button>
 				                                    </div>
@@ -218,6 +264,9 @@
 			App.init();
 			TableManageTableSelect.init();
 			tableClickIdx=-1;
+			pwCheck;
+			mno = ${loginMember.mno};
+			$("#pwModal").hide();
 			
 			$(function(){
 				var spinner = $( "#spinner" ).spinner({
@@ -229,6 +278,25 @@
 			 	});
 			});
 			
+			$("#deleteBtn").click(function(){
+				 //alert(tableClickIdx);
+				 if(tableClickIdx == -1 ){
+ 		    		 alert("삭제하실 방을 클릭 해주세요");
+ 		    		 return;
+ 		    	 }
+				 $.ajax({
+						type: "GET",
+		        	  	url: "deleteChat",
+		        	  	data : {"cno" : tableClickIdx,
+		        	  				 "mno" : mno},
+			      		success: function(data) {
+			      				if(data=="fail"){
+			      					alert("채팅방 개설자만 지울 수 있습니다.");
+			      				}
+			      		}
+				 })
+				
+			});
 			
 			$("#refresh").click(function(){
 				location.href="chat";
@@ -328,6 +396,7 @@
 				 //alert(chat);
 				 if($(this).hasClass('selected')){
 	        		 tableClickIdx = chatInfo[0];
+	        		 pwCheck = bookInfo[6];
 	        	 }else{
 	        		 tableClickIdx = -1;
 	        	 }
@@ -336,7 +405,21 @@
  			
  		     $("#enterBtn").click(function(){
  		    	 // 로그인시 고쳐야할 부분..(임시)
- 		    	 location.href="enterRoom?cno="+tableClickIdx;
+ 		    	 if(tableClickIdx == -1 ){
+ 		    		 alert("입장하실 방을 클릭 해주세요");
+ 		    	 }else{
+ 		    	  	 var chatInfo = $('#chat_table').DataTable().row(this).data();
+ 		    	  	alert(chatInfo[0]);
+	 		    	 if(chatInfo[6] == "비밀방"){
+	  		    		$("#pwModal").show();
+	  		    	 }else{
+	 	 		    	 location.href="enterRoom?cno="+tableClickIdx;
+	  		    	 }
+ 		    	 }
+ 		    	 //////////////////////////////////////
+ 		    	
+ 		    	 
+ 		    	 
  		    	//location.href="enterRoom?cno="+data.cno+"&mno="+data.ccreator;
  		     });
  			

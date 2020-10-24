@@ -56,7 +56,13 @@ public class ChatDAOImpl implements ChatDAO{
 	@Override
 	public void deleteChatPerson(Map<String, String> map) {
 		// TODO Auto-generated method stub
-		sqlSession.getMapper(ChatMapper.class).deleteChatPerson(map);;
+		sqlSession.getMapper(ChatMapper.class).deleteChatPerson(map);
+	}
+	
+	@Override
+	public void deleteChat(Chat chat) {
+		// TODO Auto-generated method stub
+		sqlSession.getMapper(ChatMapper.class).deleteChat(chat);
 	}
 
 

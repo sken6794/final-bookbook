@@ -73,13 +73,20 @@
 					insert into chat_person values(#{cpno}, #{ccreator}, #{cno})
 		</insert>
 		 
-		 <select id="selectChatRoom" >
+		 <select id="selectChatRoom"  resultType="chat">
 		 		select * from chat where cno =#{cno}
 		 </select>
 		 
+		 <!-- 채팅방 인원 나갔을때 삭제 -->
 		 <delete id="deleteChatPerson" parameterType="map">
 		 		delete from chat_person where mno=#{mno} and cno=#{cno}
 		 </delete>
+		 
+		 <!-- 채팅방 삭제 버튼 클릭 시 삭제-->
+		 <delete id="deleteChat">
+		 		delete from chat where cno =  #{cno}
+		 </delete>
+		 
 		 
 		 <!-- 
 		 <update id="updateChatSession">

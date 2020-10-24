@@ -98,5 +98,16 @@ public class ChatServiceImpl implements ChatService{
 		chatDAO.deleteChatPerson(map);
 	}
 
+	@Override
+	public void deleteChat(Chat chat) {
+		chatDAO.deleteChat(chat);
+	}
+
+	@Override
+	public Chat selectChatRoom(Chat chat) {
+		// TODO Auto-generated method stub
+		return chatDAO.selectChatRoom(chat);
+	}
+
 	
 }

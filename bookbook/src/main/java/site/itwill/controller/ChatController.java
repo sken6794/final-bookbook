@@ -46,8 +46,11 @@ public class ChatController {
 	*/
 	
 	@RequestMapping(value="/chat", method = RequestMethod.GET)
-	public String chat(Model model) {
+	public String chat(Model model, HttpSession session) {
+		Member loginMember =  (Member) session.getAttribute("loginMember");
+		model.addAttribute("loginMember", loginMember);
 		model.addAttribute("chatList", chatService.getAllChatList());
+		
 		return "chat/chat";
 	}
 	
@@ -104,6 +107,25 @@ public class ChatController {
 		map.put("mno", mno);
 		chatService.deleteChatPerson(map);
 		return "redirect:/chat";
+	}
+	
+	@RequestMapping(value="/deleteChat", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteChat(@RequestParam String cno, @RequestParam String mno) {
+		String result = "";
+		Chat chat = new Chat();
+		chat.setCno(Integer.parseInt(cno));
+		chat = chatService.selectChatRoom(chat);
+		int ccreator = chat.getCcreator();
+		
+		if(ccreator== Integer.parseInt(mno)) {
+			chatService.deleteChat(chat);
+			result ="success";
+		}else {
+			result="fail";
+		}
+		
+		return result;
 	}
 	
 	

@@ -15,4 +15,6 @@ public interface ChatService {
 	public Chat insertChat(Chat chat, Member member);
 	public void insertChatPerson(String cno, Member member);
 	public void deleteChatPerson(Map<String, String> map);
+	public void deleteChat(Chat chat);
+	public Chat selectChatRoom(Chat chat);
 }
