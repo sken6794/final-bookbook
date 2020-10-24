@@ -45,7 +45,8 @@
                                         <th>작가</th>
                                         <th>출고 가격</th>
                                         <th>출고 날짜</th>
-                                        <th>재고 수량</th>
+                                        <th>출고 수량</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,7 +59,8 @@
 	                                        <td>${bookout.book.bwriter}</td>
 	                                        <td>${bookout.book.bprice}</td>
 	                                        <td>${bookout.bookOut.outdate }</td>
-	                                        <td>${bookout.book.bquantity }</td>
+	                                        <td>${bookout.bookOut.outqty }</td>
+	                                        
 	                                    </tr>  
                                     </c:forEach>                                 
                                 </tbody>

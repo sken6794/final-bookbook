@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.StatisticsMapper">
+
+	<!--  전체 직원수 -->
+	<select id="selectMemberCount" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<!--  부서별 직원수 -->
+	<select id="selectDnoMemberCount" resultType="int">
+		select count(*) from member where dno=#{dno}
+	</select>
+
+	<!--  부서별 연봉(보너스 미포함) -->
+	<select id="selectDepPayNoBonus" resultType="PayManage">
+		select dno, sum(pbasic*12) 연봉 from paymanage group by dno order by dno
+	</select>
+
+	<!--  부서별 연봉(보너스 포함) -->
+	<select id="selectDepPayYesBonus" resultType="PayManage">
+		select dno, sum((pbasic+nvl(pbonus,0))*12) 연봉 from paymanage group by dno order by dno
+	</select>
+	
+	<!-- 총 판매량 -->
+	<select id="sumOutQty" resultType="int">
+		select sum(outqty) from bookout
+	</select>
+	
+</mapper>

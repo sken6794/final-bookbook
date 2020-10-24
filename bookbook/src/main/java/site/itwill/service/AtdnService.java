@@ -7,14 +7,15 @@ import site.itwill.dto.Attendance;
 import site.itwill.dto.AttendanceMember;
 import site.itwill.dto.Member;
 import site.itwill.exception.LoginAuthFailException;
+import site.itwill.exception.UserinfoNotFoundException;
 
 public interface AtdnService {
 	List<AttendanceMember> getAtdnList();
 	//List<AtdnMember> getAtdnList();
 	List<Attendance> getAtdnListinout();
-	AttendanceMember getAtdnNum(int mno);
-	void modifyAtdn(AttendanceMember atdnmember);
-	void addAttendance(AttendanceMember atdnmember);
+	AttendanceMember getAtdnNum(int mno) throws UserinfoNotFoundException;
+	void modifyAtdn(AttendanceMember atdnmember) throws UserinfoNotFoundException;
+	void addAttendance(AttendanceMember atdnmember) throws UserinfoNotFoundException;
 	void removeAttendance(int mno);
 	
 	void addAtdn(Attendance attendance);

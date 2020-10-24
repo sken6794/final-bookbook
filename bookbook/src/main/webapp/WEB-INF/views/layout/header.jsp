@@ -13,7 +13,7 @@
 			<div class="container-fluid">
 				<!-- begin mobile sidebar expand / collapse button -->
 				<div class="navbar-header">
-					<a href="index.html" class="navbar-brand"><span class="navbar-logo"></span> BookBook Admin</a>
+					<a href="${pageContext.request.contextPath}/" class="navbar-brand"><span class="navbar-logo"></span> BookBook Admin</a>
 					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -94,7 +94,9 @@
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="${pageContext.request.contextPath}/resources/assets/img/user-13.jpg" alt="" /> 
-							<span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>
+							<c:if test="${!empty(loginMember) }">
+							<span class="hidden-xs">${loginMember.mname }</span> <b class="caret"></b>
+							</c:if>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
 							<li class="arrow"></li>
@@ -119,17 +121,19 @@
 			<!-- begin sidebar scrollbar -->
 			<div data-scrollbar="true" data-height="100%">
 				<!-- begin sidebar user -->
+				<c:if test="${!empty(loginMember) }">
 				<ul class="nav">
 					<li class="nav-profile">
 						<div class="image">
-							<a href="javascript:;"><img src="${pageContext.request.contextPath}/resources/assets/img/user-13.jpg" alt="" /></a>
+							<a href="${pageContext.request.contextPath}/login"><img src="${pageContext.request.contextPath}/resources/assets/img/user-13.jpg" alt="" /></a>
 						</div>
 						<div class="info">
-							${loginMember.mname} 님 
+							${loginMember.mname } 
 							<small>Full Stack Developer</small>
 						</div>
 					</li>
 				</ul>
+				</c:if>
 				<!-- end sidebar user -->
 				<!-- begin sidebar nav -->
 				<ul class="nav">
@@ -215,7 +219,7 @@
 						    <span>통계관리</span>
 					    </a>
 						<ul class="sub-menu">
-						    <li><a href="index.html">통계 보기</a></li>
+						    <li><a href="/stats">통계 보기</a></li>
 						</ul>
 					</li>
 					<li class="nav-header">북북 그룹웨어</li>

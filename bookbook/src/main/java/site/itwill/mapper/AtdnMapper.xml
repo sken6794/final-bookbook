@@ -82,7 +82,7 @@
 			,#{aenddate},#{astarttime},#{aendtime})
 	</insert>
 	<!-- 사원-근태 삭제  -->
-	<delete id="deleteAtdn">
+	<delete id="deleteAttendance">
 		delete from member_atdn where mno=#{mno}
 	</delete>
 	
@@ -135,7 +135,7 @@
 	<select id="selectAtdninout" resultMap="attendance">
 		select attendance.*, mname from attendance
 		join member on member.mno=attendance.mno
-		order by member.mno
+		order by attendance.atno desc
 	</select>
 	
 	<!-- 사원번호를 전달해 제일 최근 날짜의 출퇴근 조회 -->

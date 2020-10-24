@@ -63,9 +63,9 @@
                                 	<label class="col-md-4 control-label">근무 시간</label>
                                 	<div class="col-md-8">
 								        <div class="input-group date">
-                                            <input type="time" class="form-control" name="astartTime">
+                                            <input type="time" class="form-control" name="astarttime">
                                             <span class="input-group-addon">to</span>
-                                            <input type="time" class="form-control" name="aendTime">                                         
+                                            <input type="time" class="form-control" name="aendtime">                                         
                                         </div>
                                     </div>
                                 </div>
@@ -76,22 +76,14 @@
                                         <input type="text" class="form-control" name="aovertimetext" />
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">신청 일자</label>
-                                    <div class="col-md-8">
-                                        <div class="input-group date" id="datepicker-disabled-past" data-date-format="dd-mm-yyyy" data-date-start-date="Date.default">
-                                            <input type="text" class="form-control" placeholder="Select Date"/>
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">신청 기간</label>
                                     <div class="col-md-8">
                                         <div class="input-group input-daterange">
-                                            <input type="text" class="form-control" name="startdate" placeholder="Date Start" />
+                                            <input type="text" class="form-control" name="astartdate" placeholder="Date Start" />
                                             <span class="input-group-addon">to</span>
-                                            <input type="text" class="form-control" name="enddate" placeholder="Date End" />
+                                            <input type="text" class="form-control" name="aenddate" placeholder="Date End" />
                                         </div>
                                     </div>
                                 </div>

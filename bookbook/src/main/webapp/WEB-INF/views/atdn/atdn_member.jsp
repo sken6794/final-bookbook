@@ -51,6 +51,7 @@
                                         <th>비고</th>
                                         <th>시작 시간</th>
                                         <th>종료 시간</th>
+                                        <th>삭제</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,6 +87,7 @@
 	                                        <td>${atdn.aovertimetext }</td>
 	                                        <td>${atdn.astarttime }</td>
 	                                        <td>${atdn.aendtime }</td>
+	                                        <td><a href="javascript:deleteAtdn(${atdn.member.mno  })" class="btn btn-sm btn-danger">삭제</a></td>
 	                                    </tr>  
                                     </c:forEach>     
                                                                
@@ -233,6 +235,26 @@
 		}
 	}
 	
+	//삭제
+	function deleteAtdn(mno) {
+		if(confirm("삭제 하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"atdndelete/"+mno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="success"){
+						alert("삭제되었습니다.")
+						location.href="${pageContext.request.contextPath}/atdn_member";
+					}
+				},
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
 	</script>
 </body>
 </html>

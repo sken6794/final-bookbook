@@ -298,9 +298,10 @@ table { text-align: center;}
 		}
 		displayRequest();
 		
-	 
+	/* 발주 내역 삭제 */
+	
 		function deleteRequest(rno) {
-			if(confirm("정말로 삭제하시겠습니까?")) {
+			if(confirm("발주내역을 삭제하시겠습니까?")) {
 				location.href="request_delete/"+rno;
 			}
 		}

@@ -23,7 +23,7 @@
 		<association property="bookOut" javaType="BookOut">
 			<id column="boutno" property="boutno"/>
 			<result column="bcode" property="bcode"/>
-			<result column="outquantity" property="outquantity"/>
+			<result column="outqty" property="outqty"/>
 			<result column="outdate" property="outdate"/>
 		</association>
 	</resultMap>

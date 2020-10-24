@@ -92,6 +92,9 @@
 			App.init();
 			TableManageDefault.init();
 		});
+		
+		
 	</script>
+	
 </body>
 </html>
