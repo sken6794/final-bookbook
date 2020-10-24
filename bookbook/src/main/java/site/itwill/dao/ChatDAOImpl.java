@@ -53,6 +53,12 @@ public class ChatDAOImpl implements ChatDAO{
 		return sqlSession.getMapper(ChatMapper.class).selectChatRoom(chat);
 	}
 
+	@Override
+	public void deleteChatPerson(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		sqlSession.getMapper(ChatMapper.class).deleteChatPerson(map);;
+	}
+
 
 	/*
 	@Override

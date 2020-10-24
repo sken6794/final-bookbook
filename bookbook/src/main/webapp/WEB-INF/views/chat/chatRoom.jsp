@@ -33,30 +33,28 @@
 							                    </div>
 												<div class="panel-body panel-form">
 												<div class="row form-horizontal form-bordered">
-													<c:forEach var="list"  begin="1" step="1" end="2" items="${list}">
+													
 													<div class="form-group">
 															 	<label class="col-md-3 control-label">채팅방 이름</label>
 															 	 <div class="col-md-8">
-										                                        <input type="text" id="roomname"  value="${list.chat.croomname}" class="form-control"  readonly="readonly">
-										                                     
-										                                        
+										                                        <input type="text" id="crname"  value="${list.chat.croomname}" class="form-control"  readonly="readonly">                 
 										                         </div>
 													</div>
+													<!-- 
 													<div class="form-group">
 															 	<label class="col-md-3 control-label">개설자</label>
 															 	 <div class="col-md-8">
-										                                        <input type="text" id="creator"  value="" class="form-control" readonly="readonly">
+										                                        <input type="text" id="creator"  value="${list.chat.temp}" class="form-control" readonly="readonly">
 										                         </div>
 													</div>
+													 -->
 													<div class="form-group">
 																	<label class="control-label col-md-3" for="message">방설명</label>
 																	<div class="col-md-8">
-																		<textarea class="form-control" id=""   name="message" rows="5" data-parsley-range="[20,200]"  readonly="readonly" data-parsley-id="3913">
-																			 ${list.chat.cinfo}
-																		</textarea><ul class="parsley-errors-list" id="parsley-id-3913"></ul>
+																		<textarea class="form-control" id="cinfo"   name="message" rows="5" data-parsley-range="[20,200]"  readonly="readonly" data-parsley-id="3913"></textarea><ul class="parsley-errors-list" id="parsley-id-3913"></ul>
 																	</div>
 													</div>
-													</c:forEach>
+													
 												</div>
 												<div class="form-group">
 				                                		<div class="table-responsive">
@@ -69,14 +67,13 @@
 																	</tr>
 																</thead>
 																<tbody>
-																	<c:forEach var="list"  items="${list }">
+																	<c:forEach var="list"  items="${mapResult }">
 																	<tr>
 																		<td>${list.member.mname }</td>
 																		<th>${list.member.department.dname }</th>
 																		<td>${list.member.position.pname }</td>
 																	</tr>
 																	</c:forEach>
-																	
 																</tbody>
 															</table>
 														</div>
@@ -106,9 +103,9 @@
 				                        </div>
 				                        <div class="panel-body">
 				                        	<div class="form-group">
-				                            <div class="chats" id="chatRoom">
+				                            <ul class="chats" id="chatRoom">
 				                            		<!-- 
-				                                    <li class="left">
+				                                    <li class="left" id="leftMsg">
 				                                        <span class="date-time">yesterday 11:23pm</span>
 				                                        <a href="javascript:;" class="name">Sowse Bawdy</a>
 				                                        <a href="javascript:;" class="image"><img alt="" src="${pageContext.request.contextPath}/resources/assets/img/user-12.jpg"></a>
@@ -116,6 +113,7 @@
 				                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit volutpat. Praesent mattis interdum arcu eu feugiat.
 				                                        </div>
 				                                    </li>
+				                                    
 				                                    <li class="right">
 				                                        <span class="date-time">08:12am</span>
 				                                        <a href="#" class="name"><span class="label label-primary">ADMIN</span> Me</a>
@@ -174,7 +172,7 @@
 				                                    </li>
 				                                     -->
 				                                    
-				                           </div>
+				                           </ul>
 				                           
 				                           
 				                           
@@ -206,43 +204,27 @@
 			App.init();
 			var webSocket;
 
-             nickname = "박정호";
+             nickname = "${mname}";
+             mno = ${mno};
              roomId = ${cno};
-             
-           
-             $(function(){
-            	 var result = new Array();
-            	 <c:forEach items="${list}" var ="info">
-            	 		//var json = new Object();
-            	 		//json.chat="${info.chat}";
-            	 		//json.member="${info.member}";
-            	 		//result.push(json)
-            	 		//jsonResult = JSON.stringify(result);
-            	 		//alert(jsonResult.chat.ccreator);
-            	 		//alert(${info.chat});
-            	 </c:forEach>
-            	 		
-            	 		//jsonResult.
-            	 		//alert(JSON.stringify(result));
-             })
-             
-             
-      		 //list = ${list};
-      		 //alert(list);
-      		 /*
-      		 var list = '<c:out value="${list}"/>';
-      		 
-      		$(list).each(function (index, item) { 
-				// 북코드
-				alert(item);
-				
-			});
-      		*/
- 
- 
-
-
+          
+             var strList = eval(${mapResult});
+             rname  = strList[0].chat.croomname;
+             cinfo = strList[0].chat.cinfo;
   
+             
+             $("#crname").val(rname);
+             $("#cinfo").val(cinfo);
+   
+             
+             
+             
+             //var list = '${list}';
+             //var arrayList = new Array('${list}');
+            // alert(list);
+             //alert(arrayList);
+             
+
 		    connect();
 		    
 		    function connect(){
@@ -268,25 +250,89 @@
 			
 			function onMessage(e) {
 				data = e.data;
-				$("#chatRoom").append( "<br><p>"+data+"</p>");
+
+				var today = new Date();
+				var html="";
+				var name;
+				var text;
+				
+				
+				if(data.indexOf(":") != -1){
+					temp = data.split(":");
+	
+					temp1 = temp[0].split('"');
+					temp2 = temp[1].split('"');
+					name = temp1[1];
+					text = temp2[0];
+					//alert(name);
+					//alert(text);
+					alert("name : " +name);
+					alert("nickname : " +nickname);
+					if(name==nickname){
+						alert("같다");
+						 html += '<li class="right">';
+						 html+=' <span class="date-time">'+today.toLocaleString()+'</span>';
+							html+='<a href="javascript:;" class="name">'+nickname+'</a>';
+							html+='<a href="javascript:;" class="image"><img alt="" src="${pageContext.request.contextPath}/resources/assets/img/user-12.jpg"></a>';
+							html+=' <div class="message">';
+							html+=text;
+							html+=" </div></li>"
+						 
+					}else{
+						alert("다르다");
+						 html += '<li class="left">';
+						 html+=' <span class="date-time">'+today.toLocaleString()+'</span>';
+							html+='<a href="javascript:;" class="name">'+name+'</a>';
+							html+='<a href="javascript:;" class="image"><img alt="" src="${pageContext.request.contextPath}/resources/assets/img/user-12.jpg"></a>';
+							html+=' <div class="message">';
+							html+=text;
+							html+=" </div></li>"
+						 
+					}
+				}else{
+						html+='<li class="right">';
+						html+=' <span class="date-time">'+today.toLocaleString()+'</span>';
+						html+='<a href="javascript:;" class="name">'+nickname+'</a>';
+						html+='<a href="javascript:;" class="image"><img alt="" src="${pageContext.request.contextPath}/resources/assets/img/user-12.jpg"></a>';
+						html+=' <div class="message">';
+						html+=data;
+						html+=" </div></li>"
+				}
+				
+				
+				$("#chatRoom").append(html);
+				
+				
+
 			}
 			
 			function onClose() {
-				
+				 //webSocket.close();
 			}
 		    
 			$("#submitText").click(function() {
 				send();
+				$("#chatRoom").scrollTop($("#chatRoom")[0].scrollHeight);
+
+				//$('html, body').scrollTop(document.body.scrollHeight);
+				//chatRoom
+			});
+			
+			$("#message").keydown(function(key) {
+				if (key.keyCode == 13) {
+					send();
+					$("#chatRoom").scrollTop($("#chatRoom")[0].scrollHeight);
+					//$('html, body').scrollTop(document.body.scrollHeight);
+				}
 			});
 			
 			$("#exitBtn").click(function() {
 				disconnect();
-				location.href="chat";
+				location.href="outRoom?cno="+roomId+"&mno="+mno;
+				
+				//location.href="chat";
 			});
-			
-			
-			
-			
+
 		});
 
 		

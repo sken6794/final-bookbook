@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import site.itwill.dao.ChatDAO;
 import site.itwill.dto.Chat;
 import site.itwill.dto.ChatPerson;
-import site.itwill.socket.ChatRoom;
+import site.itwill.dto.Member;
 import site.itwill.socket.ChatRoomRepository;
 
 @Service
@@ -44,7 +44,7 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public Chat insertChat(Chat chat) {
+	public Chat insertChat(Chat chat, Member member) {
 
 		String croomno = System.currentTimeMillis()+"";
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
@@ -61,24 +61,41 @@ public class ChatServiceImpl implements ChatService{
 		chat.setCroomno(croomno);
 		// 오늘날짜 추가
 		chat.setCdate(cdate);
-		// 임시로 로그인 한 member의 mno
-		chat.setCcreator(1);
+		//로그인 한 member의 mno
+		chat.setCcreator(member.getMno());
 		
 		// 채팅 방 정보 넣기
 		chatDAO.insertChat(chat);
 		
-		System.out.println("cno : " + chat.getCno());
-		System.out.println("creator : " + chat.getCcreator());
+		//System.out.println("cno : " + chat.getCno());
+		//System.out.println("creator : " + chat.getCcreator());
 
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("cno",chat.getCno()+"");
-		map.put("ccreator", chat.getCcreator()+"");
-		map.put("cpsession", null);
-		
+		//Map<String, String> map = new HashMap<String, String>();
+		//map.put("cno",chat.getCno()+"");
+		//map.put("ccreator", chat.getCcreator()+"");
 		// 채팅 관련 인원 넣기
-		chatDAO.insertChatPerson(map);
+		//chatDAO.insertChatPerson(map);
+		//insertChatPerson(chat.getCno()+"", member);
 		
 		return chat;
+	}
+
+	@Override
+	public void insertChatPerson(String cno, Member member) {
+		// TODO Auto-generated method stub
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("cno",cno);
+		map.put("ccreator", member.getMno()+"");
+		chatDAO.insertChatPerson(map);
+		
+	}
+
+	@Override
+	public void deleteChatPerson(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		
+		chatDAO.deleteChatPerson(map);
 	}
 
 	

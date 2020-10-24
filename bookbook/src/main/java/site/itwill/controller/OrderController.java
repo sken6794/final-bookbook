@@ -41,19 +41,17 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/add_order", method = RequestMethod.POST)
-	public String addOrder(@ModelAttribute("order") Order order) {
+	public String addOrder(@ModelAttribute("order") Order order, Model model) {
 		Date date=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yy/MM/dd");
 		String odate=sdf.format(date);
 		order.setOdate(odate);
 		
-		/*
-		 if(order.getOid().equals("")) { 
-		 model.addAttribute("message", "회원 ID를 입력해주세요."); 
-		 return "order/addOrder"; }
-		 */
-		orderService.addOrder(order);
-		
+		 if(order.getOid()==null) { 
+			 model.addAttribute("message", "회원 ID를 입력해주세요."); 
+			 return "redirect:/add_order"; 
+		 }
+
 		return "redirect:/add_order";
 		
 	}	

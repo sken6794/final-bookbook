@@ -1,8 +1,12 @@
 package site.itwill.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import site.itwill.dto.Chat;
 import site.itwill.dto.ChatPerson;
+import site.itwill.dto.Member;
 import site.itwill.service.ChatService;
 import site.itwill.socket.ChatRoomRepository;
 
@@ -28,6 +35,7 @@ public class ChatController {
 	
 	@Autowired
 	private ChatRoomRepository chatRoomRepository;
+	
 	
 	/*
 	@PostConstruct
@@ -52,9 +60,13 @@ public class ChatController {
 	
 	@RequestMapping(value="/insertChat")
 	@ResponseBody
-	public Chat insertChat(@ModelAttribute Chat chat) {
-		chat = chatService.insertChat(chat);
+	public Chat insertChat(@ModelAttribute Chat chat, HttpSession session) {
+		
+	
+		Member loginMember =  (Member) session.getAttribute("loginMember");
+		chat = chatService.insertChat(chat, loginMember);
 		String cno =chat.getCno()+"";
+		
 		chatRoomRepository.createChatRoom(cno);
 		return chat;
 	}
@@ -62,25 +74,44 @@ public class ChatController {
 	
 	
 	@RequestMapping(value="/enterRoom", method = RequestMethod.GET)
-    public String enterRoom(@RequestParam String cno, Model model){
-
+    public String enterRoom(@RequestParam String cno, Model model, HttpSession session){
+		
+		Member loginMember =  (Member) session.getAttribute("loginMember");
+		chatService.insertChatPerson(cno, loginMember);
 		List<ChatPerson> list = chatService.getChatMemnerList(cno);
 		
-		//for(ChatPerson chat : list) {
-		//	System.out.println("개설자 : " + chat.getCcreator());
-		//	System.out.println("방이름 : " + chat.getCroomname());
-		//	System.out.println("방설명 : " + chat.getCinfo());
-		//}
+		System.out.println( "List Size = "+list.size());
 		
-		model.addAttribute("list",list);
+		model.addAttribute("mno", loginMember.getMno());
+		model.addAttribute("mname", loginMember.getMname());
+		//model.addAttribute("list",list);
     	model.addAttribute("cno",cno);
-    	//model.addAttribute("mno",mno);
+    	
+    	
+       
+        JSONArray mapResult = JSONArray.fromObject(list);
+        model.addAttribute("mapResult", mapResult);
+  
   
         return "chat/chatRoom";
     }
 	
+	// 방인원 나감
+	@RequestMapping(value="/outRoom", method = RequestMethod.GET)
+	public String outRoom(@RequestParam String cno, @RequestParam String mno) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("cno", cno);
+		map.put("mno", mno);
+		chatService.deleteChatPerson(map);
+		return "redirect:/chat";
+	}
+	
+	
 	@RequestMapping(value="/chatRoom", method = RequestMethod.GET)
 	public String chatRoom() {
+		
+		
+		
 		return "chat/chatRoom";
 	}
 	

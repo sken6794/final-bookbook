@@ -36,11 +36,7 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Select/css/select.bootstrap.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
-	
-	<!-- ================== END BASE CSS STYLE ================== -->
-	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->	
-	<!-- ================== BEGIN BASE JS ================== -->
-	
+
 	<script src="${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	<style type="text/css">
@@ -126,6 +122,8 @@
 						<a href="#modal-insert" class="btn btn-sm btn-success" data-toggle="modal">추가</a>								
 						</c:if>
 						</p>
+						<br>
+						<p class="text-right">* 사원 등록/삭제/수정은 [직급 : 4 (과장) 이상]부터 가능합니다. << 현재 직급 : ${loginMember.pno } >></p>
 						<br>
 						<!-- 수정 버튼 클릭 시 입력폼 팝업 -->
 						<div class="modal fade" id="modal-update">
@@ -247,16 +245,10 @@
 								<!-- 사원등록 form -->
 									<form class="form-horizontal" method="post">
 									<div class="modal-body">
-<!-- 									<input type="hidden" name="mno" id="i_mno">
-										<input type="hidden" name="mquitdate" id="i_mquitdate">
-										<input type="hidden" name="mquitreason" id="i_mquitreason">
-										<input type="hidden" name="mstate" id="i_mstate">
-										<input type="hidden" name="mdayoff" id="i_mdayoff"> -->
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">이름 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" placeholder="이름"  name="mname" id="i_mname"/>
-		                                      
+		                                        <input type="text" class="form-control" placeholder="이름"  name="mname" id="i_mname"/>                                      
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
@@ -275,7 +267,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-4 col-sm-4" for="message">전화번호 :</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="text"  data-parsley-type="number" placeholder="(-)을 포함하여 적어주세요. ex)010-0000-0000"  name="mphone" id="i_mphone"/>
+												<input class="form-control" type="text"  data-parsley-type="number" placeholder="(-)을 포함하여 적어주세요. ex) 010-0000-0000"  name="mphone" id="i_mphone"/>
 											</div>
 										</div>
 		                                <div class="form-group">
@@ -326,7 +318,7 @@
 									</div>
 									<div class="modal-footer">
 										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">닫기</a>
-										<button type="button" class="btn btn-sm btn-success" onclick="insertMember();">등록</button>
+										<button type="button" id="insertMember" class="btn btn-sm btn-success" >등록</button>
 									</div>
 		                            </form>
 								</div>
@@ -345,7 +337,7 @@
                                   <th style="text-align: center;">이메일</th>
                                   <th width="120" style="text-align: center;">전화번호</th>
                                   <th width="100" style="text-align: center;">주소</th>
-                                  <th width="100" style="text-align: center;">관리</th>
+                                  <c:if test="${loginMember.pno >=4 }"><th width="100" style="text-align: center;">관리</th></c:if>
                               </tr>
                             </thead>
                             <tbody id="memberTablePlace">
@@ -449,10 +441,11 @@
 						html+="<td>"+this.memail+"</td>";
 						html+="<td>"+this.mphone+"</td>";
 						html+="<td>"+this.maddress+"</td>";
+						/* if( ${loginMember.pno} >=4) { */
 						html+="<td><button onclick='deleteMember("+this.mno+");' class='btn btn-sm btn-white'>삭제</button> "
 						+" <button href='#modal-update' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.mno+">수정</button></td>";
+						/* } */ 
 						html+="</tr>";				
-						
 						});
 							
 					$("#memberTablePlace").html(html);
@@ -470,14 +463,14 @@
 	/* 사원 삭제 */
 	
 		function deleteMember(mno) {
-			if(confirm("정말로 삭제하시겠습니까?")) {
+			if(confirm("사원을 삭제하시겠습니까?")) {
 				location.href="member_delete/"+mno;
 			}
 		}
 		
 	/* 사원 추가 */
 		
- 		function insertMember() {
+	$("#insertMember").on('click', function () {
 			var mno=$("#i_mno").val();
 			var mname=$("#i_mname").val();
 			var mpw=$("#i_mpw").val();
@@ -491,6 +484,41 @@
 			var mstate=$("#i_mstate").val();
 			var dno=$("#i_dno").val();
 			var pno=$("#i_pno").val();
+			
+			var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;			
+			if(mname=='') {
+				alert("사원 이름을 반드시 입력해주세요.");
+				return false;
+			}
+			if(mpw=='') {
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}
+			if(mbirth=='') {
+				alert("생년월일을 입력해주세요.");
+				return false;
+			}
+			if(mphone=='') {
+				alert("휴대전화 번호를 입력해주세요.");
+				return false;
+			}
+			if(memail=='') {
+				alert("이메일 주소를 입력해주세요.");
+				return false;
+			}
+			if(!emailReg.test($("#i_memail").val())) {
+				alert("이메일을 형식에 맞게 입력해 주세요.");
+				return false;
+			}
+			if(maddress=='') {
+				alert("집 주소를 입력해주세요.");
+				return false;
+			}
+			if(mjoindate=='') {
+				alert("입사날짜를 입력해주세요.");
+				return false;
+			}
+			
 			
 			$.ajax({
 				type: "POST",
@@ -517,8 +545,8 @@
 					location.reload();	
 				}
 			});
-		}  
-		
+	});
+
  	/* 테이블에 있는 수정 클릭 시 입력했던 값 가져오기  */
  		
  		$(document).on("click", "#modify_link", function() {

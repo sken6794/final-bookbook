@@ -61,6 +61,7 @@ public class ChatRoom {
 	        }
 	        else{
 	            chatMessage.setMessage(chatMessage.getWriter() + " : " + chatMessage.getMessage());
+	            //chatMessage.setMessage(chatMessage.getWriter() + " : " + chatMessage.getMessage());
 	        }
 	        send(chatMessage,objectMapper);
 	    }

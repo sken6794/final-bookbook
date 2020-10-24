@@ -318,7 +318,7 @@ table { text-align: center;}
 	 
 	/* 주문 삭제 */
 		function deleteOrder(ono) {
-			if(confirm("정말로 삭제하시겠습니까?")) {
+			if(confirm("주문내역을 삭제하시겠습니까?")) {
 				location.href="order_delete/"+ono;
 			}
 		}
