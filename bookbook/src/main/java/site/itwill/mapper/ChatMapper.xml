@@ -87,6 +87,9 @@
 		 		delete from chat where cno =  #{cno}
 		 </delete>
 		 
+		 <select id="countEnterPerson" resultType="int">
+		 		select count(*) from chat_person where cno = #{cno}
+		 </select>
 		 
 		 <!-- 
 		 <update id="updateChatSession">

@@ -109,5 +109,11 @@ public class ChatServiceImpl implements ChatService{
 		return chatDAO.selectChatRoom(chat);
 	}
 
+	@Override
+	public int countEnterPerson(Chat chat) {
+		// TODO Auto-generated method stub
+		return chatDAO.countEnterPerson(chat);
+	}
+
 	
 }

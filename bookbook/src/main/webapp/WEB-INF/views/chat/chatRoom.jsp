@@ -266,10 +266,10 @@
 					text = temp2[0];
 					//alert(name);
 					//alert(text);
-					alert("name : " +name);
-					alert("nickname : " +nickname);
+					//alert("name : " +name);
+					//alert("nickname : " +nickname);
 					if(name==nickname){
-						alert("같다");
+						//alert("같다");
 						 html += '<li class="right">';
 						 html+=' <span class="date-time">'+today.toLocaleString()+'</span>';
 							html+='<a href="javascript:;" class="name">'+nickname+'</a>';
@@ -279,7 +279,7 @@
 							html+=" </div></li>"
 						 
 					}else{
-						alert("다르다");
+						//alert("다르다");
 						 html += '<li class="left">';
 						 html+=' <span class="date-time">'+today.toLocaleString()+'</span>';
 							html+='<a href="javascript:;" class="name">'+name+'</a>';
@@ -292,7 +292,7 @@
 				}else{
 						html+='<li class="right">';
 						html+=' <span class="date-time">'+today.toLocaleString()+'</span>';
-						html+='<a href="javascript:;" class="name">'+nickname+'</a>';
+						html+='<a href="javascript:;" class="name">[알림]</a>';
 						html+='<a href="javascript:;" class="image"><img alt="" src="${pageContext.request.contextPath}/resources/assets/img/user-12.jpg"></a>';
 						html+=' <div class="message">';
 						html+=data;

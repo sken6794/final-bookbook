@@ -17,4 +17,5 @@ public interface ChatService {
 	public void deleteChatPerson(Map<String, String> map);
 	public void deleteChat(Chat chat);
 	public Chat selectChatRoom(Chat chat);
+	public int countEnterPerson(Chat chat);
 }

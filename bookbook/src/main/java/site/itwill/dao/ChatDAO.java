@@ -17,4 +17,5 @@ public interface ChatDAO {
 	//public void updateChatSession(ChatPerson chatPerson);
 	public void deleteChatPerson(Map<String,String> map);
 	public void deleteChat(Chat chat);
+	public int countEnterPerson(Chat chat);
 }
