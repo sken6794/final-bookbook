@@ -83,6 +83,10 @@
 			<mapping path="/order"/>
 			<mapping path="/request"/>
 			<mapping path="/payManage"/>
+			<mapping path="/stats"/>
+			<mapping path="/calendar"/>
+			<mapping path="/notice"/>
+			<mapping path="/noticeList"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>
 		

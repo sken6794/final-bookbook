@@ -20,33 +20,24 @@ public class NoticeController {
    
    //공지 목록 출력
    @RequestMapping(value="/noticeList", method=RequestMethod.GET)
-   public String notice(Model model, HttpSession session) throws Exception {
-      model.addAttribute("noticeList", noticeService.getNoticeList());
-      Member loginMember=(Member)session.getAttribute("loginMember");
-      if(loginMember==null) {
-         return "login";
-      } else {         
+   public String notice(Model model) {
+      model.addAttribute("noticeList", noticeService.getNoticeList());  
          return "notice/notice_list";
-      }
    }
    
    //공지 내용 출력 - 내용 출력시 조회수 추가하기
    @RequestMapping(value="/notice", method=RequestMethod.GET)
-   public String notice(@RequestParam int nno, Model model, HttpSession session) throws Exception {
+   public String notice(@RequestParam int nno, Model model) {
       model.addAttribute("notice", noticeService.getNotice(nno));
       noticeService.readCount(nno);
-      Member loginMember=(Member)session.getAttribute("loginMember");
-      if(loginMember==null) {
-         return "login";
-      } else {
          return "notice/notice_detail";
-      }
    }
    
    //작성하기로 이동
    @RequestMapping(value = "/write", method = RequestMethod.GET)
    public String write(HttpSession session) throws Exception {
       Member loginMember=(Member)session.getAttribute("loginMember");
+      //직급이 4(과장)이상인 사람만 작성 가능
       if(loginMember==null || loginMember.getPno()<=3) {
          return "login";
       } else {
