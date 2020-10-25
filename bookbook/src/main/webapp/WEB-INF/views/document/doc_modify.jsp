@@ -13,13 +13,6 @@
 
 		<!-- begin #content -->
 		<div id="content" class="content">
-			<!-- begin breadcrumb -->
-			<ol class="breadcrumb pull-right">
-				<li><a href="javascript:;">Home</a></li>
-				<li><a href="javascript:;">Form Stuff</a></li>
-				<li class="active">Form Elements</li>
-			</ol>
-			<!-- end breadcrumb -->
 			<!-- begin page-header -->
 			<h1 class="page-header">
 				전자 결재 시스템<small>문서 수정</small>
