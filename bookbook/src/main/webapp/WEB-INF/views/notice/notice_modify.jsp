@@ -27,7 +27,6 @@
 	<!-- begin #content -->
 	<div id="content" class="content">
 		<div class="row">
-               <!-- begin col-12 -->
 		    <div class="col-md-12">
 		        <!-- begin panel -->
                    <div class="panel panel-inverse">
