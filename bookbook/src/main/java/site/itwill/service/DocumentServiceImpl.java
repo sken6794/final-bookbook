@@ -28,8 +28,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 	@Override
 	public Document getDocument(int docno) {
-		Document document = documentDAO.selectDocument(docno);
-		return document;
+		return documentDAO.selectDocument(docno);
 	}
 
 	@Transactional

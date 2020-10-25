@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css"
@@ -22,17 +22,15 @@
 	<div id="content" class="content">
 		<!-- begin breadcrumb -->
 		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-			<li><a href="javascript:;">Tables</a></li>
-			<li class="active">Managed Tables</li>
+			<li><a href="javascript:;">전자결재</a></li>
+			<li class="active">임시저장 문서</li>
 		</ol>
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
 		<h1 class="page-header">
-			전자 결재 시스템<small>결재완료 문서</small>
+			전자 결재 시스템<small>임시저장 문서</small>
 		</h1>
 		<!-- end page-header -->
-
 
 		<!-- begin row -->
 		<div class="row">
@@ -55,42 +53,50 @@
 								class="btn btn-xs btn-icon btn-circle btn-danger"
 								data-click="panel-remove"><i class="fa fa-times"></i></a>
 						</div>
-						<h4 class="panel-title">결재완료 문서</h4>
+						<h4 class="panel-title">상신 문서</h4>
 					</div>
-
 					<div class="panel-body">
-						<div class="form-group">
-							<div class="text-right m-b-0" style="margin-right: 5px;">
-								<button type="button" class="btn btn-sm btn-white"
-									onclick="location.href='${pageContext.request.contextPath }/documentForm';">
-									등록</button>
+					 <div class="form-group">
+					 <div class="text-right m-b-0" style="margin-right: 5px;">
+								 
 							</div>
-							<br>
-							<table id="data-table" class="table table-striped table-bordered">
-								<thead>
-									<tr>
-										<th>문서번호</th>
-										<th>문서제목</th>
-										<th>작성자</th>
-										<th>등록날짜</th>
-									</tr>
-								</thead>
-								<!--  -->
-								<tbody>
-									<c:forEach var="document" items="${documentCompleteList }">
-										<c:if test="${document.docstate==2 }">
-											<tr>
-												<td>${document.docno}</td>
-												<td><a
-													href="${pageContext.request.contextPath }/documentSelect/${document.docno }"
-													class="document"> ${document.docname} </a></td>
-												<td>${document.member.mname }</td>
-												<td>${fn:substring(document.docdate,0,10)  }</td>
-											</tr>
+					 <br>
+						<table id="data-table" class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>문서번호</th>
+									<th>문서제목</th>
+									<th>작성자</th>
+									<th>등록날짜</th>
+									<th>문서상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="document" items="${documentSaveList }">
+										<c:if test="${document.docstate==0 || document.docstate==3}">
+										<tr>
+											<td>${document.docno}</td>
+											<td>
+											<a href="${pageContext.request.contextPath }/documentSelect/${document.docno }" class="document">
+											${document.docname}
+											</a>
+											</td>
+											<td>${document.member.mname }</td>
+											<td>${fn:substring(document.docdate,0,10)  }</td>
+											<td><c:choose>
+														<c:when test="${document.docstate==0 }">
+															<p>임시저장</p>
+														</c:when>
+														<c:when test="${document.docstate==3 }">
+															<p>반려</p>
+														</c:when>
+													</c:choose>
+												</td>
+										</tr>
 										</c:if>
 									</c:forEach>
-								</tbody>
-							</table>
+							</tbody>
+						</table>
 						</div>
 					</div>
 				</div>
@@ -218,6 +224,16 @@
 		$(document).ready(function() {
 			App.init();
 			TableManageDefault.init();
+		});
+		
+		$("#delete").click(function() {
+			var $check = $("#check");
+			
+			if ($check.size()==0) {
+				$("#displayDiv").text("당신은 좋아하는 계절이 없습니다.");
+				return;
+			}
+			
 		});
 	</script>
 </body>

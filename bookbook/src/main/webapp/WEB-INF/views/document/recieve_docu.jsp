@@ -23,9 +23,8 @@
 	<div id="content" class="content">
 		<!-- begin breadcrumb -->
 		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-			<li><a href="javascript:;">Tables</a></li>
-			<li class="active">Managed Tables</li>
+			<li><a href="javascript:;">전자결재</a></li>
+			<li class="active">수신 문서</li>
 		</ol>
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
@@ -77,7 +76,6 @@
 												class="document"> ${document.docname} </a></td>
 											<td>${document.member.mname }</td>
 											<td>${fn:substring(document.docdate,0,10)  }</td>
-											<td>
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -211,16 +209,7 @@
 			App.init();
 			TableManageDefault.init();
 		});
-
-		$("#delete").click(function() {
-			var $check = $("#check");
-
-			if ($check.size() == 0) {
-				$("#displayDiv").text("당신은 좋아하는 계절이 없습니다.");
-				return;
-			}
-
-		});
+	
 	</script>
 </body>
 </html>

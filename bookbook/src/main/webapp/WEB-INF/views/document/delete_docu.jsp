@@ -22,14 +22,13 @@
 	<div id="content" class="content">
 		<!-- begin breadcrumb -->
 		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-			<li><a href="javascript:;">Tables</a></li>
-			<li class="active">Managed Tables</li>
+			<li><a href="javascript:;">전자결재</a></li>
+			<li class="active">삭제 문서</li>
 		</ol>
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
 		<h1 class="page-header">
-			전자 결재 시스템<small>전체 문서</small>
+			전자 결재 시스템<small>삭제 문서</small>
 		</h1>
 		<!-- end page-header -->
 
@@ -83,7 +82,6 @@
 											</td>
 											<td>${document.member.mname }</td>
 											<td>${fn:substring(document.docdate,0,10)  }</td>
-											<td>
 										</tr>
 										</c:if>
 									</c:forEach>

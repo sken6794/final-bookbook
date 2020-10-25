@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
    <!-- begin #page-loader -->
    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
    <!-- end #page-loader -->
@@ -251,10 +251,15 @@
                    </a>
                   <ul class="sub-menu">
                       <li><a href="${pageContext.request.contextPath}/document">전체 문서</a></li>
+                      <li><a href="${pageContext.request.contextPath}/documentSave">임시저장 문서</a></li>
+                      <c:if test="${loginMember.mno != 10 }">
                       <li><a href="${pageContext.request.contextPath}/documentWait">상신 문서</a></li>
+                      </c:if>
+                      <c:if test="${loginMember.mno == 10 }">
+                      <li><a href="${pageContext.request.contextPath}/documentRecieve">수신 문서</a></li>
+                      </c:if>
                       <li><a href="${pageContext.request.contextPath}/documentComplete">결재 문서</a></li>
                       <li><a href="${pageContext.request.contextPath}/documentDelete">삭제 문서</a></li>
-                      <li><a href="${pageContext.request.contextPath}/documentRecieve">수신 문서</a></li>
                   </ul>
                </li>
                <li class="has-sub">

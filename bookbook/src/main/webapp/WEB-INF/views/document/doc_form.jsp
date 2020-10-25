@@ -118,16 +118,9 @@
 								<div style="text-align: center;">
 									<br>
 								</div>
-
+								<input type="hidden" id="mno" name="mno" value="${loginMember.mno }"/>  
 								<hr>
-								<!-- 
-								<span style="line-height: 160%;">담당자 사번</span>
-								<input type="text" class="form-control" name="mno" value="${document.mno}"
-														style="border-style: hidden;" />
-								<br> -->
-								<!-- 
-								<span style="line-height: 160%;">결재</span>
-								 -->
+								<span style="line-height: 160%;" >담당자</span>
 								<br>
 								<span style="line-height: 160%;" value="${docdate}">기안일</span>
 								<br>
@@ -141,11 +134,6 @@
 									<div class="col-md-9" align="right" style="width: 750px;">
 									<button type="button" class="btn btn-sm btn-white"
 									onclick="tempSaveCheck();" style="margin: 1px;">임시저장</button>
-										<!-- 
-										<button type="button" class="btn btn-sm btn-success"
-											onclick="saveCheck();" 
-											style="margin: 1px;">상신</button>
-											 -->
 										<button type="button" class="btn btn-sm btn-warning" 
 										style="margin: 1px;" onclick="cancelCheck();">취소</button>
 									</div>
@@ -287,64 +275,19 @@
 			App.init();
 		});
 
-		
 		function tempSaveCheck() {
 			documentAddForm.method="POST";
 			documentAddForm.action="${pageContext.request.contextPath}/documentAdd";
 			documentAddForm.submit();
 		}
-		/*
-		function saveCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/documentAdd";
-			documentAddForm.submit();
-		}
-		*/
-	
+
 		function cancelCheck() {
 			documentAddForm.method="POST";
 			documentAddForm.action="${pageContext.request.contextPath}/document";
 			documentAddForm.submit();
 		} 
 		
-		
-
-/*
-		function cancelCheck() {
-			documentSelectForm.method="POST";
-			documentSelectForm.action="${pageContext.request.contextPath}/documentAdd";
-			documentSelectForm.submit();
-		} 
-		
-
-		function tempSaveCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/book/total_docu;
-			documentAddForm.submit();
-		   } 
-		$("#tempSave").click(function(){
-			if(confirm("저장하시겠습니까?")) {
-				return true;
-			} else {
-				return false;
-			}
-		});
-		$("#save").click(function(){
-			if(confirm("상신하시겠습니까?")) {
-				
-				return true;
-			} else {
-				return false;
-			}
-		});
-		$("#cancel").click(function(){
-			if(confirm("취소하시겠습니까?")) {
-				return "document/total_docu";
-			} else {
-				return false;
-			}
-		});
-*/		
+	
 
 	</script>
 </body>

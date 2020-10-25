@@ -124,14 +124,8 @@
 							<div style="text-align: center;">
 								<br>
 							</div>
-
 							<hr>
-							<!-- 	
-							<span style="line-height: 160%;" id="mName">담당
-								&nbsp;&nbsp; ${document.member.mname}</span> <br> <span
-								style="line-height: 160%;" id="docAprv">결재 &nbsp;&nbsp;
-								${document.docaprv }</span>
-								 -->
+							<span style="line-height: 160%;">담당자&nbsp;&nbsp; ${document.member.mname}</span>
 							<br> <span style="line-height: 160%;" id="docDate">기안일
 								&nbsp;&nbsp; ${document.docdate.substring(0,10) }</span> <br>
 							<c:set var="now" value="<%=new Date()%>" />
@@ -150,24 +144,23 @@
 									<!-- 문서 상태에 따라 나타나는 버튼 구분 -->
 									<c:choose>
 										<c:when test="${document.docstate==0 }">
+											<c:if test="${loginMember.mno==document.mno }">
 											<button type="button" id="modify"
 												onclick="location.href='${pageContext.request.contextPath }/documentModify?docno=${docno}';"
 												class="btn btn-sm btn-white" style="margin: 1px;">수정</button>
 											<a href="javascript:documentWait(${document.docno})" class="btn btn-sm btn-success">상신</a>
 											<a href="javascript:documentDelete(${document.docno})" class="btn btn-sm btn-danger">삭제</a>
+											</c:if>
 										</c:when>
 										<c:when test="${document.docstate==1 }">
+											<c:if test="${loginMember.mno==10 }">
 											<a href="javascript:documentComplete(${document.docno})" class="btn btn-sm btn-success">결재</a>
-											
-											<!--  
-											<button type="button"
-												class="btn btn-sm btn-danger" style="margin: 1px;">반려</button>
-												-->
+											<a href="javascript:documentSave(${document.docno})" class="btn btn-sm btn-danger">반려</a>
+											</c:if>
 										</c:when>
 										<c:when test="${document.docstate== 2 }">
 										</c:when>
 										<c:when test="${document.docstate==9 }">
-											<p>삭제</p>
 										</c:when>
 									</c:choose>
 									<!-- 
@@ -367,6 +360,26 @@
 			})
 		}
 	}
+	
+	function documentSave(docno) {
+		if(confirm("반려하시겠습니까?")){
+			$.ajax({
+				type:"PUT",
+				url:"documentSave/"+docno,
+				headers:{"X-HTTP-Method-override":"PUT"},
+				dataType : "text",
+				success: function (text) {
+					if(text=="success"){
+						alert("반려되었습니다.")
+						location.href="../document";
+					}
+				},
+				error: function(xhr) {
+		            alert("에러코드 = "+xhr.status);
+		        }
+			})
+		}
+	}
 
 	function documentDelete(docno) {
 		if(confirm("삭제하시겠습니까?")){
@@ -376,7 +389,7 @@
 				headers:{"X-HTTP-Method-override":"PUT"},
 				dataType : "text",
 				success: function (text) {
-					if(text=="delete"){
+					if(text=="success"){
 						alert("삭제되었습니다.")
 						location.href="../document";
 					}
@@ -396,7 +409,7 @@
 				headers:{"X-HTTP-Method-override":"PUT"},
 				dataType : "text",
 				success: function (text) {
-					if(text=="delete"){
+					if(text=="success"){
 						alert("결재되었습니다.")
 						location.href="../document";
 					}

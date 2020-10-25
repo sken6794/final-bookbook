@@ -22,9 +22,8 @@
 	<div id="content" class="content">
 		<!-- begin breadcrumb -->
 		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-			<li><a href="javascript:;">Tables</a></li>
-			<li class="active">Managed Tables</li>
+			<li><a href="javascript:;">전자결재</a></li>
+			<li class="active">전체 문서</li>
 		</ol>
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
@@ -95,6 +94,9 @@
 														</c:when>
 														<c:when test="${document.docstate==2 }">
 															<p>결재완료</p>
+														</c:when>
+														<c:when test="${document.docstate==3 }">
+															<p>반려</p>
 														</c:when>
 														<c:when test="${document.docstate==9 }">
 															<p>삭제</p>
