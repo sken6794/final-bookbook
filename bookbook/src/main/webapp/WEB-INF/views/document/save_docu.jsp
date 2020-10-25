@@ -23,12 +23,12 @@
 		<!-- begin breadcrumb -->
 		<ol class="breadcrumb pull-right">
 			<li><a href="javascript:;">전자결재</a></li>
-			<li class="active">상신 문서</li>
+			<li class="active">임시저장 문서</li>
 		</ol>
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
 		<h1 class="page-header">
-			전자 결재 시스템<small>상신 문서</small>
+			전자 결재 시스템<small>임시저장 문서</small>
 		</h1>
 		<!-- end page-header -->
 
@@ -68,11 +68,12 @@
 									<th>문서제목</th>
 									<th>작성자</th>
 									<th>등록날짜</th>
+									<th>문서상태</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="document" items="${documentWaitList }">
-										<c:if test="${document.docstate==1 }">
+								<c:forEach var="document" items="${documentSaveList }">
+										<c:if test="${document.docstate==0 || document.docstate==3}">
 										<tr>
 											<td>${document.docno}</td>
 											<td>
@@ -82,6 +83,15 @@
 											</td>
 											<td>${document.member.mname }</td>
 											<td>${fn:substring(document.docdate,0,10)  }</td>
+											<td><c:choose>
+														<c:when test="${document.docstate==0 }">
+															<p>임시저장</p>
+														</c:when>
+														<c:when test="${document.docstate==3 }">
+															<p>반려</p>
+														</c:when>
+													</c:choose>
+												</td>
 										</tr>
 										</c:if>
 									</c:forEach>

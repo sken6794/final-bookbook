@@ -33,7 +33,7 @@
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                             </div>
-                            <h4 class="panel-title">Data Table - Default</h4>
+                            <h4 class="panel-title">근태 신청 조회</h4>
                         </div>
                         <div class="panel-body" id="atdnListDiv">
                      
@@ -85,8 +85,17 @@
 	                                        </c:choose>
 	                                        <td>${atdn.aovertime }</td>
 	                                        <td>${atdn.aovertimetext }</td>
+	                                        <c:choose>
+	                                        <c:when test="${atdn.aovertime eq'출장'}">
+	                                        <td>${atdn.astartdate }</td>
+	                                        <td>${atdn.aenddate }</td>
+	                                        </c:when>
+	                                        <c:otherwise>
 	                                        <td>${atdn.astarttime }</td>
 	                                        <td>${atdn.aendtime }</td>
+	                                        </c:otherwise>
+	                                        </c:choose>
+	                                        
 	                                        <td><a href="javascript:deleteAtdn(${atdn.member.mno  })" class="btn btn-sm btn-danger">삭제</a></td>
 	                                    </tr>  
                                     </c:forEach>     
@@ -94,6 +103,7 @@
                                 </tbody>                               
                             </table>
                              <div class="col-md-2 col-md-offset-10">
+                    			<span>${message }</span>
                     			<a class="btn btn-inverse p-l-40 p-r-40" href="javascript:addAtdn(${loginMember.mno});">신청</a>
                    			 </div>
                         </div>

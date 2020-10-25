@@ -2,12 +2,13 @@ package site.itwill.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import site.itwill.dto.Member;
-import site.itwill.dto.PayManage;
 import site.itwill.dto.Request;
 import site.itwill.service.RequestService;
 
@@ -25,9 +25,14 @@ public class RequestController {
 	private RequestService requestService;
 
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
-	public String request(Model model) {
+	public String request(Model model, HttpSession session) {
 		model.addAttribute("requestList", requestService.getRequestList());
-		return "request/request";
+		Member loginMember=(Member)session.getAttribute("loginMember");
+		if(loginMember==null) {
+			return "login";
+		} else {
+			return "request/request";
+		}
 	}
 
 	@RequestMapping(value = "/request_search", method = RequestMethod.POST)
@@ -36,13 +41,6 @@ public class RequestController {
 		return requestService.getRequest(request);
 	}
 
-	/*
-	 * @RequestMapping(value = "/request_search")
-	 * 
-	 * @ResponseBody public String request(@RequestBody Request request, Model
-	 * model) { model.addAttribute("request", requestService.getRequest(request));
-	 * return "request/request"; }
-	 */
 	@RequestMapping("/request_list")
 	public ResponseEntity<List<Request>> restRequestList() {
 		ResponseEntity<List<Request>> entity = null;
@@ -56,23 +54,6 @@ public class RequestController {
 		return entity;
 
 	}
-
-	/*
-	 * @RequestMapping(value = "/add_request", method = RequestMethod.GET) public
-	 * String addRequest() { return "request/add_request"; }
-	 */
-	/*
-	 * @RequestMapping(value="/add_request", method = RequestMethod.POST) public
-	 * String addRequest(@ModelAttribute("request") Request request) {
-	 * 
-	 * 
-	 * Date date=new Date(); SimpleDateFormat sdf=new SimpleDateFormat("yy/MM/dd");
-	 * String rdate=sdf.format(date); request.setRdate(rdate);
-	 * 
-	 * requestService.addRequest(request);
-	 * 
-	 * return "redirect:/add_request"; }
-	 */
 
 	@RequestMapping(value = "/request_delete/{rno}")
 	public String requestDelete(@PathVariable int rno) {

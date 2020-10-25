@@ -23,17 +23,18 @@
 	</resultMap>
 	<select id="selectRequestList" resultMap="requestList" >
 		SELECT R.RNO, B.BCODE, B.BNAME, B.BPUBLISHER, R.RDATE, R.RSTAFF, R.RQTY, R.RQTY*B.BPRICE "R.RPRICE", R.RSTATE 
-		FROM REQUEST R JOIN BOOK B ON B.BCODE = R.BCODE ORDER BY R.RDATE DESC
+		FROM REQUEST R JOIN BOOK B ON B.BCODE = R.BCODE ORDER BY R.RDATE DESC, R.RSTATE ASC
 	</select>
 	
 	<select id="selectRequest" resultMap="requestList">
 		SELECT R.RNO, B.BCODE, B.BNAME, B.BPUBLISHER, R.RDATE, R.RSTAFF, R.RQTY, R.RQTY*B.BPRICE "R.RPRICE", R.RSTATE 
 		FROM REQUEST R JOIN BOOK B ON B.BCODE = R.BCODE
-		WHERE B.BCODE=#{bcode} OR R.RSTAFF=#{rstaff} OR R.RSTATE=#{rstate} OR R.RDATE=#{rdate}
+		WHERE B.BCODE=#{bcode} OR R.RSTAFF=#{rstaff} OR R.RSTATE=#{rstate} OR R.RDATE=#{rdate} 
+		ORDER BY RDATE DESC, RSTATE ASC
 	</select>
 	
 	<select id="selectRestRequest" resultType="Request">
-		select RNO, RSTAFF, RQTY, RSTATE, BCODE from REQUEST where rno=#{rno} ORDER BY RDATE DESC
+		select RNO, RSTAFF, RQTY, RSTATE, BCODE from REQUEST where rno=#{rno} 
 	</select>	
 	
 	<delete id="deleteRequest">

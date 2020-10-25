@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +38,10 @@ public class AtdnController {
 	//휴가 승인하는 메소드
 	@RequestMapping(value = "atdn_update/{mno}",method = RequestMethod.PUT)
 	@ResponseBody
-	public String atdnUpdate(@PathVariable int mno) throws UserinfoNotFoundException {
+	public String atdnUpdate(@PathVariable int mno, HttpSession session) throws UserinfoNotFoundException {
 		AttendanceMember atdn= atdnService.getAtdnNum(mno);
+		
+		
 		atdn.setAleavestatus(1);
 		atdnService.modifyAtdn(atdn);
 		
@@ -59,7 +62,7 @@ public class AtdnController {
 	//삭제
 	@RequestMapping(value = "atdndelete/{mno}",method = RequestMethod.PUT)
 	@ResponseBody
-	public String deleteAtdn(@PathVariable int mno) {
+	public String deleteAtdn(@PathVariable int mno) throws UserinfoNotFoundException {
 		
 		atdnService.removeAttendance(mno);
 		
@@ -75,7 +78,7 @@ public class AtdnController {
 	}
 	//저장 누를 때
 	@RequestMapping(value = "/addOvertime",method = RequestMethod.POST)
-	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) throws UserinfoNotFoundException {
+	public String addOvertime(@ModelAttribute AttendanceMember atdnmember, HttpSession session) {
 		AttendanceMember atdn = new AttendanceMember();
 		Member member = (Member)session.getAttribute("loginMember");
 		atdn.setMno(member.getMno());
@@ -117,6 +120,11 @@ public class AtdnController {
 		return "atdn/atdn_display";
 	}
 	
+	@ExceptionHandler(Exception.class)
+	   public String exceptionHandler(Exception exception) {
+	      exception.printStackTrace();
+	      return "error";
+	   }
 	
 	
 	

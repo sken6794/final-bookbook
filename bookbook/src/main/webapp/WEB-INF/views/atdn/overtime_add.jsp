@@ -27,7 +27,7 @@
 		<div id="content" class="content">
 			
 			<!-- begin page-header -->
-			<h1 class="page-header">연장 근무 신청 <small>header small text goes here...</small></h1>
+			<h1 class="page-header">연장/휴가/출장 신청 <small></small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
@@ -43,7 +43,7 @@
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                             </div>
-                            <h4 class="panel-title">Datepicker</h4>
+                            <h4 class="panel-title">연장/휴가/출장 신청</h4>
                         </div>
                         <div class="panel-body panel-form">
                             <form class="form-horizontal form-bordered"  method="post" action="addOvertime">

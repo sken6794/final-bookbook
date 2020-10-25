@@ -13,13 +13,6 @@
 
 		<!-- begin #content -->
 		<div id="content" class="content">
-			<!-- begin breadcrumb -->
-			<ol class="breadcrumb pull-right">
-				<li><a href="javascript:;">Home</a></li>
-				<li><a href="javascript:;">Form Stuff</a></li>
-				<li class="active">Form Elements</li>
-			</ol>
-			<!-- end breadcrumb -->
 			<!-- begin page-header -->
 			<h1 class="page-header">
 				전자 결재 시스템<small>문서 수정</small>
@@ -127,14 +120,7 @@
 								</div>
 
 								<hr>
-								<!-- 
-								<span style="line-height: 160%;">담당자 사번</span>
-								<input type="text" class="form-control" name="mno" value="${document.mno}"
-														style="border-style: hidden;" />
-								<br> -->
-								<!-- 
-								<span style="line-height: 160%;">결재</span>
-								 -->
+								<span style="line-height: 160%;">담당자&nbsp;&nbsp; ${documentMember.member.mname}</span>
 								<br>
 									<span style="line-height: 160%;" value="${documentMember.docdate}">
 										기안일 &nbsp;&nbsp; ${documentMember.docdate.substring(0,10)}
@@ -194,22 +180,6 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-		});
-		
-		$("#updateBtn").click(function() {
-			var title=$("docname").val();
-			var content=$("doccon").val();
-			
-			if(title=="") {
-				alert("[안내]제목을 반드시 입력해주세요.");
-				return;
-			}
-			
-			if(content=="") {
-				alert("[안내]내용을 반드시 입력해주세요.");
-				return;
-			}
-			
 		});
 		
 		function cancelCheck() {

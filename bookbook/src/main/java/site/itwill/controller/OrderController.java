@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import site.itwill.dto.Member;
 import site.itwill.dto.Order;
 
 import site.itwill.service.OrderService;
@@ -24,9 +26,14 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public String order(Model model) {
+	public String order(Model model, HttpSession session) {
 		model.addAttribute("orderList", orderService.getOrderList());
-		return "order/order";
+		Member loginMember=(Member)session.getAttribute("loginMember");
+		if(loginMember==null) {
+			return "login";
+		} else {
+			return "order/order";
+		}
 	}
 	
 	@RequestMapping("/order_list")

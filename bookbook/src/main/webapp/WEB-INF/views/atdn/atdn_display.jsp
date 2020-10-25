@@ -33,12 +33,13 @@
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                             </div>
-                            <h4 class="panel-title">Data Table - Default</h4>
+                            <h4 class="panel-title">출퇴근 조회</h4>
                         </div>
                         <div class="panel-body">
                             <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
+                                    	<th>No</th>
                                         <th>사원 번호</th>
                                         <th>사원 이름</th>
                                         <th>출근 시간</th>
@@ -51,6 +52,7 @@
                                 
                                    	<c:forEach var="atdninout" items="${atdninout }">
 	                                    <tr class="odd gradeX">
+	                                    	<td>${atdninout.atno }</td>
 	                                        <td>${atdninout.member.mno }</td>
 	                                        <td>${atdninout.member.mname}</td>
 	                                        <td>${atdninout.alogin}</td>
@@ -93,6 +95,16 @@
 			TableManageDefault.init();
 		});
 		
+	      $(document).ready(function() {
+	         App.init();
+	         //TableManageDefault.init();
+	         
+	         $('#data-table').DataTable({
+	            order: [[0, "desc"]],
+	            ordering: true
+	         });
+	      });
+	 
 		
 	</script>
 	
