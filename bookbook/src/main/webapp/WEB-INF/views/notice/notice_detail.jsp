@@ -67,9 +67,13 @@
 						<button type="button" class="btn btn-inverse m-r-3 m-b-3" style="float: right;" 
 						onclick="location.href='modify?nno=${notice.nno}'">수정</button>				
 					</c:if>
+					
 				</div>
+			
 			</div>
+			<!-- end panel -->
 		</div>
+		<!-- end col-8 -->
 	</div>
 
 	<!-- ================== BEGIN BASE JS ================== -->

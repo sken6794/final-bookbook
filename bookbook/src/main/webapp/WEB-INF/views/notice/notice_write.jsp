@@ -24,8 +24,12 @@
 <body>
 	<!-- begin #content -->
 	<div id="content" class="content">
+		
+		<!-- begin row -->
 		<div class="row">
+               <!-- begin col-12 -->
 		    <div class="col-md-12">
+		        <!-- begin panel -->
                    <div class="panel panel-inverse">
                        <div class="panel-heading">
                            <div class="panel-heading-btn">
