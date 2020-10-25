@@ -124,7 +124,7 @@ table { text-align: center;}
 			                                <div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">주문 수량 :</label>
 			                                    <div class="col-md-6 col-sm-6">
-			                                        <input type="text" class="form-control" placeholder="수량" style="float: left;" name="oqty" id="m_oqty">
+			                                        <input type="text" class="form-control" placeholder="수량" style="float: left;" name="oqty" id="m_oqty" disabled="disabled">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group">
@@ -140,7 +140,7 @@ table { text-align: center;}
 				                            <div class="form-group">
 				                                    <label class="control-label col-md-4 col-sm-4">도서코드 :</label>
 				                                    <div class="col-md-6 col-sm-6">
-				                                        <input type="text" class="form-control" placeholder="도서코드" name="bcode" id="m_bcode"/>
+				                                        <input type="text" class="form-control" placeholder="도서코드" name="bcode" id="m_bcode" disabled="disabled"/>
 				                                    </div>
 				                            </div>
 										</div>

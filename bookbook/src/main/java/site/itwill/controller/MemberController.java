@@ -28,16 +28,11 @@ public class MemberController {
 
 	
 	@RequestMapping(value = "/member", method = RequestMethod.GET)
-	public String member(Model model, HttpSession session) {
+	public String member(Model model) {
 		model.addAttribute("memberList", memberService.getMemberList());
-		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember==null) {
-			return "login";
-		} else {
-			return "member/member";
-		}
+			return "member/member";		
 	}
-	
+
 	@RequestMapping(value = "/member_search", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Member> member(@RequestBody Member member) {

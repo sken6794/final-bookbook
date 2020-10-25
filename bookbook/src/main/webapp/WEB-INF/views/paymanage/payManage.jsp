@@ -116,7 +116,7 @@ table { text-align: center;}
 						</c:if>
 					</p>
 					<p class="text-left">* 원하는 사원 클릭 시 급여명세서 출력</p>
-					<p class="text-left">* 급여 내역 등록은 [직급 : 3 (대리) 이상]부터 가능합니다. << 현재 직급 : ${loginMember.pno } >></p>
+					<p class="text-left">* 급여 내역 등록/삭제/수정은 [직급 : 3 (대리) 이상]부터 가능합니다. << 현재 직급 : ${loginMember.pno } >></p>
 					<br>
 					<!-- 추가 클릭 시 급여데이터 추가팝업창 -->
 					<div class="modal fade" id="modal-dialog1">
@@ -132,6 +132,7 @@ table { text-align: center;}
 									<div class="modal-body">
 										<form class="form-horizontal" method="post">
 											<!-- <input type="hidden" name="pmno" id="i_pmno"> -->
+											<p class="text-right">* 수당이 없는 경우 0으로 입력해주세요. </p>
 											<div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">지급일자 :</label>
 			                                    <div class="col-md-6 col-sm-6">
@@ -221,7 +222,7 @@ table { text-align: center;}
 								<div class="modal-header">
 									<br>
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									<h4 class="modal-title" style="text-align: center; font-weight: bold;">2020년 9월 명세서</h4>
+									<h4 class="modal-title" style="text-align: center; font-weight: bold;">급여 명세서</h4>
 								</div>
 								
 							<div class="modal-body">
@@ -359,11 +360,13 @@ table { text-align: center;}
 										<br>
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 										<h4 class="modal-title" style="text-align: center; font-weight: bold;">급여내역 수정</h4>
+										
 									</div>
 									<!-- 급여 내역 수정 form -->
 									<div class="modal-body">
 										 <form class="form-horizontal" action=""> 
 											<input type="hidden" name="pmno" id="m_pmno">
+											<p class="text-right">* 수당이 없는 경우 0으로 입력해주세요. </p>
 											<div class="form-group">
 			                                    <label class="control-label col-md-4 col-sm-4">지급일자 :</label>
 			                                    <div class="col-md-6 col-sm-6">
@@ -510,10 +513,18 @@ table { text-align: center;}
 	
 	$(document).ready(function() {
 		App.init();
-		TableManageTableSelect.init();
+		//TableManageTableSelect.init();
 		FormPlugins.init();		
+
 	});
-		
+	
+	$('#data-table').DataTable({
+		  order: [[5, 'desc']], // asc 또는 desc
+		  ordering: true,
+		  serverSide: false
+		});
+	
+    
 	/* 초기화 버튼 */
 	function initBtn() {
 		displayPay();
@@ -524,92 +535,91 @@ table { text-align: center;}
 
 	
 	/* 급여 조회 리스트 */
-		function displayPay() {
-			$.ajax({
-				type: "GET",
-				url: "pay_list",
-				dataType: "json",
-				success: function(json) {
-					if(json.length==0) {
-						var html="<tr><td class='center' colspan='12'>등록된 급여내역이 존재하지 않습니다.</td></tr>";
-						$("#payTablePlace").html(html);
-						return;
-					}
-					
-					var html="";
-					var auth=${loginMember.pno};
-					$(json).each(function() {				
-						html+="<tr>";
-						html+="<td>"+this.pmno+"</td>";
-						html+="<td>"+this.member.mno+"</td>";
-						html+="<td>"+this.member.mname+"</td>";
-						html+="<td>"+this.department.dname+"</td>";
-						html+="<td>"+this.position.pname+"</td>";
-						html+="<td>"+this.pdate+"</td>";
-						html+="<td>"+this.pbasic+"</td>";
-						html+="<td>"+this.pmeal+"</td>";
-						html+="<td>"+this.povertime+"</td>";
-						html+="<td>"+this.pholiday+"</td>";
-						html+="<td>"+this.pbonus+"</td>";
-						html+="<td>"+this.petc+"</td>";
-						if( auth >= 3 ) { 
-						html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
-						+" <button class='btn btn-sm btn-success modify_link' data-toggle='modal' data-id="+this.pmno+">수정</button></td>";
-						} 
-						
-						html+="</tr>";
-						
-						});			
-					
- 					$("#data-table").dataTable().fnDestroy();
+	function displayPay() {
+		$.ajax({
+			type: "GET",
+			url: "pay_list",
+			dataType: "json",
+			success: function(json) {
+				if(json.length==0) {
+					var html="<tr><td class='center' colspan='12'>등록된 급여내역이 존재하지 않습니다.</td></tr>";
 					$("#payTablePlace").html(html);
-					$("#data-table").dataTable(); 
-					 
-					$(".modify_link").click(function() {
-						$("#modal-dialog3").modal("show");
-					
-						var pmno=$(this).attr("data-id");
-						$("#m_pmno").val(pmno); 
-						
-						$.ajax({
-							type: "GET",
-							url: "pay_view/"+pmno,
-							dataType: "json",
-							success: function(json) {
-								$("#m_pdate").val(json.pdate);
-								$("#m_pbasic").val(json.pbasic);
-								$("#m_pmeal").val(json.pmeal);
-								$("#m_povertime").val(json.povertime);
-								$("#m_pholiday").val(json.pholiday);
-								$("#m_pbonus").val(json.pbonus);
-								$("#m_petc").val(json.petc);
-								$("#m_mno").val(json.mno);
-								$("#m_dno").val(json.dno);
-								$("#m_pno").val(json.pno);				
-							},
-							error: function(xhr) {
-								alert("에러코드 = "+xhr.status);
-							}
-						});
-					});
-				},
-				error: function(xhr) {
-					alert("에러코드 = "+xhr.status);
+					return;
 				}
-			});
-		}
+				
+				var html="";
+				var auth=${loginMember.pno};
+				$(json).each(function() {				
+					html+="<tr>";
+					html+="<td>"+this.pmno+"</td>";
+					html+="<td>"+this.member.mno+"</td>";
+					html+="<td>"+this.member.mname+"</td>";
+					html+="<td>"+this.department.dname+"</td>";
+					html+="<td>"+this.position.pname+"</td>";
+					html+="<td>"+this.pdate+"</td>";
+					html+="<td>"+this.pbasic+"</td>";
+					html+="<td>"+this.pmeal+"</td>";
+					html+="<td>"+this.povertime+"</td>";
+					html+="<td>"+this.pholiday+"</td>";
+					html+="<td>"+this.pbonus+"</td>";
+					html+="<td>"+this.petc+"</td>";
+					if( auth >= 3 ) { 
+					html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
+					+" <button class='btn btn-sm btn-success modify_link' data-toggle='modal' data-id="+this.pmno+">수정</button></td>";
+					} 
+					
+					html+="</tr>";
+					
+					});			
+				
+					$("#data-table").dataTable().fnDestroy();
+				$("#payTablePlace").html(html);
+				$("#data-table").dataTable(); 
+				 
+				$(".modify_link").click(function() {
+					$("#modal-dialog3").modal("show");
+				
+					var pmno=$(this).attr("data-id");
+					$("#m_pmno").val(pmno); 
+					
+					$.ajax({
+						type: "GET",
+						url: "pay_view/"+pmno,
+						dataType: "json",
+						success: function(json) {
+							$("#m_pdate").val(json.pdate);
+							$("#m_pbasic").val(json.pbasic);
+							$("#m_pmeal").val(json.pmeal);
+							$("#m_povertime").val(json.povertime);
+							$("#m_pholiday").val(json.pholiday);
+							$("#m_pbonus").val(json.pbonus);
+							$("#m_petc").val(json.petc);
+							$("#m_mno").val(json.mno);
+							$("#m_dno").val(json.dno);
+							$("#m_pno").val(json.pno);				
+						},
+						error: function(xhr) {
+							alert("에러코드 = "+xhr.status);
+						}
+					});
+				});
+			},
+			error: function(xhr) {
+				alert("에러코드 = "+xhr.status);
+			}
+		});
+	}
 		displayPay();
 	
 		
 		
 	/* 급여 삭제 */
 		
-		function deletePay(pmno) {
-			if(confirm("급여내역을 삭제하시겠습니까?")) {
-				location.href="pay_delete/"+pmno;
-			}
-		}	
-	
+	function deletePay(pmno) {
+		if(confirm("급여내역을 삭제하시겠습니까?")) {
+			location.href="pay_delete/"+pmno;
+		}
+	}	
 
 	
  	/* 급여 수정 내용 입력 후 변경버튼 클릭시 */
@@ -626,6 +636,40 @@ table { text-align: center;}
 		var mno=$("#m_mno").val();
 		var dno=$("#m_dno").val();
 		var pno=$("#m_pno").val();
+		
+		if(pdate=='') {
+			alert("지급 일자를 입력해주세요.");
+			return false;
+		}
+		if(pbasic=='') {
+			alert("기본 급여를 입력해주세요.");
+			return false;
+		}
+		if(pmeal=='') {
+			alert("식대를 입력해주세요.");
+			return false;
+		}
+		if(povertime=='') {
+			alert("야근수당을 입력해주세요.");
+			return false;
+		}
+		if(pholiday=='') {
+			alert("휴일근무수당을 입력해주세요.");
+			return false;
+		}			
+		if(pbonus=='') {
+			alert("성과급을 입력해주세요.");
+			return false;
+		}			
+		if(petc=='') {
+			alert("기타수당을 입력해주세요.");
+			return false;
+		}			
+		
+		if(mno=='') {
+			alert("사원번호를 입력해주세요.");
+			return false;
+		}
 		
 		$.ajax({
 			type: "PUT",
@@ -671,7 +715,41 @@ table { text-align: center;}
 		var mno=$("#i_mno").val();
 		var dno=$("#i_dno").val();
 		var pno=$("#i_pno").val();
-
+	
+			if(pdate=='') {
+				alert("지급 일자를 입력해주세요.");
+				return false;
+			}
+			if(pbasic=='') {
+				alert("기본 급여를 입력해주세요.");
+				return false;
+			}
+			if(pmeal=='') {
+				alert("식대를 입력해주세요.");
+				return false;
+			}
+			if(povertime=='') {
+				alert("야근수당을 입력해주세요.");
+				return false;
+			}
+			if(pholiday=='') {
+				alert("휴일근무수당을 입력해주세요.");
+				return false;
+			}			
+			if(pbonus=='') {
+				alert("성과급을 입력해주세요.");
+				return false;
+			}			
+			if(petc=='') {
+				alert("기타수당을 입력해주세요.");
+				return false;
+			}			
+			
+			if(mno=='') {
+				alert("사원번호를 입력해주세요.");
+				return false;
+			}			
+			
 		
 		$.ajax({
 			type: "POST",
@@ -703,61 +781,60 @@ table { text-align: center;}
  	
 	/* 검색 내역 리스트 */
 		
-		function selectPay() {
- 		var mno=$("#s_mno").val();
- 		var dno=$("#s_dno").val();
- 		var pno=$("#s_pno").val();
-		
- 		$.ajax({
- 			type: "POST",
- 			url: "pay_search",
- 			headers: {"content-type":"application/json"},
- 			data: JSON.stringify({
- 				"mno":mno,
- 				"dno":dno,
- 				"pno":pno
- 				}),
- 			dataType: "json",
- 			success: function(json) {
-					if(json.length==0) {
-						var html="<tr><td class='center' colspan='13'>검색된 급여내역이 없습니다.</td></tr>";
-						$("#payTablePlace").html(html);
-						return;
-					}
- 					
- 					var html="";
- 					$(json).each(function() {
-						html+="<tr>";
-						html+="<td>"+this.pmno+"</td>";
-						html+="<td>"+this.member.mno+"</td>";
-						html+="<td>"+this.member.mname+"</td>";
-						html+="<td>"+this.department.dname+"</td>";
-						html+="<td>"+this.position.pname+"</td>";
-						html+="<td>"+this.pdate+"</td>";
-						html+="<td>"+this.pbasic+"</td>";
-						html+="<td>"+this.pmeal+"</td>";
-						html+="<td>"+this.povertime+"</td>";
-						html+="<td>"+this.pholiday+"</td>";
-						html+="<td>"+this.pbonus+"</td>";
-						html+="<td>"+this.petc+"</td>";
-						html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
-						+" <button href='#modal-dialog3' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.pmno+">수정</button></td>";
-						html+="</tr>";
- 					});
- 					
-					$("#data-table").dataTable().fnDestroy();
-					$("#data-table").dataTable(); 
- 					$("#payTablePlace").html(html);
- 				},
- 				error: function(xhr) {
- 					alert("에러 발생 = "+xhr.status);
- 				}
- 			});
- 		}
- 	
- 	
- 	
-  
+	function selectPay() {
+		var mno=$("#s_mno").val();
+		var dno=$("#s_dno").val();
+		var pno=$("#s_pno").val();
+	
+		$.ajax({
+			type: "POST",
+			url: "pay_search",
+			headers: {"content-type":"application/json"},
+			data: JSON.stringify({
+				"mno":mno,
+				"dno":dno,
+				"pno":pno
+				}),
+			dataType: "json",
+			success: function(json) {
+				if(json.length==0) {
+					var html="<tr><td class='center' colspan='13'>검색된 급여내역이 없습니다.</td></tr>";
+					$("#payTablePlace").html(html);
+					return;
+				}
+					
+					var html="";
+					$(json).each(function() {
+					html+="<tr>";
+					html+="<td>"+this.pmno+"</td>";
+					html+="<td>"+this.member.mno+"</td>";
+					html+="<td>"+this.member.mname+"</td>";
+					html+="<td>"+this.department.dname+"</td>";
+					html+="<td>"+this.position.pname+"</td>";
+					html+="<td>"+this.pdate+"</td>";
+					html+="<td>"+this.pbasic+"</td>";
+					html+="<td>"+this.pmeal+"</td>";
+					html+="<td>"+this.povertime+"</td>";
+					html+="<td>"+this.pholiday+"</td>";
+					html+="<td>"+this.pbonus+"</td>";
+					html+="<td>"+this.petc+"</td>";
+					html+="<td onclick='event.cancelBubble=true'><button onclick='deletePay("+this.pmno+");' class='btn btn-sm btn-white'>삭제</button> "
+					+" <button href='#modal-dialog3' class='btn btn-sm btn-success' data-toggle='modal' id='modify_link' data-id="+this.pmno+">수정</button></td>";
+					html+="</tr>";
+					});
+					
+				$("#data-table").dataTable().fnDestroy();
+				$("#data-table").dataTable(); 
+					$("#payTablePlace").html(html);
+				},
+				error: function(xhr) {
+					alert("에러 발생 = "+xhr.status);
+				}
+			});
+		}
+	
+	/* 급여명세서에 천단위로 콤마 찍기 위해 format 사용  */
+	
       Number.prototype.format = function(){
           if(this==0) return 0;
        
@@ -797,14 +874,14 @@ table { text-align: center;}
         var totaltax2 = Math.round((tax1+tax2+tax3+tax4+tax5)/10)*10;    
         var finalTotal = (total2-totaltax2).format();
         
-        $("#totalPay").text(total);
-        $("#tax1").text(tax1format);
-        $("#tax2").text(tax2format);
-        $("#tax3").text(tax3format);
-        $("#tax4").text(tax4format);
-        $("#tax5").text(tax5format);
-        $("#totaltax").text(totaltax);
-        $("#finalTotal").text(finalTotal);
+	        $("#totalPay").text(total);
+	        $("#tax1").text(tax1format);
+	        $("#tax2").text(tax2format);
+	        $("#tax3").text(tax3format);
+	        $("#tax4").text(tax4format);
+	        $("#tax5").text(tax5format);
+	        $("#totaltax").text(totaltax);
+	        $("#finalTotal").text(finalTotal);
 
         var paybasic=basic.format();
         var paymeal=meal.format();
@@ -813,20 +890,20 @@ table { text-align: center;}
         var paybonus=bonus.format();
         var payetc=etc.format();
         
-        $("#pay_name").text(payInfo[2]);
-        $("#pay_department").text(payInfo[3]);
-        $("#pay_position").text(payInfo[4]);
-        $("#pay_day").text(payInfo[5]);
-        $("#pay_basic").text(paybasic);
-        $("#pay_meal").text(paymeal);
-        $("#pay_overtime").text(payovertime);
-        $("#pay_holiday").text(payholiday);
-        $("#pay_bonus").text(paybonus);
-        $("#pay_etc").text(payetc);
+	        $("#pay_name").text(payInfo[2]);
+	        $("#pay_department").text(payInfo[3]);
+	        $("#pay_position").text(payInfo[4]);
+	        $("#pay_day").text(payInfo[5]);
+	        $("#pay_basic").text(paybasic);
+	        $("#pay_meal").text(paymeal);
+	        $("#pay_overtime").text(payovertime);
+	        $("#pay_holiday").text(payholiday);
+	        $("#pay_bonus").text(paybonus);
+	        $("#pay_etc").text(payetc);
         
    });
  
- 	/* 명세서 부분만 출력 */
+ 	/* 명세서 부분만 인쇄하기 */
  	
     function printPage(){
     	 var initBody;
@@ -851,6 +928,7 @@ table { text-align: center;}
 		        return true;
 		    });
  	
+			
 /* 	function close() {
 	   window.open('','_self').close();     	
 	} */
