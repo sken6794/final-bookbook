@@ -26,16 +26,11 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public String order(Model model, HttpSession session) {
+	public String order(Model model) {
 		model.addAttribute("orderList", orderService.getOrderList());
-		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember==null) {
-			return "login";
-		} else {
 			return "order/order";
-		}
 	}
-	
+
 	@RequestMapping("/order_list")
 	@ResponseBody
 	public List<Order> restOrderJSONList() {

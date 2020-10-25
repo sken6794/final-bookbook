@@ -23,16 +23,11 @@ public class PayManageController {
 	private PayManageService payManageService;
 
 	@RequestMapping(value = "/payManage", method = RequestMethod.GET)
-	public String payManage(Model model, HttpSession session) {
+	public String payManage(Model model) {
 		model.addAttribute("payList", payManageService.getPayList());
-		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember==null) {
-			return "login";
-		} else {
-			return "paymanage/payManage";
-		}
+			return "paymanage/payManage";		
 	}
-	
+
 	@RequestMapping("/pay_list")
 	@ResponseBody
 	public List<PayManage> restMemberJSONList() {

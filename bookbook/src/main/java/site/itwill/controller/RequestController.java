@@ -27,14 +27,9 @@ public class RequestController {
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
 	public String request(Model model, HttpSession session) {
 		model.addAttribute("requestList", requestService.getRequestList());
-		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember==null) {
-			return "login";
-		} else {
 			return "request/request";
-		}
 	}
-
+	
 	@RequestMapping(value = "/request_search", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Request> request(@RequestBody Request request) {

@@ -79,6 +79,10 @@
 			<mapping path="/bookout"/>
 			<mapping path="/stock"/>
 			<mapping path="/document"/>
+			<mapping path="/member"/>
+			<mapping path="/order"/>
+			<mapping path="/request"/>
+			<mapping path="/payManage"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>
 		
