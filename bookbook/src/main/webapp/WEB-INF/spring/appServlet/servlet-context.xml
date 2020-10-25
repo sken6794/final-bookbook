@@ -78,6 +78,7 @@
 			<mapping path="/bookin"/>
 			<mapping path="/bookout"/>
 			<mapping path="/stock"/>
+			<mapping path="/document"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>
 	</interceptors>
