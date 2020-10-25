@@ -22,9 +22,8 @@
 	<div id="content" class="content">
 		<!-- begin breadcrumb -->
 		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-			<li><a href="javascript:;">Tables</a></li>
-			<li class="active">Managed Tables</li>
+			<li><a href="javascript:;">전자결재</a></li>
+			<li class="active">결재완료 문서</li>
 		</ol>
 		<!-- end breadcrumb -->
 		<!-- begin page-header -->
@@ -215,10 +214,13 @@
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
 	<script>
-		$(document).ready(function() {
-			App.init();
-			TableManageDefault.init();
+	$(document).ready(function() {
+		App.init();
+		$('#data-table').DataTable({
+			order : [ [ 0, "desc" ] ],
+			ordering : true
 		});
+	});
 	</script>
 </body>
 </html>

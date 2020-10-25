@@ -23,13 +23,6 @@
 
 	<!-- begin #content -->
 	<div id="content" class="content">
-		<!-- begin breadcrumb -->
-		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-			<li><a href="javascript:;">Form Stuff</a></li>
-			<li class="active">Form Elements</li>
-		</ol>
-		<!-- end breadcrumb -->
 		<!-- begin page-header -->
 		<h1 class="page-header">
 			전자 결재 시스템<small></small>
@@ -126,14 +119,15 @@
 							</div>
 							<hr>
 							<span style="line-height: 160%;">담당자&nbsp;&nbsp; ${document.member.mname}</span>
-							<br> <span style="line-height: 160%;" id="docDate">기안일
-								&nbsp;&nbsp; ${document.docdate.substring(0,10) }</span> <br>
+							<br> 
+							<span style="line-height: 160%;" id="docDate">기안일
+								&nbsp;&nbsp; ${document.docdate.substring(0,10) }</span> 
+							<br>
 							<c:set var="now" value="<%=new Date()%>" />
-							<span style="line-height: 160%;" id="docComp"> 결재일 <c:if
-									test="${document.docstate==2 }">
-									&nbsp;&nbsp; <fmt:formatDate value="${now }"
-										pattern="yyyy-MM-dd" />
-								</c:if></span> <br>
+							<span style="line-height: 160%;" id="docComp"> 결재일
+							<c:if test="${document.docstate==2 }">
+									 &nbsp;&nbsp; <fmt:formatDate value="${now }" pattern="yyyy-MM-dd" />
+							</c:if></span> <br>
 							<p style="line-height: 160%;">
 								<span style="font-size: 10pt;" id="donNo">문서번호
 									&nbsp;&nbsp; ${document.docno }</span>
@@ -143,8 +137,8 @@
 									
 									<!-- 문서 상태에 따라 나타나는 버튼 구분 -->
 									<c:choose>
-										<c:when test="${document.docstate==0 }">
-											<c:if test="${loginMember.mno==document.mno }">
+										<c:when test="${document.docstate==0 || document.docstate==3}">
+											<c:if test="${loginMember.mno==document.member.mno }">
 											<button type="button" id="modify"
 												onclick="location.href='${pageContext.request.contextPath }/documentModify?docno=${docno}';"
 												class="btn btn-sm btn-white" style="margin: 1px;">수정</button>
@@ -421,93 +415,11 @@
 		}
 	}
 	
-	
-	/*
-		function updateAtdn(mno) {
-		if(confirm("요청을 승인 하시겠습니까?")){
-			$.ajax({
-				type:"PUT",
-				url:"atdn_update/"+mno,
-				headers:{"X-HTTP-Method-override":"PUT"},
-				dataType : "text",
-				success: function (text) {
-					if(text=="success"){
-						alert("승인되었습니다.")
-						location.href="${pageContext.request.contextPath}/atdn_member";
-					}
-				},
-				error: function(xhr) {
-		            alert("에러코드 = "+xhr.status);
-		        }
-			})
-		}
-	}
-	*/
-	
 	function deleteCheck() {
 		documentAddForm.method="POST";
 		documentAddForm.action="${pageContext.request.contextPath}/document";
 		documentAddForm.submit();
 	} 
-		/*
-		function modifyCheck() {
-			documentSelectForm.method="GET";
-			documentSelectForm.action="${pageContext.request.contextPath}/documentModify";
-			documentSelectForm.submit();
-		} 
-		function aprvCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/document";
-			documentAddForm.submit();
-		} 
-		
-		function deleteCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/document";
-			documentAddForm.submit();
-		} 
-		
-		function rejectCheck() {
-			documentAddForm.method="POST";
-			documentAddForm.action="${pageContext.request.contextPath}/document";
-			documentAddForm.submit();
-		} 
-		 */
-		/*
-			$("#modify").click(function() {
-				if (confirm("수정하시겠습니까?")) {
-					return "document/documentModify";
-				} else {
-					return false;
-				}
-			});
-			$("#aprv").click(function() {
-				if (confirm("결재하시겠습니까?")) {
-					return true;
-				} else {
-					return false;
-				}
-			});
-
-
-			$("#delete").click(function() {
-				if (confirm("삭제하시겠습니까?")) {
-					return true;
-				} else {
-					return false;
-				}
-			});
-
-			$("#reject").click(function() {
-				if (confirm("반려하시겠습니까?")) {
-					return true;
-				} else {
-					return false;
-				}
-				//$("#docForm").attr("action","../template_content_html/draft_docu");
-				//$("#docForm").submit();
-			});
-		 */
 	</script>
 </body>
 </html>
