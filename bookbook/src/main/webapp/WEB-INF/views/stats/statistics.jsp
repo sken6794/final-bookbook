@@ -524,13 +524,13 @@ a:active, a:visited {
 				var series = 7;
 				var colorArray = [ red, purple, dark, grey, blue, green ];
 
-				data[0] = { label: "LEON"+(1), data: Math.floor((1/14)*100)+1, color: colorArray[0]};
-				data[1] = { label: "한빛비즈"+(2), data: Math.floor((2/14)*100)+1, color: colorArray[1]};
-				data[2] = { label: "프리렉"+(3), data: Math.floor((2/14)*100)+1, color: colorArray[2]};
-				data[3] = { label: "북로드"+(4), data: Math.floor((2/14)*100)+1, color: colorArray[3]};
-				data[4] = { label: "현암사"+(5), data: Math.floor((3/14)*100)+1, color: colorArray[4]};
-				data[5] = { label: "공감출판사"+(6), data: Math.floor((1/14)*100)+1, color: colorArray[5]};
-				data[6] = { label: "안녕"+(7), data: Math.floor((3/14)*100)+1, color: colorArray[6]};
+				data[0] = { label: "LEON", data: Math.floor((1/14)*100)+1, color: colorArray[0]};
+				data[1] = { label: "한빛비즈", data: Math.floor((2/14)*100)+1, color: colorArray[1]};
+				data[2] = { label: "프리렉", data: Math.floor((2/14)*100)+1, color: colorArray[2]};
+				data[3] = { label: "북로드", data: Math.floor((2/14)*100)+1, color: colorArray[3]};
+				data[4] = { label: "현암사", data: Math.floor((3/14)*100)+1, color: colorArray[4]};
+				data[5] = { label: "공감출판사", data: Math.floor((1/14)*100)+1, color: colorArray[5]};
+				data[6] = { label: "안녕", data: Math.floor((3/14)*100)+1, color: colorArray[6]};
 				
 		        $.plot($("#interactive-pie-chart"), data,
 		        {
