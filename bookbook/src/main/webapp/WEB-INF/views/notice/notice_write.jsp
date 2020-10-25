@@ -56,7 +56,7 @@
 							</div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label">공지 제목</label>
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     <input type="text" class="form-control" id="ntitle" name="ntitle" placeholder="제목을 입력하세요."/>  
                                 </div>
                             </div>
