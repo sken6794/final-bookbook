@@ -26,12 +26,6 @@
 <body>
 	<!-- begin #content -->
 	<div id="content" class="content">
-		<!-- begin breadcrumb -->
-		<ol class="breadcrumb pull-right">
-			<li><a href="javascript:;">Home</a></li>
-		</ol>
-		<!-- end breadcrumb -->			
-		<!-- begin row -->
 		<div class="row">
                <!-- begin col-12 -->
 		    <div class="col-md-12">
