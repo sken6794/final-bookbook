@@ -60,9 +60,12 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<div class="text-right m-b-0" style="margin-right: 5px;">
+							<c:if test="${loginMember.mno!=10 }">
 								<button type="button" class="btn btn-sm btn-white"
 									onclick="location.href='${pageContext.request.contextPath }/documentAdd';">
-									등록</button>
+									등록
+								</button>
+							</c:if>
 							</div>
 							<br>
 							<table id="data-table" class="table table-striped table-bordered">
