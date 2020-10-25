@@ -346,7 +346,7 @@ table { text-align: center;}
                         </div> 
 						<div class="modal-footer">
 							<input type="button" value="인쇄" onclick="printPage();" class="btn btn-sm btn-white">
-							<button type="button" onclick="close();" class="btn btn-sm btn-white" data-dismiss="modal">닫기</button>
+							<button type="button" onclick="javascript:close()" class="btn btn-sm btn-white" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 					</div>
@@ -510,11 +510,12 @@ table { text-align: center;}
 	<script src="${pageContext.request.contextPath}/resources/assets/js/apps.min.js"></script>	
 	
 	<script>
+
 	
 	$(document).ready(function() {
 		App.init();
 		//TableManageTableSelect.init();
-		FormPlugins.init();		
+		FormPlugins.init();	
 
 	});
 	
@@ -902,7 +903,8 @@ table { text-align: center;}
 	        $("#pay_etc").text(payetc);
         
    });
- 
+ 	
+
  	/* 명세서 부분만 인쇄하기 */
  	
     function printPage(){
@@ -917,23 +919,14 @@ table { text-align: center;}
     	 window.print();
     	 return false;
     	 
-    	 function close() {
-    		   window.open('','_self').close();     	
-    		}
-    	 
-    	}
+ 	}
  	
-			$(document).on('click', '#close', function(){ 
-		        $.modal.close(); ;
-		        return true;
-		    });
- 	
-			
-/* 	function close() {
-	   window.open('','_self').close();     	
-	} */
+ 
+    var $partent = window.parent;
+    function close() {
+   		$parent.$('#modal-dialog2').modal('hide');
+    }; 
 		
-
 </script>
 	
 <!-- /* 	

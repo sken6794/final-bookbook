@@ -245,7 +245,7 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-md-4 col-sm-4">생년월일 :</label>
 		                                    <div class="col-md-6 col-sm-6">
-		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="ex. 940629 " name="mbirth" />
+		                                        <input type="text" class="form-control" id="i_mbirth" placeholder="ex. 940629 " name="mbirth" />
 <!-- 		                                        <input type="text" class="form-control" id="datepicker-default" placeholder="Select Date" name="mbirth" /> -->
 		                                    </div>
 		                                </div>                             
@@ -449,7 +449,7 @@
 			var mno=$("#i_mno").val();
 			var mname=$("#i_mname").val();
 			var mpw=$("#i_mpw").val();
-			var mbirth=$("#datepicker-default").val();
+			var mbirth=$("#i_mbirth").val();
 			var mphone=$("#i_mphone").val();
 			var memail=$("#i_memail").val();
 			var maddress=$("#i_maddress").val();
