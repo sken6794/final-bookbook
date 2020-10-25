@@ -39,6 +39,7 @@
                             <table id="data-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
+                                    	<th>No</th>
                                         <th>사원 번호</th>
                                         <th>사원 이름</th>
                                         <th>출근 시간</th>
@@ -51,6 +52,7 @@
                                 
                                    	<c:forEach var="atdninout" items="${atdninout }">
 	                                    <tr class="odd gradeX">
+	                                    	<td>${atdninout.atno }</td>
 	                                        <td>${atdninout.member.mno }</td>
 	                                        <td>${atdninout.member.mname}</td>
 	                                        <td>${atdninout.alogin}</td>
@@ -93,6 +95,16 @@
 			TableManageDefault.init();
 		});
 		
+	      $(document).ready(function() {
+	         App.init();
+	         //TableManageDefault.init();
+	         
+	         $('#data-table').DataTable({
+	            order: [[0, "desc"]],
+	            ordering: true
+	         });
+	      });
+	 
 		
 	</script>
 	

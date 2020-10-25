@@ -103,7 +103,7 @@
                                 </tbody>                               
                             </table>
                              <div class="col-md-2 col-md-offset-10">
-                    			<span>${message }요기</span>
+                    			<span>${message }</span>
                     			<a class="btn btn-inverse p-l-40 p-r-40" href="javascript:addAtdn(${loginMember.mno});">신청</a>
                    			 </div>
                         </div>
