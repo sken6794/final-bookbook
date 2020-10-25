@@ -367,13 +367,19 @@
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
 	<script>
-	$(document).ready(function() {
-		App.init();
-		TableManageColReorder.init();
-		FormPlugins.init();
-	});
 	
 	displayMember();
+	
+	$(document).ready(function() {
+		App.init();
+		//TableManageColReorder.init();
+		FormPlugins.init();
+		
+		 $('#data-table').DataTable({
+	            order: [[2, "asc"]],
+	            ordering: true
+	         });
+	});
 	
 	/* 초기화 버튼 */
 	function initBtn() {

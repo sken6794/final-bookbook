@@ -3,6 +3,9 @@ package site.itwill.controller;
 
 import java.util.List;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,17 +25,17 @@ import site.itwill.service.MemberService;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
-	
-	/*
-	 * @RequestMapping(value = "/member", method = RequestMethod.GET) public String
-	 * member() { return "member/member"; }
-	 */
-	
+
 	
 	@RequestMapping(value = "/member", method = RequestMethod.GET)
-	public String member(Model model) {
+	public String member(Model model, HttpSession session) {
 		model.addAttribute("memberList", memberService.getMemberList());
-		return "member/member";
+		Member loginMember=(Member)session.getAttribute("loginMember");
+		if(loginMember==null) {
+			return "login";
+		} else {
+			return "member/member";
+		}
 	}
 	
 	@RequestMapping(value = "/member_search", method = RequestMethod.POST)
@@ -41,13 +44,7 @@ public class MemberController {
 		return memberService.getMember(member);
 	}
 
-	/*
-	 * @RequestMapping(value = "/member_search")
-	 * 
-	 * @ResponseBody public String member(@RequestBody Member member, Model model)
-	 * throws Exception { model.addAttribute("member",
-	 * memberService.getMember(member)); return "member/member"; }
-	 */	
+
 	@RequestMapping("/member_list") 
 	@ResponseBody 
 	public List<Member> restMemberJSONList() { 
@@ -62,18 +59,6 @@ public class MemberController {
 		
 		return "success";
 	}
-	
-	/*
-	 * @RequestMapping("/member_list") public ResponseEntity<List<Member>>
-	 * restRequestList() { ResponseEntity<List<Member>> entity=null; try {
-	 * //ResponseEntity 객체 생성 시 요청에 대한 응답결과와 응답코드 저장 entity=new
-	 * ResponseEntity<List<Member>> (memberService.getMemberList(),HttpStatus.OK); }
-	 * catch (Exception e) { //ResponseEntity 객체 생성 시 요청에 대한 응답코드(에러코드) 저장
-	 * entity=new ResponseEntity<List<Member>>(HttpStatus.BAD_REQUEST); } return
-	 * entity;
-	 * 
-	 * }
-	 */
 		
 	
 	@RequestMapping(value = "/member_delete/{mno}")

@@ -41,7 +41,7 @@
 	
 	<select id="selectRestMember" resultType="Member">
 		select MNAME, MBIRTH, MPHONE, MEMAIL, MADDRESS, MQUITDATE, MQUITREASON, MSTATE, MDAYOFF, DNO, PNO
-		from MEMBER where mno=#{mno} ORDER BY DNO ASC
+		from MEMBER where mno=#{mno}
 	</select>
 	
 	<update id="updateMember">
