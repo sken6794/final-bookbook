@@ -211,20 +211,13 @@
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
 	<script>
-		$(document).ready(function() {
-			App.init();
-			TableManageDefault.init();
+	$(document).ready(function() {
+		App.init();
+		$('#data-table').DataTable({
+			order : [ [ 0, "desc" ] ],
+			ordering : true
 		});
-		
-		$("#delete").click(function() {
-			var $check = $("#check");
-			
-			if ($check.size()==0) {
-				$("#displayDiv").text("당신은 좋아하는 계절이 없습니다.");
-				return;
-			}
-			
-		});
+	});
 	</script>
 </body>
 </html>

@@ -215,10 +215,13 @@
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
 	<script>
-		$(document).ready(function() {
-			App.init();
-			TableManageDefault.init();
+	$(document).ready(function() {
+		App.init();
+		$('#data-table').DataTable({
+			order : [ [ 0, "desc" ] ],
+			ordering : true
 		});
+	});
 	</script>
 </body>
 </html>
