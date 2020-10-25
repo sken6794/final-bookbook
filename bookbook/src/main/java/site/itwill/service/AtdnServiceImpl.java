@@ -44,6 +44,7 @@ public class AtdnServiceImpl implements AtdnService{
 		if(attendancemember==null) {
 			throw new UserinfoNotFoundException("해당 사원번호가 존재하지 않습니다.");
 		}
+		
 		 atdnDAO.updateAtdn(atdnmember);
 	}
 	
@@ -92,18 +93,19 @@ public class AtdnServiceImpl implements AtdnService{
 
 	@Transactional
 	@Override
-	public void addAttendance(AttendanceMember atdnmember) throws UserinfoNotFoundException {
-		AttendanceMember attendancemember = atdnDAO.selectAtdnNum(atdnmember.getMno());
-		if(attendancemember==null) {
-			throw new UserinfoNotFoundException("해당 사원번호가 존재하지 않습니다.");
-		}
+	public void addAttendance(AttendanceMember atdnmember) {
+		
 		atdnDAO.insertAttendance(atdnmember);
 		
 	}
 
 	@Transactional
 	@Override
-	public void removeAttendance(int mno) {
+	public void removeAttendance(int mno) throws UserinfoNotFoundException {
+		AttendanceMember attendancemember = atdnDAO.selectAtdnNum(mno);
+		if(attendancemember==null) {
+			throw new UserinfoNotFoundException("해당 사원번호가 존재하지 않습니다.");
+		}
 		atdnDAO.deleteAttendance(mno);
 		
 	}

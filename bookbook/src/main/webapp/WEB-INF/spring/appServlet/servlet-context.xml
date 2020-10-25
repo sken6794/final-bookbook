@@ -81,6 +81,7 @@
 			<mapping path="/document"/>
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>
+		
 	</interceptors>
 	
 	

@@ -16,9 +16,9 @@ public class AdminAuthInterceptor extends HandlerInterceptorAdapter{
          throws Exception {
       HttpSession session = request.getSession();
       Member loginMember = (Member)session.getAttribute("loginMember");
-      if(loginMember==null || loginMember.getPno()<3) {
+      if(loginMember==null || loginMember.getPno()<5) {
          
-         throw new Exception();
+         throw new Exception("차장 이상의 직급만 가능합니다.");
       }
       return true;
       

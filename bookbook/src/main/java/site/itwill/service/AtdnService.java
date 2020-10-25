@@ -15,8 +15,8 @@ public interface AtdnService {
 	List<Attendance> getAtdnListinout();
 	AttendanceMember getAtdnNum(int mno) throws UserinfoNotFoundException;
 	void modifyAtdn(AttendanceMember atdnmember) throws UserinfoNotFoundException;
-	void addAttendance(AttendanceMember atdnmember) throws UserinfoNotFoundException;
-	void removeAttendance(int mno);
+	void addAttendance(AttendanceMember atdnmember);
+	void removeAttendance(int mno) throws UserinfoNotFoundException;
 	
 	void addAtdn(Attendance attendance);
 	void logoutAtdn(Attendance attendance);
