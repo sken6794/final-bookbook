@@ -34,75 +34,63 @@
 <body>
 <!-- begin #content -->
 <div id="content" class="content">
-   <!-- begin breadcrumb -->
-   <ol class="breadcrumb pull-right">
-      <li><a href="javascript:;">Home</a></li>            
-   </ol>
-   <!-- end breadcrumb -->
-   <!-- begin row -->
    <div class="row">
-       <!-- begin col-12 -->
-       <div class="col-md-12">
-           <!-- begin panel -->
-                  <div class="panel panel-inverse">
-                      <div class="panel-heading">
-                          <div class="panel-heading-btn">
-                              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-                              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                              <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-                          </div>
-                          <h4 class="panel-title">공지사항</h4>
-                      </div>
-                          
-                  <div class="panel-body">
-                      <table id="data-table" class="table table-striped table-bordered">
-                          <thead>
-                              <tr>
-                                  <th style="text-align: center; width:8%;">번호</th>
-                                  <th style="text-align: center; width:12%;">분류</th>
-                                  <th style="text-align: center; width:40%;">제목</th>
-                                  <th style="text-align: center; width:15%;">날짜</th>
-                                  <th style="text-align: center; width:10%;">조회수</th>
-                              </tr>
-                          </thead>
-                          <tbody style="text-align: center;">
-                     <c:choose>
-                        <c:when test="${empty(noticeList) }">
-                           <tr align="center">
-                           <td colspan="5">등록된 공지 사항이 없습니다.</td>      
-                           </tr>
-                        </c:when>
-                        <c:otherwise>
-                           <c:forEach var="notice" items="${noticeList }">
-                              <tr>
-                                 <td><c:out value="${notice.nno }"/></td>
-                                 <td>${notice.ncategory }</td>
-                                 <td><a href="notice?nno=${notice.nno}" id="gray">${notice.ntitle }</a></td>
-                                 <td>${fn:substring(notice.ndate,0,10) }</td>
-                                 <td><c:out value="${notice.ncount }"/></td>
-                              </tr>
-                           </c:forEach>
-                        </c:otherwise>
-                     </c:choose>
-                          </tbody>
-                         </table>
-                         
-                     <!-- 로그인 사용자의 직급이 과장(4) 이상일 때 작성하기 버튼 출력
-                          => 사원,주임,대리는 작성 불가 -->
-                    <c:if test="${loginMember.pno > 3 }">
-                  <div style="float: right;">
-                     <button type="button" class="btn btn-white m-r-3 m-b-3"
-                             onclick="location.href='write'">작성하기</button>
-                  </div>
-               </c:if>   
-                  </div>
-              </div>
-              <!-- end panel -->
-          </div>
-          <!-- end col-12 -->
-      </div>
-      <!-- end row -->
+		<div class="col-md-12">
+		<div class="panel panel-inverse">
+		    <div class="panel-heading">
+		        <div class="panel-heading-btn">
+		            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+		            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+		            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+		            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+		        </div>
+			<h4 class="panel-title">공지사항</h4>
+			</div>
+            <div class="panel-body">
+                <table id="data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center; width:15%;">분류</th>
+                            <th style="text-align: center; width:40%;">제목</th>
+                            <th style="text-align: center; width:12%;">작성자</th>
+                            <th style="text-align: center; width:13%;">날짜</th>
+                            <th style="text-align: center; width:10%;">조회수</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: center;">
+               		<c:choose>
+						<c:when test="${empty(noticeList) }">
+		                <tr align="center">
+		                     <td colspan="5">등록된 공지 사항이 없습니다.</td>      
+		                </tr>
+						</c:when>
+						<c:otherwise>
+						<c:forEach var="notice" items="${noticeList }">
+	                        <tr>
+	                           <td>${notice.ncategory }</td>
+	                           <td><a href="notice?nno=${notice.nno}" id="gray">${notice.ntitle }</a></td>
+	                           <td><c:out value="${notice.nwriter }"/></td>
+	                           <td>${fn:substring(notice.ndate,0,10) }</td>
+	                           <td><c:out value="${notice.ncount }"/></td>
+	                        </tr>
+						</c:forEach>
+						</c:otherwise>
+  					</c:choose>
+                    </tbody>
+                   </table>
+                   
+               <!-- 로그인 사용자의 직급이 과장(4) 이상일 때 작성하기 버튼 출력
+                    => 사원,주임,대리는 작성 불가 -->
+				<c:if test="${loginMember.pno > 3 }">
+				<div style="float: right;">
+					<button type="button" class="btn btn-white m-r-3 m-b-3"
+                       onclick="location.href='write'">작성하기</button>
+				</div>
+				</c:if>   
+            </div>
+        </div>
+		</div>
+   </div>
 </div>
    
    <!-- ================== BEGIN BASE JS ================== -->
@@ -133,7 +121,7 @@
          //TableManageDefault.init();
          
          $('#data-table').DataTable({
-            order: [[0, "desc"]],
+            order: [[3, "desc"]],
             ordering: true
          });
       });

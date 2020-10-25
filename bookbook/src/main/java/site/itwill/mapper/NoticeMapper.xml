@@ -13,10 +13,8 @@
 		<result column="ncontent" property="ncontent"/>
 		<result column="ndate" property="ndate"/>
 		<result column="ncount" property="ncount"/>
-		<result column="norigin" property="norigin"/>
 		<result column="ncategory" property="ncategory"/>
 		<result column="nwriter" property="nwriter"/>
-		<result column="nstate" property="nstate"/>
 		<collection property="member" resultMap="member"/>
 	</resultMap>
 	
@@ -26,13 +24,13 @@
 			select seq_notice.nextval from dual
 		</selectKey>
 		insert into notice values(#{nno}, #{ntitle}, #{ncontent}, sysdate,
-			0, #{norigin}, #{nupload}, #{ncategory}, #{nwriter}, #{nstate}, #{mno})
+			0, #{ncategory}, #{nwriter}, #{mno})
 	</insert>
 	
-	<!-- 게시판번호를 전달받아 공지 수정 -->
+	<!-- 게시글 번호를 전달받아 공지 수정 -->
 	<update id="updateNotice">
 		update notice set ntitle=#{ntitle}, ncontent=#{ncontent}
-			, ncategory=#{ncategory}, nstate=#{nstate} where nno=#{nno}
+			, ncategory=#{ncategory} where nno=#{nno}
 	</update>
 	
 	<!-- 조회수 증가 -->
@@ -40,24 +38,22 @@
 		update notice set ncount = ncount+1 where nno=#{nno}
 	</update>
 	
-	<!-- 게시판번호를 전달받아 공지 삭제 -->
+	<!-- 게시글 번호를 전달받아 공지 삭제 -->
 	<delete id="deleteNotice">
 		delete from notice where nno=#{nno}
 	</delete>
 	
-	<!-- 게시판번호를 전달받아 공지 출력(공지 상세 페이지) -->
+	<!-- 게시글 번호를 전달받아 공지 출력(공지 상세 페이지) -->
 	<select id="selectNotice" resultType="Notice">
 	<!-- <select id="selectNotice" resultMap="noticeMemberResultMap"> -->
-		select n.nno, n.ntitle, n.ncontent, n.ndate, n.ncount,
-		    n.norigin, n.nupload, n.ncategory, n.nwriter, n.nstate, m.mno
+		select n.nno, n.ntitle, n.ncontent, n.ndate, n.ncount, n.ncategory, n.nwriter, m.mno
 		   	from notice n join member m on n.mno=m.mno where n.nno=#{nno}	
 	</select>
 	
 	<!-- 전체 공지 출력 -->
 	<select id="selectNoticeList" resultMap="noticeRM">
 	<!-- <select id="selectNoticeList" resultMap="noticeMemberResultMap"> -->
-		select n.nno, n.ntitle, n.ncontent, n.ndate, n.ncount,
-		    n.norigin, n.nupload, n.ncategory, n.nwriter, n.nstate, m.mno
+		select n.nno, n.ntitle, n.ncontent, n.ndate, n.ncount, n.ncategory, n.nwriter, m.mno
 		    from notice n join member m on n.mno=m.mno order by n.ndate desc
 	</select>
 

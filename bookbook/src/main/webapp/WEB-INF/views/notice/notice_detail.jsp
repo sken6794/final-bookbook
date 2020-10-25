@@ -6,8 +6,8 @@
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css" rel="stylesheet" />
 	<script src="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/assets/plugins/pace/pace.min.js"></script>
-	<!-- <script src="//cdn.js.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	 -->
-
+	
+	<!-- 삭제 버튼 컨펌 -->
 	<script language="JavaScript">
 		function noticeDelete(nno) {
 			if (confirm("정말로 삭제 하시겠습니까?") ) {
@@ -29,7 +29,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 					</div>
-					<h4 class="panel-title" id="notice_list">공지사항</h4>
+					<!-- <h4 class="panel-title" id="notice_list">공지사항</h4> -->
 				</div>
 				<div class="panel-body">
 					<table class="table" style="text-align: left;">

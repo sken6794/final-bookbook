@@ -3,14 +3,11 @@ package site.itwill.dto;
 CREATE TABLE NOTICE (
     NNO NUMBER CONSTRAINT NOTICE_NNO_PK PRIMARY KEY,
     NTITLE VARCHAR2(90) NOT NULL,
-    NCONTENT VARCHAR2(3000) NOT NULL,
+    NCONTENT VARCHAR2(9000) DEFAULT '[SYSTEM]ÀúÀåµÈ ³»¿ëÀÌ ¾ø½À´Ï´Ù.',
     NDATE DATE DEFAULT SYSDATE,
-    NCOUNT NUMBER,
-    NORIGIN VARCHAR2(1500),
-    NUPLOAD VARCHAR2(1500),
-    NCATEGORY VARCHAR2(30) DEFAULT 'æ¹²ê³ ï¿½ï¿½',
+    NCOUNT NUMBER DEFAULT 0,
+    NCATEGORY VARCHAR2(30) DEFAULT '±âÅ¸',
     NWRITER VARCHAR2(30) NOT NULL,
-    NSTATE NUMBER(1) DEFAULT 1,
     MNO NUMBER CONSTRAINT NOTICE_MNO_FK REFERENCES MEMBER(MNO)
 );
 */
@@ -20,11 +17,8 @@ public class Notice {
 	private String ncontent;
 	private String ndate;
 	private int ncount;
-	private String norigin;
-	private String nupload;
 	private String ncategory;
 	private String nwriter;
-	private int nstate;
 	private int mno;
 	
 	private Member member;
@@ -81,22 +75,6 @@ public class Notice {
 		this.ncount = ncount;
 	}
 
-	public String getNorigin() {
-		return norigin;
-	}
-
-	public void setNorigin(String norigin) {
-		this.norigin = norigin;
-	}
-
-	public String getNupload() {
-		return nupload;
-	}
-
-	public void setNupload(String nupload) {
-		this.nupload = nupload;
-	}
-
 	public String getNcategory() {
 		return ncategory;
 	}
@@ -111,14 +89,6 @@ public class Notice {
 
 	public void setNwriter(String nwriter) {
 		this.nwriter = nwriter;
-	}
-
-	public int getNstate() {
-		return nstate;
-	}
-
-	public void setNstate(int nstate) {
-		this.nstate = nstate;
 	}
 
 	public Member getMember() {

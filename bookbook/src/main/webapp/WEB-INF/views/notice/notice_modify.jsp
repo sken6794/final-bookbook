@@ -72,15 +72,6 @@
                             <input type="hidden" id="nno" name="nno" value="${notice.nno }"/>
 							
 							<div class="form-group">
-								<label class="col-md-2 control-label">공개여부</label>
-								<div class="col-md-9">
-									<label class="checkbox-inline">
-										<input type="checkbox" id="nstate" name="nstate" value="${notice.nstate }" />비공개로 전환
-									</label>
-								</div>
-							</div>
-						
-							<div class="form-group">
 							<!-- begin panel -->
 							<label class="col-md-2 control-label">공지내용</label>
 							<div class="panel panel-inverse" data-sortable-id="form-wysiwyg-1" style="border: #b6c2c9;">											
@@ -108,15 +99,9 @@
 	<script type="text/javascript">
 	$("#updateBtn").click(function() {
 		var title=$("ntitle").val();
-		var content=$("ncontent").val();
 		
 		if(title=="") {
 			alert("[안내]제목을 반드시 입력해주세요.");
-			return;
-		}
-		
-		if(content=="") {
-			alert("[안내]내용을 반드시 입력해주세요.");
 			return;
 		}
 	});

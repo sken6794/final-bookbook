@@ -58,7 +58,6 @@
                                 <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-title">일정명</label>
@@ -203,7 +202,6 @@
    <script>
       $(document).ready(function() {
          App.init();
-         Dashboard.init();
       });
    </script>
 </body>

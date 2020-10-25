@@ -65,35 +65,22 @@
                             <input type="hidden" id="mno" name="mno" value="${loginMember.mno }"/>               
                           
 							<div class="form-group">
-								<label class="col-md-2 control-label">공개여부</label>
-								<div class="col-md-9">
-									<label class="checkbox-inline">
-										<input type="checkbox" id="nstate" name="nstate" value="0" />비공개로 전환
-									</label>
-								</div>
-							</div>
-							
-							<div class="form-group">
 							<!-- begin panel -->
 							<label class="col-md-2 control-label">공지내용</label>
 							<div class="panel panel-inverse" data-sortable-id="form-wysiwyg-1" style="border: #b6c2c9;">											
 								<div class="col-md-9" >
-									<textarea class="ckeditor" id="ncontent" name="ncontent" rows="100"></textarea>
+									<textarea class="ckeditor" id="ncontent" name="ncontent" rows="150"></textarea>
 									<br><br>
 									<button type="submit" id="insertBtn" class="col-md-3 btn btn-inverse" style="float: right;">작성완료</button>
 								</div>
 							</div>
-							<!-- end panel -->
 						</div>
                         </form>
                         <br>
                     </div>
                 </div>
-                <!-- end panel -->
             </div>
-            <!-- end col-6 -->
         </div>
-        <!-- end row -->
 	</div>
 	<!-- end #content -->
        
@@ -142,8 +129,6 @@ $("#insertBtn").click(function() {
 	<script>
 		$(document).ready(function() {
 			App.init();
-			//FormWizard.init();
-			//FormWysihtml5.init();
 		});
 	</script>
 </body>
