@@ -54,7 +54,7 @@
 								class="btn btn-xs btn-icon btn-circle btn-danger"
 								data-click="panel-remove"><i class="fa fa-times"></i></a>
 						</div>
-						<h4 class="panel-title">전체 문서</h4>
+						<h4 class="panel-title">수신 문서</h4>
 					</div>
 					<div class="panel-body">
 						<table id="data-table" class="table table-striped table-bordered">
