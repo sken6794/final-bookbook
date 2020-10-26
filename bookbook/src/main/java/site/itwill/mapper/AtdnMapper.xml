@@ -52,6 +52,8 @@
 		<result column="aovertimetext" property="aovertimetext"/>
 		<result column="astarttime" property="astarttime"/>
 		<result column="aendtime" property="aendtime"/>
+		<result column="astartdate" property="astartdate"/>
+		<result column="aenddate" property="aenddate"/>
 		<collection property="member" resultMap="member"/>
 		<collection property="department" resultMap="department"/>
 		<collection property="position" resultMap="position"/>

@@ -92,18 +92,15 @@
 	<script>
 		$(document).ready(function() {
 			App.init();
-			TableManageDefault.init();
-		});
-		
-	      $(document).ready(function() {
-	         App.init();
-	         //TableManageDefault.init();
-	         
+			//TableManageDefault.init();
 	         $('#data-table').DataTable({
 	            order: [[0, "desc"]],
 	            ordering: true
 	         });
-	      });
+		});
+		
+	    
+	      
 	 
 		
 	</script>
